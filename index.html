@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abdellatif Dev | مطور ألعاب وتطبيقات مستقل</title>
+  <meta name="description" content="الموقع الرسمي لـ Abdellatif Dev — مطور ألعاب وتطبيقات مستقل من المغرب. ألعاب، تطبيقات، مشاريع قيد التطوير، وأخبار التطوير.">
+  <meta name="keywords" content="Abdellatif Dev, مطور ألعاب, تطوير تطبيقات, Unity, ألعاب مغربية, لعبة الكارطة المغربية">
+  <meta property="og:title" content="Abdellatif Dev | مطور ألعاب وتطبيقات مستقل">
+  <meta property="og:description" content="ألعاب، تطبيقات، مشاريع قيد التطوير، وأخبار — من تطوير Abdellatif Dev.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0b1120">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+/* ============================================================
+   Abdellatif Dev — style.css
+   هوية بصرية: داكن كحلي عميق + بنفسجي + سماوي (بلا أحمر)
+   خطوط: Cairo للعربية + Space Grotesk للاتينية
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --bg: #0b1120;
+  --bg-soft: #0f172a;
+  --bg-card: rgba(148, 163, 184, 0.06);
+  --bg-card-hover: rgba(148, 163, 184, 0.11);
+  --bg-input: #111a2e;
+  --border: rgba(148, 163, 184, 0.16);
+  --border-strong: rgba(124, 58, 237, 0.45);
+  --violet: #7c3aed;
+  --violet-light: #a78bfa;
+  --violet-soft: rgba(124, 58, 237, 0.16);
+  --cyan: #22d3ee;
+  --cyan-soft: rgba(34, 211, 238, 0.12);
+  --text: #e6ebf2;
+  --text-gray: #94a3b8;
+  --text-dim: #64748b;
+  --gold: #fbbf24;
+  --green: #34d399;
+  --amber: #f59e0b;
+  --red: #f87171;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --glow-violet: 0 0 24px rgba(124, 58, 237, 0.35);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --font-ar: 'Cairo', system-ui, sans-serif;
+  --font-latin: 'Space Grotesk', 'Cairo', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(900px 500px at 85% -10%, rgba(124, 58, 237, 0.22), transparent 60%),
+    radial-gradient(700px 420px at 0% 20%, rgba(34, 211, 238, 0.10), transparent 60%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-ar);
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; color: var(--text); }
+::selection { background: var(--violet); color: #fff; }
+
+.container { max-width: 1180px; margin: 0 auto; padding: 0 18px; }
+.latin { font-family: var(--font-latin); letter-spacing: 0.02em; direction: ltr; unicode-bidi: embed; }
+
+/* ---------- Navbar ---------- */
+.navbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11, 17, 32, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-container { max-width: 1180px; margin: 0 auto; padding: 0 18px; display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 900; font-size: 1.25rem; cursor: pointer; }
+.logo-icon {
+  width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  color: #fff; font-size: 1.15rem; box-shadow: var(--glow-violet);
+}
+.logo .brand-latin { font-family: var(--font-latin); font-weight: 700; direction: ltr; }
+.logo .brand-latin b { color: var(--violet-light); }
+.nav-toggle { display: none; background: none; border: 1px solid var(--border); color: var(--text); border-radius: 10px; width: 42px; height: 42px; font-size: 1.1rem; }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link { padding: 8px 13px; border-radius: 10px; color: var(--text-gray); font-weight: 700; font-size: 0.95rem; transition: 0.2s; }
+.nav-link:hover { color: var(--text); background: var(--bg-card); }
+.nav-link.active { color: #fff; background: var(--violet-soft); box-shadow: inset 0 0 0 1px var(--border-strong); }
+.nav-link.admin-btn { color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.35); }
+.nav-link.admin-btn:hover { background: var(--cyan-soft); }
+
+/* ---------- Hero ---------- */
+.hero { padding: 72px 0 48px; text-align: center; position: relative; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 16px; border-radius: 999px; font-size: 0.88rem; font-weight: 700;
+  background: var(--violet-soft); border: 1px solid var(--border-strong); color: var(--violet-light);
+}
+.hero-title {
+  margin: 22px 0 10px; font-size: clamp(2.3rem, 6vw, 3.8rem); font-weight: 900; line-height: 1.25;
+  background: linear-gradient(120deg, #fff 30%, var(--violet-light) 55%, var(--cyan) 90%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-title .latin { -webkit-text-fill-color: transparent; }
+.hero-sub { color: var(--text-gray); font-size: 1.12rem; max-width: 640px; margin: 0 auto 28px; }
+.hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(420px 200px at 50% 0%, rgba(124, 58, 237, 0.28), transparent 70%); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 22px; border-radius: 12px; border: 1px solid transparent;
+  font-weight: 800; font-size: 0.98rem; transition: 0.2s; color: #fff;
+}
+.btn-primary { background: linear-gradient(135deg, var(--violet), #6d28d9); box-shadow: var(--glow-violet); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 32px rgba(124, 58, 237, 0.55); }
+.btn-secondary { background: var(--bg-card); border-color: var(--border); color: var(--text); }
+.btn-secondary:hover { background: var(--bg-card-hover); }
+.btn-ghost { background: transparent; border-color: var(--border); color: var(--text-gray); }
+.btn-danger { background: rgba(248, 113, 113, 0.14); border-color: rgba(248, 113, 113, 0.4); color: var(--red); }
+.btn-danger:hover { background: rgba(248, 113, 113, 0.24); }
+.btn-sm { padding: 7px 13px; font-size: 0.86rem; border-radius: 9px; }
+.btn-block { width: 100%; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
+
+/* ---------- Sections ---------- */
+.section { padding: 34px 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+.section-title { font-size: 1.55rem; font-weight: 900; display: flex; align-items: center; gap: 10px; }
+.section-title .ico { color: var(--violet-light); }
+.section-sub { color: var(--text-gray); font-size: 0.95rem; }
+.see-all { color: var(--cyan); font-weight: 800; font-size: 0.92rem; }
+.see-all:hover { text-decoration: underline; }
+
+/* ---------- Stats ---------- */
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.stat-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 20px 16px; text-align: center; backdrop-filter: blur(8px);
+  transition: 0.25s;
+}
+.stat-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+.stat-card h3 { font-size: 2rem; font-weight: 900; font-family: var(--font-latin); background: linear-gradient(135deg, var(--violet-light), var(--cyan)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat-card span { color: var(--text-gray); font-size: 0.9rem; font-weight: 700; }
+.stat-card i { display: block; font-size: 1.3rem; color: var(--violet-light); margin-bottom: 6px; }
+
+/* ---------- Cards grid ---------- */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 18px; }
+.card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; backdrop-filter: blur(8px);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  display: flex; flex-direction: column;
+  animation: fadeUp 0.45s ease both;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+.card-cover { position: relative; aspect-ratio: 16 / 9; background: linear-gradient(135deg, #1e1b4b, #0e7490); overflow: hidden; }
+.card-cover img { width: 100%; height: 100%; object-fit: cover; }
+.card-cover .cover-emoji { width: 100%; height: 100%; display: grid; place-items: center; font-size: 3.4rem; }
+.card-badge {
+  position: absolute; top: 10px; inset-inline-start: 10px;
+  background: rgba(11, 17, 32, 0.78); backdrop-filter: blur(6px);
+  padding: 4px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 800; color: var(--cyan);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+}
+.card-body { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.card-title { font-size: 1.12rem; font-weight: 800; line-height: 1.45; }
+.card-desc { color: var(--text-gray); font-size: 0.92rem; flex: 1; }
+.card-meta { display: flex; gap: 14px; flex-wrap: wrap; color: var(--text-dim); font-size: 0.83rem; font-weight: 700; }
+.card-meta i { color: var(--violet-light); margin-inline-end: 4px; }
+.card-foot { margin-top: 6px; }
+.status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 3px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 800; }
+.status-available { background: rgba(52, 211, 153, 0.14); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.35); }
+.status-in_dev { background: rgba(245, 158, 11, 0.13); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.35); }
+.status-coming_soon { background: var(--cyan-soft); color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.35); }
+.badge-published { background: rgba(52, 211, 153, 0.14); color: var(--green); padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+.badge-draft { background: rgba(245, 158, 11, 0.13); color: var(--amber); padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+
+/* ---------- Empty / loading / error ---------- */
+.empty-state {
+  text-align: center; padding: 44px 20px; border: 1px dashed var(--border);
+  border-radius: var(--radius); color: var(--text-gray); background: var(--bg-card);
+}
+.empty-state .big { font-size: 2.6rem; margin-bottom: 8px; }
+.empty-state h3 { color: var(--text); font-size: 1.1rem; margin-bottom: 4px; }
+.loading-box { text-align: center; padding: 40px 0; color: var(--text-gray); }
+.loading-box i { font-size: 1.6rem; color: var(--violet-light); margin-bottom: 8px; }
+.alert-danger {
+  background: rgba(248, 113, 113, 0.1); border: 1px solid rgba(248, 113, 113, 0.4);
+  color: #fecaca; border-radius: var(--radius-sm); padding: 14px 16px; font-weight: 700;
+}
+.alert-success {
+  background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #a7f3d0; border-radius: var(--radius-sm); padding: 14px 16px; font-weight: 700;
+}
+.alert-info {
+  background: var(--violet-soft); border: 1px solid var(--border-strong);
+  color: #ddd6fe; border-radius: var(--radius-sm); padding: 14px 16px; font-weight: 700;
+}
+.setup-notice { margin-top: 18px; }
+
+/* ---------- Detail page ---------- */
+.detail-hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 26px; align-items: start; padding: 30px 0 10px; }
+.detail-cover { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: linear-gradient(135deg, #1e1b4b, #0e7490); aspect-ratio: 16 / 9; }
+.detail-cover img { width: 100%; height: 100%; object-fit: cover; }
+.detail-cover .cover-emoji { width: 100%; height: 100%; display: grid; place-items: center; font-size: 4.5rem; }
+.detail-info h1 { font-size: 1.9rem; font-weight: 900; line-height: 1.4; margin: 8px 0; }
+.detail-info .lead { color: var(--text-gray); margin-bottom: 14px; }
+.detail-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.chip { background: var(--bg-card); border: 1px solid var(--border); padding: 5px 12px; border-radius: 999px; font-size: 0.83rem; font-weight: 700; color: var(--text-gray); }
+.chip i { color: var(--violet-light); margin-inline-end: 5px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 14px; }
+.gallery img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: zoom-in; transition: 0.2s; }
+.gallery img:hover { border-color: var(--border-strong); transform: scale(1.02); }
+.detail-block { margin-top: 26px; }
+.detail-block h2 { font-size: 1.25rem; font-weight: 900; margin-bottom: 10px; display: flex; gap: 8px; align-items: center; }
+.detail-block h2 i { color: var(--violet-light); }
+.detail-block p { color: var(--text-gray); white-space: pre-line; }
+.features-list { list-style: none; display: grid; gap: 8px; }
+.features-list li { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-weight: 700; }
+.features-list li i { color: var(--green); margin-top: 5px; }
+.specs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.spec-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 13px 15px; }
+.spec-card .spec-title { display: block; color: var(--text-dim); font-size: 0.8rem; font-weight: 700; margin-bottom: 2px; }
+.spec-card .spec-val { font-weight: 800; }
+.timer-box {
+  text-align: center; background: var(--violet-soft); border: 1px solid var(--border-strong);
+  border-radius: var(--radius); padding: 22px 16px; margin-top: 18px;
+}
+.timer-countdown { font-size: 2.6rem; font-weight: 900; font-family: var(--font-latin); color: var(--violet-light); line-height: 1.1; }
+.download-zone { margin-top: 18px; }
+.btn-download-big {
+  display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;
+  padding: 16px; border-radius: var(--radius); font-size: 1.15rem; font-weight: 900; color: #fff;
+  background: linear-gradient(135deg, var(--violet), #0891b2); box-shadow: var(--glow-violet); transition: 0.2s;
+}
+.btn-download-big:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(124, 58, 237, 0.6); }
+.btn-download-big.disabled { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-gray); box-shadow: none; cursor: not-allowed; transform: none; }
+
+/* ---------- Progress bar ---------- */
+.progress-wrap { margin-top: 10px; }
+.progress-track { height: 10px; background: rgba(148, 163, 184, 0.15); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--violet), var(--cyan)); transition: width 0.8s ease; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 800; color: var(--text-gray); margin-bottom: 5px; }
+.progress-label b { color: var(--cyan); font-family: var(--font-latin); }
+
+/* ---------- News ---------- */
+.news-card .card-cover { aspect-ratio: 16 / 8; }
+.news-date { color: var(--text-dim); font-size: 0.83rem; font-weight: 700; }
+.news-content { color: var(--text-gray); white-space: pre-line; line-height: 1.9; }
+
+/* ---------- About ---------- */
+.about-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; backdrop-filter: blur(8px); }
+.about-card h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 8px; }
+.about-card p { color: var(--text-gray); }
+.tech-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.tech-tag { background: var(--violet-soft); border: 1px solid var(--border-strong); color: var(--violet-light); padding: 6px 14px; border-radius: 999px; font-weight: 800; font-size: 0.88rem; }
+
+/* ---------- Forms ---------- */
+.form-group { margin-bottom: 14px; }
+.form-group label { display: block; font-weight: 800; font-size: 0.9rem; margin-bottom: 6px; color: var(--text); }
+.form-group label i { color: var(--violet-light); margin-inline-end: 5px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 11px 13px; font-size: 0.95rem; outline: none; transition: 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.check-line { display: flex; align-items: center; gap: 9px; cursor: pointer; font-weight: 800; }
+.check-line input { width: auto; accent-color: var(--violet); transform: scale(1.25); }
+.search-box { position: relative; margin-bottom: 16px; }
+.search-box input { width: 100%; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; padding: 12px 44px 12px 14px; font-size: 0.98rem; outline: none; }
+.search-box input:focus { border-color: var(--violet); }
+.search-icon { position: absolute; top: 50%; transform: translateY(-50%); inset-inline-end: 15px; color: var(--text-dim); }
+.filter-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.filter-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-gray); padding: 8px 16px; border-radius: 999px; font-weight: 800; font-size: 0.88rem; transition: 0.2s; }
+.filter-btn:hover { color: var(--text); }
+.filter-btn.active { background: var(--violet); border-color: var(--violet); color: #fff; box-shadow: var(--glow-violet); }
+
+/* ---------- Footer ---------- */
+.footer { border-top: 1px solid var(--border); margin-top: 50px; padding: 40px 0 0; background: rgba(15, 23, 42, 0.6); }
+.footer-content { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; padding-bottom: 30px; }
+.footer h4 { margin-bottom: 12px; font-weight: 900; }
+.footer p { color: var(--text-gray); font-size: 0.92rem; }
+.footer-links ul { list-style: none; display: grid; gap: 7px; }
+.footer-links a { color: var(--text-gray); font-weight: 700; font-size: 0.92rem; }
+.footer-links a:hover { color: var(--cyan); }
+.social-icons { display: flex; gap: 10px; flex-wrap: wrap; }
+.social-icons a {
+  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  background: var(--bg-card); border: 1px solid var(--border); font-size: 1.1rem; color: var(--text-gray); transition: 0.2s;
+}
+.social-icons a:hover { color: #fff; background: var(--violet); border-color: var(--violet); transform: translateY(-2px); }
+.footer-bottom { border-top: 1px solid var(--border); padding: 16px 0; text-align: center; color: var(--text-dim); font-size: 0.86rem; }
+
+/* ---------- Admin ---------- */
+.admin-login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.login-card { width: 100%; max-width: 420px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 26px; backdrop-filter: blur(10px); box-shadow: var(--shadow); }
+.login-card .logo { justify-content: center; margin-bottom: 6px; }
+.login-subtitle { text-align: center; color: var(--text-gray); font-size: 0.9rem; margin-bottom: 22px; }
+.admin-nav { position: sticky; top: 0; z-index: 100; background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+.admin-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+.tab-btn { background: var(--bg-card); border: 1px solid var(--border); color: var(--text-gray); padding: 10px 16px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; transition: 0.2s; }
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { background: var(--violet); border-color: var(--violet); color: #fff; box-shadow: var(--glow-violet); }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; animation: fadeUp 0.3s ease both; }
+.tab-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.tab-header h3 { font-size: 1.15rem; font-weight: 900; }
+.table-responsive { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg-card); }
+.data-table { width: 100%; border-collapse: collapse; min-width: 640px; }
+.data-table th, .data-table td { padding: 12px 14px; text-align: start; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table th { color: var(--text-dim); font-size: 0.82rem; font-weight: 800; background: rgba(148, 163, 184, 0.05); }
+.data-table tr:last-child td { border-bottom: none; }
+.table-thumb { width: 56px; height: 56px; object-fit: cover; border-radius: 10px; border: 1px solid var(--border); }
+.table-thumb-emoji { width: 56px; height: 56px; display: grid; place-items: center; font-size: 1.6rem; border-radius: 10px; background: linear-gradient(135deg, #1e1b4b, #0e7490); }
+.row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 200; background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(6px); display: none; align-items: flex-start; justify-content: center;
+  padding: 24px 14px; overflow-y: auto;
+}
+.modal-backdrop.show { display: flex; }
+.modal-dialog {
+  width: 100%; max-width: 680px; background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px; position: relative; margin: auto 0;
+  animation: fadeUp 0.3s ease both; box-shadow: var(--shadow);
+}
+.modal-close { position: absolute; top: 14px; inset-inline-end: 14px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); width: 36px; height: 36px; border-radius: 10px; font-size: 1.2rem; line-height: 1; }
+.modal-header h2 { font-size: 1.3rem; font-weight: 900; margin-bottom: 18px; padding-inline-end: 40px; }
+.upload-hint { font-size: 0.82rem; color: var(--text-dim); margin-top: 5px; }
+.img-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.img-preview img { width: 84px; height: 56px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+
+/* ---------- Animations ---------- */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.view { animation: fadeUp 0.35s ease both; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .detail-hero { grid-template-columns: 1fr; }
+  .footer-content { grid-template-columns: 1fr; gap: 22px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none; position: absolute; top: 64px; inset-inline: 0;
+    flex-direction: column; align-items: stretch; gap: 4px;
+    background: rgba(11, 17, 32, 0.97); border-bottom: 1px solid var(--border);
+    padding: 12px 18px 16px;
+  }
+  .nav-links.show { display: flex; }
+  .nav-link { padding: 11px 13px; }
+  .hero { padding: 48px 0 34px; }
+  .form-row { grid-template-columns: 1fr; }
+  .data-table { min-width: 0; }
+  .data-table thead { display: none; }
+  .data-table, .data-table tbody, .data-table tr, .data-table td { display: block; width: 100%; }
+  .data-table tr { border-bottom: 1px solid var(--border); padding: 8px 0; }
+  .data-table td { border-bottom: none; padding: 6px 14px; }
+  .data-table td::before { content: attr(data-label); display: block; color: var(--text-dim); font-size: 0.75rem; font-weight: 800; }
+}
+
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- شريط التنقل -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo" onclick="goTo('#/')">
+        <span class="logo-icon"><i class="fa-solid fa-gamepad"></i></span>
+        <span class="brand-latin">Abdellatif <b>Dev</b></span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="القائمة"><i class="fa-solid fa-bars"></i></button>
+      <nav class="nav-links" id="navLinks">
+        <a href="#/" class="nav-link" data-route="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
+        <a href="#/games" class="nav-link" data-route="games"><i class="fa-solid fa-gamepad"></i> الألعاب</a>
+        <a href="#/apps" class="nav-link" data-route="apps"><i class="fa-solid fa-mobile-screen"></i> التطبيقات</a>
+        <a href="#/dev" class="nav-link" data-route="dev"><i class="fa-solid fa-code"></i> قيد التطوير</a>
+        <a href="#/news" class="nav-link" data-route="news"><i class="fa-solid fa-newspaper"></i> الأخبار</a>
+        <a href="#/about" class="nav-link" data-route="about"><i class="fa-solid fa-circle-user"></i> عن المطور</a>
+        <a href="admin.html" class="nav-link admin-btn"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- تنبيه الإعداد (يظهر فقط إذا لم تُضبط مفاتيح Supabase) -->
+    <div id="setupNotice" class="alert-info setup-notice" style="display:none;">
+      <i class="fa-solid fa-circle-info"></i>
+      الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف
+      <span class="latin" dir="ltr">supabase-client.js</span> (الشرح الكامل في README.md).
+    </div>
+
+    <!-- ===== الرئيسية ===== -->
+    <section id="view-home" class="view" style="display:none;">
+      <div class="hero">
+        <div class="hero-glow"></div>
+        <span class="hero-badge" id="heroBadge"><i class="fa-solid fa-code"></i> مطور ألعاب وتطبيقات مستقل</span>
+        <h1 class="hero-title" id="heroTitle">Abdellatif Dev</h1>
+        <p class="hero-sub" id="heroSubtitle">أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.</p>
+        <div class="hero-actions">
+          <a href="#/games" class="btn btn-primary"><i class="fa-solid fa-compass"></i> استكشف المشاريع</a>
+          <a href="#/dev" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> قيد التطوير</a>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="stats-grid" id="homeStats"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title"><i class="fa-solid fa-star ico"></i> أبرز الألعاب</h2>
+          <a href="#/games" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="homeGames"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> أبرز التطبيقات</h2>
+          <a href="#/apps" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="homeApps"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title"><i class="fa-solid fa-code ico"></i> قيد التطوير</h2>
+          <a href="#/dev" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="homeProjects"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> آخر الأخبار</h2>
+          <a href="#/news" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="homeNews"></div>
+      </div>
+    </section>
+
+    <!-- ===== الألعاب ===== -->
+    <section id="view-games" class="view" style="display:none;">
+      <div class="section">
+        <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> الألعاب</h2>
+        <p class="section-sub">جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.</p>
+        <div style="height:16px"></div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="gamesSearch" placeholder="ابحث عن لعبة...">
+        </div>
+        <div class="filter-chips" id="gamesFilters">
+          <button class="filter-btn active" data-status="all">الكل</button>
+          <button class="filter-btn" data-status="available">متاحة</button>
+          <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
+          <button class="filter-btn" data-status="coming_soon">قريباً</button>
+        </div>
+        <div id="gamesList"></div>
+      </div>
+    </section>
+
+    <!-- ===== التطبيقات ===== -->
+    <section id="view-apps" class="view" style="display:none;">
+      <div class="section">
+        <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> التطبيقات</h2>
+        <p class="section-sub">جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.</p>
+        <div style="height:16px"></div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="appsSearch" placeholder="ابحث عن تطبيق...">
+        </div>
+        <div class="filter-chips" id="appsFilters">
+          <button class="filter-btn active" data-status="all">الكل</button>
+          <button class="filter-btn" data-status="available">متاح</button>
+          <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
+          <button class="filter-btn" data-status="coming_soon">قريباً</button>
+        </div>
+        <div id="appsList"></div>
+      </div>
+    </section>
+
+    <!-- ===== قيد التطوير ===== -->
+    <section id="view-dev" class="view" style="display:none;">
+      <div class="section">
+        <h2 class="section-title"><i class="fa-solid fa-code ico"></i> مشاريع قيد التطوير</h2>
+        <p class="section-sub">المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.</p>
+        <div style="height:16px"></div>
+        <div id="devList"></div>
+      </div>
+    </section>
+
+    <!-- ===== الأخبار ===== -->
+    <section id="view-news" class="view" style="display:none;">
+      <div class="section">
+        <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> الأخبار والمستجدات</h2>
+        <p class="section-sub">آخر الأخبار والتحديثات حول أعمالي ومشاريعي.</p>
+        <div style="height:16px"></div>
+        <div id="newsList"></div>
+      </div>
+    </section>
+
+    <!-- ===== عن المطور ===== -->
+    <section id="view-about" class="view" style="display:none;">
+      <div class="section">
+        <div class="about-card" id="aboutCard"></div>
+      </div>
+    </section>
+
+    <!-- ===== صفحة تفاصيل (لعبة / تطبيق / خبر) ===== -->
+    <section id="view-detail" class="view" style="display:none;">
+      <div id="detailContent"></div>
+    </section>
+
+    <!-- ===== خطأ عام / تحميل ===== -->
+    <section id="view-loading" class="view" style="display:none;">
+      <div class="loading-box">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        <p>جاري تحميل المحتوى...</p>
+      </div>
+    </section>
+
+    <section id="view-error" class="view" style="display:none;">
+      <div class="section">
+        <div class="alert-danger" style="text-align:center;">
+          <div id="errorMsg">تعذر تحميل المحتوى.</div>
+          <div style="margin-top:12px;">
+            <button class="btn btn-primary btn-sm" onclick="retryLoad()"><i class="fa-solid fa-rotate"></i> إعادة المحاولة</button>
+            <a href="#/" class="btn btn-secondary btn-sm" style="margin-inline-start:8px;">العودة للرئيسية</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-notfound" class="view" style="display:none;">
+      <div class="section">
+        <div class="empty-state">
+          <div class="big">🔍</div>
+          <h3>الصفحة غير موجودة</h3>
+          <p>الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.</p>
+          <div style="margin-top:16px;"><a href="#/" class="btn btn-primary btn-sm">العودة للرئيسية</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-icon"><i class="fa-solid fa-gamepad"></i></span>
+          <span class="brand-latin">Abdellatif <b>Dev</b></span>
+        </div>
+        <p style="margin-top:10px;">مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.</p>
+      </div>
+      <div class="footer-links">
+        <h4>الأقسام</h4>
+        <ul>
+          <li><a href="#/games">الألعاب</a></li>
+          <li><a href="#/apps">التطبيقات</a></li>
+          <li><a href="#/dev">قيد التطوير</a></li>
+          <li><a href="#/news">الأخبار</a></li>
+          <li><a href="#/about">عن المطور</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>تابعني</h4>
+        <div class="social-icons" id="footerSocial"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="yearSpan"></span> Abdellatif Dev — جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <script src="supabase-client.js"></script>
+  <script>
+// ============================================================
+// Abdellatif Dev — Public Site Logic
+// Hash routing: #/ #/games #/apps #/dev #/news #/about
+//               #/game/:id #/app/:id #/news/:id
+// كل المحتوى من Supabase — لا شيء مكتوب بشكل ثابت إلا
+// الحالات الفارغة والقيم الافتراضية.
+// ============================================================
+
+function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+}
+const PLACEHOLDER_IMG = 'data:image/svg+xml,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><text x="320" y="205" font-size="72" text-anchor="middle">🎮</text></svg>');
+
+const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
+const SOCIAL_ICONS = {
+    facebook: 'fa-brands fa-facebook-f',
+    youtube: 'fa-brands fa-youtube',
+    telegram: 'fa-brands fa-telegram',
+    github: 'fa-brands fa-github',
+    instagram: 'fa-brands fa-instagram',
+    x: 'fa-brands fa-x-twitter'
+};
+
+let settings = { hero: null, about: null, social: null };
+let games = [], apps = [], projects = [], news = [];
+let dataLoaded = false, dataError = null;
+let gamesFilter = 'all', appsFilter = 'all';
+let countdownTimer = null, activeDownload = null;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const yearSpan = document.getElementById('yearSpan');
+    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    setupMobileNav();
+    setupSearchInputs();
+    window.addEventListener('hashchange', route);
+    if (!window.SUPABASE_CONFIGURED) {
+        const notice = document.getElementById('setupNotice');
+        if (notice) notice.style.display = 'block';
+        dataLoaded = true; // بلا قاعدة بيانات: اعرض الحالات الفارغة
+        applySettings();
+        renderFooterSocial();
+        route();
+        return;
+    }
+    showView('view-loading');
+    await loadAll();
+    route();
+});
+
+window.goTo = function(hash) { location.hash = hash; };
+window.retryLoad = async function() {
+    showView('view-loading');
+    await loadAll();
+    route();
+};
+
+function setupMobileNav() {
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (toggle && navLinks) {
+        toggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+        navLinks.querySelectorAll('a').forEach(a =>
+            a.addEventListener('click', () => navLinks.classList.remove('show')));
+    }
+}
+
+function setupSearchInputs() {
+    const bind = (id, fn) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        let t;
+        el.addEventListener('input', () => { clearTimeout(t); t = setTimeout(fn, 150); });
+    };
+    bind('gamesSearch', renderGamesList);
+    bind('appsSearch', renderAppsList);
+    document.querySelectorAll('#gamesFilters .filter-btn').forEach(b =>
+        b.addEventListener('click', () => {
+            gamesFilter = b.dataset.status;
+            document.querySelectorAll('#gamesFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            renderGamesList();
+        }));
+    document.querySelectorAll('#appsFilters .filter-btn').forEach(b =>
+        b.addEventListener('click', () => {
+            appsFilter = b.dataset.status;
+            document.querySelectorAll('#appsFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            renderAppsList();
+        }));
+}
+
+// ---------- جلب البيانات ----------
+async function loadAll() {
+    dataError = null;
+    try {
+        const [s, g, a, p, n] = await Promise.all([
+            window.supabaseClient.from('site_settings').select('*'),
+            window.supabaseClient.from('games').select('*').order('created_at', { ascending: false }),
+            window.supabaseClient.from('apps').select('*').order('created_at', { ascending: false }),
+            window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false }),
+            window.supabaseClient.from('news').select('*').order('published_at', { ascending: false })
+        ]);
+        if (s.error) throw s.error;
+        if (g.error) throw g.error;
+        if (a.error) throw a.error;
+        if (p.error) throw p.error;
+        if (n.error) throw n.error;
+        (s.data || []).forEach(row => { settings[row.key] = row.value; });
+        // الموقع العمومي يعرض المنشور فقط (حتى لو كان الأدمن مسجلاً دخوله)
+        games = (g.data || []).filter(x => x.is_published);
+        apps = (a.data || []).filter(x => x.is_published);
+        projects = (p.data || []).filter(x => x.is_published);
+        news = (n.data || []).filter(x => x.is_published);
+        dataLoaded = true;
+        applySettings();
+        renderFooterSocial();
+    } catch (err) {
+        console.error('loadAll error:', err);
+        dataError = err.message || 'خطأ غير معروف';
+        dataLoaded = false;
+    }
+}
+
+function applySettings() {
+    const hero = settings.hero || {};
+    const badge = document.getElementById('heroBadge');
+    if (badge && hero.badge) {
+        badge.innerHTML = '';
+        badge.append(document.createTextNode(hero.badge));
+    }
+    const title = document.getElementById('heroTitle');
+    if (title && hero.title) title.textContent = hero.title;
+    const sub = document.getElementById('heroSubtitle');
+    if (sub && hero.subtitle) sub.textContent = hero.subtitle;
+}
+
+function renderFooterSocial() {
+    const box = document.getElementById('footerSocial');
+    if (!box) return;
+    box.innerHTML = '';
+    const social = settings.social || {};
+    const entries = Object.keys(SOCIAL_ICONS).filter(k => social[k] && String(social[k]).trim());
+    if (!entries.length) {
+        box.innerHTML = '<span style="color:var(--text-dim);font-size:0.9rem;">روابط التواصل تُضاف من لوحة الإدارة.</span>';
+        return;
+    }
+    entries.forEach(k => {
+        const a = document.createElement('a');
+        a.href = social[k];
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.title = k;
+        a.innerHTML = `<i class="${SOCIAL_ICONS[k]}"></i>`;
+        box.appendChild(a);
+    });
+}
+
+// ---------- التوجيه (Router) ----------
+function parseHash() {
+    const raw = (location.hash || '#/').replace(/^#\/?/, '');
+    const parts = raw.split('/').filter(Boolean);
+    return parts; // [] = home
+}
+
+function showView(id) {
+    ['view-home', 'view-games', 'view-apps', 'view-dev', 'view-news',
+     'view-about', 'view-detail', 'view-loading', 'view-error', 'view-notfound'
+    ].forEach(v => {
+        const el = document.getElementById(v);
+        if (el) el.style.display = v === id ? 'block' : 'none';
+    });
+    window.scrollTo({ top: 0 });
+    if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+}
+
+function setActiveNav(route) {
+    document.querySelectorAll('.nav-link[data-route]').forEach(a =>
+        a.classList.toggle('active', a.dataset.route === route));
+}
+
+async function route() {
+    const parts = parseHash();
+    const page = parts[0] || '';
+
+    if (!dataLoaded && window.SUPABASE_CONFIGURED) {
+        if (dataError) {
+            const msg = document.getElementById('errorMsg');
+            if (msg) msg.textContent = 'تعذر تحميل المحتوى: ' + dataError;
+            showView('view-error');
+        } else {
+            showView('view-loading');
+        }
+        return;
+    }
+
+    if (page === '') { setActiveNav('home'); renderHome(); showView('view-home'); }
+    else if (page === 'games') { setActiveNav('games'); renderGamesList(); showView('view-games'); }
+    else if (page === 'apps') { setActiveNav('apps'); renderAppsList(); showView('view-apps'); }
+    else if (page === 'dev') { setActiveNav('dev'); renderDevList(); showView('view-dev'); }
+    else if (page === 'news') { setActiveNav('news'); renderNewsList(); showView('view-news'); }
+    else if (page === 'about') { setActiveNav('about'); renderAbout(); showView('view-about'); }
+    else if (page === 'game' && parts[1]) { setActiveNav('games'); await renderDetail('game', parts[1]); }
+    else if (page === 'app' && parts[1]) { setActiveNav('apps'); await renderDetail('app', parts[1]); }
+    else if (page === 'news' && parts[1]) { setActiveNav('news'); await renderDetail('news', parts[1]); }
+    else { setActiveNav(''); showView('view-notfound'); }
+}
+
+// ---------- أدوات عرض ----------
+function fmtDate(d) {
+    if (!d) return '';
+    try { return new Date(d).toLocaleDateString('ar', { year: 'numeric', month: 'long', day: 'numeric' }); }
+    catch (e) { return ''; }
+}
+function statusBadge(status) {
+    const label = STATUS_LABELS[status] || status || '';
+    return `<span class="status-badge status-${esc(status || 'in_dev')}">${esc(label)}</span>`;
+}
+function coverHtml(item, emoji) {
+    if (item.cover_url || item.image_url) {
+        const url = item.cover_url || item.image_url;
+        return `<img src="${esc(url)}" alt="${esc(item.title || item.name || '')}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">`;
+    }
+    return `<div class="cover-emoji">${emoji}</div>`;
+}
+function emptyState(icon, title, text) {
+    return `<div class="empty-state"><div class="big">${icon}</div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
+}
+
+function itemCard(item, type) {
+    const detailHash = type === 'game' ? `#/game/${item.id}` : `#/app/${item.id}`;
+    const dl = item.download_count || 0;
+    return `
+    <article class="card">
+      <a href="${detailHash}" class="card-cover">
+        ${coverHtml(item, type === 'game' ? '🎮' : '📱')}
+        <span class="card-badge">${esc(item.category || '')}</span>
+      </a>
+      <div class="card-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          ${statusBadge(item.status)}
+          <span style="color:var(--text-dim);font-size:0.82rem;font-weight:700;"><i class="fa-solid fa-download"></i> ${dl}</span>
+        </div>
+        <h3 class="card-title">${esc(item.title)}</h3>
+        <p class="card-desc">${esc(item.short_desc || '')}</p>
+        <div class="card-meta">
+          ${item.version ? `<span><i class="fa-solid fa-tag"></i> v${esc(item.version)}</span>` : ''}
+          <span><i class="fa-solid fa-calendar"></i> ${fmtDate(item.updated_at || item.created_at)}</span>
+        </div>
+        <div class="card-foot">
+          <a href="${detailHash}" class="btn btn-primary btn-block btn-sm"><i class="fa-solid fa-eye"></i> التفاصيل والتحميل</a>
+        </div>
+      </div>
+    </article>`;
+}
+
+function gridOrEmpty(items, cardsHtml, emptyHtml) {
+    if (!items || !items.length) return emptyHtml;
+    return `<div class="cards-grid">${cardsHtml}</div>`;
+}
+
+// ---------- الرئيسية ----------
+function renderHome() {
+    const totalDownloads = games.concat(apps).reduce((s, x) => s + (x.download_count || 0), 0);
+    const stats = document.getElementById('homeStats');
+    if (stats) {
+        stats.innerHTML = `
+        <div class="stat-card"><i class="fa-solid fa-gamepad"></i><h3>${games.length}</h3><span>لعبة منشورة</span></div>
+        <div class="stat-card"><i class="fa-solid fa-mobile-screen"></i><h3>${apps.length}</h3><span>تطبيق منشور</span></div>
+        <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>مشروع قيد التطوير</span></div>
+        <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>إجمالي التحميلات</span></div>`;
+    }
+    const hg = document.getElementById('homeGames');
+    if (hg) hg.innerHTML = gridOrEmpty(games.slice(0, 3),
+        games.slice(0, 3).map(g => itemCard(g, 'game')).join(''),
+        emptyState('🎮', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
+    const ha = document.getElementById('homeApps');
+    if (ha) ha.innerHTML = gridOrEmpty(apps.slice(0, 3),
+        apps.slice(0, 3).map(a => itemCard(a, 'app')).join(''),
+        emptyState('📱', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
+    const hp = document.getElementById('homeProjects');
+    if (hp) hp.innerHTML = gridOrEmpty(projects.slice(0, 3),
+        projects.slice(0, 3).map(p => projectCard(p)).join(''),
+        emptyState('🚧', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها.'));
+    const hn = document.getElementById('homeNews');
+    if (hn) hn.innerHTML = gridOrEmpty(news.slice(0, 3),
+        news.slice(0, 3).map(n => newsCard(n)).join(''),
+        emptyState('📰', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+}
+
+// ---------- قوائم ----------
+function renderGamesList() {
+    const box = document.getElementById('gamesList');
+    if (!box) return;
+    const q = (document.getElementById('gamesSearch')?.value || '').trim().toLowerCase();
+    const list = games.filter(g =>
+        (gamesFilter === 'all' || g.status === gamesFilter) &&
+        (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
+    box.innerHTML = gridOrEmpty(list, list.map(g => itemCard(g, 'game')).join(''),
+        q || gamesFilter !== 'all'
+            ? emptyState('🔍', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
+            : emptyState('🎮', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
+}
+
+function renderAppsList() {
+    const box = document.getElementById('appsList');
+    if (!box) return;
+    const q = (document.getElementById('appsSearch')?.value || '').trim().toLowerCase();
+    const list = apps.filter(a =>
+        (appsFilter === 'all' || a.status === appsFilter) &&
+        (!q || ((a.title || '') + ' ' + (a.short_desc || '') + ' ' + (a.category || '')).toLowerCase().includes(q)));
+    box.innerHTML = gridOrEmpty(list, list.map(a => itemCard(a, 'app')).join(''),
+        q || appsFilter !== 'all'
+            ? emptyState('🔍', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
+            : emptyState('📱', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
+}
+
+function projectCard(p) {
+    const progress = (p.progress === null || p.progress === undefined) ? null : Number(p.progress);
+    return `
+    <article class="card">
+      <div class="card-cover">
+        ${coverHtml(p, '🚧')}
+        <span class="card-badge">${esc(p.status || 'قيد التطوير')}</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${esc(p.name)}</h3>
+        <p class="card-desc">${esc(p.description || '')}</p>
+        ${progress !== null ? `
+        <div class="progress-wrap">
+          <div class="progress-label"><span>نسبة التقدم</span><b>${progress}%</b></div>
+          <div class="progress-track"><div class="progress-fill" style="width:${Math.max(0, Math.min(100, progress))}%"></div></div>
+        </div>` : ''}
+        ${p.latest_update ? `<p style="color:var(--text-gray);font-size:0.9rem;"><i class="fa-solid fa-bolt" style="color:var(--cyan)"></i> <strong>آخر مستجد:</strong> ${esc(p.latest_update)}</p>` : ''}
+        <div class="card-meta"><span><i class="fa-solid fa-calendar"></i> آخر تحديث: ${fmtDate(p.updated_at || p.created_at)}</span></div>
+      </div>
+    </article>`;
+}
+
+function renderDevList() {
+    const box = document.getElementById('devList');
+    if (!box) return;
+    box.innerHTML = gridOrEmpty(projects, projects.map(p => projectCard(p)).join(''),
+        emptyState('🚧', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.'));
+}
+
+function newsCard(n) {
+    return `
+    <article class="card news-card">
+      <a href="#/news/${n.id}" class="card-cover">
+        ${coverHtml(n, '📰')}
+        <span class="card-badge">${esc(n.category || 'أخبار')}</span>
+      </a>
+      <div class="card-body">
+        <span class="news-date"><i class="fa-solid fa-calendar"></i> ${fmtDate(n.published_at || n.created_at)}</span>
+        <h3 class="card-title">${esc(n.title)}</h3>
+        <p class="card-desc">${esc((n.content || '').slice(0, 140))}${(n.content || '').length > 140 ? '…' : ''}</p>
+        <div class="card-foot"><a href="#/news/${n.id}" class="btn btn-secondary btn-block btn-sm">قراءة الخبر ←</a></div>
+      </div>
+    </article>`;
+}
+
+function renderNewsList() {
+    const box = document.getElementById('newsList');
+    if (!box) return;
+    box.innerHTML = gridOrEmpty(news, news.map(n => newsCard(n)).join(''),
+        emptyState('📰', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+}
+
+// ---------- عن المطور ----------
+function renderAbout() {
+    const box = document.getElementById('aboutCard');
+    if (!box) return;
+    const about = settings.about || {};
+    const tech = Array.isArray(about.tech) ? about.tech : [];
+    const social = settings.social || {};
+    const socialLinks = Object.keys(SOCIAL_ICONS)
+        .filter(k => social[k] && String(social[k]).trim())
+        .map(k => `<a href="${esc(social[k])}" target="_blank" rel="noopener noreferrer" title="${esc(k)}"><i class="${SOCIAL_ICONS[k]}"></i></a>`)
+        .join('');
+    box.innerHTML = `
+        <h2>${esc(about.name || 'Abdellatif Dev')}</h2>
+        <p style="color:var(--violet-light);font-weight:800;">${esc(about.title || 'مطور ألعاب وتطبيقات مستقل')}</p>
+        <p style="margin-top:12px;">${esc(about.bio || 'مطور مستقل من المغرب، أركز على تطوير الألعاب والتطبيقات.')}</p>
+        ${tech.length ? `<h3 style="margin-top:22px;font-size:1.05rem;">التقنيات والأدوات</h3>
+        <div class="tech-tags">${tech.map(t => `<span class="tech-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+        ${socialLinks ? `<h3 style="margin-top:22px;font-size:1.05rem;">تواصل معي</h3>
+        <div class="social-icons" style="margin-top:10px;">${socialLinks}</div>` : ''}`;
+}
+
+// ---------- صفحات التفاصيل ----------
+async function fetchOne(table, id) {
+    if (!window.supabaseClient) return null;
+    const { data, error } = await window.supabaseClient.from(table).select('*').eq('id', id).single();
+    if (error || !data) return null;
+    return data;
+}
+
+async function renderDetail(type, id) {
+    const box = document.getElementById('detailContent');
+    showView('view-detail');
+    if (box) box.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>جاري تحميل التفاصيل...</p></div>';
+
+    let item = null, table = '';
+    if (type === 'game') { table = 'games'; item = games.find(g => g.id === id); }
+    if (type === 'app') { table = 'apps'; item = apps.find(a => a.id === id); }
+    if (type === 'news') { table = 'news'; item = news.find(n => n.id === id); }
+    if (!item && window.SUPABASE_CONFIGURED) item = await fetchOne(table, id);
+    if (!item || (type !== 'news' && item.is_published === false)) { showView('view-notfound'); return; }
+
+    if (type === 'news') renderNewsDetail(box, item);
+    else renderItemDetail(box, item, type);
+}
+
+function renderNewsDetail(box, n) {
+    document.title = `${n.title} | Abdellatif Dev`;
+    box.innerHTML = `
+    <div class="detail-hero" style="grid-template-columns:1fr;">
+      <div class="detail-info">
+        <span class="card-badge" style="position:static;">${esc(n.category || 'أخبار')}</span>
+        <h1>${esc(n.title)}</h1>
+        <p class="lead"><i class="fa-solid fa-calendar"></i> ${fmtDate(n.published_at || n.created_at)}</p>
+      </div>
+    </div>
+    ${n.cover_url ? `<div class="detail-cover" style="margin-top:10px;"><img src="${esc(n.cover_url)}" alt="${esc(n.title)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'"></div>` : ''}
+    <div class="detail-block"><p class="news-content">${esc(n.content || '')}</p></div>
+    ${n.external_url ? `<div style="margin-top:20px;"><a href="${esc(n.external_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الرابط الخارجي</a></div>` : ''}
+    <div style="margin-top:26px;"><a href="#/news" class="btn btn-secondary btn-sm">← العودة للأخبار</a></div>`;
+}
+
+function renderItemDetail(box, item, type) {
+    document.title = `${item.title} | Abdellatif Dev`;
+    const features = Array.isArray(item.features) ? item.features : [];
+    const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean) : [];
+    const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5);
+    const backHash = type === 'game' ? '#/games' : '#/apps';
+    const backLabel = type === 'game' ? 'العودة للألعاب' : 'العودة للتطبيقات';
+
+    box.innerHTML = `
+    <div class="detail-hero">
+      <div class="detail-cover">${coverHtml(item, type === 'game' ? '🎮' : '📱')}</div>
+      <div class="detail-info">
+        ${statusBadge(item.status)}
+        <h1>${esc(item.title)}</h1>
+        <p class="lead">${esc(item.short_desc || '')}</p>
+        <div class="detail-chips">
+          <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(item.category || '')}</span>
+          ${item.version ? `<span class="chip"><i class="fa-solid fa-tag"></i> الإصدار ${esc(item.version)}</span>` : ''}
+          <span class="chip"><i class="fa-solid fa-download"></i> ${item.download_count || 0} تحميل</span>
+          <span class="chip"><i class="fa-solid fa-calendar"></i> آخر تحديث: ${fmtDate(item.updated_at || item.created_at)}</span>
+        </div>
+        <div class="download-zone" id="downloadZone"></div>
+      </div>
+    </div>
+
+    ${shots.length ? `<div class="detail-block"><h2><i class="fa-solid fa-images"></i> لقطات من ${type === 'game' ? 'اللعبة' : 'التطبيق'}</h2>
+      <div class="gallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" onclick="window.open(this.src,'_blank')" onerror="this.style.display='none'">`).join('')}</div></div>` : ''}
+
+    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> الوصف الكامل</h2><p>${esc(item.description || item.short_desc || '')}</p></div>
+
+    ${features.length ? `<div class="detail-block"><h2><i class="fa-solid fa-list-check"></i> المميزات</h2>
+      <ul class="features-list">${features.map(f => `<li><i class="fa-solid fa-circle-check"></i> ${esc(f)}</li>`).join('')}</ul></div>` : ''}
+
+    ${item.requirements ? `<div class="detail-block"><h2><i class="fa-solid fa-microchip"></i> متطلبات التشغيل</h2><p>${esc(item.requirements)}</p></div>` : ''}
+
+    <div style="margin-top:28px;"><a href="${backHash}" class="btn btn-secondary btn-sm">← ${backLabel}</a></div>`;
+
+    const zone = document.getElementById('downloadZone');
+    if (!zone) return;
+    if (!hasDownload || item.status !== 'available') {
+        zone.innerHTML = `<button class="btn-download-big disabled" disabled><i class="fa-solid fa-hourglass-half"></i> ${item.status === 'available' ? 'رابط التحميل غير متوفر بعد — قريباً' : 'قريباً — هذه النسخة غير متاحة للتحميل بعد'}</button>`;
+        return;
+    }
+    // عداد 7 ثوانٍ قبل ظهور زر التحميل (نفس نمط عمر المجرب)
+    activeDownload = { type, id: item.id, url: item.download_url };
+    zone.innerHTML = `
+      <div class="timer-box" id="timerBox">
+        <i class="fa-solid fa-hourglass-half fa-spin" style="font-size:1.6rem;color:var(--violet-light)"></i>
+        <p style="margin:8px 0 4px;font-weight:800;">جاري تجهيز رابط التحميل الآمن...</p>
+        <div class="timer-countdown" id="timerCount">7</div>
+        <small style="color:var(--text-gray);">يرجى الانتظار ثوانٍ معدودة</small>
+      </div>
+      <div id="downloadBtnBox" style="display:none;">
+        <a href="${esc(item.download_url)}" target="_blank" rel="noopener noreferrer" class="btn-download-big" onclick="handleDownloadClick(event)">
+          <i class="fa-solid fa-cloud-arrow-down"></i> تحميل الآن
+        </a>
+        <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">رابط خارجي آمن — يفتح في تبويب جديد</p>
+      </div>`;
+    let seconds = 7;
+    const countEl = document.getElementById('timerCount');
+    if (countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = setInterval(() => {
+        seconds--;
+        if (countEl) countEl.textContent = seconds;
+        if (seconds <= 0) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+            const tb = document.getElementById('timerBox');
+            const bb = document.getElementById('downloadBtnBox');
+            if (tb) tb.style.display = 'none';
+            if (bb) bb.style.display = 'block';
+        }
+    }, 1000);
+}
+
+// ---------- نقرة التحميل: عداد + فتح الرابط ----------
+window.handleDownloadClick = async function(e) {
+    if (!activeDownload) return;
+    const { type, id } = activeDownload;
+    try {
+        const rpc = type === 'game' ? 'increment_game_download' : 'increment_app_download';
+        await window.supabaseClient.rpc(rpc, { target_id: id });
+        const list = type === 'game' ? games : apps;
+        const item = list.find(x => x.id === id);
+        if (item) item.download_count = (item.download_count || 0) + 1;
+    } catch (err) {
+        console.error('increment download error:', err);
+    }
+    // الرابط يفتح بشكل طبيعي (target=_blank) — لا نمنع الحدث
+};
+
+</script>
+</body>
+</html>

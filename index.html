@@ -531,32 +531,32 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 /* — بنتو: أول لعبة كبيرة في الرئيسية عند وجود ثلاث بطاقات — */
 @media (min-width: 980px) {
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
-  #homeGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child), #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child), #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child), #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child), #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
+  #homeOfficial .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta , #homeModdedApps .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta , #homeModdedGames .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
 }
 
 /* — بطاقتان فقط: عمودان متساويان — */
-#homeGames .cards-grid:has(> .card:nth-child(2):last-child), #homeApps .cards-grid:has(> .card:nth-child(2):last-child),
+#homeOfficial .cards-grid:has(> .card:nth-child(2):last-child), #homeModdedApps .cards-grid:has(> .card:nth-child(2):last-child), #homeModdedGames .cards-grid:has(> .card:nth-child(2):last-child),
 #gamesList .cards-grid:has(> .card:nth-child(2):last-child), #appsList .cards-grid:has(> .card:nth-child(2):last-child) { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 700px) {
-  #homeGames .cards-grid:has(> .card:nth-child(2):last-child), #homeApps .cards-grid:has(> .card:nth-child(2):last-child),
+  #homeOfficial .cards-grid:has(> .card:nth-child(2):last-child), #homeModdedApps .cards-grid:has(> .card:nth-child(2):last-child), #homeModdedGames .cards-grid:has(> .card:nth-child(2):last-child),
   #gamesList .cards-grid:has(> .card:nth-child(2):last-child), #appsList .cards-grid:has(> .card:nth-child(2):last-child) { grid-template-columns: 1fr; }
 }
 /* — بطاقة واحدة: بطاقة عريضة أفقية — */
 @media (min-width: 760px) {
-  #homeGames .cards-grid:has(> .card:only-child), #homeApps .cards-grid:has(> .card:only-child),
+  #homeOfficial .cards-grid:has(> .card:only-child), #homeModdedApps .cards-grid:has(> .card:only-child), #homeModdedGames .cards-grid:has(> .card:only-child),
   #gamesList .cards-grid:has(> .card:only-child), #appsList .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
-  #homeGames .card:only-child, #homeApps .card:only-child, #gamesList .card:only-child, #appsList .card:only-child { flex-direction: row; }
-  #homeGames .card:only-child .card-cover, #homeApps .card:only-child .card-cover, #gamesList .card:only-child .card-cover, #appsList .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
-  #homeGames .card:only-child .card-body, #homeApps .card:only-child .card-body, #gamesList .card:only-child .card-body, #appsList .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
-  #homeGames .card:only-child .card-title, #homeApps .card:only-child .card-title, #gamesList .card:only-child .card-title, #appsList .card:only-child .card-title { font-size: 1.6rem; }
-  #homeGames .card:only-child .card-desc, #homeApps .card:only-child .card-desc, #gamesList .card:only-child .card-desc, #appsList .card:only-child .card-desc { flex: 0 1 auto; }
+  #homeOfficial .card:only-child, #homeModdedApps .card:only-child, #homeModdedGames .card:only-child, #gamesList .card:only-child, #appsList .card:only-child { flex-direction: row; }
+  #homeOfficial .card:only-child .card-cover, #homeModdedApps .card:only-child .card-cover, #homeModdedGames .card:only-child .card-cover, #gamesList .card:only-child .card-cover, #appsList .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #homeOfficial .card:only-child .card-body, #homeModdedApps .card:only-child .card-body, #homeModdedGames .card:only-child .card-body, #gamesList .card:only-child .card-body, #appsList .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #homeOfficial .card:only-child .card-title, #homeModdedApps .card:only-child .card-title, #homeModdedGames .card:only-child .card-title, #gamesList .card:only-child .card-title, #appsList .card:only-child .card-title { font-size: 1.6rem; }
+  #homeOfficial .card:only-child .card-desc, #homeModdedApps .card:only-child .card-desc, #homeModdedGames .card:only-child .card-desc, #gamesList .card:only-child .card-desc, #appsList .card:only-child .card-desc { flex: 0 1 auto; }
 }
 
 /* — المشاريع قيد التطوير: بطاقات أفقية — */
@@ -837,29 +837,40 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">01 — Games</span>
-            <h2 class="section-title"><i class="fa-solid fa-star ico"></i> أبرز الألعاب</h2>
+            <span class="eyebrow">01 — رسمية</span>
+            <h2 class="section-title"><i class="fa-solid fa-badge-check ico"></i> تطبيقات وألعاب رسمية</h2>
           </div>
           <a href="#/games" class="see-all">عرض الكل ←</a>
         </div>
-        <div id="homeGames"></div>
+        <div id="homeOfficial"></div>
       </div>
 
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">02 — Apps</span>
-            <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> أبرز التطبيقات</h2>
+            <span class="eyebrow">02 — تطبيقات مهكرة</span>
+            <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> تطبيقات مهكرة</h2>
           </div>
           <a href="#/apps" class="see-all">عرض الكل ←</a>
         </div>
-        <div id="homeApps"></div>
+        <div id="homeModdedApps"></div>
       </div>
 
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">03 — In development</span>
+            <span class="eyebrow">03 — ألعاب مهكرة</span>
+            <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> ألعاب مهكرة</h2>
+          </div>
+          <a href="#/games" class="see-all">عرض الكل ←</a>
+        </div>
+        <div id="homeModdedGames"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <div class="sh-text">
+            <span class="eyebrow">04 — In development</span>
             <h2 class="section-title"><i class="fa-solid fa-code ico"></i> قيد التطوير</h2>
           </div>
           <a href="#/dev" class="see-all">عرض الكل ←</a>
@@ -870,7 +881,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">04 — News</span>
+            <span class="eyebrow">05 — News</span>
             <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> آخر الأخبار</h2>
           </div>
           <a href="#/news" class="see-all">عرض الكل ←</a>
@@ -897,6 +908,11 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
           <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
           <button class="filter-btn" data-status="coming_soon">قريباً</button>
         </div>
+        <div class="filter-chips" id="gamesCatFilters">
+          <button class="filter-btn active" data-cat="all">كل الأنواع</button>
+          <button class="filter-btn" data-cat="official">رسمية</button>
+          <button class="filter-btn" data-cat="modded">مهكرة</button>
+        </div>
         <div id="gamesList"></div>
       </div>
     </section>
@@ -918,6 +934,11 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
           <button class="filter-btn" data-status="available">متاح</button>
           <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
           <button class="filter-btn" data-status="coming_soon">قريباً</button>
+        </div>
+        <div class="filter-chips" id="appsCatFilters">
+          <button class="filter-btn active" data-cat="all">كل الأنواع</button>
+          <button class="filter-btn" data-cat="official">رسمية</button>
+          <button class="filter-btn" data-cat="modded">مهكرة</button>
         </div>
         <div id="appsList"></div>
       </div>
@@ -983,7 +1004,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
     <section id="view-notfound" class="view" style="display:none;">
       <div class="section">
         <div class="empty-state">
-          <div class="big">🔍</div>
+          <div class="big"><i class="fa-solid fa-magnifying-glass"></i></div>
           <h3>الصفحة غير موجودة</h3>
           <p>الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.</p>
           <div style="margin-top:16px;"><a href="#/" class="btn btn-primary btn-sm">العودة للرئيسية</a></div>
@@ -1038,7 +1059,7 @@ function esc(s) {
     }[c]));
 }
 const PLACEHOLDER_IMG = 'data:image/svg+xml,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><text x="320" y="205" font-size="72" text-anchor="middle">🎮</text></svg>');
+    '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><g fill="none" stroke="#38f2b0" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><rect x="170" y="120" width="300" height="130" rx="55" fill="rgba(56,242,176,0.10)"/><path d="M250 165 v50 M225 190 h50"/><circle cx="390" cy="180" r="11" fill="#38f2b0" stroke="none"/><circle cx="420" cy="210" r="11" fill="#38f2b0" stroke="none"/></g></svg>');
 
 const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
 const SOCIAL_ICONS = {
@@ -1054,7 +1075,8 @@ let settings = { hero: null, about: null, social: null };
 let games = [], apps = [], projects = [], news = [];
 let dataLoaded = false, dataError = null;
 let gamesFilter = 'all', appsFilter = 'all';
-let countdownTimer = null, activeDownload = null;
+let gamesCatFilter = 'all', appsCatFilter = 'all';
+let countdownTimer = null, activeDownload = null, autoDownloadClick = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const yearSpan = document.getElementById('yearSpan');
@@ -1112,6 +1134,18 @@ function setupSearchInputs() {
         b.addEventListener('click', () => {
             appsFilter = b.dataset.status;
             document.querySelectorAll('#appsFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            renderAppsList();
+        }));
+    document.querySelectorAll('#gamesCatFilters .filter-btn').forEach(b =>
+        b.addEventListener('click', () => {
+            gamesCatFilter = b.dataset.cat;
+            document.querySelectorAll('#gamesCatFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            renderGamesList();
+        }));
+    document.querySelectorAll('#appsCatFilters .filter-btn').forEach(b =>
+        b.addEventListener('click', () => {
+            appsCatFilter = b.dataset.cat;
+            document.querySelectorAll('#appsCatFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
             renderAppsList();
         }));
 }
@@ -1242,15 +1276,15 @@ function statusBadge(status) {
     const label = STATUS_LABELS[status] || status || '';
     return `<span class="status-badge status-${esc(status || 'in_dev')}">${esc(label)}</span>`;
 }
-function coverHtml(item, emoji) {
+function coverHtml(item, icon) {
     if (item.cover_url || item.image_url) {
         const url = item.cover_url || item.image_url;
         return `<img src="${esc(url)}" alt="${esc(item.title || item.name || '')}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">`;
     }
-    return `<div class="cover-emoji">${emoji}</div>`;
+    return `<div class="cover-emoji"><i class="${icon}"></i></div>`;
 }
 function emptyState(icon, title, text) {
-    return `<div class="empty-state"><div class="big">${icon}</div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
+    return `<div class="empty-state"><div class="big"><i class="${icon}"></i></div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
 }
 
 function itemCard(item, type) {
@@ -1259,7 +1293,7 @@ function itemCard(item, type) {
     return `
     <article class="card">
       <a href="${detailHash}" class="card-cover">
-        ${coverHtml(item, type === 'game' ? '🎮' : '📱')}
+        ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
         <span class="card-badge">${esc(item.category || '')}</span>
       </a>
       <div class="card-body">
@@ -1296,22 +1330,33 @@ function renderHome() {
         <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>مشروع قيد التطوير</span></div>
         <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>إجمالي التحميلات</span></div>`;
     }
-    const hg = document.getElementById('homeGames');
-    if (hg) hg.innerHTML = gridOrEmpty(games.slice(0, 3),
-        games.slice(0, 3).map(g => itemCard(g, 'game')).join(''),
-        emptyState('🎮', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
-    const ha = document.getElementById('homeApps');
-    if (ha) ha.innerHTML = gridOrEmpty(apps.slice(0, 3),
-        apps.slice(0, 3).map(a => itemCard(a, 'app')).join(''),
-        emptyState('📱', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
+    // أقسام الرئيسية حسب التصنيف (category = رسمية / مهكرة)
+    const isOfficial = x => (x.category || '') === 'رسمية';
+    const isModded = x => (x.category || '') === 'مهكرة';
+    const official = games.filter(isOfficial).map(g => ({ item: g, type: 'game' }))
+        .concat(apps.filter(isOfficial).map(a => ({ item: a, type: 'app' })));
+    const moddedApps = apps.filter(isModded).map(a => ({ item: a, type: 'app' }));
+    const moddedGames = games.filter(isModded).map(g => ({ item: g, type: 'game' }));
+    const ho = document.getElementById('homeOfficial');
+    if (ho) ho.innerHTML = gridOrEmpty(official.slice(0, 3),
+        official.slice(0, 3).map(x => itemCard(x.item, x.type)).join(''),
+        emptyState('fa-solid fa-badge-check', 'لا توجد تطبيقات أو ألعاب رسمية بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.'));
+    const hma = document.getElementById('homeModdedApps');
+    if (hma) hma.innerHTML = gridOrEmpty(moddedApps.slice(0, 3),
+        moddedApps.slice(0, 3).map(x => itemCard(x.item, x.type)).join(''),
+        emptyState('fa-solid fa-mobile-screen', 'لا توجد تطبيقات مهكرة بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.'));
+    const hmg = document.getElementById('homeModdedGames');
+    if (hmg) hmg.innerHTML = gridOrEmpty(moddedGames.slice(0, 3),
+        moddedGames.slice(0, 3).map(x => itemCard(x.item, x.type)).join(''),
+        emptyState('fa-solid fa-gamepad', 'لا توجد ألعاب مهكرة بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.'));
     const hp = document.getElementById('homeProjects');
     if (hp) hp.innerHTML = gridOrEmpty(projects.slice(0, 3),
         projects.slice(0, 3).map(p => projectCard(p)).join(''),
-        emptyState('🚧', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها.'));
+        emptyState('fa-solid fa-code', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها.'));
     const hn = document.getElementById('homeNews');
     if (hn) hn.innerHTML = gridOrEmpty(news.slice(0, 3),
         news.slice(0, 3).map(n => newsCard(n)).join(''),
-        emptyState('📰', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+        emptyState('fa-solid fa-newspaper', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
 }
 
 // ---------- قوائم ----------
@@ -1319,26 +1364,32 @@ function renderGamesList() {
     const box = document.getElementById('gamesList');
     if (!box) return;
     const q = (document.getElementById('gamesSearch')?.value || '').trim().toLowerCase();
+    const catOk = g => gamesCatFilter === 'all'
+        || (gamesCatFilter === 'official' ? (g.category || '') === 'رسمية' : (g.category || '') === 'مهكرة');
     const list = games.filter(g =>
         (gamesFilter === 'all' || g.status === gamesFilter) &&
+        catOk(g) &&
         (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
     box.innerHTML = gridOrEmpty(list, list.map(g => itemCard(g, 'game')).join(''),
-        q || gamesFilter !== 'all'
-            ? emptyState('🔍', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
-            : emptyState('🎮', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
+        q || gamesFilter !== 'all' || gamesCatFilter !== 'all'
+            ? emptyState('fa-solid fa-magnifying-glass', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
+            : emptyState('fa-solid fa-gamepad', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
 }
 
 function renderAppsList() {
     const box = document.getElementById('appsList');
     if (!box) return;
     const q = (document.getElementById('appsSearch')?.value || '').trim().toLowerCase();
+    const catOk = a => appsCatFilter === 'all'
+        || (appsCatFilter === 'official' ? (a.category || '') === 'رسمية' : (a.category || '') === 'مهكرة');
     const list = apps.filter(a =>
         (appsFilter === 'all' || a.status === appsFilter) &&
+        catOk(a) &&
         (!q || ((a.title || '') + ' ' + (a.short_desc || '') + ' ' + (a.category || '')).toLowerCase().includes(q)));
     box.innerHTML = gridOrEmpty(list, list.map(a => itemCard(a, 'app')).join(''),
-        q || appsFilter !== 'all'
-            ? emptyState('🔍', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
-            : emptyState('📱', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
+        q || appsFilter !== 'all' || appsCatFilter !== 'all'
+            ? emptyState('fa-solid fa-magnifying-glass', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
+            : emptyState('fa-solid fa-mobile-screen', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
 }
 
 function projectCard(p) {
@@ -1346,7 +1397,7 @@ function projectCard(p) {
     return `
     <article class="card">
       <div class="card-cover">
-        ${coverHtml(p, '🚧')}
+        ${coverHtml(p, 'fa-solid fa-code')}
         <span class="card-badge">${esc(p.status || 'قيد التطوير')}</span>
       </div>
       <div class="card-body">
@@ -1367,14 +1418,14 @@ function renderDevList() {
     const box = document.getElementById('devList');
     if (!box) return;
     box.innerHTML = gridOrEmpty(projects, projects.map(p => projectCard(p)).join(''),
-        emptyState('🚧', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.'));
+        emptyState('fa-solid fa-code', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.'));
 }
 
 function newsCard(n) {
     return `
     <article class="card news-card">
       <a href="#/news/${n.id}" class="card-cover">
-        ${coverHtml(n, '📰')}
+        ${coverHtml(n, 'fa-solid fa-newspaper')}
         <span class="card-badge">${esc(n.category || 'أخبار')}</span>
       </a>
       <div class="card-body">
@@ -1390,7 +1441,7 @@ function renderNewsList() {
     const box = document.getElementById('newsList');
     if (!box) return;
     box.innerHTML = gridOrEmpty(news, news.map(n => newsCard(n)).join(''),
-        emptyState('📰', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+        emptyState('fa-solid fa-newspaper', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
 }
 
 // ---------- عن المطور ----------
@@ -1464,7 +1515,7 @@ function renderItemDetail(box, item, type) {
 
     box.innerHTML = `
     <div class="detail-hero">
-      <div class="detail-cover">${coverHtml(item, type === 'game' ? '🎮' : '📱')}</div>
+      <div class="detail-cover">${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}</div>
       <div class="detail-info">
         ${statusBadge(item.status)}
         <h1>${esc(item.title)}</h1>
@@ -1507,15 +1558,15 @@ function renderItemDetail(box, item, type) {
         <small style="color:var(--text-gray);">يرجى الانتظار ثوانٍ معدودة</small>
       </div>
       <div id="downloadBtnBox" style="display:none;">
-        <a href="${esc(item.download_url)}" target="_blank" rel="noopener noreferrer" class="btn-download-big" onclick="handleDownloadClick(event)">
+        <a href="${esc(item.download_url)}" id="downloadLink" download class="btn-download-big" onclick="handleDownloadClick(event)">
           <i class="fa-solid fa-cloud-arrow-down"></i> تحميل الآن
         </a>
-        <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">رابط خارجي آمن — يفتح في تبويب جديد</p>
+        <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">تحميل مباشر — يبدأ التحميل تلقائياً</p>
       </div>`;
     let seconds = 7;
     const countEl = document.getElementById('timerCount');
     if (countdownTimer) clearInterval(countdownTimer);
-    countdownTimer = setInterval(() => {
+    countdownTimer = setInterval(async () => {
         seconds--;
         if (countEl) countEl.textContent = seconds;
         if (seconds <= 0) {
@@ -1525,12 +1576,16 @@ function renderItemDetail(box, item, type) {
             const bb = document.getElementById('downloadBtnBox');
             if (tb) tb.style.display = 'none';
             if (bb) bb.style.display = 'block';
+            // تحميل تلقائي: سجّل التحميل أولاً ثم اضغط زر التحميل برمجياً
+            await incrementDownload();
+            const link = document.getElementById('downloadLink');
+            if (link) { autoDownloadClick = true; link.click(); }
         }
     }, 1000);
 }
 
-// ---------- نقرة التحميل: عداد + فتح الرابط ----------
-window.handleDownloadClick = async function(e) {
+// ---------- تسجيل التحميل (RPC) ----------
+async function incrementDownload() {
     if (!activeDownload) return;
     const { type, id } = activeDownload;
     try {
@@ -1542,7 +1597,14 @@ window.handleDownloadClick = async function(e) {
     } catch (err) {
         console.error('increment download error:', err);
     }
-    // الرابط يفتح بشكل طبيعي (target=_blank) — لا نمنع الحدث
+}
+
+// ---------- نقرة التحميل: عداد + تحميل مباشر ----------
+window.handleDownloadClick = async function(e) {
+    // النقرة البرمجية بعد انتهاء العداد سبق أن سجّلت التحميل — لا تسجّل مرتين
+    if (autoDownloadClick) { autoDownloadClick = false; return; }
+    await incrementDownload();
+    // الرابط يحمّل الملف مباشرة (خاصية download) — لا نمنع الحدث
 };
 
 </script>

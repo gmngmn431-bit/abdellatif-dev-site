@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS public.games (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title TEXT NOT NULL,
     slug TEXT UNIQUE,
-    category TEXT NOT NULL DEFAULT 'ألعاب',
+    category TEXT NOT NULL DEFAULT 'رسمية',
     short_desc TEXT NOT NULL DEFAULT '',
     description TEXT NOT NULL DEFAULT '',
     features JSONB NOT NULL DEFAULT '[]'::jsonb,
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS public.apps (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title TEXT NOT NULL,
     slug TEXT UNIQUE,
-    category TEXT NOT NULL DEFAULT 'تطبيقات',
+    category TEXT NOT NULL DEFAULT 'رسمية',
     short_desc TEXT NOT NULL DEFAULT '',
     description TEXT NOT NULL DEFAULT '',
     features JSONB NOT NULL DEFAULT '[]'::jsonb,
@@ -163,6 +163,7 @@ CREATE POLICY "Admins can manage settings" ON public.site_settings FOR ALL USING
 -- ---------- Storage buckets ----------
 INSERT INTO storage.buckets (id, name, public) VALUES ('project-images', 'project-images', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO storage.buckets (id, name, public) VALUES ('screenshots', 'screenshots', true) ON CONFLICT (id) DO NOTHING;
+INSERT INTO storage.buckets (id, name, public) VALUES ('app-files', 'app-files', true) ON CONFLICT (id) DO NOTHING;
 
 DROP POLICY IF EXISTS "Public Read Project Images" ON storage.objects;
 DROP POLICY IF EXISTS "Admin Upload Project Images" ON storage.objects;
@@ -170,6 +171,9 @@ DROP POLICY IF EXISTS "Admin Delete Project Images" ON storage.objects;
 DROP POLICY IF EXISTS "Public Read Screenshots" ON storage.objects;
 DROP POLICY IF EXISTS "Admin Upload Screenshots" ON storage.objects;
 DROP POLICY IF EXISTS "Admin Delete Screenshots" ON storage.objects;
+DROP POLICY IF EXISTS "Public Read App Files" ON storage.objects;
+DROP POLICY IF EXISTS "Admin Upload App Files" ON storage.objects;
+DROP POLICY IF EXISTS "Admin Delete App Files" ON storage.objects;
 
 CREATE POLICY "Public Read Project Images" ON storage.objects FOR SELECT USING (bucket_id = 'project-images');
 CREATE POLICY "Admin Upload Project Images" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'project-images' AND is_admin());
@@ -177,6 +181,9 @@ CREATE POLICY "Admin Delete Project Images" ON storage.objects FOR DELETE USING 
 CREATE POLICY "Public Read Screenshots" ON storage.objects FOR SELECT USING (bucket_id = 'screenshots');
 CREATE POLICY "Admin Upload Screenshots" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'screenshots' AND is_admin());
 CREATE POLICY "Admin Delete Screenshots" ON storage.objects FOR DELETE USING (bucket_id = 'screenshots' AND is_admin());
+CREATE POLICY "Public Read App Files" ON storage.objects FOR SELECT USING (bucket_id = 'app-files');
+CREATE POLICY "Admin Upload App Files" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'app-files' AND is_admin());
+CREATE POLICY "Admin Delete App Files" ON storage.objects FOR DELETE USING (bucket_id = 'app-files' AND is_admin());
 
 -- ============================================================
 -- بيانات أولية (Seed) — المحتوى الحقيقي الوحيد المسموح به:

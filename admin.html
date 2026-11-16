@@ -761,13 +761,13 @@ const STATUS_OPTIONS = [
 const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
 
 // ---------- تعريف الحقول لكل نوع محتوى ----------
-// type: text | textarea | url | number | select | checkbox | features | image | screenshots | datetime
+// type: text | textarea | url | number | select | checkbox | features | image | screenshots | datetime | file
 const FIELD = (key, label, type, opts = {}) => ({ key, label, type, ...opts });
 
 const GAME_APP_FIELDS = (kind) => [
     FIELD('title', kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق', 'text', { required: true, placeholder: kind === 'games' ? 'مثال: لعبة الكارطة المغربية' : 'مثال: تطبيق الحاسبة الذكية' }),
     FIELD('slug', 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', { placeholder: 'moroccan-card-game' }),
-    FIELD('category', 'التصنيف', 'text', { required: true, value: kind === 'games' ? 'ألعاب' : 'تطبيقات' }),
+    FIELD('category', 'التصنيف', 'select', { required: true, options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: 'مهكرة' }], value: 'رسمية' }),
     FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: 'جملة واحدة تعرّف باللعبة...' }),
     FIELD('description', 'الوصف الكامل', 'textarea', { required: true, rows: 4 }),
     FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nالعب ضد البوتات\nالعب مع الأصدقاء عبر الواي فاي' }),
@@ -775,7 +775,8 @@ const GAME_APP_FIELDS = (kind) => [
     FIELD('screenshots', 'لقطات (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
     FIELD('version', 'رقم الإصدار', 'text', { placeholder: '1.0.0' }),
     FIELD('status', 'الحالة', 'select', { options: STATUS_OPTIONS }),
-    FIELD('download_url', 'رابط التحميل الخارجي (MediaFire أو غيره) — اتركه فارغاً إذا لم يتوفر بعد', 'url', { placeholder: 'https://www.mediafire.com/file/...' }),
+    FIELD('download_url', 'رابط تحميل خارجي (اختياري — بديل إذا لم ترفع ملفاً)', 'url', { placeholder: 'https://www.mediafire.com/file/...' }),
+    FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويُحمَّل مباشرة من الموقع', 'file', { bucket: 'app-files', accept: '.apk,.zip' }),
     FIELD('requirements', 'متطلبات التشغيل (اختياري)', 'textarea', { rows: 2, placeholder: 'Android 8.0+، رام 2GB...' }),
     FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: true })
 ];
@@ -936,8 +937,8 @@ async function loadAllAdmin() {
 
 // ---------- عرض القوائم ----------
 function thumbHtml(url) {
-    if (url) return `<img src="${esc(url)}" class="table-thumb" alt="" onerror="this.outerHTML='<div class=&quot;table-thumb-emoji&quot;>🎮</div>'">`;
-    return '<div class="table-thumb-emoji">🎮</div>';
+    if (url) return `<img src="${esc(url)}" class="table-thumb" alt="" onerror="this.outerHTML='<div class=&quot;table-thumb-emoji&quot;><i class=&quot;fa-solid fa-gamepad&quot;></i></div>'">`;
+    return '<div class="table-thumb-emoji"><i class="fa-solid fa-gamepad"></i></div>';
 }
 function actionsHtml(entity, item) {
     return `<div class="row-actions">
@@ -1042,6 +1043,12 @@ function fieldInputHtml(f, value) {
             <textarea id="${id}_urls" rows="3" placeholder="أو روابط صور — رابط في كل سطر" style="margin-top:8px;">${esc(urls)}</textarea>
             <div class="upload-hint">يمكنك رفع عدة صور دفعة واحدة، أو إضافة روابط، أو الاثنين معاً.</div>`;
     }
+    if (f.type === 'file') {
+        return `
+            <input type="file" id="${id}_file" accept="${esc(f.accept || '')}">
+            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر. إذا لم ترفع ملفاً يُستخدم رابط التحميل الخارجي أعلاه إن وُجد.</div>
+            ${val ? `<div class="upload-hint" style="margin-top:6px;">الملف الحالي: <a href="${esc(val)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a></div>` : ''}`;
+    }
     if (f.type === 'number') {
         return `<input type="number" id="${id}" min="${f.min ?? ''}" max="${f.max ?? ''}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}">`;
     }
@@ -1061,7 +1068,9 @@ function buildFormFields(entity, item) {
     const box = document.getElementById('formFields');
     box.innerHTML = '';
     ENTITIES[entity].fields.forEach(f => {
-        const value = item ? item[f.key] : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? true : ''));
+        // حقل ملف التحميل يعرض رابط التحميل الحالي (download_url) كمرجع
+        const value = f.type === 'file' ? (item ? (item.download_url || '') : '')
+            : (item ? item[f.key] : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? true : '')));
         const wrap = document.createElement('div');
         wrap.className = 'form-group';
         if (f.type !== 'checkbox') {
@@ -1127,7 +1136,7 @@ function readFieldValue(f) {
         const raw = el ? el.value : '';
         return raw ? new Date(raw).toISOString() : null;
     }
-    if (f.type === 'image' || f.type === 'screenshots') return null; // تُقرأ بشكل خاص في الحفظ
+    if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') return null; // تُقرأ بشكل خاص في الحفظ
     return el ? el.value.trim() : '';
 }
 
@@ -1144,8 +1153,16 @@ window.handleSaveEntity = async function(e) {
         const payload = {};
         // أولاً: الحقول العادية
         for (const f of cfg.fields) {
-            if (f.type === 'image' || f.type === 'screenshots') continue;
+            if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') continue;
             payload[f.key] = readFieldValue(f);
+        }
+        // ثانياً: ملف التحميل (APK/ZIP) — يرفع إلى app-files ويصبح هو download_url
+        for (const f of cfg.fields) {
+            if (f.type === 'file') {
+                const fileInput = document.getElementById('f_' + f.key + '_file');
+                const file = fileInput && fileInput.files[0];
+                if (file) payload.download_url = await uploadToStorage(file, f.bucket);
+            }
         }
         // ثانياً: الصور (رفع أو رابط)
         for (const f of cfg.fields) {

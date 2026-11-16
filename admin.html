@@ -195,8 +195,8 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 [data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 180, 90, 0.18), rgba(0, 180, 90, 0)); }
 [data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 122, 67, 0.12), rgba(0, 122, 67, 0)); }
 [data-theme="light"] .aurora::after { opacity: 0.04; }
-/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح */
-[data-theme="light"] .hero-title { background: linear-gradient(100deg, #002000 0%, #009444 45%, #00c853 75%, #002000 100%); background-size: 200% 100%; }
+/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح · v9: background-clip: text — الـ background المختصر كان يصفّر الـ clip فالنص يختفي في الفاتح */
+[data-theme="light"] .hero-title { background: linear-gradient(100deg, #002000 0%, #009444 45%, #00c853 75%, #002000 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
 /* أغلفة البطاقات: بلاطة فاتحة بدل الداكنة */
 [data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(0, 224, 112, 0.22), transparent 55%), radial-gradient(circle at 85% 95%, rgba(0, 143, 76, 0.20), transparent 55%), #d9f2e4; }
 /* نصوص التنبيهات والنماذج */

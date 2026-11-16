@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <script>/* v4: apply saved theme + language before first paint (no flash) */try{var _t=localStorage.getItem('abdellatif-dev-theme');if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);}catch(e){}try{var _l=localStorage.getItem('abdellatif-dev-lang');if(_l==='ar'||_l==='en'||_l==='fr'){document.documentElement.lang=_l;document.documentElement.dir=_l==='ar'?'rtl':'ltr';}}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Abdellatif Dev | مطور ألعاب وتطبيقات مستقل</title>
   <meta name="description" content="الموقع الرسمي لـ Abdellatif Dev — مطور ألعاب وتطبيقات مستقل من المغرب. ألعاب، تطبيقات، مشاريع قيد التطوير، وأخبار التطوير.">
@@ -56,7 +57,8 @@
   --line: rgba(255, 255, 255, 0.12);
   --line-hi: rgba(255, 255, 255, 0.24);
   --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.17), inset 0 -1px 0 rgba(255, 255, 255, 0.03), 0 30px 60px -34px rgba(0, 0, 0, 0.95);
-  --blur: blur(18px) saturate(165%);
+  --blur: blur(10px) saturate(140%);
+  --glass-solid: rgba(13, 19, 22, 0.92);
 
   /* ---- الأشكال والحركة ---- */
   --r-xl: 32px;
@@ -136,6 +138,9 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 @keyframes drift1 { to { transform: translate3d(-10vmax, 8vmax, 0) scale(1.1); } }
 @keyframes drift2 { to { transform: translate3d(12vmax, -7vmax, 0) scale(1.08); } }
 @keyframes drift3 { to { transform: translate3d(-8vmax, -6vmax, 0) scale(1.25); } }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .hero-title { animation: titleShift 9s ease-in-out infinite alternate; }
+}
 
 /* نقش زليج (نجمة ثمانية) — يُستعمل كقناع/خلفية خفيفة */
 :root {
@@ -158,6 +163,69 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state,
   .login-card, .modal-dialog, .table-responsive, .footer-content { background: rgba(17, 25, 28, 0.94); }
 }
+/* ============================================================
+   v4 — الوضع الفاتح (Light theme)
+   يُفعَّل عبر data-theme="light" على <html> (الافتراضي dark).
+   كل الألوان عبر المتغيرات نفسها — لا تغيير في الهوية.
+   ============================================================ */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #edf3f0;
+  --bg-2: #e2eae6;
+  --ink: #122019;
+  --ink-2: #3c4e45;
+  --ink-3: #64766c;
+  --mint: #0a8f66;
+  --lime: #5a8f00;
+  --gold: #a86e00;
+  --sky: #1d6fe0;
+  --danger: #d92d20;
+  --grad: linear-gradient(135deg, #0d9e6e 0%, #7cc700 100%);
+  --grad-text: linear-gradient(100deg, #0b3d2c 0%, #0d7a52 50%, #5a8f00 100%);
+  --mint-a: rgba(10, 143, 102, 0.13);
+  --gold-a: rgba(168, 110, 0, 0.12);
+  --sky-a: rgba(29, 111, 224, 0.12);
+  --danger-a: rgba(217, 45, 32, 0.10);
+  --glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.6) 100%);
+  --glass-bg-strong: linear-gradient(155deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.78) 100%);
+  --glass-flat: rgba(18, 60, 45, 0.06);
+  --glass-flat-hi: rgba(18, 60, 45, 0.12);
+  --glass-solid: rgba(255, 255, 255, 0.94);
+  --line: rgba(18, 60, 45, 0.14);
+  --line-hi: rgba(18, 60, 45, 0.3);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 24px 50px -30px rgba(18, 60, 45, 0.35);
+  --blur: blur(10px) saturate(150%);
+  --zellige: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88' fill='none' stroke='%23123a2e' stroke-width='1' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='6'/%3E%3Cpath d='M0 0l9 9M88 0l-9 9M0 88l9-9M88 88l-9-9M44 0v8M44 80v8M0 44h8M80 44h8'/%3E%3C/svg%3E");
+}
+/* خلفية الشفق في الوضع الفاتح */
+[data-theme="light"] .aurora { background: radial-gradient(90% 60% at 50% 0%, #d6f2e4 0%, rgba(237, 243, 240, 0) 70%), var(--bg); }
+[data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(10, 143, 102, 0.22), rgba(10, 143, 102, 0)); }
+[data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(29, 111, 224, 0.16), rgba(29, 111, 224, 0)); }
+[data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(168, 110, 0, 0.12), rgba(168, 110, 0, 0)); }
+[data-theme="light"] .aurora::after { opacity: 0.04; }
+/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح */
+[data-theme="light"] .hero-title { background: linear-gradient(100deg, #0b3d2c 0%, #0d7a52 45%, #5a8f00 75%, #0b3d2c 100%); background-size: 200% 100%; }
+/* أغلفة البطاقات: بلاطة فاتحة بدل الداكنة */
+[data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(10, 143, 102, 0.2), transparent 55%), radial-gradient(circle at 85% 95%, rgba(29, 111, 224, 0.18), transparent 55%), #d9e7df; }
+/* نصوص التنبيهات والنماذج */
+[data-theme="light"] .alert-info { color: #0b4d38; }
+[data-theme="light"] .alert-success { color: #0b5c33; }
+[data-theme="light"] .alert-danger { color: #8f1d13; }
+[data-theme="light"] .form-group select option { background: #ffffff; }
+[data-theme="light"] .form-group input, [data-theme="light"] .form-group select, [data-theme="light"] .form-group textarea { background: rgba(18, 60, 45, 0.05); }
+[data-theme="light"] .form-group input[type='datetime-local'] { color-scheme: light; }
+/* عناصر صغيرة */
+[data-theme="light"] .skeleton { background: linear-gradient(100deg, rgba(18, 60, 45, 0.05) 30%, rgba(18, 60, 45, 0.13) 50%, rgba(18, 60, 45, 0.05) 70%); }
+[data-theme="light"] .timer-countdown::before { background: conic-gradient(var(--mint) 0deg, var(--lime) var(--p), rgba(18, 60, 45, 0.12) var(--p)); }
+[data-theme="light"] .strip-next { background: rgba(255, 255, 255, 0.88); }
+[data-theme="light"] .progress-track { background: rgba(18, 60, 45, 0.08); }
+[data-theme="light"] .check-line input[type='checkbox'] { background: rgba(18, 60, 45, 0.12); }
+[data-theme="light"] body { scrollbar-color: rgba(18, 60, 45, 0.3) transparent; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(18, 60, 45, 0.25); }
+
+/* انتقال سلس عند تبديل الوضع (الألوان فقط — لا يلغي حركات العناصر) */
+body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
+
 
 /* ============================================================
    الأزرار
@@ -183,7 +251,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .btn-primary:active { transform: translateY(0) scale(0.98); }
 .btn-secondary {
   background: var(--glass-flat); border-color: var(--line); color: var(--ink);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .btn-secondary:hover { background: var(--glass-flat-hi); border-color: var(--line-hi); transform: translateY(-2px); }
@@ -284,9 +352,9 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 .search-box { position: relative; margin-bottom: 18px; }
 .search-box input {
-  width: 100%; height: 56px; padding: 0 56px 0 20px; font-size: 0.98rem; outline: none; border-radius: 999px;
+  width: 100%; height: 56px; padding: 0 20px; padding-inline-start: 56px; font-size: 0.98rem; outline: none; border-radius: 999px;
   background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   transition: border-color 0.25s, box-shadow 0.25s;
 }
 .search-box input::placeholder { color: var(--ink-3); }
@@ -295,7 +363,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 .filter-chips {
   display: inline-flex; gap: 4px; flex-wrap: wrap; padding: 5px; margin-bottom: 26px; border-radius: 999px; max-width: 100%;
-  background: var(--glass-flat); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  background: var(--glass-flat); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .filter-btn {
   height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2);
@@ -339,14 +407,14 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 /* ---------- شريط التنقل: كبسولة زجاجية عائمة ---------- */
 .navbar { position: sticky; top: 0; z-index: 100; padding: 14px 20px 0; }
 .nav-container {
-  position: relative; isolation: isolate; max-width: 1180px; margin: 0 auto; height: 66px; padding: 0 14px 0 10px;
+  position: relative; isolation: isolate; max-width: 1180px; margin: 0 auto; height: 66px; padding: 0 10px; padding-inline-start: 14px;
   display: flex; align-items: center; justify-content: space-between; gap: 18px; border-radius: 999px;
 }
 .nav-container::before {
   content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
   background: linear-gradient(155deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.045));
   border: 1px solid var(--line); box-shadow: var(--glass-shadow), 0 20px 50px -24px rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
 }
 .nav-container .logo { padding-inline-start: 6px; }
 .nav-toggle { display: none; }
@@ -380,7 +448,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   display: inline-flex; align-items: center; gap: 11px; padding: 8px 20px 8px 18px; border-radius: 999px;
   font-size: 0.88rem; font-weight: 500; color: var(--ink);
   background: var(--glass-bg); border: 1px solid var(--line-hi); box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .hero-badge::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--mint); animation: pulseDot 2.2s infinite; }
 .hero-badge i { color: var(--mint); font-size: 0.85rem; }
@@ -388,7 +456,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   margin: 26px 0 20px; font-family: var(--f-display); font-weight: 800; line-height: 1.22; padding-bottom: 0.08em;
   font-size: clamp(2.7rem, 7.4vw, 5.6rem); overflow-wrap: anywhere;
   background: linear-gradient(100deg, #ffffff 0%, #b6fbe0 38%, #c8ff52 72%, #ffffff 100%); background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent; animation: titleShift 9s ease-in-out infinite alternate;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 @keyframes titleShift { to { background-position: 100% 0; } }
 .hero-sub { color: var(--ink-2); font-size: clamp(1.02rem, 1.6vw, 1.22rem); line-height: 1.95; max-width: 58ch; margin-bottom: 34px; }
@@ -410,7 +478,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .hv-card {
   position: absolute; width: clamp(62px, 15%, 88px); aspect-ratio: 1; border-radius: 26px; display: grid; place-items: center;
   font-size: 1.5rem; color: var(--mint); background: var(--glass-bg-strong); border: 1px solid var(--line-hi); box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(16px) saturate(170%); backdrop-filter: blur(16px) saturate(170%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%); backdrop-filter: blur(12px) saturate(150%);
   animation: floaty 7s ease-in-out infinite;
 }
 .hv-card.a { top: 3%; right: 14%; --rot: -8deg; }
@@ -479,7 +547,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .see-all {
   display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; font-weight: 600; font-size: 0.88rem; color: var(--ink);
   background: var(--glass-flat); border: 1px solid var(--line); transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s var(--ease);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .see-all:hover { background: var(--mint-a); color: var(--mint); border-color: rgba(56, 242, 176, 0.4); transform: translateX(-4px); }
 
@@ -498,10 +566,10 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   content: ''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none; opacity: 0; transition: opacity 0.45s;
   background: conic-gradient(from var(--ang), transparent 0 62%, var(--mint) 82%, var(--lime) 92%, transparent 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-  mask-composite: exclude; animation: ringTurn 4.5s linear infinite;
+  mask-composite: exclude;
 }
 .card:hover { transform: translateY(-8px); border-color: var(--line-hi); box-shadow: var(--glass-shadow), 0 40px 70px -30px rgba(56, 242, 176, 0.28); }
-.card:hover::after { opacity: 1; }
+.card:hover::after { opacity: 1; animation: ringTurn 4.5s linear infinite; }
 
 .card-cover {
   position: relative; display: block; aspect-ratio: 16 / 10; border-radius: calc(var(--r-lg) - 8px); overflow: hidden;
@@ -516,7 +584,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .card-badge {
   position: absolute; z-index: 2; top: 12px; inset-inline-start: 12px; padding: 4px 14px; border-radius: 999px; font-size: 0.74rem; font-weight: 600; line-height: 1.8; color: #fff;
   background: rgba(5, 7, 10, 0.42); border: 1px solid rgba(255, 255, 255, 0.24);
-  -webkit-backdrop-filter: blur(12px) saturate(160%); backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%); backdrop-filter: blur(10px) saturate(160%);
 }
 .card-badge:empty { display: none; }
 .card-body { padding: 16px 10px 8px; display: flex; flex-direction: column; gap: 10px; flex: 1; min-width: 0; }
@@ -573,7 +641,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 #homeNews .cards-grid, #newsList .cards-grid { grid-template-columns: 1fr; gap: 18px; }
 .news-card { flex-direction: row; align-items: stretch; }
 .news-card .card-cover { flex: 0 0 clamp(170px, 32%, 340px); aspect-ratio: auto; min-height: 190px; }
-.news-card .card-body { padding: 12px 22px 12px 14px; justify-content: center; }
+.news-card .card-body { padding: 12px 14px; padding-inline-start: 22px; justify-content: center; }
 .news-card .card-title { font-size: 1.28rem; }
 .news-card .card-desc { flex: 0 1 auto; }
 .news-card .card-foot { display: flex; }
@@ -597,8 +665,9 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   position: relative; height: 100%; min-width: 6px; border-radius: 999px; overflow: hidden; transition: width 1s var(--ease);
   background: var(--grad); box-shadow: 0 0 18px rgba(56, 242, 176, 0.6);
 }
+#homeProjects .card:hover .progress-fill::after, #devList .card:hover .progress-fill::after { animation: shimmer 2.6s linear infinite; }
 .progress-fill::after {
-  content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%); background-size: 200% 100%; animation: shimmer 2.6s linear infinite;
+  content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%); background-size: 200% 100%;
 }
 
 /* ---------- صفحة التفاصيل ---------- */
@@ -748,7 +817,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
     position: fixed; z-index: 120; inset-inline: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; gap: 2px; padding: 8px;
     border-radius: 30px; background: linear-gradient(155deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), rgba(8, 12, 15, 0.55);
     border: 1px solid var(--line-hi); box-shadow: var(--glass-shadow), 0 24px 60px -10px rgba(0, 0, 0, 0.9);
-    -webkit-backdrop-filter: blur(26px) saturate(180%); backdrop-filter: blur(26px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
   }
   .nav-link {
     flex: 1 1 0; min-width: 0; flex-direction: column; justify-content: center; gap: 5px; height: 58px; padding: 0 2px; border-radius: 22px;
@@ -774,7 +843,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 /* ---------- صفوف أفقية قابلة للتمرير ---------- */
 .row-strip-wrap { position: relative; }
 .row-strip {
-  display: flex; gap: 12px; overflow-x: auto; padding: 4px 2px 12px;
+  display: flex; gap: 9px; overflow-x: auto; padding: 4px 2px 12px;
   scroll-snap-type: x proximity; scrollbar-width: none; -ms-overflow-style: none;
   -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 100%);
   mask-image: linear-gradient(to left, #000 88%, transparent 100%);
@@ -786,17 +855,17 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .row-strip-wrap.at-end .strip-next { display: none; }
 .strip-next {
   position: absolute; top: 50%; transform: translateY(-50%); inset-inline-end: 4px; z-index: 2;
-  width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line-hi);
+  width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line-hi);
   display: grid; place-items: center; color: var(--mint); font-size: .85rem;
-  background: rgba(8, 12, 15, 0.72); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: rgba(8, 12, 15, 0.72); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.8);
 }
 .strip-next:hover { background: var(--mint-a); }
 
 /* ---------- بطاقة صف مضغوطة ---------- */
 .row-card {
-  flex: 0 0 168px; width: 168px; min-width: 0; scroll-snap-align: start;
-  display: flex; flex-direction: column; padding: 10px; border-radius: 20px; color: inherit;
+  flex: 0 0 118px; width: 118px; min-width: 0; scroll-snap-align: start;
+  display: flex; flex-direction: column; padding: 7px; border-radius: 16px; color: inherit;
   background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
   -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
   transition: transform .4s var(--ease), border-color .3s;
@@ -809,12 +878,12 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 }
 .row-cover::before { content: ''; position: absolute; inset: 0; background-image: var(--zellige); background-size: 64px; opacity: .07; }
 .row-cover img { position: relative; width: 100%; height: 100%; object-fit: cover; }
-.row-cover .cover-emoji { font-size: 2rem; }
-.row-cover .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 9px; font-size: .62rem; line-height: 1.7; }
-.row-title { font-family: var(--f-display); font-size: .92rem; font-weight: 700; line-height: 1.5; margin-top: 9px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
-.row-ver { color: var(--ink-3); font-size: .72rem; font-weight: 600; margin-top: 1px; font-variant-numeric: tabular-nums; }
-.row-desc { color: var(--ink-2); font-size: .78rem; line-height: 1.7; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-.row-dl { display: inline-flex; align-items: center; gap: 5px; margin-top: auto; padding-top: 7px; color: var(--ink-3); font-size: .72rem; font-weight: 600; }
+.row-cover .cover-emoji { font-size: 1.7rem; }
+.row-cover .card-badge { top: 4px; inset-inline-start: 4px; padding: 2px 7px; font-size: .58rem; line-height: 1.7; }
+.row-title { font-family: var(--f-display); font-size: .8rem; font-weight: 700; line-height: 1.45; margin-top: 7px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.row-ver { color: var(--ink-3); font-size: .66rem; font-weight: 600; margin-top: 1px; font-variant-numeric: tabular-nums; }
+.row-desc { color: var(--ink-2); font-size: .7rem; line-height: 1.7; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.row-dl { display: inline-flex; align-items: center; gap: 4px; margin-top: auto; padding-top: 5px; color: var(--ink-3); font-size: .66rem; font-weight: 600; }
 .row-dl i { color: var(--mint); font-size: .8em; }
 
 /* ---------- بحث الهيرو ---------- */
@@ -864,8 +933,12 @@ button.nav-link { background: transparent; border: 0; }
   .see-all { height: 36px; padding: 0 14px; font-size: .8rem; }
   .filter-chips { margin-bottom: 16px; }
   .filter-btn { height: 38px; padding: 0 12px; font-size: .82rem; }
-  .row-card { flex-basis: 148px; width: 148px; padding: 8px; border-radius: 18px; }
-  .row-strip { gap: 10px; }
+  .row-card { flex-basis: 100px; width: 100px; padding: 6px; border-radius: 14px; }
+  .row-title { font-size: .72rem; margin-top: 6px; }
+  .row-ver { font-size: .6rem; }
+  .row-desc { display: none; }
+  .row-dl { font-size: .6rem; padding-top: 4px; }
+  .row-strip { gap: 8px; }
   .empty-state { padding: 36px 16px; }
   .empty-state .big { width: 64px; height: 64px; font-size: 1.8rem; border-radius: 20px; }
   .footer { padding: 0 12px 24px; }
@@ -873,6 +946,57 @@ button.nav-link { background: transparent; border: 0; }
   .btn { height: 46px; padding: 0 20px; font-size: .9rem; }
   .btn-sm { height: 38px; padding: 0 14px; font-size: .82rem; }
 }
+
+/* ---------- v4: أدوات التنقل العلوية (تبديل الوضع + اختيار اللغة) ---------- */
+.nav-tools { display: flex; align-items: center; gap: 8px; }
+.tool-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink-2);
+  font-weight: 600; font-size: .88rem; white-space: nowrap;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.tool-btn:hover { color: var(--ink); background: var(--glass-flat-hi); }
+.tool-btn i { color: var(--mint); font-size: .95rem; }
+.lang-picker {
+  display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 6px 0 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--glass-flat); color: var(--mint); font-size: .9rem;
+}
+.lang-picker select {
+  height: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .85rem; font-weight: 600;
+  outline: none; cursor: pointer; max-width: 104px;
+}
+.lang-picker select option { background: var(--bg-2); color: var(--ink); }
+@media (max-width: 899px) {
+  .nav-tools { gap: 6px; }
+  .nav-tools .tool-btn span { display: none; }
+  .nav-tools .tool-btn { width: 40px; padding: 0; justify-content: center; }
+  .lang-picker { padding: 0 4px 0 8px; }
+  .lang-picker select { max-width: 70px; font-size: .78rem; }
+}
+
+/* ============================================================
+   v4 — الأداء (سلاسة) + دعم الاتجاه LTR
+   ============================================================ */
+
+/* محتوى خارج الشاشة لا يُرسم حتى الاقتراب منه */
+.section { content-visibility: auto; contain-intrinsic-size: 700px; }
+.row-strip-wrap { content-visibility: auto; contain-intrinsic-size: 240px; }
+.cards-grid > .card { content-visibility: auto; contain-intrinsic-size: 340px; }
+
+/* الجوال: إلغاء blur الثقيل (أكبر مصدر للّاغ) — خلفيات صلبة بدل الزجاج */
+@media (max-width: 640px) {
+  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input, .filter-chips, .nav-container::before, .nav-links { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input { background: var(--glass-solid); }
+  .nav-container::before { background: var(--glass-solid); }
+  .nav-links { background: var(--glass-solid); }
+  .aurora i { animation: none !important; }
+}
+
+/* ---------- دعم LTR (الإنجليزية/الفرنسية) ---------- */
+[dir="ltr"] .row-strip { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%); mask-image: linear-gradient(to right, #000 88%, transparent 100%); }
+[dir="ltr"] .strip-next i { transform: scaleX(-1); }
+[dir="ltr"] .see-all:hover { transform: translateX(4px); }
+[dir="ltr"] .footer-links a:hover { transform: translateX(4px); }
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -890,15 +1014,19 @@ button.nav-link { background: transparent; border: 0; }
         <span class="brand-latin">Abdellatif <b>Dev</b></span>
       </div>
       <nav class="nav-links" id="navLinks">
-        <a href="#/" class="nav-link" data-route="home"><i class="fa-solid fa-house"></i> الرئيسية</a>
-        <button type="button" class="nav-link nav-search-btn" onclick="focusHeroSearch()" aria-label="بحث"><i class="fa-solid fa-magnifying-glass"></i> بحث</button>
-        <a href="#/games" class="nav-link" data-route="games"><i class="fa-solid fa-gamepad"></i> الألعاب</a>
-        <a href="#/apps" class="nav-link" data-route="apps"><i class="fa-solid fa-mobile-screen"></i> التطبيقات</a>
-        <a href="#/dev" class="nav-link" data-route="dev"><i class="fa-solid fa-code"></i> قيد التطوير</a>
-        <a href="#/news" class="nav-link" data-route="news"><i class="fa-solid fa-newspaper"></i> الأخبار</a>
-        <a href="#/about" class="nav-link" data-route="about"><i class="fa-solid fa-circle-user"></i> عن المطور</a>
-        <a href="admin.html" class="nav-link admin-btn"><i class="fa-solid fa-lock"></i> لوحة الإدارة</a>
+        <a href="#/" class="nav-link" data-route="home"><i class="fa-solid fa-house"></i> <span data-i18n="nav.home">الرئيسية</span></a>
+        <button type="button" class="nav-link nav-search-btn" onclick="focusHeroSearch()" data-i18n-aria="nav.search" aria-label="بحث"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="nav.search">بحث</span></button>
+        <a href="#/games" class="nav-link" data-route="games"><i class="fa-solid fa-gamepad"></i> <span data-i18n="nav.games">الألعاب</span></a>
+        <a href="#/apps" class="nav-link" data-route="apps"><i class="fa-solid fa-mobile-screen"></i> <span data-i18n="nav.apps">التطبيقات</span></a>
+        <a href="#/dev" class="nav-link" data-route="dev"><i class="fa-solid fa-code"></i> <span data-i18n="nav.dev">قيد التطوير</span></a>
+        <a href="#/news" class="nav-link" data-route="news"><i class="fa-solid fa-newspaper"></i> <span data-i18n="nav.news">الأخبار</span></a>
+        <a href="#/about" class="nav-link" data-route="about"><i class="fa-solid fa-circle-user"></i> <span data-i18n="nav.about">عن المطور</span></a>
+        <a href="admin.html" class="nav-link admin-btn"><i class="fa-solid fa-lock"></i> <span data-i18n="nav.admin">لوحة الإدارة</span></a>
       </nav>
+      <div class="nav-tools">
+        <button type="button" class="tool-btn" id="themeToggle" onclick="toggleTheme()" aria-label="تبديل المظهر"><i data-theme-icon class="fa-solid fa-sun"></i><span data-i18n="nav.theme">المظهر</span></button>
+        <label class="lang-picker" title="اللغة / Language / Langue"><i class="fa-solid fa-globe"></i><select id="langSelect" aria-label="اللغة" onchange="setLang(this.value)"><option value="ar">العربية</option><option value="en">English</option><option value="fr">Français</option></select></label>
+      </div>
       <a href="admin.html" class="nav-admin-mini" aria-label="لوحة الإدارة"><i class="fa-solid fa-lock"></i></a>
       <button class="nav-toggle" id="navToggle" aria-label="القائمة"><i class="fa-solid fa-bars"></i></button>
     </div>
@@ -906,7 +1034,7 @@ button.nav-link { background: transparent; border: 0; }
 
   <main class="container">
     <!-- تنبيه الإعداد (يظهر فقط إذا لم تُضبط مفاتيح Supabase) -->
-    <div id="setupNotice" class="alert-info setup-notice" style="display:none;">
+    <div id="setupNotice" class="alert-info setup-notice" style="display:none;" data-i18n-html="setup.notice">
       <i class="fa-solid fa-circle-info"></i>
       الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف
       <span class="latin" dir="ltr">supabase-client.js</span> (الشرح الكامل في README.md).
@@ -918,17 +1046,17 @@ button.nav-link { background: transparent; border: 0; }
         <div class="hero-glow"></div>
         <div class="hero-grid">
           <div class="hero-copy">
-            <span class="hero-badge" id="heroBadge"><i class="fa-solid fa-code"></i> مطور ألعاب وتطبيقات مستقل</span>
-            <h1 class="hero-title" id="heroTitle">Abdellatif Dev</h1>
-            <p class="hero-sub" id="heroSubtitle">أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.</p>
+            <span class="hero-badge" id="heroBadge"><i class="fa-solid fa-code"></i> <span data-i18n="hero.badge">مطور ألعاب وتطبيقات مستقل</span></span>
+            <h1 class="hero-title" id="heroTitle" data-i18n="hero.title">Abdellatif Dev</h1>
+            <p class="hero-sub" id="heroSubtitle" data-i18n="hero.subtitle">أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.</p>
             <div class="hero-actions">
-              <a href="#/games" class="btn btn-primary"><i class="fa-solid fa-compass"></i> استكشف المشاريع</a>
-              <a href="#/dev" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> قيد التطوير</a>
+              <a href="#/games" class="btn btn-primary"><i class="fa-solid fa-compass"></i> <span data-i18n="hero.explore">استكشف المشاريع</span></a>
+              <a href="#/dev" class="btn btn-secondary"><i class="fa-solid fa-flask"></i> <span data-i18n="hero.dev">قيد التطوير</span></a>
             </div>
             <div class="search-box hero-search">
               <i class="fa-solid fa-magnifying-glass search-icon"></i>
-              <input type="text" id="heroSearch" placeholder="ابحث عن تطبيق أو لعبة..." autocomplete="off">
-              <button type="button" class="hero-search-clear" id="heroSearchClear" aria-label="مسح البحث"><i class="fa-solid fa-xmark"></i></button>
+              <input type="text" id="heroSearch" placeholder="ابحث عن تطبيق أو لعبة..." autocomplete="off" data-i18n-placeholder="search.placeholder">
+              <button type="button" class="hero-search-clear" id="heroSearchClear" data-i18n-aria="search.clear" aria-label="مسح البحث"><i class="fa-solid fa-xmark"></i></button>
             </div>
           </div>
           <!-- مجسّم زجاجي زخرفي -->
@@ -950,7 +1078,7 @@ button.nav-link { background: transparent; border: 0; }
       <!-- نتائج بحث الهيرو (تظهر أثناء الكتابة في بحث الرئيسية) -->
       <div id="heroSearchResults" class="hero-search-results" style="display:none;">
         <div class="search-results-head">
-          <h3><i class="fa-solid fa-magnifying-glass"></i> نتائج البحث</h3>
+          <h3><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="search.results">نتائج البحث</span></h3>
           <span id="heroSearchCount"></span>
         </div>
         <div id="heroSearchList"></div>
@@ -959,10 +1087,10 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">01 — رسمية</span>
-            <h2 class="section-title"><i class="fa-solid fa-badge-check ico"></i> تطبيقات وألعاب رسمية</h2>
+            <span class="eyebrow" data-i18n="sec.officialEyebrow">01 — رسمية</span>
+            <h2 class="section-title"><i class="fa-solid fa-badge-check ico"></i> <span data-i18n="sec.official">تطبيقات وألعاب رسمية</span></h2>
           </div>
-          <a href="#/games" class="see-all">عرض الكل ←</a>
+          <a href="#/games" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div id="homeOfficial"></div>
       </div>
@@ -970,10 +1098,10 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">02 — تطبيقات مهكرة</span>
-            <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> تطبيقات مهكرة</h2>
+            <span class="eyebrow" data-i18n="sec.moddedAppsEyebrow">02 — تطبيقات مهكرة</span>
+            <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> <span data-i18n="sec.moddedApps">تطبيقات مهكرة</span></h2>
           </div>
-          <a href="#/apps" class="see-all">عرض الكل ←</a>
+          <a href="#/apps" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div id="homeModdedApps"></div>
       </div>
@@ -981,10 +1109,10 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">03 — ألعاب مهكرة</span>
-            <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> ألعاب مهكرة</h2>
+            <span class="eyebrow" data-i18n="sec.moddedGamesEyebrow">03 — ألعاب مهكرة</span>
+            <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> <span data-i18n="sec.moddedGames">ألعاب مهكرة</span></h2>
           </div>
-          <a href="#/games" class="see-all">عرض الكل ←</a>
+          <a href="#/games" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div id="homeModdedGames"></div>
       </div>
@@ -992,10 +1120,10 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">04 — In development</span>
-            <h2 class="section-title"><i class="fa-solid fa-code ico"></i> قيد التطوير</h2>
+            <span class="eyebrow" data-i18n="sec.devEyebrow">04 — In development</span>
+            <h2 class="section-title"><i class="fa-solid fa-code ico"></i> <span data-i18n="sec.dev">قيد التطوير</span></h2>
           </div>
-          <a href="#/dev" class="see-all">عرض الكل ←</a>
+          <a href="#/dev" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div id="homeProjects"></div>
       </div>
@@ -1003,10 +1131,10 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
-            <span class="eyebrow">05 — News</span>
-            <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> آخر الأخبار</h2>
+            <span class="eyebrow" data-i18n="sec.newsEyebrow">05 — News</span>
+            <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> <span data-i18n="sec.news">آخر الأخبار</span></h2>
           </div>
-          <a href="#/news" class="see-all">عرض الكل ←</a>
+          <a href="#/news" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div id="homeNews"></div>
       </div>
@@ -1016,24 +1144,24 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-games" class="view" style="display:none;">
       <div class="section">
         <div class="page-head">
-          <span class="eyebrow">01 — Games</span>
-          <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> الألعاب</h2>
-          <p class="section-sub">جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.</p>
+          <span class="eyebrow" data-i18n="list.gamesEyebrow">01 — Games</span>
+          <h2 class="section-title"><i class="fa-solid fa-gamepad ico"></i> <span data-i18n="list.gamesTitle">الألعاب</span></h2>
+          <p class="section-sub" data-i18n="list.gamesSub">جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.</p>
         </div>
         <div class="search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="gamesSearch" placeholder="ابحث عن لعبة...">
+          <input type="text" id="gamesSearch" placeholder="ابحث عن لعبة..." data-i18n-placeholder="list.searchGame">
         </div>
         <div class="filter-chips" id="gamesFilters">
-          <button class="filter-btn active" data-status="all">الكل</button>
-          <button class="filter-btn" data-status="available">متاحة</button>
-          <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
-          <button class="filter-btn" data-status="coming_soon">قريباً</button>
+          <button class="filter-btn active" data-status="all" data-i18n="filter.all">الكل</button>
+          <button class="filter-btn" data-status="available" data-i18n="filter.available">متاحة</button>
+          <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
+          <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
         </div>
         <div class="filter-chips" id="gamesCatFilters">
-          <button class="filter-btn active" data-cat="all">كل الأنواع</button>
-          <button class="filter-btn" data-cat="official">رسمية</button>
-          <button class="filter-btn" data-cat="modded">مهكرة</button>
+          <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
+          <button class="filter-btn" data-cat="official" data-i18n="filter.official">رسمية</button>
+          <button class="filter-btn" data-cat="modded" data-i18n="filter.modded">مهكرة</button>
         </div>
         <div id="gamesList"></div>
       </div>
@@ -1043,24 +1171,24 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-apps" class="view" style="display:none;">
       <div class="section">
         <div class="page-head">
-          <span class="eyebrow">02 — Apps</span>
-          <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> التطبيقات</h2>
-          <p class="section-sub">جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.</p>
+          <span class="eyebrow" data-i18n="list.appsEyebrow">02 — Apps</span>
+          <h2 class="section-title"><i class="fa-solid fa-mobile-screen ico"></i> <span data-i18n="list.appsTitle">التطبيقات</span></h2>
+          <p class="section-sub" data-i18n="list.appsSub">جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.</p>
         </div>
         <div class="search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="appsSearch" placeholder="ابحث عن تطبيق...">
+          <input type="text" id="appsSearch" placeholder="ابحث عن تطبيق..." data-i18n-placeholder="list.searchApp">
         </div>
         <div class="filter-chips" id="appsFilters">
-          <button class="filter-btn active" data-status="all">الكل</button>
-          <button class="filter-btn" data-status="available">متاح</button>
-          <button class="filter-btn" data-status="in_dev">قيد التطوير</button>
-          <button class="filter-btn" data-status="coming_soon">قريباً</button>
+          <button class="filter-btn active" data-status="all" data-i18n="filter.all">الكل</button>
+          <button class="filter-btn" data-status="available" data-i18n="filter.availableApp">متاح</button>
+          <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
+          <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
         </div>
         <div class="filter-chips" id="appsCatFilters">
-          <button class="filter-btn active" data-cat="all">كل الأنواع</button>
-          <button class="filter-btn" data-cat="official">رسمية</button>
-          <button class="filter-btn" data-cat="modded">مهكرة</button>
+          <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
+          <button class="filter-btn" data-cat="official" data-i18n="filter.official">رسمية</button>
+          <button class="filter-btn" data-cat="modded" data-i18n="filter.modded">مهكرة</button>
         </div>
         <div id="appsList"></div>
       </div>
@@ -1070,9 +1198,9 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-dev" class="view" style="display:none;">
       <div class="section">
         <div class="page-head">
-          <span class="eyebrow">03 — In development</span>
-          <h2 class="section-title"><i class="fa-solid fa-code ico"></i> مشاريع قيد التطوير</h2>
-          <p class="section-sub">المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.</p>
+          <span class="eyebrow" data-i18n="list.devEyebrow">03 — In development</span>
+          <h2 class="section-title"><i class="fa-solid fa-code ico"></i> <span data-i18n="list.devTitle">مشاريع قيد التطوير</span></h2>
+          <p class="section-sub" data-i18n="list.devSub">المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.</p>
         </div>
         <div id="devList"></div>
       </div>
@@ -1082,9 +1210,9 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-news" class="view" style="display:none;">
       <div class="section">
         <div class="page-head">
-          <span class="eyebrow">04 — News</span>
-          <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> الأخبار والمستجدات</h2>
-          <p class="section-sub">آخر الأخبار والتحديثات حول أعمالي ومشاريعي.</p>
+          <span class="eyebrow" data-i18n="list.newsEyebrow">04 — News</span>
+          <h2 class="section-title"><i class="fa-solid fa-newspaper ico"></i> <span data-i18n="list.newsTitle">الأخبار والمستجدات</span></h2>
+          <p class="section-sub" data-i18n="list.newsSub">آخر الأخبار والتحديثات حول أعمالي ومشاريعي.</p>
         </div>
         <div id="newsList"></div>
       </div>
@@ -1106,7 +1234,7 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-loading" class="view" style="display:none;">
       <div class="loading-box">
         <i class="fa-solid fa-spinner fa-spin"></i>
-        <p>جاري تحميل المحتوى...</p>
+        <p data-i18n="common.loading">جاري تحميل المحتوى...</p>
       </div>
       <div class="skeleton-row" aria-hidden="true"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>
     </section>
@@ -1114,10 +1242,10 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-error" class="view" style="display:none;">
       <div class="section">
         <div class="alert-danger" style="text-align:center;">
-          <div id="errorMsg">تعذر تحميل المحتوى.</div>
+          <div id="errorMsg" data-i18n="common.loadError">تعذر تحميل المحتوى.</div>
           <div style="margin-top:12px;">
-            <button class="btn btn-primary btn-sm" onclick="retryLoad()"><i class="fa-solid fa-rotate"></i> إعادة المحاولة</button>
-            <a href="#/" class="btn btn-secondary btn-sm" style="margin-inline-start:8px;">العودة للرئيسية</a>
+            <button class="btn btn-primary btn-sm" onclick="retryLoad()"><i class="fa-solid fa-rotate"></i> <span data-i18n="common.retry">إعادة المحاولة</span></button>
+            <a href="#/" class="btn btn-secondary btn-sm" style="margin-inline-start:8px;" data-i18n="common.backHome">العودة للرئيسية</a>
           </div>
         </div>
       </div>
@@ -1127,9 +1255,9 @@ button.nav-link { background: transparent; border: 0; }
       <div class="section">
         <div class="empty-state">
           <div class="big"><i class="fa-solid fa-magnifying-glass"></i></div>
-          <h3>الصفحة غير موجودة</h3>
-          <p>الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.</p>
-          <div style="margin-top:16px;"><a href="#/" class="btn btn-primary btn-sm">العودة للرئيسية</a></div>
+          <h3 data-i18n="common.notFoundTitle">الصفحة غير موجودة</h3>
+          <p data-i18n="common.notFoundText">الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.</p>
+          <div style="margin-top:16px;"><a href="#/" class="btn btn-primary btn-sm" data-i18n="common.backHome">العودة للرئيسية</a></div>
         </div>
       </div>
     </section>
@@ -1143,25 +1271,25 @@ button.nav-link { background: transparent; border: 0; }
           <span class="logo-icon"><i class="fa-solid fa-gamepad"></i></span>
           <span class="brand-latin">Abdellatif <b>Dev</b></span>
         </div>
-        <p style="margin-top:10px;">مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.</p>
+        <p style="margin-top:10px;" data-i18n="footer.tagline">مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.</p>
       </div>
       <div class="footer-links">
-        <h4>الأقسام</h4>
+        <h4 data-i18n="footer.sections">الأقسام</h4>
         <ul>
-          <li><a href="#/games">الألعاب</a></li>
-          <li><a href="#/apps">التطبيقات</a></li>
-          <li><a href="#/dev">قيد التطوير</a></li>
-          <li><a href="#/news">الأخبار</a></li>
-          <li><a href="#/about">عن المطور</a></li>
+          <li><a href="#/games" data-i18n="nav.games">الألعاب</a></li>
+          <li><a href="#/apps" data-i18n="nav.apps">التطبيقات</a></li>
+          <li><a href="#/dev" data-i18n="nav.dev">قيد التطوير</a></li>
+          <li><a href="#/news" data-i18n="nav.news">الأخبار</a></li>
+          <li><a href="#/about" data-i18n="nav.about">عن المطور</a></li>
         </ul>
       </div>
       <div class="footer-social">
-        <h4>تابعني</h4>
+        <h4 data-i18n="footer.follow">تابعني</h4>
         <div class="social-icons" id="footerSocial"></div>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span id="yearSpan"></span> Abdellatif Dev — جميع الحقوق محفوظة.</p>
+      <p>&copy; <span id="yearSpan"></span> <span data-i18n="footer.rights">Abdellatif Dev — جميع الحقوق محفوظة.</span></p>
     </div>
   </footer>
 
@@ -1183,7 +1311,7 @@ function esc(s) {
 const PLACEHOLDER_IMG = 'data:image/svg+xml,' + encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><g fill="none" stroke="#38f2b0" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><rect x="170" y="120" width="300" height="130" rx="55" fill="rgba(56,242,176,0.10)"/><path d="M250 165 v50 M225 190 h50"/><circle cx="390" cy="180" r="11" fill="#38f2b0" stroke="none"/><circle cx="420" cy="210" r="11" fill="#38f2b0" stroke="none"/></g></svg>');
 
-const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
+let STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
 const SOCIAL_ICONS = {
     facebook: 'fa-brands fa-facebook-f',
     youtube: 'fa-brands fa-youtube',
@@ -1192,6 +1320,80 @@ const SOCIAL_ICONS = {
     instagram: 'fa-brands fa-instagram',
     x: 'fa-brands fa-x-twitter'
 };
+const LANG_KEY = 'abdellatif-dev-lang';
+let currentLang = (document.documentElement.lang === 'en' || document.documentElement.lang === 'fr') ? document.documentElement.lang : 'ar';
+
+// ============================================================
+// v4 — الوضع الفاتح/الداكن (مفتاح التخزين مشترك مع لوحة الإدارة)
+// ============================================================
+const THEME_KEY = 'abdellatif-dev-theme';
+function applyTheme(theme) {
+    const t = (theme === 'light' || theme === 'dark') ? theme : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    document.querySelectorAll('[data-theme-icon]').forEach(ic => {
+        ic.className = t === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+    document.querySelectorAll('[data-theme-label]').forEach(lb => {
+        lb.textContent = t === 'light' ? 'الوضع الداكن' : 'الوضع الفاتح';
+    });
+    try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+}
+window.toggleTheme = function() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+};
+(function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+    applyTheme(saved === 'light' || saved === 'dark' ? saved : 'dark');
+})();
+
+// ============================================================
+// v4 — قاموس اللغات ar/en/fr (واجهة الموقع فقط — محتوى قاعدة
+// البيانات يبقى بالعربية كما هو مخزّن)
+// ============================================================
+const I18N = {"ar":{"about.contact":"تواصل معي","about.tech":"التقنيات والأدوات","card.detailsDownload":"التفاصيل والتحميل","common.backHome":"العودة للرئيسية","common.loadError":"تعذر تحميل المحتوى.","common.loadErrorPrefix":"تعذر تحميل المحتوى: ","common.loading":"جاري تحميل المحتوى...","common.loadingDetails":"جاري تحميل التفاصيل...","common.notFoundText":"الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.","common.notFoundTitle":"الصفحة غير موجودة","common.retry":"إعادة المحاولة","common.seeAll":"عرض الكل ←","detail.backApps":"← العودة للتطبيقات","detail.backGames":"← العودة للألعاب","detail.backNews":"← العودة للأخبار","detail.directDownload":"تحميل مباشر — يبدأ التحميل تلقائياً","detail.downloadNow":"تحميل الآن","detail.downloadOne":"{n} تحميل","detail.downloads":"{n} تحميل","detail.features":"المميزات","detail.fullDesc":"الوصف الكامل","detail.lastUpdate":"آخر تحديث:","detail.latestUpdate":"آخر مستجد:","detail.noLink":"رابط التحميل غير متوفر بعد — قريباً","detail.notAvailable":"قريباً — هذه النسخة غير متاحة للتحميل بعد","detail.openExternal":"فتح الرابط الخارجي","detail.preparing":"جاري تجهيز رابط التحميل الآمن...","detail.progress":"نسبة التقدم","detail.requirements":"متطلبات التشغيل","detail.shotsApp":"لقطات من التطبيق","detail.shotsGame":"لقطات من اللعبة","detail.version":"الإصدار","detail.wait":"يرجى الانتظار ثوانٍ معدودة","empty.appsText":"ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.","empty.appsTitle":"لا توجد تطبيقات منشورة بعد","empty.gamesText":"ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.","empty.gamesTitle":"لا توجد ألعاب منشورة بعد","empty.moddedAppsText":"ستظهر هنا فور إضافتها من لوحة الإدارة.","empty.moddedAppsTitle":"لا توجد تطبيقات مهكرة بعد","empty.moddedGamesText":"ستظهر هنا فور إضافتها من لوحة الإدارة.","empty.moddedGamesTitle":"لا توجد ألعاب مهكرة بعد","empty.newsText":"ستظهر آخر الأخبار والمستجدات هنا.","empty.newsTitle":"لا توجد أخبار بعد","empty.noResults":"لا توجد نتائج مطابقة","empty.noResultsText":"جرّب كلمة بحث أخرى أو غيّر الفلتر.","empty.officialText":"ستظهر هنا فور إضافتها من لوحة الإدارة.","empty.officialTitle":"لا توجد تطبيقات أو ألعاب رسمية بعد","empty.projectsText":"ستظهر المشاريع الجديدة هنا عند إضافتها.","empty.projectsTitle":"لا توجد مشاريع قيد التطوير حالياً","filter.all":"الكل","filter.allTypes":"كل الأنواع","filter.available":"متاحة","filter.availableApp":"متاح","filter.comingSoon":"قريباً","filter.inDev":"قيد التطوير","filter.modded":"مهكرة","filter.official":"رسمية","footer.follow":"تابعني","footer.noSocial":"روابط التواصل تُضاف من لوحة الإدارة.","footer.rights":"Abdellatif Dev — جميع الحقوق محفوظة.","footer.sections":"الأقسام","footer.tagline":"مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.","hero.badge":"مطور ألعاب وتطبيقات مستقل","hero.dev":"قيد التطوير","hero.explore":"استكشف المشاريع","hero.subtitle":"أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — التطبيقات","list.appsSub":"جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.","list.appsTitle":"التطبيقات","list.devEyebrow":"03 — قيد التطوير","list.devSub":"المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.","list.devTitle":"مشاريع قيد التطوير","list.gamesEyebrow":"01 — الألعاب","list.gamesSub":"جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.","list.gamesTitle":"الألعاب","list.newsEyebrow":"04 — الأخبار","list.newsSub":"آخر الأخبار والتحديثات حول أعمالي ومشاريعي.","list.newsTitle":"الأخبار والمستجدات","list.searchApp":"ابحث عن تطبيق...","list.searchGame":"ابحث عن لعبة...","meta.title":"Abdellatif Dev | مطور ألعاب وتطبيقات مستقل","nav.about":"عن المطور","nav.admin":"لوحة الإدارة","nav.apps":"التطبيقات","nav.dev":"قيد التطوير","nav.games":"الألعاب","nav.home":"الرئيسية","nav.news":"الأخبار","nav.search":"بحث","nav.theme":"المظهر","news.readMore":"قراءة الخبر ←","search.clear":"مسح البحث","search.noResults":"لا توجد نتائج مطابقة","search.placeholder":"ابحث عن تطبيق أو لعبة...","search.resultOne":"نتيجة واحدة","search.results":"نتائج البحث","search.resultsCount":"{n} نتائج","search.tryOther":"جرّب كلمة بحث أخرى.","sec.dev":"قيد التطوير","sec.devEyebrow":"04 — قيد التطوير","sec.moddedApps":"تطبيقات مهكرة","sec.moddedAppsEyebrow":"02 — تطبيقات مهكرة","sec.moddedGames":"ألعاب مهكرة","sec.moddedGamesEyebrow":"03 — ألعاب مهكرة","sec.news":"آخر الأخبار","sec.newsEyebrow":"05 — الأخبار","sec.official":"تطبيقات وألعاب رسمية","sec.officialEyebrow":"01 — رسمية","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (الشرح الكامل في README.md).","stats.apps":"تطبيق منشور","stats.downloads":"إجمالي التحميلات","stats.games":"لعبة منشورة","stats.projects":"مشروع قيد التطوير","status.available":"متاحة","status.comingSoon":"قريباً","status.inDev":"قيد التطوير","empty.projectsListText":"ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة."},"en":{"about.contact":"Contact me","about.tech":"Technologies & Tools","card.detailsDownload":"Details & Download","common.backHome":"Back to home","common.loadError":"Could not load the content.","common.loadErrorPrefix":"Could not load the content: ","common.loading":"Loading content...","common.loadingDetails":"Loading details...","common.notFoundText":"The link you opened is incorrect or the content was deleted.","common.notFoundTitle":"Page not found","common.retry":"Try again","common.seeAll":"View all →","detail.backApps":"← Back to apps","detail.backGames":"← Back to games","detail.backNews":"← Back to news","detail.directDownload":"Direct download — starts automatically","detail.downloadNow":"Download now","detail.downloadOne":"{n} download","detail.downloads":"{n} downloads","detail.features":"Features","detail.fullDesc":"Full description","detail.lastUpdate":"Last updated:","detail.latestUpdate":"Latest update:","detail.noLink":"Download link not available yet — coming soon","detail.notAvailable":"Coming soon — this version is not available for download yet","detail.openExternal":"Open external link","detail.preparing":"Preparing your secure download link...","detail.progress":"Progress","detail.requirements":"Requirements","detail.shotsApp":"App screenshots","detail.shotsGame":"Game screenshots","detail.version":"Version","detail.wait":"Please wait a few seconds","empty.appsText":"Apps will appear here as soon as they are added from the admin panel.","empty.appsTitle":"No published apps yet","empty.gamesText":"Games will appear here as soon as they are added from the admin panel.","empty.gamesTitle":"No published games yet","empty.moddedAppsText":"They will appear here as soon as they are added from the admin panel.","empty.moddedAppsTitle":"No modded apps yet","empty.moddedGamesText":"They will appear here as soon as they are added from the admin panel.","empty.moddedGamesTitle":"No modded games yet","empty.newsText":"The latest news and updates will appear here.","empty.newsTitle":"No news yet","empty.noResults":"No matching results","empty.noResultsText":"Try a different search term or change the filter.","empty.officialText":"They will appear here as soon as they are added from the admin panel.","empty.officialTitle":"No official apps or games yet","empty.projectsText":"New projects will appear here when added.","empty.projectsTitle":"No projects in development right now","filter.all":"All","filter.allTypes":"All types","filter.available":"Available","filter.availableApp":"Available","filter.comingSoon":"Coming soon","filter.inDev":"In development","filter.modded":"Modded","filter.official":"Official","footer.follow":"Follow me","footer.noSocial":"Social links are added from the admin panel.","footer.rights":"Abdellatif Dev — All rights reserved.","footer.sections":"Sections","footer.tagline":"Independent game & app developer — games, apps, and projects in development.","hero.badge":"Independent game & app developer","hero.dev":"In Development","hero.explore":"Explore Projects","hero.subtitle":"I build mobile games and apps — from idea to release, with quality and professionalism.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Apps","list.appsSub":"All the apps I built — tap any app to view details and download.","list.appsTitle":"Apps","list.devEyebrow":"03 — In Development","list.devSub":"The projects I am currently working on — follow the progress and latest updates.","list.devTitle":"Projects in Development","list.gamesEyebrow":"01 — Games","list.gamesSub":"All the games I built — tap any game to view details and download.","list.gamesTitle":"Games","list.newsEyebrow":"04 — News","list.newsSub":"The latest news and updates about my work and projects.","list.newsTitle":"News & Updates","list.searchApp":"Search for an app...","list.searchGame":"Search for a game...","meta.title":"Abdellatif Dev | Independent game & app developer","nav.about":"About","nav.admin":"Admin Panel","nav.apps":"Apps","nav.dev":"In Development","nav.games":"Games","nav.home":"Home","nav.news":"News","nav.search":"Search","nav.theme":"Theme","news.readMore":"Read article →","search.clear":"Clear search","search.noResults":"No matching results","search.placeholder":"Search for an app or game...","search.resultOne":"1 result","search.results":"Search results","search.resultsCount":"{n} results","search.tryOther":"Try a different search term.","sec.dev":"In Development","sec.devEyebrow":"04 — In Development","sec.moddedApps":"Modded Apps","sec.moddedAppsEyebrow":"02 — Modded Apps","sec.moddedGames":"Modded Games","sec.moddedGamesEyebrow":"03 — Modded Games","sec.news":"Latest News","sec.newsEyebrow":"05 — News","sec.official":"Official Apps & Games","sec.officialEyebrow":"01 — Official","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> This site is not connected to a database yet. Site owner: put your Supabase project URL and anon key in <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (full guide in README.md).","stats.apps":"Published apps","stats.downloads":"Total downloads","stats.games":"Published games","stats.projects":"Projects in development","status.available":"Available","status.comingSoon":"Coming soon","status.inDev":"In development","empty.projectsListText":"New projects will appear here once added from the admin panel."},"fr":{"about.contact":"Contactez-moi","about.tech":"Technologies et outils","card.detailsDownload":"Détails et téléchargement","common.backHome":"Retour à l'accueil","common.loadError":"Impossible de charger le contenu.","common.loadErrorPrefix":"Impossible de charger le contenu : ","common.loading":"Chargement du contenu...","common.loadingDetails":"Chargement des détails...","common.notFoundText":"Le lien que vous avez ouvert est incorrect ou le contenu a été supprimé.","common.notFoundTitle":"Page introuvable","common.retry":"Réessayer","common.seeAll":"Tout voir →","detail.backApps":"← Retour aux applications","detail.backGames":"← Retour aux jeux","detail.backNews":"← Retour aux actualités","detail.directDownload":"Téléchargement direct — démarre automatiquement","detail.downloadNow":"Télécharger","detail.downloadOne":"{n} téléchargement","detail.downloads":"{n} téléchargements","detail.features":"Fonctionnalités","detail.fullDesc":"Description complète","detail.lastUpdate":"Dernière mise à jour :","detail.latestUpdate":"Dernière nouveauté :","detail.noLink":"Lien de téléchargement pas encore disponible — bientôt","detail.notAvailable":"Bientôt — cette version n'est pas encore disponible au téléchargement","detail.openExternal":"Ouvrir le lien externe","detail.preparing":"Préparation de votre lien de téléchargement sécurisé...","detail.progress":"Progression","detail.requirements":"Configuration requise","detail.shotsApp":"Captures de l'application","detail.shotsGame":"Captures du jeu","detail.version":"Version","detail.wait":"Veuillez patienter quelques secondes","empty.appsText":"Les applications apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.appsTitle":"Aucune application publiée pour le moment","empty.gamesText":"Les jeux apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.gamesTitle":"Aucun jeu publié pour le moment","empty.moddedAppsText":"Elles apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.moddedAppsTitle":"Aucune application moddée pour le moment","empty.moddedGamesText":"Ils apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.moddedGamesTitle":"Aucun jeu moddé pour le moment","empty.newsText":"Les dernières actualités apparaîtront ici.","empty.newsTitle":"Aucune actualité pour le moment","empty.noResults":"Aucun résultat correspondant","empty.noResultsText":"Essayez un autre mot-clé ou changez le filtre.","empty.officialText":"Ils apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.officialTitle":"Aucune application ou jeu officiel pour le moment","empty.projectsText":"Les nouveaux projets apparaîtront ici une fois ajoutés.","empty.projectsTitle":"Aucun projet en développement pour le moment","filter.all":"Tout","filter.allTypes":"Tous les types","filter.available":"Disponible","filter.availableApp":"Disponible","filter.comingSoon":"Bientôt","filter.inDev":"En développement","filter.modded":"Moddé","filter.official":"Officiel","footer.follow":"Suivez-moi","footer.noSocial":"Les liens sociaux s'ajoutent depuis le panneau d'administration.","footer.rights":"Abdellatif Dev — Tous droits réservés.","footer.sections":"Sections","footer.tagline":"Développeur indépendant de jeux et d'applications — jeux, applications et projets en développement.","hero.badge":"Développeur indépendant de jeux et d'applications","hero.dev":"En développement","hero.explore":"Explorer les projets","hero.subtitle":"Je crée des jeux et des applications mobiles — de l'idée à la publication, avec qualité et professionnalisme.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Applications","list.appsSub":"Toutes les applications que j'ai créées — touchez une application pour voir les détails et la télécharger.","list.appsTitle":"Applications","list.devEyebrow":"03 — En développement","list.devSub":"Les projets sur lesquels je travaille actuellement — suivez l'avancement et les dernières nouveautés.","list.devTitle":"Projets en développement","list.gamesEyebrow":"01 — Jeux","list.gamesSub":"Tous les jeux que j'ai créés — touchez un jeu pour voir les détails et le télécharger.","list.gamesTitle":"Jeux","list.newsEyebrow":"04 — Actualités","list.newsSub":"Les dernières actualités et mises à jour sur mon travail et mes projets.","list.newsTitle":"Actualités","list.searchApp":"Rechercher une application...","list.searchGame":"Rechercher un jeu...","meta.title":"Abdellatif Dev | Développeur indépendant de jeux et d'applications","nav.about":"À propos","nav.admin":"Panneau d'admin","nav.apps":"Applications","nav.dev":"En développement","nav.games":"Jeux","nav.home":"Accueil","nav.news":"Actualités","nav.search":"Recherche","nav.theme":"Thème","news.readMore":"Lire l'article →","search.clear":"Effacer la recherche","search.noResults":"Aucun résultat correspondant","search.placeholder":"Rechercher une application ou un jeu...","search.resultOne":"1 résultat","search.results":"Résultats de la recherche","search.resultsCount":"{n} résultats","search.tryOther":"Essayez un autre mot-clé.","sec.dev":"En développement","sec.devEyebrow":"04 — En développement","sec.moddedApps":"Applications moddées","sec.moddedAppsEyebrow":"02 — Applications moddées","sec.moddedGames":"Jeux moddés","sec.moddedGamesEyebrow":"03 — Jeux moddés","sec.news":"Dernières actualités","sec.newsEyebrow":"05 — Actualités","sec.official":"Applications et jeux officiels","sec.officialEyebrow":"01 — Officiel","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> Ce site n'est pas encore connecté à une base de données. Propriétaire du site : mettez l'URL du projet Supabase et la clé anon dans <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (guide complet dans README.md).","stats.apps":"Applications publiées","stats.downloads":"Téléchargements totaux","stats.games":"Jeux publiés","stats.projects":"Projets en développement","status.available":"Disponible","status.comingSoon":"Bientôt","status.inDev":"En développement","empty.projectsListText":"Les nouveaux projets apparaîtront ici une fois ajoutés depuis le panneau d'administration."}};
+function t(key) {
+    const d = I18N[currentLang] || I18N.ar;
+    if (d && d[key] !== undefined) return d[key];
+    if (I18N.ar[key] !== undefined) return I18N.ar[key];
+    return key;
+}
+function dlText(n) {
+    n = n || 0;
+    if (n === 1) return t('detail.downloadOne').replace('{n}', n);
+    return t('detail.downloads').replace('{n}', n);
+}
+function searchCountText(n) {
+    if (n === 1) return t('search.resultOne');
+    return t('search.resultsCount').replace('{n}', n);
+}
+function setLang(lang) {
+    if (!I18N[lang]) lang = 'ar';
+    currentLang = lang;
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    applyI18n();
+}
+window.setLang = setLang;
+function applyI18n() {
+    const lang = currentLang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    const sel = document.getElementById('langSelect');
+    if (sel) sel.value = lang;
+    STATUS_LABELS = { available: t('status.available'), in_dev: t('status.inDev'), coming_soon: t('status.comingSoon') };
+    if (document.getElementById('view-detail') && document.getElementById('view-detail').style.display !== 'block') {
+        document.title = t('meta.title');
+    }
+    // الهيرو: من قاعدة البيانات بالعربية، ومن القاموس في en/fr
+    applySettings();
+    route();
+}
+
 
 let settings = { hero: null, about: null, social: null };
 let games = [], apps = [], projects = [], news = [];
@@ -1203,6 +1405,7 @@ let countdownTimer = null, activeDownload = null, autoDownloadClick = false;
 document.addEventListener('DOMContentLoaded', async () => {
     const yearSpan = document.getElementById('yearSpan');
     if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    applyI18n();
     setupMobileNav();
     setupSearchInputs();
     window.addEventListener('hashchange', route);
@@ -1320,16 +1523,15 @@ async function loadAll() {
 }
 
 function applySettings() {
+    // الهيرو: قيم قاعدة البيانات عربية فقط؛ في en/fr نستخدم القاموس
     const hero = settings.hero || {};
+    const arMode = currentLang === 'ar';
     const badge = document.getElementById('heroBadge');
-    if (badge && hero.badge) {
-        badge.innerHTML = '';
-        badge.append(document.createTextNode(hero.badge));
-    }
+    if (badge) badge.innerHTML = '<i class="fa-solid fa-code"></i> ' + esc(arMode && hero.badge ? hero.badge : t('hero.badge'));
     const title = document.getElementById('heroTitle');
-    if (title && hero.title) title.textContent = hero.title;
+    if (title) title.textContent = hero.title || t('hero.title');
     const sub = document.getElementById('heroSubtitle');
-    if (sub && hero.subtitle) sub.textContent = hero.subtitle;
+    if (sub) sub.textContent = arMode && hero.subtitle ? hero.subtitle : t('hero.subtitle');
 }
 
 function renderFooterSocial() {
@@ -1339,7 +1541,7 @@ function renderFooterSocial() {
     const social = settings.social || {};
     const entries = Object.keys(SOCIAL_ICONS).filter(k => social[k] && String(social[k]).trim());
     if (!entries.length) {
-        box.innerHTML = '<span style="color:var(--text-dim);font-size:0.9rem;">روابط التواصل تُضاف من لوحة الإدارة.</span>';
+        box.innerHTML = '<span style="color:var(--text-dim);font-size:0.9rem;">' + t('footer.noSocial') + '</span>';
         return;
     }
     entries.forEach(k => {
@@ -1383,7 +1585,7 @@ async function route() {
     if (!dataLoaded && window.SUPABASE_CONFIGURED) {
         if (dataError) {
             const msg = document.getElementById('errorMsg');
-            if (msg) msg.textContent = 'تعذر تحميل المحتوى: ' + dataError;
+            if (msg) msg.textContent = t('common.loadErrorPrefix') + dataError;
             showView('view-error');
         } else {
             showView('view-loading');
@@ -1406,7 +1608,7 @@ async function route() {
 // ---------- أدوات عرض ----------
 function fmtDate(d) {
     if (!d) return '';
-    try { return new Date(d).toLocaleDateString('ar', { year: 'numeric', month: 'long', day: 'numeric' }); }
+    try { return new Date(d).toLocaleDateString(currentLang === 'ar' ? 'ar' : currentLang, { year: 'numeric', month: 'long', day: 'numeric' }); }
     catch (e) { return ''; }
 }
 function statusBadge(status) {
@@ -1416,7 +1618,7 @@ function statusBadge(status) {
 function coverHtml(item, icon) {
     if (item.cover_url || item.image_url) {
         const url = item.cover_url || item.image_url;
-        return `<img src="${esc(url)}" alt="${esc(item.title || item.name || '')}" loading="lazy" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">`;
+        return `<img src="${esc(url)}" alt="${esc(item.title || item.name || '')}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'">`;
     }
     return `<div class="cover-emoji"><i class="${icon}"></i></div>`;
 }
@@ -1445,7 +1647,7 @@ function itemCard(item, type) {
           <span><i class="fa-solid fa-calendar"></i> ${fmtDate(item.updated_at || item.created_at)}</span>
         </div>
         <div class="card-foot">
-          <a href="${detailHash}" class="btn btn-primary btn-block btn-sm"><i class="fa-solid fa-eye"></i> التفاصيل والتحميل</a>
+          <a href="${detailHash}" class="btn btn-primary btn-block btn-sm"><i class="fa-solid fa-eye"></i> ${t('card.detailsDownload')}</a>
         </div>
       </div>
     </article>`;
@@ -1493,36 +1695,51 @@ window.scrollStrip = function(btn) {
     const strip = wrap && wrap.querySelector('.row-strip');
     if (!strip) return;
     const stripRect = strip.getBoundingClientRect();
-    const next = Array.from(strip.querySelectorAll('.row-card')).find(c =>
-        c.getBoundingClientRect().left < stripRect.left - 4);
+    const rtl = document.documentElement.dir !== 'ltr';
+    const next = Array.from(strip.querySelectorAll('.row-card')).find(c => {
+        const r = c.getBoundingClientRect();
+        return rtl ? r.left < stripRect.left - 4 : r.right > stripRect.right + 4;
+    });
     if (next) next.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
 };
 
 // إخفاء سهم التمرير والتدرّج عندما لا يوجد ما يُمرَّر، أو عند الوصول للنهاية
+// هل وصل الشريط إلى نهايته؟ (يعمل في RTL وLTR)
+function stripAtEnd(strip, last) {
+    const sr = strip.getBoundingClientRect();
+    const lr = last.getBoundingClientRect();
+    return document.documentElement.dir === 'ltr'
+        ? lr.right <= sr.right + 4
+        : lr.left >= sr.left - 4;
+}
 function updateStripArrows() {
     document.querySelectorAll('.row-strip-wrap').forEach(w => {
         const strip = w.querySelector('.row-strip');
         if (!strip) return;
         w.classList.toggle('no-scroll', strip.scrollWidth <= strip.clientWidth + 4);
         const last = strip.querySelector('.row-card:last-child');
-        if (last) {
-            const sr = strip.getBoundingClientRect();
-            const lr = last.getBoundingClientRect();
-            w.classList.toggle('at-end', lr.left >= sr.left - 4);
-        }
+        if (last) w.classList.toggle('at-end', stripAtEnd(strip, last));
     });
 }
+// مستمع تمرير مخنوق بـ requestAnimationFrame (لا عمل تخطيط في كل حدث)
+let stripScrollRaf = 0;
 document.addEventListener('scroll', (e) => {
     const strip = e.target;
     if (!strip || !strip.classList || !strip.classList.contains('row-strip')) return;
-    const wrap = strip.closest('.row-strip-wrap');
-    const last = strip.querySelector('.row-card:last-child');
-    if (!wrap || !last) return;
-    const sr = strip.getBoundingClientRect();
-    const lr = last.getBoundingClientRect();
-    wrap.classList.toggle('at-end', lr.left >= sr.left - 4);
-}, true);
-window.addEventListener('resize', updateStripArrows);
+    if (stripScrollRaf) return;
+    stripScrollRaf = requestAnimationFrame(() => {
+        stripScrollRaf = 0;
+        const wrap = strip.closest('.row-strip-wrap');
+        const last = strip.querySelector('.row-card:last-child');
+        if (!wrap || !last) return;
+        wrap.classList.toggle('at-end', stripAtEnd(strip, last));
+    });
+}, { capture: true, passive: true });
+let stripResizeTimer = null;
+window.addEventListener('resize', () => {
+    clearTimeout(stripResizeTimer);
+    stripResizeTimer = setTimeout(updateStripArrows, 150);
+});
 
 // ---------- بحث الهيرو (ألعاب + تطبيقات) ----------
 // تطبيع عربي خفيف: إزالة التشكيل وتوحيد الألف والتاء المربوطة والياء
@@ -1557,9 +1774,9 @@ function renderHeroSearch() {
         .filter(x => matchesQuery(x.item, q));
     sections.forEach(s => { s.style.display = 'none'; });
     results.style.display = 'block';
-    if (countEl) countEl.textContent = matches.length + ' نتيجة';
+    if (countEl) countEl.textContent = searchCountText(matches.length);
     list.innerHTML = matches.length ? stripsHtml(matches, 8)
-        : emptyState('fa-solid fa-magnifying-glass', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى.');
+        : emptyState('fa-solid fa-magnifying-glass', t('search.noResults'), t('search.tryOther'));
     requestAnimationFrame(updateStripArrows);
 }
 
@@ -1582,10 +1799,10 @@ function renderHome() {
     const stats = document.getElementById('homeStats');
     if (stats) {
         stats.innerHTML = `
-        <div class="stat-card"><i class="fa-solid fa-gamepad"></i><h3>${games.length}</h3><span>لعبة منشورة</span></div>
-        <div class="stat-card"><i class="fa-solid fa-mobile-screen"></i><h3>${apps.length}</h3><span>تطبيق منشور</span></div>
-        <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>مشروع قيد التطوير</span></div>
-        <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>إجمالي التحميلات</span></div>`;
+        <div class="stat-card"><i class="fa-solid fa-gamepad"></i><h3>${games.length}</h3><span>${t('stats.games')}</span></div>
+        <div class="stat-card"><i class="fa-solid fa-mobile-screen"></i><h3>${apps.length}</h3><span>${t('stats.apps')}</span></div>
+        <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>${t('stats.projects')}</span></div>
+        <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>${t('stats.downloads')}</span></div>`;
     }
     // أقسام الرئيسية حسب التصنيف (category = رسمية / مهكرة)
     const isOfficial = x => (x.category || '') === 'رسمية';
@@ -1596,21 +1813,21 @@ function renderHome() {
     const moddedGames = games.filter(isModded).map(g => ({ item: g, type: 'game' }));
     const ho = document.getElementById('homeOfficial');
     if (ho) ho.innerHTML = official.length ? stripsHtml(official, 8)
-        : emptyState('fa-solid fa-badge-check', 'لا توجد تطبيقات أو ألعاب رسمية بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.');
+        : emptyState('fa-solid fa-badge-check', t('empty.officialTitle'), t('empty.officialText'));
     const hma = document.getElementById('homeModdedApps');
     if (hma) hma.innerHTML = moddedApps.length ? stripsHtml(moddedApps, 8)
-        : emptyState('fa-solid fa-mobile-screen', 'لا توجد تطبيقات مهكرة بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.');
+        : emptyState('fa-solid fa-mobile-screen', t('empty.moddedAppsTitle'), t('empty.moddedAppsText'));
     const hmg = document.getElementById('homeModdedGames');
     if (hmg) hmg.innerHTML = moddedGames.length ? stripsHtml(moddedGames, 8)
-        : emptyState('fa-solid fa-gamepad', 'لا توجد ألعاب مهكرة بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.');
+        : emptyState('fa-solid fa-gamepad', t('empty.moddedGamesTitle'), t('empty.moddedGamesText'));
     const hp = document.getElementById('homeProjects');
     if (hp) hp.innerHTML = gridOrEmpty(projects.slice(0, 3),
         projects.slice(0, 3).map(p => projectCard(p)).join(''),
-        emptyState('fa-solid fa-code', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها.'));
+        emptyState('fa-solid fa-code', t('empty.projectsTitle'), t('empty.projectsText')));
     const hn = document.getElementById('homeNews');
     if (hn) hn.innerHTML = gridOrEmpty(news.slice(0, 3),
         news.slice(0, 3).map(n => newsCard(n)).join(''),
-        emptyState('fa-solid fa-newspaper', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+        emptyState('fa-solid fa-newspaper', t('empty.newsTitle'), t('empty.newsText')));
     renderHeroSearch();
     requestAnimationFrame(updateStripArrows);
 }
@@ -1628,8 +1845,8 @@ function renderGamesList() {
         (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
     box.innerHTML = list.length ? stripsHtml(list.map(g => ({ item: g, type: 'game' })), 8)
         : (q || gamesFilter !== 'all' || gamesCatFilter !== 'all'
-            ? emptyState('fa-solid fa-magnifying-glass', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
-            : emptyState('fa-solid fa-gamepad', 'لا توجد ألعاب منشورة بعد', 'ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.'));
+            ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
+            : emptyState('fa-solid fa-gamepad', t('empty.gamesTitle'), t('empty.gamesText')));
     requestAnimationFrame(updateStripArrows);
 }
 
@@ -1645,8 +1862,8 @@ function renderAppsList() {
         (!q || ((a.title || '') + ' ' + (a.short_desc || '') + ' ' + (a.category || '')).toLowerCase().includes(q)));
     box.innerHTML = list.length ? stripsHtml(list.map(a => ({ item: a, type: 'app' })), 8)
         : (q || appsFilter !== 'all' || appsCatFilter !== 'all'
-            ? emptyState('fa-solid fa-magnifying-glass', 'لا توجد نتائج مطابقة', 'جرّب كلمة بحث أخرى أو غيّر الفلتر.')
-            : emptyState('fa-solid fa-mobile-screen', 'لا توجد تطبيقات منشورة بعد', 'ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.'));
+            ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
+            : emptyState('fa-solid fa-mobile-screen', t('empty.appsTitle'), t('empty.appsText')));
     requestAnimationFrame(updateStripArrows);
 }
 
@@ -1663,11 +1880,11 @@ function projectCard(p) {
         <p class="card-desc">${esc(p.description || '')}</p>
         ${progress !== null ? `
         <div class="progress-wrap">
-          <div class="progress-label"><span>نسبة التقدم</span><b>${progress}%</b></div>
+          <div class="progress-label"><span>${t('detail.progress')}</span><b>${progress}%</b></div>
           <div class="progress-track"><div class="progress-fill" style="width:${Math.max(0, Math.min(100, progress))}%"></div></div>
         </div>` : ''}
-        ${p.latest_update ? `<p style="color:var(--text-gray);font-size:0.9rem;"><i class="fa-solid fa-bolt" style="color:var(--cyan)"></i> <strong>آخر مستجد:</strong> ${esc(p.latest_update)}</p>` : ''}
-        <div class="card-meta"><span><i class="fa-solid fa-calendar"></i> آخر تحديث: ${fmtDate(p.updated_at || p.created_at)}</span></div>
+        ${p.latest_update ? `<p style="color:var(--text-gray);font-size:0.9rem;"><i class="fa-solid fa-bolt" style="color:var(--cyan)"></i> <strong>${t('detail.latestUpdate')}</strong> ${esc(p.latest_update)}</p>` : ''}
+        <div class="card-meta"><span><i class="fa-solid fa-calendar"></i> ${t('detail.lastUpdate')} ${fmtDate(p.updated_at || p.created_at)}</span></div>
       </div>
     </article>`;
 }
@@ -1676,7 +1893,7 @@ function renderDevList() {
     const box = document.getElementById('devList');
     if (!box) return;
     box.innerHTML = gridOrEmpty(projects, projects.map(p => projectCard(p)).join(''),
-        emptyState('fa-solid fa-code', 'لا توجد مشاريع قيد التطوير حالياً', 'ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.'));
+        emptyState('fa-solid fa-code', t('empty.projectsTitle'), t('empty.projectsListText')));
 }
 
 function newsCard(n) {
@@ -1690,7 +1907,7 @@ function newsCard(n) {
         <span class="news-date"><i class="fa-solid fa-calendar"></i> ${fmtDate(n.published_at || n.created_at)}</span>
         <h3 class="card-title">${esc(n.title)}</h3>
         <p class="card-desc">${esc((n.content || '').slice(0, 140))}${(n.content || '').length > 140 ? '…' : ''}</p>
-        <div class="card-foot"><a href="#/news/${n.id}" class="btn btn-secondary btn-block btn-sm">قراءة الخبر ←</a></div>
+        <div class="card-foot"><a href="#/news/${n.id}" class="btn btn-secondary btn-block btn-sm">${t('news.readMore')}</a></div>
       </div>
     </article>`;
 }
@@ -1699,7 +1916,7 @@ function renderNewsList() {
     const box = document.getElementById('newsList');
     if (!box) return;
     box.innerHTML = gridOrEmpty(news, news.map(n => newsCard(n)).join(''),
-        emptyState('fa-solid fa-newspaper', 'لا توجد أخبار بعد', 'ستظهر آخر الأخبار والمستجدات هنا.'));
+        emptyState('fa-solid fa-newspaper', t('empty.newsTitle'), t('empty.newsText')));
 }
 
 // ---------- عن المطور ----------
@@ -1717,9 +1934,9 @@ function renderAbout() {
         <h2>${esc(about.name || 'Abdellatif Dev')}</h2>
         <p style="color:var(--violet-light);font-weight:800;">${esc(about.title || 'مطور ألعاب وتطبيقات مستقل')}</p>
         <p style="margin-top:12px;">${esc(about.bio || 'مطور مستقل من المغرب، أركز على تطوير الألعاب والتطبيقات.')}</p>
-        ${tech.length ? `<h3 style="margin-top:22px;font-size:1.05rem;">التقنيات والأدوات</h3>
+        ${tech.length ? `<h3 style="margin-top:22px;font-size:1.05rem;">${t('about.tech')}</h3>
         <div class="tech-tags">${tech.map(t => `<span class="tech-tag">${esc(t)}</span>`).join('')}</div>` : ''}
-        ${socialLinks ? `<h3 style="margin-top:22px;font-size:1.05rem;">تواصل معي</h3>
+        ${socialLinks ? `<h3 style="margin-top:22px;font-size:1.05rem;">${t('about.contact')}</h3>
         <div class="social-icons" style="margin-top:10px;">${socialLinks}</div>` : ''}`;
 }
 
@@ -1734,7 +1951,7 @@ async function fetchOne(table, id) {
 async function renderDetail(type, id) {
     const box = document.getElementById('detailContent');
     showView('view-detail');
-    if (box) box.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>جاري تحميل التفاصيل...</p></div>';
+    if (box) box.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>' + t('common.loadingDetails') + '</p></div>';
 
     let item = null, table = '';
     if (type === 'game') { table = 'games'; item = games.find(g => g.id === id); }
@@ -1757,10 +1974,10 @@ function renderNewsDetail(box, n) {
         <p class="lead"><i class="fa-solid fa-calendar"></i> ${fmtDate(n.published_at || n.created_at)}</p>
       </div>
     </div>
-    ${n.cover_url ? `<div class="detail-cover" style="margin-top:10px;"><img src="${esc(n.cover_url)}" alt="${esc(n.title)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'"></div>` : ''}
+    ${n.cover_url ? `<div class="detail-cover" style="margin-top:10px;"><img src="${esc(n.cover_url)}" alt="${esc(n.title)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}'"></div>` : ''}
     <div class="detail-block"><p class="news-content">${esc(n.content || '')}</p></div>
-    ${n.external_url ? `<div style="margin-top:20px;"><a href="${esc(n.external_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الرابط الخارجي</a></div>` : ''}
-    <div style="margin-top:26px;"><a href="#/news" class="btn btn-secondary btn-sm">← العودة للأخبار</a></div>`;
+    ${n.external_url ? `<div style="margin-top:20px;"><a href="${esc(n.external_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i>${t('detail.openExternal')}</a></div>` : ''}
+    <div style="margin-top:26px;"><a href="#/news" class="btn btn-secondary btn-sm">${t('detail.backNews')}</a></div>`;
 }
 
 function renderItemDetail(box, item, type) {
@@ -1769,7 +1986,7 @@ function renderItemDetail(box, item, type) {
     const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean) : [];
     const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5);
     const backHash = type === 'game' ? '#/games' : '#/apps';
-    const backLabel = type === 'game' ? 'العودة للألعاب' : 'العودة للتطبيقات';
+    const backLabel = type === 'game' ? t('detail.backGames') : t('detail.backApps');
 
     box.innerHTML = `
     <div class="detail-hero">
@@ -1780,30 +1997,30 @@ function renderItemDetail(box, item, type) {
         <p class="lead">${esc(item.short_desc || '')}</p>
         <div class="detail-chips">
           <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(item.category || '')}</span>
-          ${item.version ? `<span class="chip"><i class="fa-solid fa-tag"></i> الإصدار ${esc(item.version)}</span>` : ''}
-          <span class="chip"><i class="fa-solid fa-download"></i> ${item.download_count || 0} تحميل</span>
-          <span class="chip"><i class="fa-solid fa-calendar"></i> آخر تحديث: ${fmtDate(item.updated_at || item.created_at)}</span>
+          ${item.version ? `<span class="chip"><i class="fa-solid fa-tag"></i> ${t('detail.version')} ${esc(item.version)}</span>` : ''}
+          <span class="chip"><i class="fa-solid fa-download"></i> ${dlText(item.download_count || 0)}</span>
+          <span class="chip"><i class="fa-solid fa-calendar"></i> ${t('detail.lastUpdate')} ${fmtDate(item.updated_at || item.created_at)}</span>
         </div>
         <div class="download-zone" id="downloadZone"></div>
       </div>
     </div>
 
-    ${shots.length ? `<div class="detail-block"><h2><i class="fa-solid fa-images"></i> لقطات من ${type === 'game' ? 'اللعبة' : 'التطبيق'}</h2>
-      <div class="gallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" onclick="window.open(this.src,'_blank')" onerror="this.style.display='none'">`).join('')}</div></div>` : ''}
+    ${shots.length ? `<div class="detail-block"><h2><i class="fa-solid fa-images"></i> ${type === 'game' ? t('detail.shotsGame') : t('detail.shotsApp')}</h2>
+      <div class="gallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" decoding="async" onclick="window.open(this.src,'_blank')" onerror="this.style.display='none'">`).join('')}</div></div>` : ''}
 
-    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> الوصف الكامل</h2><p>${esc(item.description || item.short_desc || '')}</p></div>
+    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> ${t('detail.fullDesc')}</h2><p>${esc(item.description || item.short_desc || '')}</p></div>
 
-    ${features.length ? `<div class="detail-block"><h2><i class="fa-solid fa-list-check"></i> المميزات</h2>
+    ${features.length ? `<div class="detail-block"><h2><i class="fa-solid fa-list-check"></i> ${t('detail.features')}</h2>
       <ul class="features-list">${features.map(f => `<li><i class="fa-solid fa-circle-check"></i> ${esc(f)}</li>`).join('')}</ul></div>` : ''}
 
-    ${item.requirements ? `<div class="detail-block"><h2><i class="fa-solid fa-microchip"></i> متطلبات التشغيل</h2><p>${esc(item.requirements)}</p></div>` : ''}
+    ${item.requirements ? `<div class="detail-block"><h2><i class="fa-solid fa-microchip"></i> ${t('detail.requirements')}</h2><p>${esc(item.requirements)}</p></div>` : ''}
 
-    <div style="margin-top:28px;"><a href="${backHash}" class="btn btn-secondary btn-sm">← ${backLabel}</a></div>`;
+    <div style="margin-top:28px;"><a href="${backHash}" class="btn btn-secondary btn-sm">${backLabel}</a></div>`;
 
     const zone = document.getElementById('downloadZone');
     if (!zone) return;
     if (!hasDownload || item.status !== 'available') {
-        zone.innerHTML = `<button class="btn-download-big disabled" disabled><i class="fa-solid fa-hourglass-half"></i> ${item.status === 'available' ? 'رابط التحميل غير متوفر بعد — قريباً' : 'قريباً — هذه النسخة غير متاحة للتحميل بعد'}</button>`;
+        zone.innerHTML = `<button class="btn-download-big disabled" disabled><i class="fa-solid fa-hourglass-half"></i> ${item.status === 'available' ? t('detail.noLink') : t('detail.notAvailable')}</button>`;
         return;
     }
     // عداد 7 ثوانٍ قبل ظهور زر التحميل (نفس نمط عمر المجرب)
@@ -1811,15 +2028,15 @@ function renderItemDetail(box, item, type) {
     zone.innerHTML = `
       <div class="timer-box" id="timerBox">
         <i class="fa-solid fa-hourglass-half fa-spin" style="font-size:1.6rem;color:var(--violet-light)"></i>
-        <p style="margin:8px 0 4px;font-weight:800;">جاري تجهيز رابط التحميل الآمن...</p>
+        <p style="margin:8px 0 4px;font-weight:800;">${t('detail.preparing')}</p>
         <div class="timer-countdown" id="timerCount">7</div>
-        <small style="color:var(--text-gray);">يرجى الانتظار ثوانٍ معدودة</small>
+        <small style="color:var(--text-gray);">${t('detail.wait')}</small>
       </div>
       <div id="downloadBtnBox" style="display:none;">
         <a href="${esc(item.download_url)}" id="downloadLink" download class="btn-download-big" onclick="handleDownloadClick(event)">
-          <i class="fa-solid fa-cloud-arrow-down"></i> تحميل الآن
+          <i class="fa-solid fa-cloud-arrow-down"></i> ${t('detail.downloadNow')}
         </a>
-        <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">تحميل مباشر — يبدأ التحميل تلقائياً</p>
+        <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">${t('detail.directDownload')}</p>
       </div>`;
     let seconds = 7;
     const countEl = document.getElementById('timerCount');

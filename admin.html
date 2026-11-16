@@ -2,6 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
+  <script>/* v4: apply saved theme + language before first paint (no flash) */try{var _t=localStorage.getItem('abdellatif-dev-theme');if(_t==='light'||_t==='dark')document.documentElement.setAttribute('data-theme',_t);}catch(e){}try{var _l=localStorage.getItem('abdellatif-dev-lang');if(_l==='ar'||_l==='en'||_l==='fr'){document.documentElement.lang=_l;document.documentElement.dir=_l==='ar'?'rtl':'ltr';}}catch(e){}</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>لوحة الإدارة | Abdellatif Dev</title>
   <meta name="robots" content="noindex, nofollow">
@@ -51,7 +52,8 @@
   --line: rgba(255, 255, 255, 0.12);
   --line-hi: rgba(255, 255, 255, 0.24);
   --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.17), inset 0 -1px 0 rgba(255, 255, 255, 0.03), 0 30px 60px -34px rgba(0, 0, 0, 0.95);
-  --blur: blur(18px) saturate(165%);
+  --blur: blur(10px) saturate(140%);
+  --glass-solid: rgba(13, 19, 22, 0.92);
 
   /* ---- الأشكال والحركة ---- */
   --r-xl: 32px;
@@ -153,6 +155,69 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state,
   .login-card, .modal-dialog, .table-responsive, .footer-content { background: rgba(17, 25, 28, 0.94); }
 }
+/* ============================================================
+   v4 — الوضع الفاتح (Light theme)
+   يُفعَّل عبر data-theme="light" على <html> (الافتراضي dark).
+   كل الألوان عبر المتغيرات نفسها — لا تغيير في الهوية.
+   ============================================================ */
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #edf3f0;
+  --bg-2: #e2eae6;
+  --ink: #122019;
+  --ink-2: #3c4e45;
+  --ink-3: #64766c;
+  --mint: #0a8f66;
+  --lime: #5a8f00;
+  --gold: #a86e00;
+  --sky: #1d6fe0;
+  --danger: #d92d20;
+  --grad: linear-gradient(135deg, #0d9e6e 0%, #7cc700 100%);
+  --grad-text: linear-gradient(100deg, #0b3d2c 0%, #0d7a52 50%, #5a8f00 100%);
+  --mint-a: rgba(10, 143, 102, 0.13);
+  --gold-a: rgba(168, 110, 0, 0.12);
+  --sky-a: rgba(29, 111, 224, 0.12);
+  --danger-a: rgba(217, 45, 32, 0.10);
+  --glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.6) 100%);
+  --glass-bg-strong: linear-gradient(155deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.78) 100%);
+  --glass-flat: rgba(18, 60, 45, 0.06);
+  --glass-flat-hi: rgba(18, 60, 45, 0.12);
+  --glass-solid: rgba(255, 255, 255, 0.94);
+  --line: rgba(18, 60, 45, 0.14);
+  --line-hi: rgba(18, 60, 45, 0.3);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 24px 50px -30px rgba(18, 60, 45, 0.35);
+  --blur: blur(10px) saturate(150%);
+  --zellige: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88' fill='none' stroke='%23123a2e' stroke-width='1' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='6'/%3E%3Cpath d='M0 0l9 9M88 0l-9 9M0 88l9-9M88 88l-9-9M44 0v8M44 80v8M0 44h8M80 44h8'/%3E%3C/svg%3E");
+}
+/* خلفية الشفق في الوضع الفاتح */
+[data-theme="light"] .aurora { background: radial-gradient(90% 60% at 50% 0%, #d6f2e4 0%, rgba(237, 243, 240, 0) 70%), var(--bg); }
+[data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(10, 143, 102, 0.22), rgba(10, 143, 102, 0)); }
+[data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(29, 111, 224, 0.16), rgba(29, 111, 224, 0)); }
+[data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(168, 110, 0, 0.12), rgba(168, 110, 0, 0)); }
+[data-theme="light"] .aurora::after { opacity: 0.04; }
+/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح */
+[data-theme="light"] .hero-title { background: linear-gradient(100deg, #0b3d2c 0%, #0d7a52 45%, #5a8f00 75%, #0b3d2c 100%); background-size: 200% 100%; }
+/* أغلفة البطاقات: بلاطة فاتحة بدل الداكنة */
+[data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(10, 143, 102, 0.2), transparent 55%), radial-gradient(circle at 85% 95%, rgba(29, 111, 224, 0.18), transparent 55%), #d9e7df; }
+/* نصوص التنبيهات والنماذج */
+[data-theme="light"] .alert-info { color: #0b4d38; }
+[data-theme="light"] .alert-success { color: #0b5c33; }
+[data-theme="light"] .alert-danger { color: #8f1d13; }
+[data-theme="light"] .form-group select option { background: #ffffff; }
+[data-theme="light"] .form-group input, [data-theme="light"] .form-group select, [data-theme="light"] .form-group textarea { background: rgba(18, 60, 45, 0.05); }
+[data-theme="light"] .form-group input[type='datetime-local'] { color-scheme: light; }
+/* عناصر صغيرة */
+[data-theme="light"] .skeleton { background: linear-gradient(100deg, rgba(18, 60, 45, 0.05) 30%, rgba(18, 60, 45, 0.13) 50%, rgba(18, 60, 45, 0.05) 70%); }
+[data-theme="light"] .timer-countdown::before { background: conic-gradient(var(--mint) 0deg, var(--lime) var(--p), rgba(18, 60, 45, 0.12) var(--p)); }
+[data-theme="light"] .strip-next { background: rgba(255, 255, 255, 0.88); }
+[data-theme="light"] .progress-track { background: rgba(18, 60, 45, 0.08); }
+[data-theme="light"] .check-line input[type='checkbox'] { background: rgba(18, 60, 45, 0.12); }
+[data-theme="light"] body { scrollbar-color: rgba(18, 60, 45, 0.3) transparent; }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(18, 60, 45, 0.25); }
+
+/* انتقال سلس عند تبديل الوضع (الألوان فقط — لا يلغي حركات العناصر) */
+body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
+
 
 /* ============================================================
    الأزرار
@@ -178,7 +243,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .btn-primary:active { transform: translateY(0) scale(0.98); }
 .btn-secondary {
   background: var(--glass-flat); border-color: var(--line); color: var(--ink);
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .btn-secondary:hover { background: var(--glass-flat-hi); border-color: var(--line-hi); transform: translateY(-2px); }
@@ -279,9 +344,9 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 .search-box { position: relative; margin-bottom: 18px; }
 .search-box input {
-  width: 100%; height: 56px; padding: 0 56px 0 20px; font-size: 0.98rem; outline: none; border-radius: 999px;
+  width: 100%; height: 56px; padding: 0 20px; padding-inline-start: 56px; font-size: 0.98rem; outline: none; border-radius: 999px;
   background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   transition: border-color 0.25s, box-shadow 0.25s;
 }
 .search-box input::placeholder { color: var(--ink-3); }
@@ -290,7 +355,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 .filter-chips {
   display: inline-flex; gap: 4px; flex-wrap: wrap; padding: 5px; margin-bottom: 26px; border-radius: 999px; max-width: 100%;
-  background: var(--glass-flat); border: 1px solid var(--line); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  background: var(--glass-flat); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .filter-btn {
   height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2);
@@ -430,7 +495,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 /* ---------- المودال ---------- */
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 200; display: none; align-items: flex-start; justify-content: center; padding: 32px 16px; overflow-y: auto;
-  background: rgba(3, 5, 8, 0.62); -webkit-backdrop-filter: blur(16px) saturate(120%); backdrop-filter: blur(16px) saturate(120%);
+  background: rgba(3, 5, 8, 0.62); -webkit-backdrop-filter: blur(12px) saturate(120%); backdrop-filter: blur(12px) saturate(120%);
 }
 .modal-backdrop.show { display: flex; }
 .modal-dialog {
@@ -461,7 +526,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
     position: sticky; top: 10px; z-index: 60; height: auto; overflow: visible; gap: 8px 10px; padding: 10px 10px 8px; border-radius: 28px;
     display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'logo actions' 'tabs tabs';
     background: linear-gradient(155deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)), rgba(8, 12, 15, 0.6);
-    -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
   }
   .admin-side .logo { grid-area: logo; font-size: 1rem; gap: 10px; padding-inline-start: 2px; }
   .admin-side .brand-latin { flex-direction: row; align-items: baseline; gap: 6px; }
@@ -497,7 +562,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .data-table, .data-table tbody { display: block; width: 100%; }
   .data-table tbody tr {
     display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 2px 14px; padding: 14px; margin-bottom: 12px; border-radius: var(--r-lg);
-    background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   }
   .data-table td { display: block; padding: 0; border: 0; min-width: 0; }
   .data-table td:nth-child(1) { grid-row: 1 / span 3; }
@@ -512,6 +577,15 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .row-actions .btn { width: 100%; min-width: 0; padding: 0 6px; }
 }
 @media (max-width: 420px) { .login-card { padding: 34px 22px 24px; } }
+
+/* ============================================================
+   v4 — الأداء: الجوال بلا blur (خلفيات صلبة) + شفق ثابت
+   ============================================================ */
+@media (max-width: 640px) {
+  .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input, .filter-chips { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input { background: var(--glass-solid); }
+  .aurora i { animation: none !important; }
+}
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -550,6 +624,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
       <div id="loginError" class="alert-danger" style="display:none;margin-top:14px;"></div>
       <div style="text-align:center;margin-top:18px;">
         <a href="index.html" class="back-link" style="color:var(--text-gray);">← العودة للموقع الرئيسي</a>
+        <br><button type="button" class="btn btn-ghost btn-sm" style="margin-top:12px;" onclick="toggleTheme()"><i data-theme-icon class="fa-solid fa-sun"></i> <span data-theme-label>الوضع الفاتح</span></button>
       </div>
     </div>
   </div>
@@ -581,6 +656,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
         <div class="side-actions">
           <a href="index.html" target="_blank" class="btn btn-ghost btn-sm" title="عرض الموقع"><i class="fa-solid fa-eye"></i> <span class="lbl">عرض الموقع</span></a>
           <button class="btn btn-secondary btn-sm" onclick="handleLogout()" title="خروج"><i class="fa-solid fa-arrow-right-from-bracket"></i> <span class="lbl">خروج</span></button>
+          <button class="btn btn-ghost btn-sm" onclick="toggleTheme()" title="تبديل الوضع"><i data-theme-icon class="fa-solid fa-sun"></i> <span class="lbl" data-theme-label>الوضع الفاتح</span></button>
         </div>
       </aside>
 
@@ -752,6 +828,32 @@ function esc(s) {
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 }
+
+
+// ============================================================
+// v4 — الوضع الفاتح/الداكن (مفتاح التخزين مشترك مع لوحة الإدارة)
+// ============================================================
+const THEME_KEY = 'abdellatif-dev-theme';
+function applyTheme(theme) {
+    const t = (theme === 'light' || theme === 'dark') ? theme : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    document.querySelectorAll('[data-theme-icon]').forEach(ic => {
+        ic.className = t === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    });
+    document.querySelectorAll('[data-theme-label]').forEach(lb => {
+        lb.textContent = t === 'light' ? 'الوضع الداكن' : 'الوضع الفاتح';
+    });
+    try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+}
+window.toggleTheme = function() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+};
+(function initTheme() {
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+    applyTheme(saved === 'light' || saved === 'dark' ? saved : 'dark');
+})();
 
 const STATUS_OPTIONS = [
     { value: 'available', label: 'متاحة للتحميل' },

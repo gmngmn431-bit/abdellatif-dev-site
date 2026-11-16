@@ -259,16 +259,17 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 /* ============================================================
    شارات الحالة
    ============================================================ */
-.status-badge, .badge-published, .badge-draft {
+.status-badge, .badge-published, .badge-draft, .badge-platform {
   display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 11px; border-radius: 999px;
   font-size: 0.76rem; font-weight: 600; line-height: 1.7; border: 1px solid transparent;
 }
-.status-badge::before, .badge-published::before, .badge-draft::before {
+.status-badge::before, .badge-published::before, .badge-draft::before, .badge-platform::before {
   content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; flex: none;
 }
 .status-available, .badge-published { background: var(--mint-a); color: var(--mint); border-color: rgba(56, 242, 176, 0.32); }
 .status-in_dev, .badge-draft { background: var(--gold-a); color: var(--gold); border-color: rgba(255, 193, 77, 0.32); }
 .status-coming_soon { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
+.badge-platform { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
 
 /* ============================================================
    رسائل وتنبيهات وحالات
@@ -861,6 +862,26 @@ const STATUS_OPTIONS = [
     { value: 'coming_soon', label: 'قريباً' }
 ];
 const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
+const PLATFORM_OPTIONS = [
+    { value: 'pc', label: 'حاسوب' },
+    { value: 'phone', label: 'هاتف' },
+    { value: 'mod-minecraft', label: 'مود ماينكرافت' },
+    { value: 'mod-gta', label: 'مود GTA' }
+];
+const PLATFORM_LABELS = { pc: 'حاسوب', phone: 'هاتف', 'mod-minecraft': 'مود ماينكرافت', 'mod-gta': 'مود GTA' };
+// v5 — استنتاج المنصة للصفوف القديمة بلا عمود platform (أمان ما قبل تشغيل migrate-platform.sql)
+function platformOfAdmin(item, kind) {
+    if (item && item.platform) return item.platform;
+    const title = ((item && item.title) || '').toLowerCase();
+    const cat = (item && item.category) || '';
+    if (cat === 'مهكرة') {
+        if (/minecraft|fabric|sodium|iris|lithium|jei|xaero|amethyst|ماينكرافت|فابريك|صوديوم|آيريس|ليثيوم|زايرو|أميثيست/.test(title)) return 'mod-minecraft';
+        if (/gta|cleo|مود لودر|كليو|سيارة|san andreas/.test(title)) return 'mod-gta';
+        if (/openmw|أوبن/.test(title)) return 'phone';
+        return 'mod-minecraft';
+    }
+    return kind === 'games' ? 'pc' : 'phone';
+}
 
 // ---------- تعريف الحقول لكل نوع محتوى ----------
 // type: text | textarea | url | number | select | checkbox | features | image | screenshots | datetime | file
@@ -870,6 +891,7 @@ const GAME_APP_FIELDS = (kind) => [
     FIELD('title', kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق', 'text', { required: true, placeholder: kind === 'games' ? 'مثال: لعبة الكارطة المغربية' : 'مثال: تطبيق الحاسبة الذكية' }),
     FIELD('slug', 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', { placeholder: 'moroccan-card-game' }),
     FIELD('category', 'التصنيف', 'select', { required: true, options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: 'مهكرة' }], value: 'رسمية' }),
+    FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: kind === 'games' ? 'pc' : 'phone' }),
     FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: 'جملة واحدة تعرّف باللعبة...' }),
     FIELD('description', 'الوصف الكامل', 'textarea', { required: true, rows: 4 }),
     FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nالعب ضد البوتات\nالعب مع الأصدقاء عبر الواي فاي' }),
@@ -1076,7 +1098,7 @@ window.renderAdminList = function(entity) {
         if (entity === 'games' || entity === 'apps') {
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'}</small></td>
+                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span></small></td>
                 <td data-label="الحالة">${esc(STATUS_LABELS[item.status] || item.status || '')}</td>
                 <td data-label="التحميلات">${item.download_count || 0}</td>
                 <td data-label="الإجراءات">${actionsHtml(entity, item)}</td>`;

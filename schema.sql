@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS public.games (
     title TEXT NOT NULL,
     slug TEXT UNIQUE,
     category TEXT NOT NULL DEFAULT 'رسمية',
+    platform TEXT NOT NULL DEFAULT 'phone' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta')),
+    platform TEXT NOT NULL DEFAULT 'pc' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta')),
     short_desc TEXT NOT NULL DEFAULT '',
     description TEXT NOT NULL DEFAULT '',
     features JSONB NOT NULL DEFAULT '[]'::jsonb,
@@ -101,6 +103,8 @@ ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS features JSONB NOT NULL DEFAULT
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS screenshots JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS requirements TEXT;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS download_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS platform TEXT NOT NULL DEFAULT 'pc' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta'));
+ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS platform TEXT NOT NULL DEFAULT 'phone' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta'));
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS progress INTEGER;
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS latest_update TEXT;
 ALTER TABLE public.news ADD COLUMN IF NOT EXISTS external_url TEXT;

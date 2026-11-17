@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#05070a">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338f2b0'/%3E%3Cstop offset='1' stop-color='%23c8ff52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Cpath d='M17 46L32 16l15 30M23.5 36h17' fill='none' stroke='%2303140d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2356f59b'/%3E%3Cstop offset='1' stop-color='%23bafe5b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='18' fill='url(%23g)'/%3E%3Cpath d='M17 46L32 16l15 30M23.5 36h17' fill='none' stroke='%2303140d' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
@@ -37,14 +37,14 @@
   --ink-3: #8a9891;
 
   /* ---- ألوان الهوية ---- */
-  --mint: #38f2b0;
-  --lime: #c8ff52;
+  --mint: #56f59b;
+  --lime: #bafe5b;
   --gold: #ffc14d;
   --sky: #5aa9ff;
   --danger: #ff9090;
-  --grad: linear-gradient(135deg, #38f2b0 0%, #c8ff52 100%);
-  --grad-text: linear-gradient(100deg, #ffffff 0%, #a4f8da 46%, #c8ff52 100%);
-  --mint-a: rgba(56, 242, 176, 0.14);
+  --grad: linear-gradient(135deg, #56f59b 0%, #bafe5b 100%);
+  --grad-text: linear-gradient(100deg, #ffffff 0%, #b8fbe0 46%, #bafe5b 100%);
+  --mint-a: rgba(86, 245, 155, 0.14);
   --gold-a: rgba(255, 193, 77, 0.14);
   --sky-a: rgba(90, 169, 255, 0.15);
   --danger-a: rgba(255, 144, 144, 0.13);
@@ -106,7 +106,7 @@ a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 button { font-family: inherit; cursor: pointer; }
 input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1rem; }
-::selection { background: var(--mint); color: #03140d; }
+::selection { background: var(--mint); color: #04110a; }
 :focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
 ::-webkit-scrollbar { width: 10px; height: 10px; }
 ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 99px; border: 2px solid transparent; background-clip: padding-box; }
@@ -122,7 +122,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   background: radial-gradient(90% 60% at 50% 0%, #0a1b18 0%, rgba(5, 7, 10, 0) 70%), var(--bg);
 }
 .aurora i { position: absolute; display: block; border-radius: 50%; }
-.aurora i:nth-child(1) { width: 72vmax; height: 72vmax; top: -34vmax; right: -24vmax; background: radial-gradient(closest-side, rgba(56, 242, 176, 0.30), rgba(56, 242, 176, 0)); }
+.aurora i:nth-child(1) { width: 72vmax; height: 72vmax; top: -34vmax; right: -24vmax; background: radial-gradient(closest-side, rgba(86, 245, 155, 0.30), rgba(86, 245, 155, 0)); }
 .aurora i:nth-child(2) { width: 64vmax; height: 64vmax; bottom: -32vmax; left: -22vmax; background: radial-gradient(closest-side, rgba(90, 169, 255, 0.25), rgba(90, 169, 255, 0)); }
 .aurora i:nth-child(3) { width: 50vmax; height: 50vmax; top: 36%; left: 26%; background: radial-gradient(closest-side, rgba(255, 193, 77, 0.13), rgba(255, 193, 77, 0)); }
 .aurora::after {
@@ -164,7 +164,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .login-card, .modal-dialog, .table-responsive, .footer-content { background: rgba(17, 25, 28, 0.94); }
 }
 /* ============================================================
-   v4 — الوضع الفاتح (Light theme) · v8: أخضر Muse (أخضر فاقع + أبيض)
+   v4 — الوضع الفاتح (Light theme) · v10: أخضر عمر #56f59b/#bafe5b (كان أخضر Muse في v8)
    يُفعَّل عبر data-theme="light" على <html> (الافتراضي dark).
    كل الألوان عبر المتغيرات نفسها — لا تغيير في الهوية.
    ============================================================ */
@@ -175,21 +175,21 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   --ink: #002000;
   --ink-2: #134a28;
   --ink-3: #4a7a5c;
-  --mint: #008f4c;
-  --lime: #00e070;
-  --gold: #007a43;
-  --sky: #00824a;
+  --mint: #007a4d;
+  --lime: #56f59b;
+  --gold: #007a4d;
+  --sky: #007a4d;
   --danger: #d92d20;
-  --grad: linear-gradient(135deg, #00e070 0%, #00b35c 100%);
-  --grad-text: linear-gradient(100deg, #002000 0%, #009444 50%, #00c853 100%);
-  --mint-a: rgba(0, 143, 76, 0.13);
-  --gold-a: rgba(0, 122, 67, 0.12);
-  --sky-a: rgba(0, 130, 74, 0.12);
+  --grad: linear-gradient(135deg, #56f59b 0%, #bafe5b 100%);
+  --grad-text: linear-gradient(100deg, #002000 0%, #007a4d 50%, #00a862 100%);
+  --mint-a: rgba(0, 122, 77, 0.13);
+  --gold-a: rgba(0, 122, 77, 0.12);
+  --sky-a: rgba(0, 122, 77, 0.12);
   --danger-a: rgba(217, 45, 32, 0.10);
   --glass-bg: linear-gradient(155deg, rgba(255, 255, 255, 0.92) 0%, rgba(234, 250, 240, 0.65) 100%);
   --glass-bg-strong: linear-gradient(155deg, rgba(255, 255, 255, 0.98) 0%, rgba(234, 250, 240, 0.85) 100%);
-  --glass-flat: rgba(0, 143, 76, 0.06);
-  --glass-flat-hi: rgba(0, 143, 76, 0.12);
+  --glass-flat: rgba(0, 122, 77, 0.06);
+  --glass-flat-hi: rgba(0, 122, 77, 0.12);
   --glass-solid: rgba(255, 255, 255, 0.96);
   --line: rgba(0, 64, 32, 0.14);
   --line-hi: rgba(0, 64, 32, 0.30);
@@ -199,17 +199,17 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 }
 /* خلفية الشفق في الوضع الفاتح */
 [data-theme="light"] .aurora { background: radial-gradient(90% 60% at 50% 0%, #b0f0d0 0%, rgba(255, 255, 255, 0) 70%), var(--bg); }
-[data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(0, 224, 112, 0.25), rgba(0, 224, 112, 0)); }
-[data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 180, 90, 0.18), rgba(0, 180, 90, 0)); }
-[data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 122, 67, 0.12), rgba(0, 122, 67, 0)); }
+[data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(86, 245, 155, 0.25), rgba(86, 245, 155, 0)); }
+[data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 168, 98, 0.18), rgba(0, 168, 98, 0)); }
+[data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 122, 77, 0.12), rgba(0, 122, 77, 0)); }
 [data-theme="light"] .aurora::after { opacity: 0.04; }
-/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح · v9: background-clip: text — الـ background المختصر كان يصفّر الـ clip فالنص يختفي في الفاتح */
-[data-theme="light"] .hero-title { background: linear-gradient(100deg, #002000 0%, #009444 45%, #00c853 75%, #002000 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح · v9: background-clip: text — الـ background المختصر كان يصفّر الـ clip فالنص يختفي في الفاتح · v10: أخضر عمر (#007a4d/#00a862) */
+[data-theme="light"] .hero-title { background: linear-gradient(100deg, #002000 0%, #007a4d 45%, #00a862 75%, #002000 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
 /* أغلفة البطاقات: بلاطة فاتحة بدل الداكنة */
-[data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(0, 224, 112, 0.22), transparent 55%), radial-gradient(circle at 85% 95%, rgba(0, 143, 76, 0.20), transparent 55%), #d9f2e4; }
+[data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(86, 245, 155, 0.22), transparent 55%), radial-gradient(circle at 85% 95%, rgba(0, 122, 77, 0.20), transparent 55%), #d9f2e4; }
 /* نصوص التنبيهات والنماذج */
 [data-theme="light"] .alert-info { color: #004d1f; }
-[data-theme="light"] .alert-success { color: #007a43; }
+[data-theme="light"] .alert-success { color: #007a4d; }
 [data-theme="light"] .alert-danger { color: #8f1d13; }
 [data-theme="light"] .form-group select option { background: #ffffff; }
 [data-theme="light"] .form-group input, [data-theme="light"] .form-group select, [data-theme="light"] .form-group textarea { background: rgba(0, 64, 32, 0.05); }
@@ -223,18 +223,18 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 [data-theme="light"] body { scrollbar-color: rgba(0, 64, 32, 0.3) transparent; }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0, 64, 32, 0.25); }
 
-/* v8 — أخضر Muse: أزرار خضراء عميقة بنص أبيض (لون زر صورة Muse) + حدود خضراء للشارات */
-[data-theme="light"] .btn.btn-primary, [data-theme="light"] .btn-download-big { background: linear-gradient(135deg, #008f4c 0%, #004d1f 100%); color: #ffffff; }
-[data-theme="light"] .btn-primary:hover, [data-theme="light"] .btn-download-big:hover { box-shadow: 0 16px 44px -10px rgba(0, 143, 76, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
-[data-theme="light"] .status-in_dev, [data-theme="light"] .badge-draft { border-color: rgba(0, 122, 67, 0.32); }
-[data-theme="light"] .status-coming_soon { border-color: rgba(0, 143, 76, 0.34); }
+/* v10 — أخضر عمر: أزرار بتدرّج أخضر فاتح ونص داكن (نمط موقع عمر) + حدود خضراء للشارات — في v8 كانت أزراراً خضراء عميقة بنص أبيض */
+[data-theme="light"] .btn.btn-primary, [data-theme="light"] .btn-download-big { background: linear-gradient(135deg, #56f59b 0%, #bafe5b 100%); color: #04110a; }
+[data-theme="light"] .btn-primary:hover, [data-theme="light"] .btn-download-big:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+[data-theme="light"] .status-in_dev, [data-theme="light"] .badge-draft { border-color: rgba(0, 122, 77, 0.32); }
+[data-theme="light"] .status-coming_soon { border-color: rgba(0, 122, 77, 0.34); }
 [data-theme="light"] .progress-label b { color: var(--mint); }
 
-[data-theme="light"] .stat-card:hover { background: rgba(0, 143, 76, 0.06); }
-[data-theme="light"] .stat-card i { border-color: rgba(0, 143, 76, 0.28); }
-[data-theme="light"] .stat-card:nth-child(2) i { border-color: rgba(0, 143, 76, 0.3); }
-[data-theme="light"] .stat-card:nth-child(3) i { border-color: rgba(0, 122, 67, 0.3); }
-[data-theme="light"] .stat-card:nth-child(4) i { color: var(--mint); background: var(--mint-a); border-color: rgba(0, 143, 76, 0.3); }
+[data-theme="light"] .stat-card:hover { background: rgba(0, 122, 77, 0.06); }
+[data-theme="light"] .stat-card i { border-color: rgba(0, 122, 77, 0.28); }
+[data-theme="light"] .stat-card:nth-child(2) i { border-color: rgba(0, 122, 77, 0.3); }
+[data-theme="light"] .stat-card:nth-child(3) i { border-color: rgba(0, 122, 77, 0.3); }
+[data-theme="light"] .stat-card:nth-child(4) i { color: var(--mint); background: var(--mint-a); border-color: rgba(0, 122, 77, 0.3); }
 
 /* انتقال سلس عند تبديل الوضع (الألوان فقط — لا يلغي حركات العناصر) */
 body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
@@ -257,10 +257,10 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 }
 .btn:hover::after { transform: translateX(-120%) skewX(-18deg); }
 .btn-primary {
-  background: var(--grad); color: #03140d;
-  box-shadow: 0 10px 34px -10px rgba(56, 242, 176, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  background: var(--grad); color: #04110a;
+  box-shadow: 0 10px 34px -10px rgba(86, 245, 155, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px -10px rgba(56, 242, 176, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px -10px rgba(86, 245, 155, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
 .btn-primary:active { transform: translateY(0) scale(0.98); }
 .btn-secondary {
   background: var(--glass-flat); border-color: var(--line); color: var(--ink);
@@ -287,7 +287,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .status-badge::before, .badge-published::before, .badge-draft::before {
   content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; flex: none;
 }
-.status-available, .badge-published { background: var(--mint-a); color: var(--mint); border-color: rgba(56, 242, 176, 0.32); }
+.status-available, .badge-published { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.32); }
 .status-in_dev, .badge-draft { background: var(--gold-a); color: var(--gold); border-color: rgba(255, 193, 77, 0.32); }
 .status-coming_soon { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
 
@@ -297,8 +297,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .alert-info, .alert-danger, .alert-success {
   position: relative; border-radius: var(--r-md); padding: 14px 18px; font-weight: 500; font-size: 0.93rem; line-height: 1.8;
 }
-.alert-info { color: #cfeee3; border-color: rgba(56, 242, 176, 0.3); background: linear-gradient(155deg, rgba(56, 242, 176, 0.14), rgba(56, 242, 176, 0.04)); }
-.alert-success { color: #d6ffe8; border-color: rgba(56, 242, 176, 0.38); background: linear-gradient(155deg, rgba(56, 242, 176, 0.18), rgba(56, 242, 176, 0.05)); }
+.alert-info { color: #cfeee3; border-color: rgba(86, 245, 155, 0.3); background: linear-gradient(155deg, rgba(86, 245, 155, 0.14), rgba(86, 245, 155, 0.04)); }
+.alert-success { color: #d6ffe8; border-color: rgba(86, 245, 155, 0.38); background: linear-gradient(155deg, rgba(86, 245, 155, 0.18), rgba(86, 245, 155, 0.05)); }
 .alert-danger { color: #ffd4d4; border-color: rgba(255, 144, 144, 0.38); background: linear-gradient(155deg, rgba(255, 144, 144, 0.16), rgba(255, 144, 144, 0.04)); }
 .alert-info i { color: var(--mint); margin-inline-end: 6px; }
 .setup-notice { margin-top: 22px; }
@@ -306,13 +306,13 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .empty-state { text-align: center; padding: 56px 24px; border-radius: var(--r-lg); border-style: dashed; border-color: var(--line-hi); color: var(--ink-2); }
 .empty-state .big {
   width: 84px; height: 84px; margin: 0 auto 16px; display: grid; place-items: center; font-size: 2.4rem; border-radius: 28px;
-  background: radial-gradient(circle at 30% 20%, rgba(56, 242, 176, 0.3), rgba(255, 255, 255, 0.04) 70%); border: 1px solid var(--line);
-  box-shadow: 0 0 50px -10px rgba(56, 242, 176, 0.45);
+  background: radial-gradient(circle at 30% 20%, rgba(86, 245, 155, 0.3), rgba(255, 255, 255, 0.04) 70%); border: 1px solid var(--line);
+  box-shadow: 0 0 50px -10px rgba(86, 245, 155, 0.45);
 }
 .empty-state h3 { color: var(--ink); font-family: var(--f-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
 
 .loading-box { text-align: center; padding: 60px 0 28px; color: var(--ink-2); font-weight: 500; }
-.loading-box i { font-size: 1.9rem; color: var(--mint); margin-bottom: 14px; filter: drop-shadow(0 0 14px rgba(56, 242, 176, 0.7)); }
+.loading-box i { font-size: 1.9rem; color: var(--mint); margin-bottom: 14px; filter: drop-shadow(0 0 14px rgba(86, 245, 155, 0.7)); }
 
 /* ============================================================
    النماذج
@@ -332,19 +332,19 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-3); opacity: 0.75; }
 .form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: var(--line-hi); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--mint); background: rgba(56, 242, 176, 0.05);
-  box-shadow: 0 0 0 4px rgba(56, 242, 176, 0.14), inset 0 2px 10px rgba(0, 0, 0, 0.2);
+  border-color: var(--mint); background: rgba(86, 245, 155, 0.05);
+  box-shadow: 0 0 0 4px rgba(86, 245, 155, 0.14), inset 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 .form-group select {
   appearance: none; -webkit-appearance: none; padding-inline-end: 18px; padding-left: 46px; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none' stroke='%2338f2b0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none' stroke='%2356f59b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: left 18px center;
 }
 .form-group select option { background: #0c1316; color: var(--ink); }
 .form-group input[type='file'] { padding: 10px; border-style: dashed; border-color: var(--line-hi); cursor: pointer; color: var(--ink-2); font-size: 0.88rem; }
 .form-group input[type='file']::file-selector-button {
   margin-inline-end: 14px; padding: 8px 18px; border: 0; border-radius: 999px; cursor: pointer;
-  background: var(--grad); color: #03140d; font-family: inherit; font-weight: 600; font-size: 0.85rem;
+  background: var(--grad); color: #04110a; font-family: inherit; font-weight: 600; font-size: 0.85rem;
 }
 .form-group input[type='datetime-local'] { color-scheme: dark; direction: ltr; text-align: right; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
@@ -360,7 +360,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   background: #fff; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45); transition: inset-inline-start 0.3s var(--ease), background 0.3s;
 }
 .form-group .check-line input[type='checkbox']:checked { background: var(--grad); border-color: transparent; }
-.form-group .check-line input[type='checkbox']:checked::before { inset-inline-start: 25px; background: #03140d; }
+.form-group .check-line input[type='checkbox']:checked::before { inset-inline-start: 25px; background: #04110a; }
 .form-group .check-line input[type='checkbox']:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
 
 .search-box { position: relative; margin-bottom: 18px; }
@@ -371,7 +371,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   transition: border-color 0.25s, box-shadow 0.25s;
 }
 .search-box input::placeholder { color: var(--ink-3); }
-.search-box input:focus { border-color: var(--mint); box-shadow: 0 0 0 4px rgba(56, 242, 176, 0.14), var(--glass-shadow); }
+.search-box input:focus { border-color: var(--mint); box-shadow: 0 0 0 4px rgba(86, 245, 155, 0.14), var(--glass-shadow); }
 .search-icon { position: absolute; top: 50%; transform: translateY(-50%); inset-inline-start: 22px; color: var(--mint); pointer-events: none; z-index: 1; }
 
 .filter-chips {
@@ -383,7 +383,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   font-weight: 600; font-size: 0.88rem; transition: background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 .filter-btn:hover { color: var(--ink); background: var(--glass-flat); }
-.filter-btn.active { background: var(--grad); color: #03140d; box-shadow: 0 6px 22px -8px rgba(56, 242, 176, 0.7); }
+.filter-btn.active { background: var(--grad); color: #04110a; box-shadow: 0 6px 22px -8px rgba(86, 245, 155, 0.7); }
 
 /* ============================================================
    الشعار
@@ -391,8 +391,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.18rem; cursor: pointer; }
 .logo-icon {
   position: relative; flex: none; width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center;
-  background: var(--grad); color: #03140d; font-size: 1.1rem;
-  box-shadow: 0 8px 28px -8px rgba(56, 242, 176, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: var(--grad); color: #04110a; font-size: 1.1rem;
+  box-shadow: 0 8px 28px -8px rgba(86, 245, 155, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .logo .brand-latin { font-family: var(--f-display); font-weight: 700; direction: ltr; letter-spacing: -0.01em; white-space: nowrap; }
 .logo .brand-latin b { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
@@ -403,7 +403,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 @keyframes rise { from { opacity: 0; transform: translateY(26px) scale(0.985); } }
 @keyframes viewIn { from { opacity: 0; transform: translateY(18px); } }
 @keyframes spin { to { transform: rotate(360deg); } }
-@keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 0 rgba(56, 242, 176, 0.7); } 70% { box-shadow: 0 0 0 9px rgba(56, 242, 176, 0); } }
+@keyframes pulseDot { 0%, 100% { box-shadow: 0 0 0 0 rgba(86, 245, 155, 0.7); } 70% { box-shadow: 0 0 0 9px rgba(86, 245, 155, 0); } }
 @keyframes shimmer { to { background-position: -200% 0; } }
 @keyframes ringTurn { to { --ang: 360deg; } }
 @keyframes ringFill { to { --p: 360deg; } }
@@ -441,10 +441,10 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .nav-link i { font-size: 0.82rem; opacity: 0.75; transition: opacity 0.3s, color 0.3s; }
 .nav-link:hover { color: var(--ink); background: var(--glass-flat); }
 .nav-link:hover i { opacity: 1; color: var(--mint); }
-.nav-link.active { color: #03140d; font-weight: 600; background: var(--grad); box-shadow: 0 8px 26px -10px rgba(56, 242, 176, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
-.nav-link.active i { opacity: 1; color: #03140d; }
+.nav-link.active { color: #04110a; font-weight: 600; background: var(--grad); box-shadow: 0 8px 26px -10px rgba(86, 245, 155, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+.nav-link.active i { opacity: 1; color: #04110a; }
 .nav-link.admin-btn { margin-inline-start: 8px; border: 1px solid var(--line); color: var(--mint); }
-.nav-link.admin-btn:hover { background: var(--mint-a); border-color: rgba(56, 242, 176, 0.4); }
+.nav-link.admin-btn:hover { background: var(--mint-a); border-color: rgba(86, 245, 155, 0.4); }
 @media (max-width: 1080px) { .nav-link i { display: none; } .nav-link { padding: 0 14px; } }
 
 /* ---------- الهيرو ---------- */
@@ -468,7 +468,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .hero-title {
   margin: 26px 0 20px; font-family: var(--f-display); font-weight: 800; line-height: 1.22; padding-bottom: 0.08em;
   font-size: clamp(2.7rem, 7.4vw, 5.6rem); overflow-wrap: anywhere;
-  background: linear-gradient(100deg, #ffffff 0%, #b6fbe0 38%, #c8ff52 72%, #ffffff 100%); background-size: 200% 100%;
+  background: linear-gradient(100deg, #ffffff 0%, #b8fbe0 38%, #bafe5b 72%, #ffffff 100%); background-size: 200% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 @keyframes titleShift { to { background-position: 100% 0; } }
@@ -479,12 +479,12 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .hero-visual { position: relative; width: 100%; max-width: 460px; aspect-ratio: 1; justify-self: center; }
 .hv-ring { position: absolute; border-radius: 50%; border: 1px dashed rgba(255, 255, 255, 0.22); animation: spin 90s linear infinite; }
 .hv-ring.r1 { inset: 0; }
-.hv-ring.r2 { inset: 13%; border-style: solid; border-color: rgba(56, 242, 176, 0.25); animation-direction: reverse; animation-duration: 70s; }
+.hv-ring.r2 { inset: 13%; border-style: solid; border-color: rgba(86, 245, 155, 0.25); animation-direction: reverse; animation-duration: 70s; }
 .hv-ring.r3 { inset: 25%; border-color: rgba(255, 255, 255, 0.1); border-style: solid; }
 .hv-core {
   position: absolute; inset: 31%; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
-  font-size: clamp(2.4rem, 5vw, 3.8rem); color: #03140d; background: var(--grad);
-  box-shadow: 0 0 120px 14px rgba(56, 242, 176, 0.42), inset 0 3px 0 rgba(255, 255, 255, 0.65), inset 0 -10px 30px rgba(0, 80, 50, 0.3);
+  font-size: clamp(2.4rem, 5vw, 3.8rem); color: #04110a; background: var(--grad);
+  box-shadow: 0 0 120px 14px rgba(86, 245, 155, 0.42), inset 0 3px 0 rgba(255, 255, 255, 0.65), inset 0 -10px 30px rgba(0, 80, 50, 0.3);
 }
 .hv-core::before { content: ''; position: absolute; inset: 0; background-image: var(--zellige); background-size: 46px; background-position: center; filter: invert(1); opacity: 0.22; }
 .hv-core i { position: relative; z-index: 1; }
@@ -522,11 +522,11 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .stat-card + .stat-card { border-inline-start: 1px solid var(--line); }
 .stat-card i {
   grid-area: ico; width: 54px; height: 54px; border-radius: 18px; display: grid; place-items: center; font-size: 1.2rem;
-  color: var(--mint); background: var(--mint-a); border: 1px solid rgba(56, 242, 176, 0.28);
+  color: var(--mint); background: var(--mint-a); border: 1px solid rgba(86, 245, 155, 0.28);
 }
 .stat-card:nth-child(2) i { color: var(--sky); background: var(--sky-a); border-color: rgba(90, 169, 255, 0.3); }
 .stat-card:nth-child(3) i { color: var(--gold); background: var(--gold-a); border-color: rgba(255, 193, 77, 0.3); }
-.stat-card:nth-child(4) i { color: var(--lime); background: rgba(200, 255, 82, 0.12); border-color: rgba(200, 255, 82, 0.3); }
+.stat-card:nth-child(4) i { color: var(--lime); background: rgba(186, 254, 91, 0.12); border-color: rgba(186, 254, 91, 0.3); }
 .stat-card h3 {
   grid-area: num; font-family: var(--f-display); font-size: clamp(1.9rem, 3.2vw, 2.5rem); font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums;
   background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -562,7 +562,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   background: var(--glass-flat); border: 1px solid var(--line); transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.3s var(--ease);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
-.see-all:hover { background: var(--mint-a); color: var(--mint); border-color: rgba(56, 242, 176, 0.4); transform: translateX(-4px); }
+.see-all:hover { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.4); transform: translateX(-4px); }
 
 /* ---------- البطاقات ---------- */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 310px), 1fr)); gap: 22px; }
@@ -581,12 +581,12 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
   mask-composite: exclude;
 }
-.card:hover { transform: translateY(-8px); border-color: var(--line-hi); box-shadow: var(--glass-shadow), 0 40px 70px -30px rgba(56, 242, 176, 0.28); }
+.card:hover { transform: translateY(-8px); border-color: var(--line-hi); box-shadow: var(--glass-shadow), 0 40px 70px -30px rgba(86, 245, 155, 0.28); }
 .card:hover::after { opacity: 1; animation: ringTurn 4.5s linear infinite; }
 
 .card-cover {
   position: relative; display: block; aspect-ratio: 16 / 10; border-radius: calc(var(--r-lg) - 8px); overflow: hidden;
-  background: radial-gradient(circle at 25% 15%, rgba(56, 242, 176, 0.28), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.28), transparent 55%), #0b1417;
+  background: radial-gradient(circle at 25% 15%, rgba(86, 245, 155, 0.28), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.28), transparent 55%), #0b1417;
 }
 .card-cover::before { content: ''; position: absolute; inset: 0; background-image: var(--zellige); background-size: 64px; opacity: 0.07; }
 .card-cover::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(5, 7, 10, 0) 50%, rgba(5, 7, 10, 0.55) 100%); }
@@ -607,8 +607,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .card-meta i { color: var(--mint); margin-inline-end: 6px; font-size: 0.85em; }
 .card-foot { margin-top: 8px; }
 .card-foot .btn { height: 46px; font-size: 0.9rem; background: var(--glass-flat); border: 1px solid var(--line); color: var(--ink); box-shadow: none; }
-.card:hover .card-foot .btn { background: var(--grad); color: #03140d; border-color: transparent; box-shadow: 0 12px 30px -10px rgba(56, 242, 176, 0.75); }
-@media (hover: none) { .card-foot .btn-primary { background: var(--grad); color: #03140d; border-color: transparent; } }
+.card:hover .card-foot .btn { background: var(--grad); color: #04110a; border-color: transparent; box-shadow: 0 12px 30px -10px rgba(86, 245, 155, 0.75); }
+@media (hover: none) { .card-foot .btn-primary { background: var(--grad); color: #04110a; border-color: transparent; } }
 
 /* — بنتو: أول لعبة كبيرة في الرئيسية عند وجود ثلاث بطاقات — */
 @media (min-width: 980px) {
@@ -676,7 +676,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .progress-track { height: 10px; border-radius: 999px; padding: 2px; background: rgba(255, 255, 255, 0.07); border: 1px solid var(--line); box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4); }
 .progress-fill {
   position: relative; height: 100%; min-width: 6px; border-radius: 999px; overflow: hidden; transition: width 1s var(--ease);
-  background: var(--grad); box-shadow: 0 0 18px rgba(56, 242, 176, 0.6);
+  background: var(--grad); box-shadow: 0 0 18px rgba(86, 245, 155, 0.6);
 }
 #homeProjects .card:hover .progress-fill::after, #devList .card:hover .progress-fill::after { animation: shimmer 2.6s linear infinite; }
 .progress-fill::after {
@@ -687,8 +687,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .detail-hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; align-items: stretch; padding: clamp(18px, 3vw, 40px) 0 6px; }
 .detail-cover {
   position: relative; min-height: 300px; border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--line-hi);
-  background: radial-gradient(circle at 25% 15%, rgba(56, 242, 176, 0.3), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.3), transparent 55%), #0b1417;
-  box-shadow: 0 50px 100px -50px rgba(56, 242, 176, 0.4), var(--glass-shadow);
+  background: radial-gradient(circle at 25% 15%, rgba(86, 245, 155, 0.3), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.3), transparent 55%), #0b1417;
+  box-shadow: 0 50px 100px -50px rgba(86, 245, 155, 0.4), var(--glass-shadow);
 }
 .detail-cover img, .detail-cover .cover-emoji { position: absolute; inset: 0; width: 100%; height: 100%; }
 .detail-cover img { object-fit: cover; }
@@ -715,21 +715,21 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .timer-countdown {
   position: relative; width: 104px; height: 104px; margin: 14px auto; display: grid; place-items: center; border-radius: 50%;
   font-family: var(--f-display); font-size: 2.6rem; font-weight: 800; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums;
-  background: radial-gradient(circle, rgba(56, 242, 176, 0.14), transparent 70%);
+  background: radial-gradient(circle, rgba(86, 245, 155, 0.14), transparent 70%);
 }
 .timer-countdown::before {
   content: ''; position: absolute; inset: 0; border-radius: 50%;
   background: conic-gradient(var(--mint) 0deg, var(--lime) var(--p), rgba(255, 255, 255, 0.1) var(--p));
   -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 6px), #000 calc(100% - 5px));
-  animation: ringFill 7s linear forwards; filter: drop-shadow(0 0 8px rgba(56, 242, 176, 0.6));
+  animation: ringFill 7s linear forwards; filter: drop-shadow(0 0 8px rgba(86, 245, 155, 0.6));
 }
 .btn-download-big {
   position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 68px; padding: 0 20px;
-  border-radius: 22px; font-size: 1.15rem; font-weight: 700; color: #03140d; background: var(--grad); border: 0;
-  box-shadow: 0 20px 50px -16px rgba(56, 242, 176, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.6); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  border-radius: 22px; font-size: 1.15rem; font-weight: 700; color: #04110a; background: var(--grad); border: 0;
+  box-shadow: 0 20px 50px -16px rgba(86, 245, 155, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.6); transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
 }
 .btn-download-big::after { content: ''; position: absolute; inset: 0; z-index: -1; transform: translateX(120%) skewX(-18deg); background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent); transition: transform 0.8s var(--ease); }
-.btn-download-big:hover { transform: translateY(-3px); box-shadow: 0 26px 60px -16px rgba(56, 242, 176, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+.btn-download-big:hover { transform: translateY(-3px); box-shadow: 0 26px 60px -16px rgba(86, 245, 155, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
 .btn-download-big:hover::after { transform: translateX(-120%) skewX(-18deg); }
 .btn-download-big.disabled {
   background: var(--glass-flat); border: 1px dashed var(--line-hi); color: var(--ink-2); font-size: 0.98rem; font-weight: 500; box-shadow: none; cursor: not-allowed; transform: none; height: 62px;
@@ -740,19 +740,19 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .detail-block h2 { display: flex; align-items: center; gap: 12px; font-family: var(--f-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; }
 .detail-block h2 i {
   width: 40px; height: 40px; border-radius: 14px; display: grid; place-items: center; font-size: 0.95rem; color: var(--mint);
-  background: var(--mint-a); border: 1px solid rgba(56, 242, 176, 0.28);
+  background: var(--mint-a); border: 1px solid rgba(86, 245, 155, 0.28);
 }
 .detail-block > p { white-space: pre-line; color: var(--ink-2); line-height: 2.05; padding: 24px 28px; border-radius: var(--r-lg); background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); }
 .detail-block > p.news-content { color: var(--ink-2); font-size: 1.06rem; }
 .features-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 12px; }
 .features-list li { display: flex; gap: 12px; align-items: flex-start; border-radius: var(--r-md); padding: 14px 18px; font-weight: 500; font-size: 0.95rem; line-height: 1.7; }
-.features-list li i { flex: none; margin-top: 4px; color: var(--mint); filter: drop-shadow(0 0 8px rgba(56, 242, 176, 0.6)); }
+.features-list li i { flex: none; margin-top: 4px; color: var(--mint); filter: drop-shadow(0 0 8px rgba(86, 245, 155, 0.6)); }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 14px; }
 .gallery img {
   width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-md); border: 1px solid var(--line); padding: 4px; background: var(--glass-flat);
   cursor: zoom-in; transition: transform 0.5s var(--ease), border-color 0.3s, box-shadow 0.5s var(--ease);
 }
-.gallery img:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(56, 242, 176, 0.5); box-shadow: 0 24px 50px -24px rgba(56, 242, 176, 0.4); }
+.gallery img:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(86, 245, 155, 0.5); box-shadow: 0 24px 50px -24px rgba(86, 245, 155, 0.4); }
 @media (max-width: 899px) { .detail-hero { grid-template-columns: 1fr; } .detail-cover { min-height: 0; aspect-ratio: 16 / 10; } }
 
 /* ---------- عن المطور ---------- */
@@ -779,7 +779,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   background: var(--glass-flat); border: 1px solid var(--line); transition: transform 0.3s var(--ease), border-color 0.3s, background 0.3s;
 }
 .tech-tag::before { content: ''; display: inline-block; width: 6px; height: 6px; margin: 0 5px; border-radius: 50%; vertical-align: middle; background: var(--mint); box-shadow: 0 0 10px var(--mint); }
-.tech-tag:hover { transform: translateY(-3px); border-color: rgba(56, 242, 176, 0.5); background: var(--mint-a); }
+.tech-tag:hover { transform: translateY(-3px); border-color: rgba(86, 245, 155, 0.5); background: var(--mint-a); }
 
 .social-icons { display: flex; gap: 12px; flex-wrap: wrap; }
 .social-icons a {
@@ -787,7 +787,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
   transition: transform 0.4s var(--ease), background 0.3s, color 0.3s, border-color 0.3s;
 }
-.social-icons a:hover { transform: translateY(-5px); background: var(--grad); color: #03140d; border-color: transparent; }
+.social-icons a:hover { transform: translateY(-5px); background: var(--grad); color: #04110a; border-color: transparent; }
 
 /* ---------- تحميل / أخطاء ---------- */
 .skeleton-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 20px; margin-top: 18px; }
@@ -839,6 +839,87 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   .nav-link i { display: block; font-size: 1.12rem; opacity: 0.9; }
   .nav-link.admin-btn { display: none; }
 }
+/* ============================================================
+   v10 — المفضلة + الرائج الآن + شريط الجوال السفلي + طلب لعبة
+   أخضر عمر (#56f59b / #bafe5b) — نفس هوية Aurora Glass، بلا تغيير
+   في المنطق الحالي (العدّاد، العد التنازلي، الاتصال).
+   ============================================================ */
+
+/* ---------- زر القلب (المفضلة) — داخل غلاف البطاقة ---------- */
+.fav-btn {
+  position: absolute; z-index: 3; top: 12px; inset-inline-end: 12px;
+  width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.28);
+  display: grid; place-items: center; font-size: 1rem; color: #fff; cursor: pointer;
+  background: rgba(5, 7, 10, 0.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: transform 0.3s var(--ease), background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.fav-btn:hover { transform: scale(1.12); color: #56f59b; border-color: #56f59b; }
+.fav-btn.active { background: var(--grad); color: #04110a; border-color: transparent; box-shadow: 0 8px 22px -8px rgba(86, 245, 155, 0.8); }
+.fav-btn:focus-visible { outline: 2px solid #56f59b; outline-offset: 2px; }
+.row-cover .fav-btn { width: 30px; height: 30px; font-size: 0.78rem; top: 6px; inset-inline-end: 6px; }
+
+/* ---------- شارة ترتيب «الرائج الآن» ---------- */
+.trending-rank {
+  position: absolute; z-index: 3; top: 6px; inset-inline-start: 6px;
+  min-width: 30px; height: 30px; padding: 0 7px; border-radius: 999px;
+  display: grid; place-items: center; font-family: var(--f-display); font-weight: 800; font-size: 0.82rem;
+  color: #04110a; background: var(--grad); box-shadow: 0 8px 22px -8px rgba(86, 245, 155, 0.8);
+}
+
+/* ---------- قائمة الطلبات العامة (صفحة «اطلب») ---------- */
+.req-list { display: grid; gap: 12px; margin-top: 16px; }
+.req-item {
+  padding: 18px 20px; border-radius: var(--r-lg);
+  background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
+}
+.req-item h4 { font-family: var(--f-display); font-size: 1.05rem; font-weight: 700; }
+.req-item .req-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 8px; color: var(--ink-2); font-size: 0.85rem; }
+.req-item .req-meta i { color: var(--mint); margin-inline-end: 4px; }
+.req-item p { margin-top: 8px; color: var(--ink-2); font-size: 0.93rem; }
+.req-status-pending { background: var(--gold-a); color: var(--gold); border-color: rgba(255, 193, 77, 0.32); }
+.req-status-approved { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
+.req-status-done { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.32); }
+.req-status-rejected { background: var(--danger-a); color: var(--danger); border-color: rgba(255, 144, 144, 0.35); }
+
+/* ---------- شريط التنقل السفلي للجوال (≤899px) ---------- */
+.bottom-nav { display: none; }
+@media (max-width: 899px) {
+  .bottom-nav {
+    position: fixed; z-index: 120; inset-inline: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    display: flex; justify-content: space-between; gap: 2px; padding: 8px;
+    border-radius: 30px; background: linear-gradient(155deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), rgba(8, 12, 15, 0.55);
+    border: 1px solid var(--line-hi); box-shadow: var(--glass-shadow), 0 24px 60px -10px rgba(0, 0, 0, 0.9);
+    -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+  }
+  .bn-item {
+    flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    height: 58px; padding: 0 2px; border: 0; border-radius: 22px; background: transparent; color: var(--ink-2);
+    font-family: inherit; font-weight: 500; font-size: clamp(0.58rem, 2.7vw, 0.7rem); line-height: 1.2; text-align: center; cursor: pointer;
+    transition: color 0.3s, background 0.3s, box-shadow 0.3s;
+  }
+  .bn-item i { font-size: 1.12rem; opacity: 0.9; }
+  .bn-item:hover { color: var(--ink); }
+  .bn-item:hover i { color: var(--mint); }
+  .bn-item.active { color: #04110a; font-weight: 600; background: var(--grad); box-shadow: 0 8px 26px -10px rgba(86, 245, 155, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+  .bn-item.active i { color: #04110a; opacity: 1; }
+  [data-theme="light"] .bottom-nav { background: linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(234, 250, 240, 0.9)); }
+  /* الشريط العلوي يصبح قائمة همبرغر منسدلة (بدل الشريط السفلي القديم) */
+  .nav-toggle { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--ink); background: var(--glass-flat); border: 1px solid var(--line); font-size: 1rem; }
+  .nav-links {
+    position: fixed; z-index: 130; top: calc(72px + env(safe-area-inset-top, 0px)); inset-inline: 12px; bottom: auto;
+    display: none; flex-direction: column; align-items: stretch; gap: 2px; padding: 10px;
+    border-radius: 24px; background: linear-gradient(155deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), rgba(8, 12, 15, 0.88);
+    border: 1px solid var(--line-hi); box-shadow: var(--glass-shadow), 0 24px 60px -10px rgba(0, 0, 0, 0.9);
+    -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
+  }
+  .nav-links.show { display: flex; }
+  .nav-links .nav-link { flex: none; flex-direction: row; justify-content: flex-start; height: 48px; padding: 0 16px; border-radius: 16px; font-size: 0.95rem; }
+  .nav-links .nav-link i { display: block; font-size: 0.95rem; }
+  .nav-links .nav-link.admin-btn { display: inline-flex; margin-inline-start: 0; }
+  [data-theme="light"] .nav-links { background: linear-gradient(155deg, rgba(255, 255, 255, 0.97), rgba(234, 250, 240, 0.92)); }
+}
+
 @media (min-width: 900px) { .nav-admin-mini { display: none; } }
 @media (max-width: 560px) {
   .container { padding: 0 16px; }
@@ -889,7 +970,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .row-card:hover { transform: translateY(-4px); border-color: var(--line-hi); }
 .row-cover {
   position: relative; aspect-ratio: 1; border-radius: 14px; overflow: hidden;
-  background: radial-gradient(circle at 25% 15%, rgba(56, 242, 176, 0.28), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.28), transparent 55%), #0b1417;
+  background: radial-gradient(circle at 25% 15%, rgba(86, 245, 155, 0.28), transparent 55%), radial-gradient(circle at 85% 95%, rgba(90, 169, 255, 0.28), transparent 55%), #0b1417;
 }
 .row-cover::before { content: ''; position: absolute; inset: 0; background-image: var(--zellige); background-size: 64px; opacity: .07; }
 .row-cover img { position: relative; width: 100%; height: 100%; object-fit: cover; }
@@ -1036,6 +1117,7 @@ button.nav-link { background: transparent; border: 0; }
         <a href="#/dev" class="nav-link" data-route="dev"><i class="fa-solid fa-code"></i> <span data-i18n="nav.dev">قيد التطوير</span></a>
         <a href="#/news" class="nav-link" data-route="news"><i class="fa-solid fa-newspaper"></i> <span data-i18n="nav.news">الأخبار</span></a>
         <a href="#/about" class="nav-link" data-route="about"><i class="fa-solid fa-circle-user"></i> <span data-i18n="nav.about">عن المطور</span></a>
+        <a href="#/request" class="nav-link" data-route="request"><i class="fa-solid fa-clipboard-list"></i> <span data-i18n="nav.request">اطلب</span></a>
         <a href="admin.html" class="nav-link admin-btn"><i class="fa-solid fa-lock"></i> <span data-i18n="nav.admin">لوحة الإدارة</span></a>
       </nav>
       <div class="nav-tools">
@@ -1097,6 +1179,18 @@ button.nav-link { background: transparent; border: 0; }
           <span id="heroSearchCount"></span>
         </div>
         <div id="heroSearchList"></div>
+      </div>
+
+      <!-- v10 — الرائج الآن: أعلى 6 عناصر حسب عدد التحميلات -->
+      <div class="section" id="trendingSection">
+        <div class="section-head">
+          <div class="sh-text">
+            <span class="eyebrow" data-i18n="sec.trendingEyebrow">00 — الرائج</span>
+            <h2 class="section-title"><i class="fa-solid fa-fire ico"></i> <span data-i18n="sec.trending">الرائج الآن</span></h2>
+          </div>
+        </div>
+        <p class="section-sub" data-i18n="sec.trendingSub">الأكثر تحميلاً — اضغط على أي عنصر لعرض التفاصيل والتحميل.</p>
+        <div id="homeTrending"></div>
       </div>
 
       <div class="section">
@@ -1175,6 +1269,7 @@ button.nav-link { background: transparent; border: 0; }
           <button class="filter-btn" data-status="available" data-i18n="filter.available">متاحة</button>
           <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
           <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
+          <button class="filter-btn" id="gamesFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="gamesFavCount">(0)</span></button>
         </div>
         <div class="filter-chips" id="gamesCatFilters">
           <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
@@ -1208,6 +1303,7 @@ button.nav-link { background: transparent; border: 0; }
           <button class="filter-btn" data-status="available" data-i18n="filter.availableApp">متاح</button>
           <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
           <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
+          <button class="filter-btn" id="appsFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="appsFavCount">(0)</span></button>
         </div>
         <div class="filter-chips" id="appsCatFilters">
           <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
@@ -1252,6 +1348,42 @@ button.nav-link { background: transparent; border: 0; }
     <section id="view-about" class="view" style="display:none;">
       <div class="section">
         <div class="about-card" id="aboutCard"></div>
+      </div>
+    </section>
+
+    <!-- ===== طلب لعبة / تطبيق (v10) ===== -->
+    <section id="view-request" class="view" style="display:none;">
+      <div class="section">
+        <div class="page-head">
+          <span class="eyebrow" data-i18n="req.eyebrow">05 — اطلب</span>
+          <h2 class="section-title"><i class="fa-solid fa-clipboard-list ico"></i> <span data-i18n="req.title">اطلب لعبة أو تطبيقاً</span></h2>
+          <p class="section-sub" data-i18n="req.sub">أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.</p>
+        </div>
+        <div id="reqNoDb" class="alert-info" style="display:none;" data-i18n-html="setup.notice">
+          <i class="fa-solid fa-circle-info"></i>
+          الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف
+          <span class="latin" dir="ltr">supabase-client.js</span> (الشرح الكامل في README.md).
+        </div>
+        <form id="reqForm" onsubmit="handleRequestSubmit(event)">
+          <div class="about-card" style="margin-bottom:16px;">
+            <div class="form-group"><label data-i18n="req.name">اسمك</label>
+              <input type="text" id="reqName" required maxlength="80" data-i18n-placeholder="req.namePh" placeholder="اكتب اسمك"></div>
+            <div class="form-group"><label data-i18n="req.gameTitle">اسم اللعبة أو التطبيق</label>
+              <input type="text" id="reqGameTitle" required minlength="2" maxlength="120" data-i18n-placeholder="req.gameTitlePh" placeholder="مثال: لعبة سباق مجانية"></div>
+            <div class="form-group"><label data-i18n="req.type">النوع</label>
+              <select id="reqGameType">
+                <option value="game" data-i18n="req.typeGame">لعبة</option>
+                <option value="app" data-i18n="req.typeApp">تطبيق</option>
+                <option value="mod" data-i18n="req.typeMod">مود</option>
+              </select></div>
+            <div class="form-group"><label data-i18n="req.details">تفاصيل إضافية (اختياري)</label>
+              <textarea id="reqDetails" rows="3" maxlength="500" data-i18n-placeholder="req.detailsPh" placeholder="أي تفاصيل تساعدنا — المنصة، الإصدار، رابط رسمي..."></textarea></div>
+            <button type="submit" class="btn btn-primary btn-block" id="reqSubmitBtn"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="req.submit">أرسل الطلب</span></button>
+            <div id="reqMsg" class="alert-success" style="display:none;margin-top:12px;"></div>
+          </div>
+        </form>
+        <h3 style="margin-top:8px;font-family:var(--f-display);font-size:1.2rem;font-weight:800;"><i class="fa-solid fa-list" style="color:var(--mint);"></i> <span data-i18n="req.listTitle">أحدث الطلبات</span></h3>
+        <div class="req-list" id="reqList"></div>
       </div>
     </section>
 
@@ -1311,6 +1443,7 @@ button.nav-link { background: transparent; border: 0; }
           <li><a href="#/dev" data-i18n="nav.dev">قيد التطوير</a></li>
           <li><a href="#/news" data-i18n="nav.news">الأخبار</a></li>
           <li><a href="#/about" data-i18n="nav.about">عن المطور</a></li>
+          <li><a href="#/request" data-i18n="nav.request">اطلب</a></li>
         </ul>
       </div>
       <div class="footer-social">
@@ -1322,6 +1455,14 @@ button.nav-link { background: transparent; border: 0; }
       <p>&copy; <span id="yearSpan"></span> <span data-i18n="footer.rights">Abdellatif Dev — جميع الحقوق محفوظة.</span></p>
     </div>
   </footer>
+
+  <!-- v10 — شريط التنقل السفلي للجوال -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="التنقل السريع">
+    <a href="#/" class="bn-item" data-route="home"><i class="fa-solid fa-house"></i><span data-i18n="nav.home">الرئيسية</span></a>
+    <button type="button" class="bn-item" onclick="focusHeroSearch()" data-i18n-aria="nav.search" aria-label="بحث"><i class="fa-solid fa-magnifying-glass"></i><span data-i18n="nav.search">بحث</span></button>
+    <button type="button" class="bn-item" data-route="games" onclick="goToGames()"><i class="fa-solid fa-gamepad"></i><span data-i18n="nav.games">الألعاب</span></button>
+    <button type="button" class="bn-item" data-route="mods" onclick="goToMods()"><i class="fa-solid fa-puzzle-piece"></i><span data-i18n="nav.mods">المودات</span></button>
+  </nav>
 
   <script src="supabase-client.js"></script>
   <script>
@@ -1339,7 +1480,7 @@ function esc(s) {
     }[c]));
 }
 const PLACEHOLDER_IMG = 'data:image/svg+xml,' + encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><g fill="none" stroke="#38f2b0" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><rect x="170" y="120" width="300" height="130" rx="55" fill="rgba(56,242,176,0.10)"/><path d="M250 165 v50 M225 190 h50"/><circle cx="390" cy="180" r="11" fill="#38f2b0" stroke="none"/><circle cx="420" cy="210" r="11" fill="#38f2b0" stroke="none"/></g></svg>');
+    '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="640" height="360" fill="url(#g)"/><g fill="none" stroke="#56f59b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"><rect x="170" y="120" width="300" height="130" rx="55" fill="rgba(86,245,155,0.10)"/><path d="M250 165 v50 M225 190 h50"/><circle cx="390" cy="180" r="11" fill="#56f59b" stroke="none"/><circle cx="420" cy="210" r="11" fill="#56f59b" stroke="none"/></g></svg>');
 
 let STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
 const SOCIAL_ICONS = {
@@ -1382,7 +1523,7 @@ window.toggleTheme = function() {
 // v4 — قاموس اللغات ar/en/fr (واجهة الموقع فقط — محتوى قاعدة
 // البيانات يبقى بالعربية كما هو مخزّن)
 // ============================================================
-const I18N = {"ar":{"about.contact":"تواصل معي","about.tech":"التقنيات والأدوات","card.detailsDownload":"التفاصيل والتحميل","common.backHome":"العودة للرئيسية","common.loadError":"تعذر تحميل المحتوى.","common.loadErrorPrefix":"تعذر تحميل المحتوى: ","common.loading":"جاري تحميل المحتوى...","common.loadingDetails":"جاري تحميل التفاصيل...","common.notFoundText":"الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.","common.notFoundTitle":"الصفحة غير موجودة","common.retry":"إعادة المحاولة","common.seeAll":"عرض الكل ←","detail.backApps":"← العودة للتطبيقات","detail.backGames":"← العودة للألعاب","detail.backNews":"← العودة للأخبار","detail.directDownload":"تحميل مباشر — يبدأ التحميل تلقائياً","detail.downloadNow":"تحميل الآن","detail.downloadOne":"{n} تحميل","detail.downloads":"{n} تحميل","detail.features":"المميزات","detail.fullDesc":"الوصف الكامل","detail.lastUpdate":"آخر تحديث:","detail.latestUpdate":"آخر مستجد:","detail.noLink":"رابط التحميل غير متوفر بعد — قريباً","detail.notAvailable":"قريباً — هذه النسخة غير متاحة للتحميل بعد","detail.openExternal":"فتح الرابط الخارجي","detail.preparing":"جاري تجهيز رابط التحميل الآمن...","detail.progress":"نسبة التقدم","detail.requirements":"متطلبات التشغيل","detail.shotsApp":"لقطات من التطبيق","detail.shotsGame":"لقطات من اللعبة","detail.version":"الإصدار","detail.wait":"يرجى الانتظار ثوانٍ معدودة","empty.appsText":"ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.","empty.appsTitle":"لا توجد تطبيقات منشورة بعد","empty.gamesText":"ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.","empty.gamesTitle":"لا توجد ألعاب منشورة بعد","empty.modsGtaText":"ستظهر مودات GTA هنا فور إضافتها من لوحة الإدارة.","empty.modsGtaTitle":"لا توجد مودات GTA بعد","empty.modsMinecraftText":"ستظهر مودات ماينكرافت هنا فور إضافتها من لوحة الإدارة.","empty.modsMinecraftTitle":"لا توجد مودات ماينكرافت بعد","empty.modsText":"ستظهر المودات هنا فور إضافتها من لوحة الإدارة.","empty.modsTitle":"لا توجد مودات بعد","empty.newsText":"ستظهر آخر الأخبار والمستجدات هنا.","empty.newsTitle":"لا توجد أخبار بعد","empty.noResults":"لا توجد نتائج مطابقة","empty.noResultsText":"جرّب كلمة بحث أخرى أو غيّر الفلتر.","empty.pcText":"ستظهر ألعاب وتطبيقات الحاسوب هنا فور إضافتها من لوحة الإدارة.","empty.pcTitle":"لا توجد ألعاب أو تطبيقات حاسوب بعد","empty.phoneText":"ستظهر ألعاب وتطبيقات الهاتف هنا فور إضافتها من لوحة الإدارة.","empty.phoneTitle":"لا توجد ألعاب أو تطبيقات هاتف بعد","empty.projectsListText":"ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.","empty.projectsText":"ستظهر المشاريع الجديدة هنا عند إضافتها.","empty.projectsTitle":"لا توجد مشاريع قيد التطوير حالياً","filter.all":"الكل","filter.allTypes":"كل الأنواع","filter.available":"متاحة","filter.availableApp":"متاح","filter.comingSoon":"قريباً","filter.inDev":"قيد التطوير","filter.modded":"مهكرة","filter.mods":"مودات","filter.official":"رسمية","filter.pc":"حاسوب","filter.phone":"هاتف","filter.platformAll":"كل المنصات","footer.follow":"تابعني","footer.noSocial":"روابط التواصل تُضاف من لوحة الإدارة.","footer.rights":"Abdellatif Dev — جميع الحقوق محفوظة.","footer.sections":"الأقسام","footer.tagline":"مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.","hero.badge":"مطور ألعاب وتطبيقات مستقل","hero.dev":"قيد التطوير","hero.explore":"استكشف المشاريع","hero.subtitle":"أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — التطبيقات","list.appsSub":"جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.","list.appsTitle":"التطبيقات","list.devEyebrow":"03 — قيد التطوير","list.devSub":"المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.","list.devTitle":"مشاريع قيد التطوير","list.gamesEyebrow":"01 — الألعاب","list.gamesSub":"جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.","list.gamesTitle":"الألعاب","list.newsEyebrow":"04 — الأخبار","list.newsSub":"آخر الأخبار والتحديثات حول أعمالي ومشاريعي.","list.newsTitle":"الأخبار والمستجدات","list.searchApp":"ابحث عن تطبيق...","list.searchGame":"ابحث عن لعبة...","meta.title":"Abdellatif Dev | مطور ألعاب وتطبيقات مستقل","nav.about":"عن المطور","nav.admin":"لوحة الإدارة","nav.apps":"التطبيقات","nav.dev":"قيد التطوير","nav.games":"الألعاب","nav.home":"الرئيسية","nav.news":"الأخبار","nav.search":"بحث","nav.theme":"المظهر","news.readMore":"قراءة الخبر ←","platform.modGta":"مود GTA","platform.modMinecraft":"مود ماينكرافت","platform.pc":"حاسوب","platform.phone":"هاتف","search.clear":"مسح البحث","search.noResults":"لا توجد نتائج مطابقة","search.placeholder":"ابحث عن تطبيق أو لعبة...","search.resultOne":"نتيجة واحدة","search.results":"نتائج البحث","search.resultsCount":"{n} نتائج","search.tryOther":"جرّب كلمة بحث أخرى.","sec.dev":"قيد التطوير","sec.devEyebrow":"04 — قيد التطوير","sec.mods":"المودات","sec.modsEyebrow":"03 — Mods","sec.modsGta":"مودات GTA","sec.modsMinecraft":"مودات ماينكرافت","sec.news":"آخر الأخبار","sec.newsEyebrow":"05 — الأخبار","sec.pc":"ألعاب وتطبيقات الحاسوب","sec.pcEyebrow":"01 — PC","sec.phone":"ألعاب وتطبيقات الهاتف","sec.phoneEyebrow":"02 — Phone","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (الشرح الكامل في README.md).","stats.apps":"تطبيق منشور","stats.downloads":"إجمالي التحميلات","stats.games":"لعبة منشورة","stats.projects":"مشروع قيد التطوير","status.available":"متاحة","status.comingSoon":"قريباً","status.inDev":"قيد التطوير"},"en":{"about.contact":"Contact me","about.tech":"Technologies & Tools","card.detailsDownload":"Details & Download","common.backHome":"Back to home","common.loadError":"Could not load the content.","common.loadErrorPrefix":"Could not load the content: ","common.loading":"Loading content...","common.loadingDetails":"Loading details...","common.notFoundText":"The link you opened is incorrect or the content was deleted.","common.notFoundTitle":"Page not found","common.retry":"Try again","common.seeAll":"View all →","detail.backApps":"← Back to apps","detail.backGames":"← Back to games","detail.backNews":"← Back to news","detail.directDownload":"Direct download — starts automatically","detail.downloadNow":"Download now","detail.downloadOne":"{n} download","detail.downloads":"{n} downloads","detail.features":"Features","detail.fullDesc":"Full description","detail.lastUpdate":"Last updated:","detail.latestUpdate":"Latest update:","detail.noLink":"Download link not available yet — coming soon","detail.notAvailable":"Coming soon — this version is not available for download yet","detail.openExternal":"Open external link","detail.preparing":"Preparing your secure download link...","detail.progress":"Progress","detail.requirements":"Requirements","detail.shotsApp":"App screenshots","detail.shotsGame":"Game screenshots","detail.version":"Version","detail.wait":"Please wait a few seconds","empty.appsText":"Apps will appear here as soon as they are added from the admin panel.","empty.appsTitle":"No published apps yet","empty.gamesText":"Games will appear here as soon as they are added from the admin panel.","empty.gamesTitle":"No published games yet","empty.modsGtaText":"GTA mods will appear here as soon as they are added from the admin panel.","empty.modsGtaTitle":"No GTA mods yet","empty.modsMinecraftText":"Minecraft mods will appear here as soon as they are added from the admin panel.","empty.modsMinecraftTitle":"No Minecraft mods yet","empty.modsText":"Mods will appear here as soon as they are added from the admin panel.","empty.modsTitle":"No mods yet","empty.newsText":"The latest news and updates will appear here.","empty.newsTitle":"No news yet","empty.noResults":"No matching results","empty.noResultsText":"Try a different search term or change the filter.","empty.pcText":"PC games and apps will appear here as soon as they are added from the admin panel.","empty.pcTitle":"No PC games or apps yet","empty.phoneText":"Phone games and apps will appear here as soon as they are added from the admin panel.","empty.phoneTitle":"No phone games or apps yet","empty.projectsListText":"New projects will appear here once added from the admin panel.","empty.projectsText":"New projects will appear here when added.","empty.projectsTitle":"No projects in development right now","filter.all":"All","filter.allTypes":"All types","filter.available":"Available","filter.availableApp":"Available","filter.comingSoon":"Coming soon","filter.inDev":"In development","filter.modded":"Modded","filter.mods":"Mods","filter.official":"Official","filter.pc":"PC","filter.phone":"Phone","filter.platformAll":"All platforms","footer.follow":"Follow me","footer.noSocial":"Social links are added from the admin panel.","footer.rights":"Abdellatif Dev — All rights reserved.","footer.sections":"Sections","footer.tagline":"Independent game & app developer — games, apps, and projects in development.","hero.badge":"Independent game & app developer","hero.dev":"In Development","hero.explore":"Explore Projects","hero.subtitle":"I build mobile games and apps — from idea to release, with quality and professionalism.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Apps","list.appsSub":"All the apps I built — tap any app to view details and download.","list.appsTitle":"Apps","list.devEyebrow":"03 — In Development","list.devSub":"The projects I am currently working on — follow the progress and latest updates.","list.devTitle":"Projects in Development","list.gamesEyebrow":"01 — Games","list.gamesSub":"All the games I built — tap any game to view details and download.","list.gamesTitle":"Games","list.newsEyebrow":"04 — News","list.newsSub":"The latest news and updates about my work and projects.","list.newsTitle":"News & Updates","list.searchApp":"Search for an app...","list.searchGame":"Search for a game...","meta.title":"Abdellatif Dev | Independent game & app developer","nav.about":"About","nav.admin":"Admin Panel","nav.apps":"Apps","nav.dev":"In Development","nav.games":"Games","nav.home":"Home","nav.news":"News","nav.search":"Search","nav.theme":"Theme","news.readMore":"Read article →","platform.modGta":"GTA mod","platform.modMinecraft":"Minecraft mod","platform.pc":"PC","platform.phone":"Phone","search.clear":"Clear search","search.noResults":"No matching results","search.placeholder":"Search for an app or game...","search.resultOne":"1 result","search.results":"Search results","search.resultsCount":"{n} results","search.tryOther":"Try a different search term.","sec.dev":"In Development","sec.devEyebrow":"04 — In Development","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"GTA Mods","sec.modsMinecraft":"Minecraft Mods","sec.news":"Latest News","sec.newsEyebrow":"05 — News","sec.pc":"PC Games & Apps","sec.pcEyebrow":"01 — PC","sec.phone":"Phone Games & Apps","sec.phoneEyebrow":"02 — Phone","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> This site is not connected to a database yet. Site owner: put your Supabase project URL and anon key in <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (full guide in README.md).","stats.apps":"Published apps","stats.downloads":"Total downloads","stats.games":"Published games","stats.projects":"Projects in development","status.available":"Available","status.comingSoon":"Coming soon","status.inDev":"In development"},"fr":{"about.contact":"Contactez-moi","about.tech":"Technologies et outils","card.detailsDownload":"Détails et téléchargement","common.backHome":"Retour à l'accueil","common.loadError":"Impossible de charger le contenu.","common.loadErrorPrefix":"Impossible de charger le contenu : ","common.loading":"Chargement du contenu...","common.loadingDetails":"Chargement des détails...","common.notFoundText":"Le lien que vous avez ouvert est incorrect ou le contenu a été supprimé.","common.notFoundTitle":"Page introuvable","common.retry":"Réessayer","common.seeAll":"Tout voir →","detail.backApps":"← Retour aux applications","detail.backGames":"← Retour aux jeux","detail.backNews":"← Retour aux actualités","detail.directDownload":"Téléchargement direct — démarre automatiquement","detail.downloadNow":"Télécharger","detail.downloadOne":"{n} téléchargement","detail.downloads":"{n} téléchargements","detail.features":"Fonctionnalités","detail.fullDesc":"Description complète","detail.lastUpdate":"Dernière mise à jour :","detail.latestUpdate":"Dernière nouveauté :","detail.noLink":"Lien de téléchargement pas encore disponible — bientôt","detail.notAvailable":"Bientôt — cette version n'est pas encore disponible au téléchargement","detail.openExternal":"Ouvrir le lien externe","detail.preparing":"Préparation de votre lien de téléchargement sécurisé...","detail.progress":"Progression","detail.requirements":"Configuration requise","detail.shotsApp":"Captures de l'application","detail.shotsGame":"Captures du jeu","detail.version":"Version","detail.wait":"Veuillez patienter quelques secondes","empty.appsText":"Les applications apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.appsTitle":"Aucune application publiée pour le moment","empty.gamesText":"Les jeux apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.gamesTitle":"Aucun jeu publié pour le moment","empty.modsGtaText":"Les mods GTA apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsGtaTitle":"Aucun mod GTA pour le moment","empty.modsMinecraftText":"Les mods Minecraft apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsMinecraftTitle":"Aucun mod Minecraft pour le moment","empty.modsText":"Les mods apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsTitle":"Aucun mod pour le moment","empty.newsText":"Les dernières actualités apparaîtront ici.","empty.newsTitle":"Aucune actualité pour le moment","empty.noResults":"Aucun résultat correspondant","empty.noResultsText":"Essayez un autre mot-clé ou changez le filtre.","empty.pcText":"Les jeux et applications PC apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.pcTitle":"Aucun jeu ni application PC pour le moment","empty.phoneText":"Les jeux et applications mobiles apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.phoneTitle":"Aucun jeu ou application mobile pour le moment","empty.projectsListText":"Les nouveaux projets apparaîtront ici une fois ajoutés depuis le panneau d'administration.","empty.projectsText":"Les nouveaux projets apparaîtront ici une fois ajoutés.","empty.projectsTitle":"Aucun projet en développement pour le moment","filter.all":"Tout","filter.allTypes":"Tous les types","filter.available":"Disponible","filter.availableApp":"Disponible","filter.comingSoon":"Bientôt","filter.inDev":"En développement","filter.modded":"Moddé","filter.mods":"Mods","filter.official":"Officiel","filter.pc":"PC","filter.phone":"Téléphone","filter.platformAll":"Toutes les plateformes","footer.follow":"Suivez-moi","footer.noSocial":"Les liens sociaux s'ajoutent depuis le panneau d'administration.","footer.rights":"Abdellatif Dev — Tous droits réservés.","footer.sections":"Sections","footer.tagline":"Développeur indépendant de jeux et d'applications — jeux, applications et projets en développement.","hero.badge":"Développeur indépendant de jeux et d'applications","hero.dev":"En développement","hero.explore":"Explorer les projets","hero.subtitle":"Je crée des jeux et des applications mobiles — de l'idée à la publication, avec qualité et professionnalisme.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Applications","list.appsSub":"Toutes les applications que j'ai créées — touchez une application pour voir les détails et la télécharger.","list.appsTitle":"Applications","list.devEyebrow":"03 — En développement","list.devSub":"Les projets sur lesquels je travaille actuellement — suivez l'avancement et les dernières nouveautés.","list.devTitle":"Projets en développement","list.gamesEyebrow":"01 — Jeux","list.gamesSub":"Tous les jeux que j'ai créés — touchez un jeu pour voir les détails et le télécharger.","list.gamesTitle":"Jeux","list.newsEyebrow":"04 — Actualités","list.newsSub":"Les dernières actualités et mises à jour sur mon travail et mes projets.","list.newsTitle":"Actualités","list.searchApp":"Rechercher une application...","list.searchGame":"Rechercher un jeu...","meta.title":"Abdellatif Dev | Développeur indépendant de jeux et d'applications","nav.about":"À propos","nav.admin":"Panneau d'admin","nav.apps":"Applications","nav.dev":"En développement","nav.games":"Jeux","nav.home":"Accueil","nav.news":"Actualités","nav.search":"Recherche","nav.theme":"Thème","news.readMore":"Lire l'article →","platform.modGta":"Mod GTA","platform.modMinecraft":"Mod Minecraft","platform.pc":"PC","platform.phone":"Téléphone","search.clear":"Effacer la recherche","search.noResults":"Aucun résultat correspondant","search.placeholder":"Rechercher une application ou un jeu...","search.resultOne":"1 résultat","search.results":"Résultats de la recherche","search.resultsCount":"{n} résultats","search.tryOther":"Essayez un autre mot-clé.","sec.dev":"En développement","sec.devEyebrow":"04 — En développement","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"Mods GTA","sec.modsMinecraft":"Mods Minecraft","sec.news":"Dernières actualités","sec.newsEyebrow":"05 — Actualités","sec.pc":"Jeux et applications PC","sec.pcEyebrow":"01 — PC","sec.phone":"Jeux et applis du téléphone","sec.phoneEyebrow":"02 — Téléphone","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> Ce site n'est pas encore connecté à une base de données. Propriétaire du site : mettez l'URL du projet Supabase et la clé anon dans <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (guide complet dans README.md).","stats.apps":"Applications publiées","stats.downloads":"Téléchargements totaux","stats.games":"Jeux publiés","stats.projects":"Projets en développement","status.available":"Disponible","status.comingSoon":"Bientôt","status.inDev":"En développement"}};
+const I18N = {"ar":{"about.contact":"تواصل معي","about.tech":"التقنيات والأدوات","card.detailsDownload":"التفاصيل والتحميل","common.backHome":"العودة للرئيسية","common.loadError":"تعذر تحميل المحتوى.","common.loadErrorPrefix":"تعذر تحميل المحتوى: ","common.loading":"جاري تحميل المحتوى...","common.loadingDetails":"جاري تحميل التفاصيل...","common.notFoundText":"الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.","common.notFoundTitle":"الصفحة غير موجودة","common.retry":"إعادة المحاولة","common.seeAll":"عرض الكل ←","detail.backApps":"← العودة للتطبيقات","detail.backGames":"← العودة للألعاب","detail.backNews":"← العودة للأخبار","detail.directDownload":"تحميل مباشر — يبدأ التحميل تلقائياً","detail.downloadNow":"تحميل الآن","detail.downloadOne":"{n} تحميل","detail.downloads":"{n} تحميل","detail.features":"المميزات","detail.fullDesc":"الوصف الكامل","detail.lastUpdate":"آخر تحديث:","detail.latestUpdate":"آخر مستجد:","detail.noLink":"رابط التحميل غير متوفر بعد — قريباً","detail.notAvailable":"قريباً — هذه النسخة غير متاحة للتحميل بعد","detail.openExternal":"فتح الرابط الخارجي","detail.preparing":"جاري تجهيز رابط التحميل الآمن...","detail.progress":"نسبة التقدم","detail.requirements":"متطلبات التشغيل","detail.shotsApp":"لقطات من التطبيق","detail.shotsGame":"لقطات من اللعبة","detail.version":"الإصدار","detail.wait":"يرجى الانتظار ثوانٍ معدودة","empty.appsText":"ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.","empty.appsTitle":"لا توجد تطبيقات منشورة بعد","empty.gamesText":"ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.","empty.gamesTitle":"لا توجد ألعاب منشورة بعد","empty.modsGtaText":"ستظهر مودات GTA هنا فور إضافتها من لوحة الإدارة.","empty.modsGtaTitle":"لا توجد مودات GTA بعد","empty.modsMinecraftText":"ستظهر مودات ماينكرافت هنا فور إضافتها من لوحة الإدارة.","empty.modsMinecraftTitle":"لا توجد مودات ماينكرافت بعد","empty.modsText":"ستظهر المودات هنا فور إضافتها من لوحة الإدارة.","empty.modsTitle":"لا توجد مودات بعد","empty.newsText":"ستظهر آخر الأخبار والمستجدات هنا.","empty.newsTitle":"لا توجد أخبار بعد","empty.noResults":"لا توجد نتائج مطابقة","empty.noResultsText":"جرّب كلمة بحث أخرى أو غيّر الفلتر.","empty.pcText":"ستظهر ألعاب وتطبيقات الحاسوب هنا فور إضافتها من لوحة الإدارة.","empty.pcTitle":"لا توجد ألعاب أو تطبيقات حاسوب بعد","empty.phoneText":"ستظهر ألعاب وتطبيقات الهاتف هنا فور إضافتها من لوحة الإدارة.","empty.phoneTitle":"لا توجد ألعاب أو تطبيقات هاتف بعد","empty.projectsListText":"ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.","empty.projectsText":"ستظهر المشاريع الجديدة هنا عند إضافتها.","empty.projectsTitle":"لا توجد مشاريع قيد التطوير حالياً","fav.add":"أضف إلى المفضلة","fav.empty":"لا توجد عناصر في المفضلة بعد — اضغط على القلب في أي بطاقة لحفظها هنا.","fav.emptyTitle":"المفضلة فارغة","fav.favorites":"المفضلة","fav.remove":"أزل من المفضلة","filter.all":"الكل","filter.allTypes":"كل الأنواع","filter.available":"متاحة","filter.availableApp":"متاح","filter.comingSoon":"قريباً","filter.inDev":"قيد التطوير","filter.modded":"مهكرة","filter.mods":"مودات","filter.official":"رسمية","filter.pc":"حاسوب","filter.phone":"هاتف","filter.platformAll":"كل المنصات","footer.follow":"تابعني","footer.noSocial":"روابط التواصل تُضاف من لوحة الإدارة.","footer.rights":"Abdellatif Dev — جميع الحقوق محفوظة.","footer.sections":"الأقسام","footer.tagline":"مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.","hero.badge":"مطور ألعاب وتطبيقات مستقل","hero.dev":"قيد التطوير","hero.explore":"استكشف المشاريع","hero.subtitle":"أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — التطبيقات","list.appsSub":"جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.","list.appsTitle":"التطبيقات","list.devEyebrow":"03 — قيد التطوير","list.devSub":"المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.","list.devTitle":"مشاريع قيد التطوير","list.gamesEyebrow":"01 — الألعاب","list.gamesSub":"جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.","list.gamesTitle":"الألعاب","list.newsEyebrow":"04 — الأخبار","list.newsSub":"آخر الأخبار والتحديثات حول أعمالي ومشاريعي.","list.newsTitle":"الأخبار والمستجدات","list.searchApp":"ابحث عن تطبيق...","list.searchGame":"ابحث عن لعبة...","meta.title":"Abdellatif Dev | مطور ألعاب وتطبيقات مستقل","nav.about":"عن المطور","nav.admin":"لوحة الإدارة","nav.apps":"التطبيقات","nav.dev":"قيد التطوير","nav.games":"الألعاب","nav.home":"الرئيسية","nav.mods":"المودات","nav.news":"الأخبار","nav.request":"اطلب","nav.search":"بحث","nav.theme":"المظهر","news.readMore":"قراءة الخبر ←","platform.modGta":"مود GTA","platform.modMinecraft":"مود ماينكرافت","platform.pc":"حاسوب","platform.phone":"هاتف","req.details":"تفاصيل إضافية (اختياري)","req.detailsPh":"أي تفاصيل تساعدنا — المنصة، الإصدار، رابط رسمي...","req.empty":"لا توجد طلبات بعد — كن أول من يطلب لعبة أو تطبيقاً!","req.error":"تعذّر إرسال الطلب — تحقق من الاتصال وحاول مجدداً.","req.eyebrow":"05 — اطلب","req.gameTitle":"اسم اللعبة أو التطبيق","req.gameTitlePh":"مثال: لعبة سباق مجانية","req.listTitle":"أحدث الطلبات","req.name":"اسمك","req.namePh":"اكتب اسمك","req.sent":"تم إرسال طلبك بنجاح — شكراً لك! سنراجعه ونضيفه إن كان مجانياً وقانونياً.","req.status.approved":"مقبول","req.status.done":"تمت الإضافة","req.status.pending":"قيد الانتظار","req.status.rejected":"مرفوض","req.sub":"أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.","req.submit":"أرسل الطلب","req.title":"اطلب لعبة أو تطبيقاً","req.type":"النوع","req.typeApp":"تطبيق","req.typeGame":"لعبة","req.typeMod":"مود","search.clear":"مسح البحث","search.noResults":"لا توجد نتائج مطابقة","search.placeholder":"ابحث عن تطبيق أو لعبة...","search.resultOne":"نتيجة واحدة","search.results":"نتائج البحث","search.resultsCount":"{n} نتائج","search.tryOther":"جرّب كلمة بحث أخرى.","sec.dev":"قيد التطوير","sec.devEyebrow":"04 — قيد التطوير","sec.mods":"المودات","sec.modsEyebrow":"03 — Mods","sec.modsGta":"مودات GTA","sec.modsMinecraft":"مودات ماينكرافت","sec.news":"آخر الأخبار","sec.newsEyebrow":"05 — الأخبار","sec.pc":"ألعاب وتطبيقات الحاسوب","sec.pcEyebrow":"01 — PC","sec.phone":"ألعاب وتطبيقات الهاتف","sec.phoneEyebrow":"02 — Phone","sec.trending":"الرائج الآن","sec.trendingEyebrow":"00 — الرائج","sec.trendingSub":"الأكثر تحميلاً — اضغط على أي عنصر لعرض التفاصيل والتحميل.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (الشرح الكامل في README.md).","stats.apps":"تطبيق منشور","stats.downloads":"إجمالي التحميلات","stats.games":"لعبة منشورة","stats.projects":"مشروع قيد التطوير","status.available":"متاحة","status.comingSoon":"قريباً","status.inDev":"قيد التطوير"},"en":{"about.contact":"Contact me","about.tech":"Technologies & Tools","card.detailsDownload":"Details & Download","common.backHome":"Back to home","common.loadError":"Could not load the content.","common.loadErrorPrefix":"Could not load the content: ","common.loading":"Loading content...","common.loadingDetails":"Loading details...","common.notFoundText":"The link you opened is incorrect or the content was deleted.","common.notFoundTitle":"Page not found","common.retry":"Try again","common.seeAll":"View all →","detail.backApps":"← Back to apps","detail.backGames":"← Back to games","detail.backNews":"← Back to news","detail.directDownload":"Direct download — starts automatically","detail.downloadNow":"Download now","detail.downloadOne":"{n} download","detail.downloads":"{n} downloads","detail.features":"Features","detail.fullDesc":"Full description","detail.lastUpdate":"Last updated:","detail.latestUpdate":"Latest update:","detail.noLink":"Download link not available yet — coming soon","detail.notAvailable":"Coming soon — this version is not available for download yet","detail.openExternal":"Open external link","detail.preparing":"Preparing your secure download link...","detail.progress":"Progress","detail.requirements":"Requirements","detail.shotsApp":"App screenshots","detail.shotsGame":"Game screenshots","detail.version":"Version","detail.wait":"Please wait a few seconds","empty.appsText":"Apps will appear here as soon as they are added from the admin panel.","empty.appsTitle":"No published apps yet","empty.gamesText":"Games will appear here as soon as they are added from the admin panel.","empty.gamesTitle":"No published games yet","empty.modsGtaText":"GTA mods will appear here as soon as they are added from the admin panel.","empty.modsGtaTitle":"No GTA mods yet","empty.modsMinecraftText":"Minecraft mods will appear here as soon as they are added from the admin panel.","empty.modsMinecraftTitle":"No Minecraft mods yet","empty.modsText":"Mods will appear here as soon as they are added from the admin panel.","empty.modsTitle":"No mods yet","empty.newsText":"The latest news and updates will appear here.","empty.newsTitle":"No news yet","empty.noResults":"No matching results","empty.noResultsText":"Try a different search term or change the filter.","empty.pcText":"PC games and apps will appear here as soon as they are added from the admin panel.","empty.pcTitle":"No PC games or apps yet","empty.phoneText":"Phone games and apps will appear here as soon as they are added from the admin panel.","empty.phoneTitle":"No phone games or apps yet","empty.projectsListText":"New projects will appear here once added from the admin panel.","empty.projectsText":"New projects will appear here when added.","empty.projectsTitle":"No projects in development right now","fav.add":"Add to favorites","fav.empty":"No favorites yet — tap the heart on any card to save it here.","fav.emptyTitle":"No favorites yet","fav.favorites":"Favorites","fav.remove":"Remove from favorites","filter.all":"All","filter.allTypes":"All types","filter.available":"Available","filter.availableApp":"Available","filter.comingSoon":"Coming soon","filter.inDev":"In development","filter.modded":"Modded","filter.mods":"Mods","filter.official":"Official","filter.pc":"PC","filter.phone":"Phone","filter.platformAll":"All platforms","footer.follow":"Follow me","footer.noSocial":"Social links are added from the admin panel.","footer.rights":"Abdellatif Dev — All rights reserved.","footer.sections":"Sections","footer.tagline":"Independent game & app developer — games, apps, and projects in development.","hero.badge":"Independent game & app developer","hero.dev":"In Development","hero.explore":"Explore Projects","hero.subtitle":"I build mobile games and apps — from idea to release, with quality and professionalism.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Apps","list.appsSub":"All the apps I built — tap any app to view details and download.","list.appsTitle":"Apps","list.devEyebrow":"03 — In Development","list.devSub":"The projects I am currently working on — follow the progress and latest updates.","list.devTitle":"Projects in Development","list.gamesEyebrow":"01 — Games","list.gamesSub":"All the games I built — tap any game to view details and download.","list.gamesTitle":"Games","list.newsEyebrow":"04 — News","list.newsSub":"The latest news and updates about my work and projects.","list.newsTitle":"News & Updates","list.searchApp":"Search for an app...","list.searchGame":"Search for a game...","meta.title":"Abdellatif Dev | Independent game & app developer","nav.about":"About","nav.admin":"Admin Panel","nav.apps":"Apps","nav.dev":"In Development","nav.games":"Games","nav.home":"Home","nav.mods":"Mods","nav.news":"News","nav.request":"Request","nav.search":"Search","nav.theme":"Theme","news.readMore":"Read article →","platform.modGta":"GTA mod","platform.modMinecraft":"Minecraft mod","platform.pc":"PC","platform.phone":"Phone","req.details":"Extra details (optional)","req.detailsPh":"Any details that help — platform, version, official link...","req.empty":"No requests yet — be the first to request a game or app!","req.error":"Could not send the request — check your connection and try again.","req.eyebrow":"05 — Request","req.gameTitle":"Game or app name","req.gameTitlePh":"Example: a free racing game","req.listTitle":"Latest requests","req.name":"Your name","req.namePh":"Type your name","req.sent":"Your request was sent successfully — thank you! We'll review it and add it if it's free and legal.","req.status.approved":"Approved","req.status.done":"Added","req.status.pending":"Pending","req.status.rejected":"Rejected","req.sub":"Tell us which game or app you want — we'll look for it, and if it's free and legal we'll add it to the site.","req.submit":"Send request","req.title":"Request a game or app","req.type":"Type","req.typeApp":"App","req.typeGame":"Game","req.typeMod":"Mod","search.clear":"Clear search","search.noResults":"No matching results","search.placeholder":"Search for an app or game...","search.resultOne":"1 result","search.results":"Search results","search.resultsCount":"{n} results","search.tryOther":"Try a different search term.","sec.dev":"In Development","sec.devEyebrow":"04 — In Development","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"GTA Mods","sec.modsMinecraft":"Minecraft Mods","sec.news":"Latest News","sec.newsEyebrow":"05 — News","sec.pc":"PC Games & Apps","sec.pcEyebrow":"01 — PC","sec.phone":"Phone Games & Apps","sec.phoneEyebrow":"02 — Phone","sec.trending":"Trending Now","sec.trendingEyebrow":"00 — Trending","sec.trendingSub":"Most downloaded — tap any item to view details and download.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> This site is not connected to a database yet. Site owner: put your Supabase project URL and anon key in <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (full guide in README.md).","stats.apps":"Published apps","stats.downloads":"Total downloads","stats.games":"Published games","stats.projects":"Projects in development","status.available":"Available","status.comingSoon":"Coming soon","status.inDev":"In development"},"fr":{"about.contact":"Contactez-moi","about.tech":"Technologies et outils","card.detailsDownload":"Détails et téléchargement","common.backHome":"Retour à l'accueil","common.loadError":"Impossible de charger le contenu.","common.loadErrorPrefix":"Impossible de charger le contenu : ","common.loading":"Chargement du contenu...","common.loadingDetails":"Chargement des détails...","common.notFoundText":"Le lien que vous avez ouvert est incorrect ou le contenu a été supprimé.","common.notFoundTitle":"Page introuvable","common.retry":"Réessayer","common.seeAll":"Tout voir →","detail.backApps":"← Retour aux applications","detail.backGames":"← Retour aux jeux","detail.backNews":"← Retour aux actualités","detail.directDownload":"Téléchargement direct — démarre automatiquement","detail.downloadNow":"Télécharger","detail.downloadOne":"{n} téléchargement","detail.downloads":"{n} téléchargements","detail.features":"Fonctionnalités","detail.fullDesc":"Description complète","detail.lastUpdate":"Dernière mise à jour :","detail.latestUpdate":"Dernière nouveauté :","detail.noLink":"Lien de téléchargement pas encore disponible — bientôt","detail.notAvailable":"Bientôt — cette version n'est pas encore disponible au téléchargement","detail.openExternal":"Ouvrir le lien externe","detail.preparing":"Préparation de votre lien de téléchargement sécurisé...","detail.progress":"Progression","detail.requirements":"Configuration requise","detail.shotsApp":"Captures de l'application","detail.shotsGame":"Captures du jeu","detail.version":"Version","detail.wait":"Veuillez patienter quelques secondes","empty.appsText":"Les applications apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.appsTitle":"Aucune application publiée pour le moment","empty.gamesText":"Les jeux apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.gamesTitle":"Aucun jeu publié pour le moment","empty.modsGtaText":"Les mods GTA apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsGtaTitle":"Aucun mod GTA pour le moment","empty.modsMinecraftText":"Les mods Minecraft apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsMinecraftTitle":"Aucun mod Minecraft pour le moment","empty.modsText":"Les mods apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsTitle":"Aucun mod pour le moment","empty.newsText":"Les dernières actualités apparaîtront ici.","empty.newsTitle":"Aucune actualité pour le moment","empty.noResults":"Aucun résultat correspondant","empty.noResultsText":"Essayez un autre mot-clé ou changez le filtre.","empty.pcText":"Les jeux et applications PC apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.pcTitle":"Aucun jeu ni application PC pour le moment","empty.phoneText":"Les jeux et applications mobiles apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.phoneTitle":"Aucun jeu ou application mobile pour le moment","empty.projectsListText":"Les nouveaux projets apparaîtront ici une fois ajoutés depuis le panneau d'administration.","empty.projectsText":"Les nouveaux projets apparaîtront ici une fois ajoutés.","empty.projectsTitle":"Aucun projet en développement pour le moment","fav.add":"Ajouter aux favoris","fav.empty":"Aucun favori pour le moment — touchez le cœur sur une carte pour l'enregistrer ici.","fav.emptyTitle":"Favoris vides","fav.favorites":"Favoris","fav.remove":"Retirer des favoris","filter.all":"Tout","filter.allTypes":"Tous les types","filter.available":"Disponible","filter.availableApp":"Disponible","filter.comingSoon":"Bientôt","filter.inDev":"En développement","filter.modded":"Moddé","filter.mods":"Mods","filter.official":"Officiel","filter.pc":"PC","filter.phone":"Téléphone","filter.platformAll":"Toutes les plateformes","footer.follow":"Suivez-moi","footer.noSocial":"Les liens sociaux s'ajoutent depuis le panneau d'administration.","footer.rights":"Abdellatif Dev — Tous droits réservés.","footer.sections":"Sections","footer.tagline":"Développeur indépendant de jeux et d'applications — jeux, applications et projets en développement.","hero.badge":"Développeur indépendant de jeux et d'applications","hero.dev":"En développement","hero.explore":"Explorer les projets","hero.subtitle":"Je crée des jeux et des applications mobiles — de l'idée à la publication, avec qualité et professionnalisme.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Applications","list.appsSub":"Toutes les applications que j'ai créées — touchez une application pour voir les détails et la télécharger.","list.appsTitle":"Applications","list.devEyebrow":"03 — En développement","list.devSub":"Les projets sur lesquels je travaille actuellement — suivez l'avancement et les dernières nouveautés.","list.devTitle":"Projets en développement","list.gamesEyebrow":"01 — Jeux","list.gamesSub":"Tous les jeux que j'ai créés — touchez un jeu pour voir les détails et le télécharger.","list.gamesTitle":"Jeux","list.newsEyebrow":"04 — Actualités","list.newsSub":"Les dernières actualités et mises à jour sur mon travail et mes projets.","list.newsTitle":"Actualités","list.searchApp":"Rechercher une application...","list.searchGame":"Rechercher un jeu...","meta.title":"Abdellatif Dev | Développeur indépendant de jeux et d'applications","nav.about":"À propos","nav.admin":"Panneau d'admin","nav.apps":"Applications","nav.dev":"En développement","nav.games":"Jeux","nav.home":"Accueil","nav.mods":"Mods","nav.news":"Actualités","nav.request":"Demander","nav.search":"Recherche","nav.theme":"Thème","news.readMore":"Lire l'article →","platform.modGta":"Mod GTA","platform.modMinecraft":"Mod Minecraft","platform.pc":"PC","platform.phone":"Téléphone","req.details":"Détails supplémentaires (facultatif)","req.detailsPh":"Tout détail utile — plateforme, version, lien officiel...","req.empty":"Aucune demande pour le moment — soyez le premier à demander un jeu ou une application !","req.error":"Impossible d'envoyer la demande — vérifiez votre connexion et réessayez.","req.eyebrow":"05 — Demander","req.gameTitle":"Nom du jeu ou de l'application","req.gameTitlePh":"Exemple : un jeu de course gratuit","req.listTitle":"Dernières demandes","req.name":"Votre nom","req.namePh":"Tapez votre nom","req.sent":"Votre demande a été envoyée — merci ! Nous l'examinerons et l'ajouterons si elle est gratuite et légale.","req.status.approved":"Approuvé","req.status.done":"Ajouté","req.status.pending":"En attente","req.status.rejected":"Refusé","req.sub":"Dites-nous quel jeu ou application vous voulez — nous le chercherons et, s'il est gratuit et légal, nous l'ajouterons au site.","req.submit":"Envoyer la demande","req.title":"Demander un jeu ou une application","req.type":"Type","req.typeApp":"Application","req.typeGame":"Jeu","req.typeMod":"Mod","search.clear":"Effacer la recherche","search.noResults":"Aucun résultat correspondant","search.placeholder":"Rechercher une application ou un jeu...","search.resultOne":"1 résultat","search.results":"Résultats de la recherche","search.resultsCount":"{n} résultats","search.tryOther":"Essayez un autre mot-clé.","sec.dev":"En développement","sec.devEyebrow":"04 — En développement","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"Mods GTA","sec.modsMinecraft":"Mods Minecraft","sec.news":"Dernières actualités","sec.newsEyebrow":"05 — Actualités","sec.pc":"Jeux et applications PC","sec.pcEyebrow":"01 — PC","sec.phone":"Jeux et applis du téléphone","sec.phoneEyebrow":"02 — Téléphone","sec.trending":"Tendances","sec.trendingEyebrow":"00 — Tendances","sec.trendingSub":"Les plus téléchargés — touchez un élément pour voir les détails et le télécharger.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> Ce site n'est pas encore connecté à une base de données. Propriétaire du site : mettez l'URL du projet Supabase et la clé anon dans <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (guide complet dans README.md).","stats.apps":"Applications publiées","stats.downloads":"Téléchargements totaux","stats.games":"Jeux publiés","stats.projects":"Projets en développement","status.available":"Disponible","status.comingSoon":"Bientôt","status.inDev":"En développement"}};
 function t(key) {
     const d = I18N[currentLang] || I18N.ar;
     if (d && d[key] !== undefined) return d[key];
@@ -1457,6 +1598,7 @@ let dataLoaded = false, dataError = null;
 let gamesFilter = 'all', appsFilter = 'all';
 let gamesCatFilter = 'all', appsCatFilter = 'all';
 let gamesPlatformFilter = 'all', appsPlatformFilter = 'all';
+let gamesFavOnly = false, appsFavOnly = false; // v10 — فلتر «المفضلة»
 let countdownTimer = null, activeDownload = null, autoDownloadClick = false;
 // تحميلات سُجِّلت في هذه الجلسة (نوع:معرّف) — تبديل اللغة يعيد العداد فلا تُسجَّل مرتين
 const downloadCounted = new Set();
@@ -1467,6 +1609,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyI18n();
     setupMobileNav();
     setupSearchInputs();
+    updateFavChips(); // v10 — عدّاد المفضلة من localStorage
     window.addEventListener('hashchange', route);
     if (!window.SUPABASE_CONFIGURED) {
         const notice = document.getElementById('setupNotice');
@@ -1523,16 +1666,22 @@ function setupSearchInputs() {
             renderHeroSearch();
         });
     }
-    document.querySelectorAll('#gamesFilters .filter-btn').forEach(b =>
+    document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(b =>
         b.addEventListener('click', () => {
             gamesFilter = b.dataset.status;
-            document.querySelectorAll('#gamesFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            gamesFavOnly = false; // v10 — زر حالة يلغي فلتر المفضلة
+            document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(x => x.classList.toggle('active', x === b));
+            const gf = document.getElementById('gamesFavChip');
+            if (gf) gf.classList.remove('active');
             renderGamesList();
         }));
-    document.querySelectorAll('#appsFilters .filter-btn').forEach(b =>
+    document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(b =>
         b.addEventListener('click', () => {
             appsFilter = b.dataset.status;
-            document.querySelectorAll('#appsFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            appsFavOnly = false; // v10 — زر حالة يلغي فلتر المفضلة
+            document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(x => x.classList.toggle('active', x === b));
+            const af = document.getElementById('appsFavChip');
+            if (af) af.classList.remove('active');
             renderAppsList();
         }));
     document.querySelectorAll('#gamesCatFilters .filter-btn').forEach(b =>
@@ -1552,13 +1701,32 @@ function setupSearchInputs() {
             gamesPlatformFilter = b.dataset.platform;
             document.querySelectorAll('#gamesPlatformFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
             renderGamesList();
+            setActiveNav('games'); // v10 — مزامنة شريط الجوال (المودات/الألعاب)
         }));
     document.querySelectorAll('#appsPlatformFilters .filter-btn').forEach(b =>
         b.addEventListener('click', () => {
             appsPlatformFilter = b.dataset.platform;
             document.querySelectorAll('#appsPlatformFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
             renderAppsList();
+            setActiveNav('apps');
         }));
+    // v10 — زر «المفضلة»: فلتر حصري (يلغي أزرار الحالة، والعكس)
+    const gamesFavChip = document.getElementById('gamesFavChip');
+    if (gamesFavChip) gamesFavChip.addEventListener('click', () => {
+        gamesFavOnly = !gamesFavOnly;
+        gamesFavChip.classList.toggle('active', gamesFavOnly);
+        document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(x =>
+            x.classList.toggle('active', !gamesFavOnly && x.dataset.status === gamesFilter));
+        renderGamesList();
+    });
+    const appsFavChip = document.getElementById('appsFavChip');
+    if (appsFavChip) appsFavChip.addEventListener('click', () => {
+        appsFavOnly = !appsFavOnly;
+        appsFavChip.classList.toggle('active', appsFavOnly);
+        document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(x =>
+            x.classList.toggle('active', !appsFavOnly && x.dataset.status === appsFilter));
+        renderAppsList();
+    });
 }
 
 // ---------- جلب البيانات ----------
@@ -1635,7 +1803,7 @@ function parseHash() {
 
 function showView(id) {
     ['view-home', 'view-games', 'view-apps', 'view-dev', 'view-news',
-     'view-about', 'view-detail', 'view-loading', 'view-error', 'view-notfound'
+     'view-about', 'view-request', 'view-detail', 'view-loading', 'view-error', 'view-notfound'
     ].forEach(v => {
         const el = document.getElementById(v);
         if (el) el.style.display = v === id ? 'block' : 'none';
@@ -1647,6 +1815,15 @@ function showView(id) {
 function setActiveNav(route) {
     document.querySelectorAll('.nav-link[data-route]').forEach(a =>
         a.classList.toggle('active', a.dataset.route === route));
+    // v10 — مزامنة شريط الجوال السفلي (المودات = صفحة الألعاب بفلتر المودات)
+    document.querySelectorAll('.bn-item[data-route]').forEach(b => {
+        const r = b.dataset.route;
+        let on = false;
+        if (r === 'games') on = route === 'games' && gamesPlatformFilter !== 'mods';
+        else if (r === 'mods') on = route === 'games' && gamesPlatformFilter === 'mods';
+        else on = r === route;
+        b.classList.toggle('active', on);
+    });
 }
 
 async function route() {
@@ -1670,6 +1847,7 @@ async function route() {
     else if (page === 'dev') { setActiveNav('dev'); renderDevList(); showView('view-dev'); }
     else if (page === 'news') { setActiveNav('news'); renderNewsList(); showView('view-news'); }
     else if (page === 'about') { setActiveNav('about'); renderAbout(); showView('view-about'); }
+    else if (page === 'request') { setActiveNav('request'); renderRequestView(); showView('view-request'); }
     else if (page === 'game' && parts[1]) { setActiveNav('games'); await renderDetail('game', parts[1]); }
     else if (page === 'app' && parts[1]) { setActiveNav('apps'); await renderDetail('app', parts[1]); }
     else if (page === 'news' && parts[1]) { setActiveNav('news'); await renderDetail('news', parts[1]); }
@@ -1697,6 +1875,55 @@ function emptyState(icon, title, text) {
     return `<div class="empty-state"><div class="big"><i class="${icon}"></i></div><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
 }
 
+// ---------- v10 — المفضلة (localStorage فقط، بلا باك-إند) ----------
+// تُحفظ كقائمة "type:id" تحت مفتاح واحد؛ تعمل في ar/en/fr لأنها لا تعتمد على اللغة.
+const FAV_KEY = 'abdellatif-dev-favs';
+function getFavorites() {
+    try {
+        const raw = localStorage.getItem(FAV_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        return new Set(Array.isArray(arr) ? arr : []);
+    } catch (e) { return new Set(); }
+}
+function saveFavorites(set) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify([...set])); } catch (e) {}
+}
+function favKeyOf(type, id) { return type + ':' + id; }
+function isFavorite(type, id) { return getFavorites().has(favKeyOf(type, id)); }
+function favBtnHtml(type, id) {
+    const fav = isFavorite(type, id);
+    const label = fav ? t('fav.remove') : t('fav.add');
+    return `<span role="button" tabindex="0" class="fav-btn${fav ? ' active' : ''}" data-fav-key="${favKeyOf(type, id)}" aria-label="${esc(label)}" title="${esc(label)}" onclick="toggleFavorite(event,'${type}','${id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFavorite(event,'${type}','${id}')}"><i class="${fav ? 'fa-solid' : 'fa-regular'} fa-heart"></i></span>`;
+}
+window.toggleFavorite = function(e, type, id) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    const favs = getFavorites();
+    const key = favKeyOf(type, id);
+    if (favs.has(key)) favs.delete(key); else favs.add(key);
+    saveFavorites(favs);
+    // حدّث كل أزرار القلب لهذا العنصر (قد يظهر في الرئيسية والقائمة معاً)
+    document.querySelectorAll('[data-fav-key="' + key + '"]').forEach(b => {
+        const on = favs.has(key);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-label', on ? t('fav.remove') : t('fav.add'));
+        b.setAttribute('title', on ? t('fav.remove') : t('fav.add'));
+        const ic = b.querySelector('i');
+        if (ic) ic.className = (on ? 'fa-solid' : 'fa-regular') + ' fa-heart';
+    });
+    updateFavChips();
+    // إذا كان فلتر «المفضلة» مفعّلاً، أعد عرض القائمة ليختفي/يظهر العنصر فوراً
+    if (gamesFavOnly) renderGamesList();
+    if (appsFavOnly) renderAppsList();
+};
+function favCount() { return getFavorites().size; }
+function updateFavChips() {
+    const n = favCount();
+    const g = document.getElementById('gamesFavCount');
+    if (g) g.textContent = '(' + n + ')';
+    const a = document.getElementById('appsFavCount');
+    if (a) a.textContent = '(' + n + ')';
+}
+
 function itemCard(item, type) {
     const detailHash = type === 'game' ? `#/game/${item.id}` : `#/app/${item.id}`;
     const dl = item.download_count || 0;
@@ -1705,6 +1932,7 @@ function itemCard(item, type) {
       <a href="${detailHash}" class="card-cover">
         ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
         <span class="card-badge">${esc(item.category || '')}</span>
+        ${favBtnHtml(type, item.id)}
       </a>
       <div class="card-body">
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
@@ -1739,6 +1967,7 @@ function rowCard(item, type) {
       <span class="row-cover">
         ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
         <span class="card-badge">${esc(item.category || '')}</span>
+        ${favBtnHtml(type, item.id)}
       </span>
       <span class="row-title">${esc(item.title)}</span>
       ${item.version ? `<span class="row-ver">v${esc(item.version)}</span>` : ''}
@@ -1758,6 +1987,28 @@ function stripsHtml(entries, perStrip) {
         html += stripHtml(entries.slice(i, i + perStrip));
     }
     return html;
+}
+
+// ---------- v10 — بطاقة «الرائج الآن» (نفس صف rowCard + شارة الترتيب #1..#6) ----------
+function trendingCard(item, type, rank) {
+    const detailHash = type === 'game' ? `#/game/${item.id}` : `#/app/${item.id}`;
+    const dl = item.download_count || 0;
+    return `
+    <a href="${detailHash}" class="row-card">
+      <span class="row-cover">
+        ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
+        <span class="trending-rank">#${rank}</span>
+        ${favBtnHtml(type, item.id)}
+      </span>
+      <span class="row-title">${esc(item.title)}</span>
+      ${item.version ? `<span class="row-ver">v${esc(item.version)}</span>` : ''}
+      <span class="row-desc">${esc(item.short_desc || '')}</span>
+      <span class="row-dl"><i class="fa-solid fa-download"></i> ${dl}</span>
+    </a>`;
+}
+
+function trendingStripHtml(entries) {
+    return `<div class="row-strip-wrap"><div class="row-strip">${entries.map((e, i) => trendingCard(e.item, e.type, i + 1)).join('')}</div><button type="button" class="strip-next" aria-label="المزيد" onclick="scrollStrip(this)"><i class="fa-solid fa-chevron-left"></i></button></div>`;
 }
 
 // تمرير الشريط للبطاقة التالية (يعمل في RTL وLTR دون حساب scrollLeft)
@@ -1837,6 +2088,9 @@ function renderHeroSearch() {
     if (!q) {
         results.style.display = 'none';
         sections.forEach(s => { s.style.display = ''; });
+        // v10 — إذا كان قسم «الرائج» فارغاً (لا تحميلات بعد) يبقى مخفياً
+        const trSec = document.getElementById('trendingSection');
+        if (trSec && !document.getElementById('homeTrending')?.innerHTML.trim()) trSec.style.display = 'none';
         requestAnimationFrame(updateStripArrows);
         return;
     }
@@ -1864,6 +2118,97 @@ window.focusHeroSearch = function() {
     }, 150);
 };
 
+// ---------- v10 — أزرار شريط الجوال: الألعاب / المودات ----------
+function syncGamesPlatformChip() {
+    document.querySelectorAll('#gamesPlatformFilters .filter-btn').forEach(x =>
+        x.classList.toggle('active', x.dataset.platform === gamesPlatformFilter));
+}
+window.goToGames = function() {
+    gamesPlatformFilter = 'all';
+    syncGamesPlatformChip();
+    if ((parseHash()[0] || '') === 'games') { renderGamesList(); setActiveNav('games'); window.scrollTo({ top: 0 }); }
+    else goTo('#/games');
+};
+window.goToMods = function() {
+    gamesPlatformFilter = 'mods';
+    syncGamesPlatformChip();
+    if ((parseHash()[0] || '') === 'games') { renderGamesList(); setActiveNav('games'); window.scrollTo({ top: 0 }); }
+    else goTo('#/games');
+};
+
+// ---------- v10 — طلب لعبة / تطبيق (جدول game_requests) ----------
+const REQ_STATUS_LABELS = { pending: 'req.status.pending', approved: 'req.status.approved', done: 'req.status.done', rejected: 'req.status.rejected' };
+function reqStatusBadge(status) {
+    const label = t(REQ_STATUS_LABELS[status] || 'req.status.pending');
+    return `<span class="status-badge req-status-${esc(status || 'pending')}">${esc(label)}</span>`;
+}
+function reqTypeLabel(type) {
+    if (type === 'app') return t('req.typeApp');
+    if (type === 'mod') return t('req.typeMod');
+    return t('req.typeGame');
+}
+async function renderRequestView() {
+    const listBox = document.getElementById('reqList');
+    const form = document.getElementById('reqForm');
+    const noDb = document.getElementById('reqNoDb');
+    if (!window.SUPABASE_CONFIGURED) {
+        if (form) form.style.display = 'none';
+        if (noDb) noDb.style.display = 'block';
+        if (listBox) listBox.innerHTML = '';
+        return;
+    }
+    if (form) form.style.display = '';
+    if (noDb) noDb.style.display = 'none';
+    if (!listBox) return;
+    listBox.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>' + t('common.loading') + '</p></div>';
+    try {
+        const { data, error } = await window.supabaseClient.from('game_requests')
+            .select('name,game_title,game_type,details,status,created_at')
+            .order('created_at', { ascending: false }).limit(20);
+        if (error) throw error;
+        const list = data || [];
+        listBox.innerHTML = list.length ? list.map(r => `
+            <div class="req-item">
+              <h4>${esc(r.game_title)}</h4>
+              <div class="req-meta">
+                ${reqStatusBadge(r.status)}
+                <span><i class="fa-solid fa-user"></i> ${esc(r.name)}</span>
+                <span><i class="fa-solid fa-tag"></i> ${esc(reqTypeLabel(r.game_type))}</span>
+                <span><i class="fa-solid fa-calendar"></i> ${fmtDate(r.created_at)}</span>
+              </div>
+              ${r.details ? `<p>${esc(r.details)}</p>` : ''}
+            </div>`).join('')
+            : emptyState('fa-solid fa-clipboard-list', t('req.listTitle'), t('req.empty'));
+    } catch (err) {
+        console.error('loadRequests error:', err);
+        listBox.innerHTML = emptyState('fa-solid fa-circle-exclamation', t('common.loadError'), t('common.loadError'));
+    }
+}
+window.handleRequestSubmit = async function(e) {
+    e.preventDefault();
+    const name = (document.getElementById('reqName')?.value || '').trim();
+    const title = (document.getElementById('reqGameTitle')?.value || '').trim();
+    const type = document.getElementById('reqGameType')?.value || 'game';
+    const details = (document.getElementById('reqDetails')?.value || '').trim();
+    const msg = document.getElementById('reqMsg');
+    if (!name || title.length < 2) return;
+    const btn = document.getElementById('reqSubmitBtn');
+    if (btn) btn.disabled = true;
+    try {
+        const { error } = await window.supabaseClient.from('game_requests')
+            .insert([{ name, game_title: title, game_type: type, details: details || null }]);
+        if (error) throw error;
+        if (msg) { msg.className = 'alert-success'; msg.style.display = 'block'; msg.textContent = t('req.sent'); }
+        document.getElementById('reqForm').reset();
+        renderRequestView();
+    } catch (err) {
+        console.error('request submit error:', err);
+        if (msg) { msg.className = 'alert-danger'; msg.style.display = 'block'; msg.textContent = t('req.error'); }
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+};
+
 // ---------- الرئيسية ----------
 function renderHome() {
     const totalDownloads = games.concat(apps).reduce((s, x) => s + (x.download_count || 0), 0);
@@ -1874,6 +2219,23 @@ function renderHome() {
         <div class="stat-card"><i class="fa-solid fa-mobile-screen"></i><h3>${apps.length}</h3><span>${t('stats.apps')}</span></div>
         <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>${t('stats.projects')}</span></div>
         <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>${t('stats.downloads')}</span></div>`;
+    }
+    // v10 — الرائج الآن: أعلى 6 عناصر حسب عدد التحميلات (منشور فقط، تحميلات > 0)
+    const trending = games.map(g => ({ item: g, type: 'game' }))
+        .concat(apps.map(a => ({ item: a, type: 'app' })))
+        .filter(e => (e.item.download_count || 0) > 0)
+        .sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0))
+        .slice(0, 6);
+    const trSec = document.getElementById('trendingSection');
+    const trBox = document.getElementById('homeTrending');
+    if (trSec && trBox) {
+        if (trending.length) {
+            trSec.style.display = '';
+            trBox.innerHTML = trendingStripHtml(trending);
+        } else {
+            trSec.style.display = 'none';
+            trBox.innerHTML = '';
+        }
     }
     // v5 — أقسام الرئيسية حسب المنصة (platform = pc | phone | mod-minecraft | mod-gta)
     const pcItems = games.filter(g => platformOf(g, 'game') === 'pc').map(g => ({ item: g, type: 'game' }))
@@ -1926,13 +2288,16 @@ function renderGamesList() {
             : platformOf(g, 'game') === gamesPlatformFilter);
     const list = games.filter(g =>
         (gamesFilter === 'all' || g.status === gamesFilter) &&
+        (!gamesFavOnly || isFavorite('game', g.id)) &&
         catOk(g) &&
         platOk(g) &&
         (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
     box.innerHTML = list.length ? stripsHtml(list.map(g => ({ item: g, type: 'game' })), 8)
-        : (q || gamesFilter !== 'all' || gamesCatFilter !== 'all' || gamesPlatformFilter !== 'all'
+        : (gamesFavOnly
+            ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
+            : (q || gamesFilter !== 'all' || gamesCatFilter !== 'all' || gamesPlatformFilter !== 'all'
             ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
-            : emptyState('fa-solid fa-gamepad', t('empty.gamesTitle'), t('empty.gamesText')));
+            : emptyState('fa-solid fa-gamepad', t('empty.gamesTitle'), t('empty.gamesText'))));
     requestAnimationFrame(updateStripArrows);
 }
 
@@ -1948,13 +2313,16 @@ function renderAppsList() {
             : platformOf(a, 'app') === appsPlatformFilter);
     const list = apps.filter(a =>
         (appsFilter === 'all' || a.status === appsFilter) &&
+        (!appsFavOnly || isFavorite('app', a.id)) &&
         catOk(a) &&
         platOk(a) &&
         (!q || ((a.title || '') + ' ' + (a.short_desc || '') + ' ' + (a.category || '')).toLowerCase().includes(q)));
     box.innerHTML = list.length ? stripsHtml(list.map(a => ({ item: a, type: 'app' })), 8)
-        : (q || appsFilter !== 'all' || appsCatFilter !== 'all' || appsPlatformFilter !== 'all'
+        : (appsFavOnly
+            ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
+            : (q || appsFilter !== 'all' || appsCatFilter !== 'all' || appsPlatformFilter !== 'all'
             ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
-            : emptyState('fa-solid fa-mobile-screen', t('empty.appsTitle'), t('empty.appsText')));
+            : emptyState('fa-solid fa-mobile-screen', t('empty.appsTitle'), t('empty.appsText'))));
     requestAnimationFrame(updateStripArrows);
 }
 

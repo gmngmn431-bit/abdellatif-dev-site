@@ -272,17 +272,19 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 /* ============================================================
    شارات الحالة
    ============================================================ */
-.status-badge, .badge-published, .badge-draft, .badge-platform {
+.status-badge, .badge-published, .badge-draft, .badge-platform, .badge-online, .badge-offline {
   display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 11px; border-radius: 999px;
   font-size: 0.76rem; font-weight: 600; line-height: 1.7; border: 1px solid transparent;
 }
-.status-badge::before, .badge-published::before, .badge-draft::before, .badge-platform::before {
+.status-badge::before, .badge-published::before, .badge-draft::before, .badge-platform::before, .badge-online::before, .badge-offline::before {
   content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; flex: none;
 }
 .status-available, .badge-published { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.32); }
 .status-in_dev, .badge-draft { background: var(--gold-a); color: var(--gold); border-color: rgba(255, 193, 77, 0.32); }
 .status-coming_soon { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
 .badge-platform { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
+.badge-online { background: rgba(86, 245, 155, 0.16); color: #56f59b; border-color: rgba(86, 245, 155, 0.4); }
+.badge-offline { background: rgba(255, 255, 255, 0.06); color: var(--ink-3); border-color: rgba(255, 255, 255, 0.14); }
 
 /* ============================================================
    رسائل وتنبيهات وحالات
@@ -948,6 +950,7 @@ const GAME_APP_FIELDS = (kind) => [
     FIELD('slug', 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', { placeholder: 'moroccan-card-game' }),
     FIELD('category', 'التصنيف', 'select', { required: true, options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: 'مهكرة' }], value: 'رسمية' }),
     FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: kind === 'games' ? 'pc' : 'phone' }),
+    FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
     FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: 'جملة واحدة تعرّف باللعبة...' }),
     FIELD('description', 'الوصف الكامل', 'textarea', { required: true, rows: 4 }),
     FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nالعب ضد البوتات\nالعب مع الأصدقاء عبر الواي فاي' }),
@@ -1156,7 +1159,7 @@ window.renderAdminList = function(entity) {
         if (entity === 'games' || entity === 'apps') {
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span></small></td>
+                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span> ${item.is_online ? '<span class="badge-online">أونلاين</span>' : '<span class="badge-offline">أوفلاين</span>'}</small></td>
                 <td data-label="الحالة">${esc(STATUS_LABELS[item.status] || item.status || '')}</td>
                 <td data-label="التحميلات">${item.download_count || 0}</td>
                 <td data-label="الإجراءات">${actionsHtml(entity, item)}</td>`;

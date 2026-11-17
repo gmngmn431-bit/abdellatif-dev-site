@@ -417,6 +417,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
    الموقع العام (index.html)
    ============================================================ */
 
+html, body { overflow-x: clip; }
+
 /* ---------- شريط التنقل: كبسولة زجاجية عائمة ---------- */
 .navbar { position: sticky; top: 0; z-index: 100; padding: 14px 20px 0; }
 .nav-container {
@@ -819,13 +821,11 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 @media (max-width: 899px) {
   body { padding-bottom: 104px; }
   .navbar { padding: 10px 14px 0; }
-  .nav-container { height: 58px; padding: 0 8px 0 10px; }
+  .nav-container { height: 58px; padding: 0 8px 0 10px; gap: 8px; }
   .nav-container .logo { font-size: 1.05rem; gap: 10px; }
   .nav-container .logo-icon { width: 38px; height: 38px; border-radius: 12px; }
-  .nav-admin-mini {
-    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; color: var(--mint); font-size: 0.95rem;
-    background: var(--glass-flat); border: 1px solid var(--line);
-  }
+  /* v11 — قفل الإدارة مخفي من الهيدر في الجوال (موجود في قائمة الهمبرغر) باش ما يفيضش الشريط */
+  .nav-admin-mini { display: none; }
   .nav-links {
     position: fixed; z-index: 120; inset-inline: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; gap: 2px; padding: 8px;
     border-radius: 30px; background: linear-gradient(155deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), rgba(8, 12, 15, 0.55);
@@ -928,6 +928,9 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   .filter-btn { flex: 1 1 auto; padding: 0 10px; }
   .card { border-radius: 24px; }
   .hero-title { margin-top: 20px; }
+  /* v11 — في الشاشات الضيقة نخفي نص الشعار باش يدخل الهيدر كامل */
+  .logo .brand-latin { display: none; }
+  .nav-container { gap: 6px; padding: 0 6px; }
 }
 
 /* ============================================================
@@ -1113,6 +1116,7 @@ button.nav-link { background: transparent; border: 0; }
         <a href="#/" class="nav-link" data-route="home"><i class="fa-solid fa-house"></i> <span data-i18n="nav.home">الرئيسية</span></a>
         <button type="button" class="nav-link nav-search-btn" onclick="focusHeroSearch()" data-i18n-aria="nav.search" aria-label="بحث"><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="nav.search">بحث</span></button>
         <a href="#/games" class="nav-link" data-route="games"><i class="fa-solid fa-gamepad"></i> <span data-i18n="nav.games">الألعاب</span></a>
+        <a href="#/mods" class="nav-link" data-route="mods"><i class="fa-solid fa-puzzle-piece"></i> <span data-i18n="nav.mods">المودات</span></a>
         <a href="#/apps" class="nav-link" data-route="apps"><i class="fa-solid fa-mobile-screen"></i> <span data-i18n="nav.apps">التطبيقات</span></a>
         <a href="#/dev" class="nav-link" data-route="dev"><i class="fa-solid fa-code"></i> <span data-i18n="nav.dev">قيد التطوير</span></a>
         <a href="#/news" class="nav-link" data-route="news"><i class="fa-solid fa-newspaper"></i> <span data-i18n="nav.news">الأخبار</span></a>
@@ -1221,7 +1225,7 @@ button.nav-link { background: transparent; border: 0; }
             <span class="eyebrow" data-i18n="sec.modsEyebrow">03 — Mods</span>
             <h2 class="section-title"><i class="fa-solid fa-puzzle-piece ico"></i> <span data-i18n="sec.mods">المودات</span></h2>
           </div>
-          <a href="#/games" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
+          <a href="#/mods" class="see-all" data-i18n="common.seeAll">عرض الكل ←</a>
         </div>
         <div class="strip-label"><i class="fa-solid fa-cube"></i> <span data-i18n="sec.modsMinecraft">مودات ماينكرافت</span></div>
         <div id="homeModsMinecraft"></div>
@@ -1264,23 +1268,13 @@ button.nav-link { background: transparent; border: 0; }
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" id="gamesSearch" placeholder="ابحث عن لعبة..." data-i18n-placeholder="list.searchGame">
         </div>
+        <!-- v11 — صف فلترة واحد فقط: القسم + المفضلة -->
         <div class="filter-chips" id="gamesFilters">
-          <button class="filter-btn active" data-status="all" data-i18n="filter.all">الكل</button>
-          <button class="filter-btn" data-status="available" data-i18n="filter.available">متاحة</button>
-          <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
-          <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
-          <button class="filter-btn" id="gamesFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="gamesFavCount">(0)</span></button>
-        </div>
-        <div class="filter-chips" id="gamesCatFilters">
-          <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
-          <button class="filter-btn" data-cat="official" data-i18n="filter.official">رسمية</button>
-          <button class="filter-btn" data-cat="modded" data-i18n="filter.modded">مهكرة</button>
-        </div>
-        <div class="filter-chips" id="gamesPlatformFilters">
           <button class="filter-btn active" data-platform="all" data-i18n="filter.platformAll">كل المنصات</button>
           <button class="filter-btn" data-platform="pc" data-i18n="filter.pc">حاسوب</button>
           <button class="filter-btn" data-platform="phone" data-i18n="filter.phone">هاتف</button>
           <button class="filter-btn" data-platform="mods" data-i18n="filter.mods">مودات</button>
+          <button class="filter-btn" id="gamesFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="gamesFavCount">(0)</span></button>
         </div>
         <div id="gamesList"></div>
       </div>
@@ -1298,25 +1292,36 @@ button.nav-link { background: transparent; border: 0; }
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" id="appsSearch" placeholder="ابحث عن تطبيق..." data-i18n-placeholder="list.searchApp">
         </div>
+        <!-- v11 — صف فلترة واحد فقط: المنصة + المفضلة -->
         <div class="filter-chips" id="appsFilters">
-          <button class="filter-btn active" data-status="all" data-i18n="filter.all">الكل</button>
-          <button class="filter-btn" data-status="available" data-i18n="filter.availableApp">متاح</button>
-          <button class="filter-btn" data-status="in_dev" data-i18n="filter.inDev">قيد التطوير</button>
-          <button class="filter-btn" data-status="coming_soon" data-i18n="filter.comingSoon">قريباً</button>
-          <button class="filter-btn" id="appsFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="appsFavCount">(0)</span></button>
-        </div>
-        <div class="filter-chips" id="appsCatFilters">
-          <button class="filter-btn active" data-cat="all" data-i18n="filter.allTypes">كل الأنواع</button>
-          <button class="filter-btn" data-cat="official" data-i18n="filter.official">رسمية</button>
-          <button class="filter-btn" data-cat="modded" data-i18n="filter.modded">مهكرة</button>
-        </div>
-        <div class="filter-chips" id="appsPlatformFilters">
           <button class="filter-btn active" data-platform="all" data-i18n="filter.platformAll">كل المنصات</button>
           <button class="filter-btn" data-platform="pc" data-i18n="filter.pc">حاسوب</button>
           <button class="filter-btn" data-platform="phone" data-i18n="filter.phone">هاتف</button>
-          <button class="filter-btn" data-platform="mods" data-i18n="filter.mods">مودات</button>
+          <button class="filter-btn" id="appsFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="appsFavCount">(0)</span></button>
         </div>
         <div id="appsList"></div>
+      </div>
+    </section>
+
+    <!-- ===== المودات (v11 — صفحة مستقلة: مودات ألعاب فقط) ===== -->
+    <section id="view-mods" class="view" style="display:none;">
+      <div class="section">
+        <div class="page-head">
+          <span class="eyebrow" data-i18n="sec.modsEyebrow">03 — Mods</span>
+          <h2 class="section-title"><i class="fa-solid fa-puzzle-piece ico"></i> <span data-i18n="nav.mods">المودات</span></h2>
+          <p class="section-sub" data-i18n="mods.sub">مودات ألعاب فقط — GTA San Andreas و Minecraft. اضغط على أي مود لعرض التفاصيل والتحميل.</p>
+        </div>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="modsSearch" placeholder="ابحث عن مود..." data-i18n-placeholder="mods.search">
+        </div>
+        <div class="filter-chips" id="modsFilters">
+          <button class="filter-btn active" data-mod="all" data-i18n="filter.all">الكل</button>
+          <button class="filter-btn" data-mod="gta" data-i18n="sec.modsGta">مودات GTA</button>
+          <button class="filter-btn" data-mod="mc" data-i18n="sec.modsMinecraft">مودات ماينكرافت</button>
+          <button class="filter-btn" id="modsFavChip" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count" id="modsFavCount">(0)</span></button>
+        </div>
+        <div id="modsList"></div>
       </div>
     </section>
 
@@ -1439,6 +1444,7 @@ button.nav-link { background: transparent; border: 0; }
         <h4 data-i18n="footer.sections">الأقسام</h4>
         <ul>
           <li><a href="#/games" data-i18n="nav.games">الألعاب</a></li>
+          <li><a href="#/mods" data-i18n="nav.mods">المودات</a></li>
           <li><a href="#/apps" data-i18n="nav.apps">التطبيقات</a></li>
           <li><a href="#/dev" data-i18n="nav.dev">قيد التطوير</a></li>
           <li><a href="#/news" data-i18n="nav.news">الأخبار</a></li>
@@ -1457,11 +1463,13 @@ button.nav-link { background: transparent; border: 0; }
   </footer>
 
   <!-- v10 — شريط التنقل السفلي للجوال -->
+  <!-- v11 — شريط سفلي كامل: 5 صفحات (بحث في الهيرو وصفحات القوائم) -->
   <nav class="bottom-nav" id="bottomNav" aria-label="التنقل السريع">
     <a href="#/" class="bn-item" data-route="home"><i class="fa-solid fa-house"></i><span data-i18n="nav.home">الرئيسية</span></a>
-    <button type="button" class="bn-item" onclick="focusHeroSearch()" data-i18n-aria="nav.search" aria-label="بحث"><i class="fa-solid fa-magnifying-glass"></i><span data-i18n="nav.search">بحث</span></button>
     <button type="button" class="bn-item" data-route="games" onclick="goToGames()"><i class="fa-solid fa-gamepad"></i><span data-i18n="nav.games">الألعاب</span></button>
     <button type="button" class="bn-item" data-route="mods" onclick="goToMods()"><i class="fa-solid fa-puzzle-piece"></i><span data-i18n="nav.mods">المودات</span></button>
+    <a href="#/apps" class="bn-item" data-route="apps"><i class="fa-solid fa-mobile-screen"></i><span data-i18n="nav.apps">التطبيقات</span></a>
+    <a href="#/request" class="bn-item" data-route="request"><i class="fa-solid fa-clipboard-list"></i><span data-i18n="nav.request">اطلب</span></a>
   </nav>
 
   <script src="supabase-client.js"></script>
@@ -1523,7 +1531,7 @@ window.toggleTheme = function() {
 // v4 — قاموس اللغات ar/en/fr (واجهة الموقع فقط — محتوى قاعدة
 // البيانات يبقى بالعربية كما هو مخزّن)
 // ============================================================
-const I18N = {"ar":{"about.contact":"تواصل معي","about.tech":"التقنيات والأدوات","card.detailsDownload":"التفاصيل والتحميل","common.backHome":"العودة للرئيسية","common.loadError":"تعذر تحميل المحتوى.","common.loadErrorPrefix":"تعذر تحميل المحتوى: ","common.loading":"جاري تحميل المحتوى...","common.loadingDetails":"جاري تحميل التفاصيل...","common.notFoundText":"الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.","common.notFoundTitle":"الصفحة غير موجودة","common.retry":"إعادة المحاولة","common.seeAll":"عرض الكل ←","detail.backApps":"← العودة للتطبيقات","detail.backGames":"← العودة للألعاب","detail.backNews":"← العودة للأخبار","detail.directDownload":"تحميل مباشر — يبدأ التحميل تلقائياً","detail.downloadNow":"تحميل الآن","detail.downloadOne":"{n} تحميل","detail.downloads":"{n} تحميل","detail.features":"المميزات","detail.fullDesc":"الوصف الكامل","detail.lastUpdate":"آخر تحديث:","detail.latestUpdate":"آخر مستجد:","detail.noLink":"رابط التحميل غير متوفر بعد — قريباً","detail.notAvailable":"قريباً — هذه النسخة غير متاحة للتحميل بعد","detail.openExternal":"فتح الرابط الخارجي","detail.preparing":"جاري تجهيز رابط التحميل الآمن...","detail.progress":"نسبة التقدم","detail.requirements":"متطلبات التشغيل","detail.shotsApp":"لقطات من التطبيق","detail.shotsGame":"لقطات من اللعبة","detail.version":"الإصدار","detail.wait":"يرجى الانتظار ثوانٍ معدودة","empty.appsText":"ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.","empty.appsTitle":"لا توجد تطبيقات منشورة بعد","empty.gamesText":"ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.","empty.gamesTitle":"لا توجد ألعاب منشورة بعد","empty.modsGtaText":"ستظهر مودات GTA هنا فور إضافتها من لوحة الإدارة.","empty.modsGtaTitle":"لا توجد مودات GTA بعد","empty.modsMinecraftText":"ستظهر مودات ماينكرافت هنا فور إضافتها من لوحة الإدارة.","empty.modsMinecraftTitle":"لا توجد مودات ماينكرافت بعد","empty.modsText":"ستظهر المودات هنا فور إضافتها من لوحة الإدارة.","empty.modsTitle":"لا توجد مودات بعد","empty.newsText":"ستظهر آخر الأخبار والمستجدات هنا.","empty.newsTitle":"لا توجد أخبار بعد","empty.noResults":"لا توجد نتائج مطابقة","empty.noResultsText":"جرّب كلمة بحث أخرى أو غيّر الفلتر.","empty.pcText":"ستظهر ألعاب وتطبيقات الحاسوب هنا فور إضافتها من لوحة الإدارة.","empty.pcTitle":"لا توجد ألعاب أو تطبيقات حاسوب بعد","empty.phoneText":"ستظهر ألعاب وتطبيقات الهاتف هنا فور إضافتها من لوحة الإدارة.","empty.phoneTitle":"لا توجد ألعاب أو تطبيقات هاتف بعد","empty.projectsListText":"ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.","empty.projectsText":"ستظهر المشاريع الجديدة هنا عند إضافتها.","empty.projectsTitle":"لا توجد مشاريع قيد التطوير حالياً","fav.add":"أضف إلى المفضلة","fav.empty":"لا توجد عناصر في المفضلة بعد — اضغط على القلب في أي بطاقة لحفظها هنا.","fav.emptyTitle":"المفضلة فارغة","fav.favorites":"المفضلة","fav.remove":"أزل من المفضلة","filter.all":"الكل","filter.allTypes":"كل الأنواع","filter.available":"متاحة","filter.availableApp":"متاح","filter.comingSoon":"قريباً","filter.inDev":"قيد التطوير","filter.modded":"مهكرة","filter.mods":"مودات","filter.official":"رسمية","filter.pc":"حاسوب","filter.phone":"هاتف","filter.platformAll":"كل المنصات","footer.follow":"تابعني","footer.noSocial":"روابط التواصل تُضاف من لوحة الإدارة.","footer.rights":"Abdellatif Dev — جميع الحقوق محفوظة.","footer.sections":"الأقسام","footer.tagline":"مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.","hero.badge":"مطور ألعاب وتطبيقات مستقل","hero.dev":"قيد التطوير","hero.explore":"استكشف المشاريع","hero.subtitle":"أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — التطبيقات","list.appsSub":"جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.","list.appsTitle":"التطبيقات","list.devEyebrow":"03 — قيد التطوير","list.devSub":"المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.","list.devTitle":"مشاريع قيد التطوير","list.gamesEyebrow":"01 — الألعاب","list.gamesSub":"جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.","list.gamesTitle":"الألعاب","list.newsEyebrow":"04 — الأخبار","list.newsSub":"آخر الأخبار والتحديثات حول أعمالي ومشاريعي.","list.newsTitle":"الأخبار والمستجدات","list.searchApp":"ابحث عن تطبيق...","list.searchGame":"ابحث عن لعبة...","meta.title":"Abdellatif Dev | مطور ألعاب وتطبيقات مستقل","nav.about":"عن المطور","nav.admin":"لوحة الإدارة","nav.apps":"التطبيقات","nav.dev":"قيد التطوير","nav.games":"الألعاب","nav.home":"الرئيسية","nav.mods":"المودات","nav.news":"الأخبار","nav.request":"اطلب","nav.search":"بحث","nav.theme":"المظهر","news.readMore":"قراءة الخبر ←","platform.modGta":"مود GTA","platform.modMinecraft":"مود ماينكرافت","platform.pc":"حاسوب","platform.phone":"هاتف","req.details":"تفاصيل إضافية (اختياري)","req.detailsPh":"أي تفاصيل تساعدنا — المنصة، الإصدار، رابط رسمي...","req.empty":"لا توجد طلبات بعد — كن أول من يطلب لعبة أو تطبيقاً!","req.error":"تعذّر إرسال الطلب — تحقق من الاتصال وحاول مجدداً.","req.eyebrow":"05 — اطلب","req.gameTitle":"اسم اللعبة أو التطبيق","req.gameTitlePh":"مثال: لعبة سباق مجانية","req.listTitle":"أحدث الطلبات","req.name":"اسمك","req.namePh":"اكتب اسمك","req.sent":"تم إرسال طلبك بنجاح — شكراً لك! سنراجعه ونضيفه إن كان مجانياً وقانونياً.","req.status.approved":"مقبول","req.status.done":"تمت الإضافة","req.status.pending":"قيد الانتظار","req.status.rejected":"مرفوض","req.sub":"أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.","req.submit":"أرسل الطلب","req.title":"اطلب لعبة أو تطبيقاً","req.type":"النوع","req.typeApp":"تطبيق","req.typeGame":"لعبة","req.typeMod":"مود","search.clear":"مسح البحث","search.noResults":"لا توجد نتائج مطابقة","search.placeholder":"ابحث عن تطبيق أو لعبة...","search.resultOne":"نتيجة واحدة","search.results":"نتائج البحث","search.resultsCount":"{n} نتائج","search.tryOther":"جرّب كلمة بحث أخرى.","sec.dev":"قيد التطوير","sec.devEyebrow":"04 — قيد التطوير","sec.mods":"المودات","sec.modsEyebrow":"03 — Mods","sec.modsGta":"مودات GTA","sec.modsMinecraft":"مودات ماينكرافت","sec.news":"آخر الأخبار","sec.newsEyebrow":"05 — الأخبار","sec.pc":"ألعاب وتطبيقات الحاسوب","sec.pcEyebrow":"01 — PC","sec.phone":"ألعاب وتطبيقات الهاتف","sec.phoneEyebrow":"02 — Phone","sec.trending":"الرائج الآن","sec.trendingEyebrow":"00 — الرائج","sec.trendingSub":"الأكثر تحميلاً — اضغط على أي عنصر لعرض التفاصيل والتحميل.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (الشرح الكامل في README.md).","stats.apps":"تطبيق منشور","stats.downloads":"إجمالي التحميلات","stats.games":"لعبة منشورة","stats.projects":"مشروع قيد التطوير","status.available":"متاحة","status.comingSoon":"قريباً","status.inDev":"قيد التطوير"},"en":{"about.contact":"Contact me","about.tech":"Technologies & Tools","card.detailsDownload":"Details & Download","common.backHome":"Back to home","common.loadError":"Could not load the content.","common.loadErrorPrefix":"Could not load the content: ","common.loading":"Loading content...","common.loadingDetails":"Loading details...","common.notFoundText":"The link you opened is incorrect or the content was deleted.","common.notFoundTitle":"Page not found","common.retry":"Try again","common.seeAll":"View all →","detail.backApps":"← Back to apps","detail.backGames":"← Back to games","detail.backNews":"← Back to news","detail.directDownload":"Direct download — starts automatically","detail.downloadNow":"Download now","detail.downloadOne":"{n} download","detail.downloads":"{n} downloads","detail.features":"Features","detail.fullDesc":"Full description","detail.lastUpdate":"Last updated:","detail.latestUpdate":"Latest update:","detail.noLink":"Download link not available yet — coming soon","detail.notAvailable":"Coming soon — this version is not available for download yet","detail.openExternal":"Open external link","detail.preparing":"Preparing your secure download link...","detail.progress":"Progress","detail.requirements":"Requirements","detail.shotsApp":"App screenshots","detail.shotsGame":"Game screenshots","detail.version":"Version","detail.wait":"Please wait a few seconds","empty.appsText":"Apps will appear here as soon as they are added from the admin panel.","empty.appsTitle":"No published apps yet","empty.gamesText":"Games will appear here as soon as they are added from the admin panel.","empty.gamesTitle":"No published games yet","empty.modsGtaText":"GTA mods will appear here as soon as they are added from the admin panel.","empty.modsGtaTitle":"No GTA mods yet","empty.modsMinecraftText":"Minecraft mods will appear here as soon as they are added from the admin panel.","empty.modsMinecraftTitle":"No Minecraft mods yet","empty.modsText":"Mods will appear here as soon as they are added from the admin panel.","empty.modsTitle":"No mods yet","empty.newsText":"The latest news and updates will appear here.","empty.newsTitle":"No news yet","empty.noResults":"No matching results","empty.noResultsText":"Try a different search term or change the filter.","empty.pcText":"PC games and apps will appear here as soon as they are added from the admin panel.","empty.pcTitle":"No PC games or apps yet","empty.phoneText":"Phone games and apps will appear here as soon as they are added from the admin panel.","empty.phoneTitle":"No phone games or apps yet","empty.projectsListText":"New projects will appear here once added from the admin panel.","empty.projectsText":"New projects will appear here when added.","empty.projectsTitle":"No projects in development right now","fav.add":"Add to favorites","fav.empty":"No favorites yet — tap the heart on any card to save it here.","fav.emptyTitle":"No favorites yet","fav.favorites":"Favorites","fav.remove":"Remove from favorites","filter.all":"All","filter.allTypes":"All types","filter.available":"Available","filter.availableApp":"Available","filter.comingSoon":"Coming soon","filter.inDev":"In development","filter.modded":"Modded","filter.mods":"Mods","filter.official":"Official","filter.pc":"PC","filter.phone":"Phone","filter.platformAll":"All platforms","footer.follow":"Follow me","footer.noSocial":"Social links are added from the admin panel.","footer.rights":"Abdellatif Dev — All rights reserved.","footer.sections":"Sections","footer.tagline":"Independent game & app developer — games, apps, and projects in development.","hero.badge":"Independent game & app developer","hero.dev":"In Development","hero.explore":"Explore Projects","hero.subtitle":"I build mobile games and apps — from idea to release, with quality and professionalism.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Apps","list.appsSub":"All the apps I built — tap any app to view details and download.","list.appsTitle":"Apps","list.devEyebrow":"03 — In Development","list.devSub":"The projects I am currently working on — follow the progress and latest updates.","list.devTitle":"Projects in Development","list.gamesEyebrow":"01 — Games","list.gamesSub":"All the games I built — tap any game to view details and download.","list.gamesTitle":"Games","list.newsEyebrow":"04 — News","list.newsSub":"The latest news and updates about my work and projects.","list.newsTitle":"News & Updates","list.searchApp":"Search for an app...","list.searchGame":"Search for a game...","meta.title":"Abdellatif Dev | Independent game & app developer","nav.about":"About","nav.admin":"Admin Panel","nav.apps":"Apps","nav.dev":"In Development","nav.games":"Games","nav.home":"Home","nav.mods":"Mods","nav.news":"News","nav.request":"Request","nav.search":"Search","nav.theme":"Theme","news.readMore":"Read article →","platform.modGta":"GTA mod","platform.modMinecraft":"Minecraft mod","platform.pc":"PC","platform.phone":"Phone","req.details":"Extra details (optional)","req.detailsPh":"Any details that help — platform, version, official link...","req.empty":"No requests yet — be the first to request a game or app!","req.error":"Could not send the request — check your connection and try again.","req.eyebrow":"05 — Request","req.gameTitle":"Game or app name","req.gameTitlePh":"Example: a free racing game","req.listTitle":"Latest requests","req.name":"Your name","req.namePh":"Type your name","req.sent":"Your request was sent successfully — thank you! We'll review it and add it if it's free and legal.","req.status.approved":"Approved","req.status.done":"Added","req.status.pending":"Pending","req.status.rejected":"Rejected","req.sub":"Tell us which game or app you want — we'll look for it, and if it's free and legal we'll add it to the site.","req.submit":"Send request","req.title":"Request a game or app","req.type":"Type","req.typeApp":"App","req.typeGame":"Game","req.typeMod":"Mod","search.clear":"Clear search","search.noResults":"No matching results","search.placeholder":"Search for an app or game...","search.resultOne":"1 result","search.results":"Search results","search.resultsCount":"{n} results","search.tryOther":"Try a different search term.","sec.dev":"In Development","sec.devEyebrow":"04 — In Development","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"GTA Mods","sec.modsMinecraft":"Minecraft Mods","sec.news":"Latest News","sec.newsEyebrow":"05 — News","sec.pc":"PC Games & Apps","sec.pcEyebrow":"01 — PC","sec.phone":"Phone Games & Apps","sec.phoneEyebrow":"02 — Phone","sec.trending":"Trending Now","sec.trendingEyebrow":"00 — Trending","sec.trendingSub":"Most downloaded — tap any item to view details and download.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> This site is not connected to a database yet. Site owner: put your Supabase project URL and anon key in <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (full guide in README.md).","stats.apps":"Published apps","stats.downloads":"Total downloads","stats.games":"Published games","stats.projects":"Projects in development","status.available":"Available","status.comingSoon":"Coming soon","status.inDev":"In development"},"fr":{"about.contact":"Contactez-moi","about.tech":"Technologies et outils","card.detailsDownload":"Détails et téléchargement","common.backHome":"Retour à l'accueil","common.loadError":"Impossible de charger le contenu.","common.loadErrorPrefix":"Impossible de charger le contenu : ","common.loading":"Chargement du contenu...","common.loadingDetails":"Chargement des détails...","common.notFoundText":"Le lien que vous avez ouvert est incorrect ou le contenu a été supprimé.","common.notFoundTitle":"Page introuvable","common.retry":"Réessayer","common.seeAll":"Tout voir →","detail.backApps":"← Retour aux applications","detail.backGames":"← Retour aux jeux","detail.backNews":"← Retour aux actualités","detail.directDownload":"Téléchargement direct — démarre automatiquement","detail.downloadNow":"Télécharger","detail.downloadOne":"{n} téléchargement","detail.downloads":"{n} téléchargements","detail.features":"Fonctionnalités","detail.fullDesc":"Description complète","detail.lastUpdate":"Dernière mise à jour :","detail.latestUpdate":"Dernière nouveauté :","detail.noLink":"Lien de téléchargement pas encore disponible — bientôt","detail.notAvailable":"Bientôt — cette version n'est pas encore disponible au téléchargement","detail.openExternal":"Ouvrir le lien externe","detail.preparing":"Préparation de votre lien de téléchargement sécurisé...","detail.progress":"Progression","detail.requirements":"Configuration requise","detail.shotsApp":"Captures de l'application","detail.shotsGame":"Captures du jeu","detail.version":"Version","detail.wait":"Veuillez patienter quelques secondes","empty.appsText":"Les applications apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.appsTitle":"Aucune application publiée pour le moment","empty.gamesText":"Les jeux apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.gamesTitle":"Aucun jeu publié pour le moment","empty.modsGtaText":"Les mods GTA apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsGtaTitle":"Aucun mod GTA pour le moment","empty.modsMinecraftText":"Les mods Minecraft apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsMinecraftTitle":"Aucun mod Minecraft pour le moment","empty.modsText":"Les mods apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsTitle":"Aucun mod pour le moment","empty.newsText":"Les dernières actualités apparaîtront ici.","empty.newsTitle":"Aucune actualité pour le moment","empty.noResults":"Aucun résultat correspondant","empty.noResultsText":"Essayez un autre mot-clé ou changez le filtre.","empty.pcText":"Les jeux et applications PC apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.pcTitle":"Aucun jeu ni application PC pour le moment","empty.phoneText":"Les jeux et applications mobiles apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.phoneTitle":"Aucun jeu ou application mobile pour le moment","empty.projectsListText":"Les nouveaux projets apparaîtront ici une fois ajoutés depuis le panneau d'administration.","empty.projectsText":"Les nouveaux projets apparaîtront ici une fois ajoutés.","empty.projectsTitle":"Aucun projet en développement pour le moment","fav.add":"Ajouter aux favoris","fav.empty":"Aucun favori pour le moment — touchez le cœur sur une carte pour l'enregistrer ici.","fav.emptyTitle":"Favoris vides","fav.favorites":"Favoris","fav.remove":"Retirer des favoris","filter.all":"Tout","filter.allTypes":"Tous les types","filter.available":"Disponible","filter.availableApp":"Disponible","filter.comingSoon":"Bientôt","filter.inDev":"En développement","filter.modded":"Moddé","filter.mods":"Mods","filter.official":"Officiel","filter.pc":"PC","filter.phone":"Téléphone","filter.platformAll":"Toutes les plateformes","footer.follow":"Suivez-moi","footer.noSocial":"Les liens sociaux s'ajoutent depuis le panneau d'administration.","footer.rights":"Abdellatif Dev — Tous droits réservés.","footer.sections":"Sections","footer.tagline":"Développeur indépendant de jeux et d'applications — jeux, applications et projets en développement.","hero.badge":"Développeur indépendant de jeux et d'applications","hero.dev":"En développement","hero.explore":"Explorer les projets","hero.subtitle":"Je crée des jeux et des applications mobiles — de l'idée à la publication, avec qualité et professionnalisme.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Applications","list.appsSub":"Toutes les applications que j'ai créées — touchez une application pour voir les détails et la télécharger.","list.appsTitle":"Applications","list.devEyebrow":"03 — En développement","list.devSub":"Les projets sur lesquels je travaille actuellement — suivez l'avancement et les dernières nouveautés.","list.devTitle":"Projets en développement","list.gamesEyebrow":"01 — Jeux","list.gamesSub":"Tous les jeux que j'ai créés — touchez un jeu pour voir les détails et le télécharger.","list.gamesTitle":"Jeux","list.newsEyebrow":"04 — Actualités","list.newsSub":"Les dernières actualités et mises à jour sur mon travail et mes projets.","list.newsTitle":"Actualités","list.searchApp":"Rechercher une application...","list.searchGame":"Rechercher un jeu...","meta.title":"Abdellatif Dev | Développeur indépendant de jeux et d'applications","nav.about":"À propos","nav.admin":"Panneau d'admin","nav.apps":"Applications","nav.dev":"En développement","nav.games":"Jeux","nav.home":"Accueil","nav.mods":"Mods","nav.news":"Actualités","nav.request":"Demander","nav.search":"Recherche","nav.theme":"Thème","news.readMore":"Lire l'article →","platform.modGta":"Mod GTA","platform.modMinecraft":"Mod Minecraft","platform.pc":"PC","platform.phone":"Téléphone","req.details":"Détails supplémentaires (facultatif)","req.detailsPh":"Tout détail utile — plateforme, version, lien officiel...","req.empty":"Aucune demande pour le moment — soyez le premier à demander un jeu ou une application !","req.error":"Impossible d'envoyer la demande — vérifiez votre connexion et réessayez.","req.eyebrow":"05 — Demander","req.gameTitle":"Nom du jeu ou de l'application","req.gameTitlePh":"Exemple : un jeu de course gratuit","req.listTitle":"Dernières demandes","req.name":"Votre nom","req.namePh":"Tapez votre nom","req.sent":"Votre demande a été envoyée — merci ! Nous l'examinerons et l'ajouterons si elle est gratuite et légale.","req.status.approved":"Approuvé","req.status.done":"Ajouté","req.status.pending":"En attente","req.status.rejected":"Refusé","req.sub":"Dites-nous quel jeu ou application vous voulez — nous le chercherons et, s'il est gratuit et légal, nous l'ajouterons au site.","req.submit":"Envoyer la demande","req.title":"Demander un jeu ou une application","req.type":"Type","req.typeApp":"Application","req.typeGame":"Jeu","req.typeMod":"Mod","search.clear":"Effacer la recherche","search.noResults":"Aucun résultat correspondant","search.placeholder":"Rechercher une application ou un jeu...","search.resultOne":"1 résultat","search.results":"Résultats de la recherche","search.resultsCount":"{n} résultats","search.tryOther":"Essayez un autre mot-clé.","sec.dev":"En développement","sec.devEyebrow":"04 — En développement","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"Mods GTA","sec.modsMinecraft":"Mods Minecraft","sec.news":"Dernières actualités","sec.newsEyebrow":"05 — Actualités","sec.pc":"Jeux et applications PC","sec.pcEyebrow":"01 — PC","sec.phone":"Jeux et applis du téléphone","sec.phoneEyebrow":"02 — Téléphone","sec.trending":"Tendances","sec.trendingEyebrow":"00 — Tendances","sec.trendingSub":"Les plus téléchargés — touchez un élément pour voir les détails et le télécharger.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> Ce site n'est pas encore connecté à une base de données. Propriétaire du site : mettez l'URL du projet Supabase et la clé anon dans <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (guide complet dans README.md).","stats.apps":"Applications publiées","stats.downloads":"Téléchargements totaux","stats.games":"Jeux publiés","stats.projects":"Projets en développement","status.available":"Disponible","status.comingSoon":"Bientôt","status.inDev":"En développement"}};
+const I18N = {"ar":{"about.contact":"تواصل معي","about.tech":"التقنيات والأدوات","card.detailsDownload":"التفاصيل والتحميل","common.backHome":"العودة للرئيسية","common.loadError":"تعذر تحميل المحتوى.","common.loadErrorPrefix":"تعذر تحميل المحتوى: ","common.loading":"جاري تحميل المحتوى...","common.loadingDetails":"جاري تحميل التفاصيل...","common.notFoundText":"الرابط الذي فتحته غير صحيح أو أن المحتوى حُذف.","common.notFoundTitle":"الصفحة غير موجودة","common.retry":"إعادة المحاولة","common.seeAll":"عرض الكل ←","detail.backApps":"← العودة للتطبيقات","detail.backGames":"← العودة للألعاب","detail.backNews":"← العودة للأخبار","detail.directDownload":"تحميل مباشر — يبدأ التحميل تلقائياً","detail.downloadNow":"تحميل الآن","detail.downloadOne":"{n} تحميل","detail.downloads":"{n} تحميل","detail.features":"المميزات","detail.fullDesc":"الوصف الكامل","detail.lastUpdate":"آخر تحديث:","detail.latestUpdate":"آخر مستجد:","detail.noLink":"رابط التحميل غير متوفر بعد — قريباً","detail.notAvailable":"قريباً — هذه النسخة غير متاحة للتحميل بعد","detail.openExternal":"فتح الرابط الخارجي","detail.preparing":"جاري تجهيز رابط التحميل الآمن...","detail.progress":"نسبة التقدم","detail.requirements":"متطلبات التشغيل","detail.shotsApp":"لقطات من التطبيق","detail.shotsGame":"لقطات من اللعبة","detail.version":"الإصدار","detail.wait":"يرجى الانتظار ثوانٍ معدودة","empty.appsText":"ستظهر التطبيقات هنا فور إضافتها من لوحة الإدارة.","empty.appsTitle":"لا توجد تطبيقات منشورة بعد","empty.gamesText":"ستظهر الألعاب هنا فور إضافتها من لوحة الإدارة.","empty.gamesTitle":"لا توجد ألعاب منشورة بعد","empty.modsGtaText":"ستظهر مودات GTA هنا فور إضافتها من لوحة الإدارة.","empty.modsGtaTitle":"لا توجد مودات GTA بعد","empty.modsMinecraftText":"ستظهر مودات ماينكرافت هنا فور إضافتها من لوحة الإدارة.","empty.modsMinecraftTitle":"لا توجد مودات ماينكرافت بعد","empty.modsText":"ستظهر المودات هنا فور إضافتها من لوحة الإدارة.","empty.modsTitle":"لا توجد مودات بعد","empty.newsText":"ستظهر آخر الأخبار والمستجدات هنا.","empty.newsTitle":"لا توجد أخبار بعد","empty.noResults":"لا توجد نتائج مطابقة","empty.noResultsText":"جرّب كلمة بحث أخرى أو غيّر الفلتر.","empty.pcText":"ستظهر ألعاب وتطبيقات الحاسوب هنا فور إضافتها من لوحة الإدارة.","empty.pcTitle":"لا توجد ألعاب أو تطبيقات حاسوب بعد","empty.phoneText":"ستظهر ألعاب وتطبيقات الهاتف هنا فور إضافتها من لوحة الإدارة.","empty.phoneTitle":"لا توجد ألعاب أو تطبيقات هاتف بعد","empty.projectsListText":"ستظهر المشاريع الجديدة هنا عند إضافتها من لوحة الإدارة.","empty.projectsText":"ستظهر المشاريع الجديدة هنا عند إضافتها.","empty.projectsTitle":"لا توجد مشاريع قيد التطوير حالياً","fav.add":"أضف إلى المفضلة","fav.empty":"لا توجد عناصر في المفضلة بعد — اضغط على القلب في أي بطاقة لحفظها هنا.","fav.emptyTitle":"المفضلة فارغة","fav.favorites":"المفضلة","fav.remove":"أزل من المفضلة","filter.all":"الكل","filter.allTypes":"كل الأنواع","filter.available":"متاحة","filter.availableApp":"متاح","filter.comingSoon":"قريباً","filter.inDev":"قيد التطوير","filter.modded":"مهكرة","filter.mods":"مودات","filter.official":"رسمية","filter.pc":"حاسوب","filter.phone":"هاتف","filter.platformAll":"كل المنصات","footer.follow":"تابعني","footer.noSocial":"روابط التواصل تُضاف من لوحة الإدارة.","footer.rights":"Abdellatif Dev — جميع الحقوق محفوظة.","footer.sections":"الأقسام","footer.tagline":"مطور ألعاب وتطبيقات مستقل — ألعاب، تطبيقات، ومشاريع قيد التطوير.","hero.badge":"مطور ألعاب وتطبيقات مستقل","hero.dev":"قيد التطوير","hero.explore":"استكشف المشاريع","hero.subtitle":"أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — التطبيقات","list.appsSub":"جميع التطبيقات التي طورتها — اضغط على أي تطبيق لعرض التفاصيل والتحميل.","list.appsTitle":"التطبيقات","list.devEyebrow":"03 — قيد التطوير","list.devSub":"المشاريع التي أعمل عليها حالياً — تابع التقدم وآخر المستجدات.","list.devTitle":"مشاريع قيد التطوير","list.gamesEyebrow":"01 — الألعاب","list.gamesSub":"جميع الألعاب التي طورتها — اضغط على أي لعبة لعرض التفاصيل والتحميل.","list.gamesTitle":"الألعاب","list.newsEyebrow":"04 — الأخبار","list.newsSub":"آخر الأخبار والتحديثات حول أعمالي ومشاريعي.","list.newsTitle":"الأخبار والمستجدات","list.searchApp":"ابحث عن تطبيق...","list.searchGame":"ابحث عن لعبة...","meta.title":"Abdellatif Dev | مطور ألعاب وتطبيقات مستقل","nav.about":"عن المطور","nav.admin":"لوحة الإدارة","nav.apps":"التطبيقات","nav.dev":"قيد التطوير","nav.games":"الألعاب","nav.home":"الرئيسية","nav.mods":"المودات","nav.news":"الأخبار","nav.request":"اطلب","nav.search":"بحث","nav.theme":"المظهر","news.readMore":"قراءة الخبر ←","platform.modGta":"مود GTA","platform.modMinecraft":"مود ماينكرافت","platform.pc":"حاسوب","platform.phone":"هاتف","req.details":"تفاصيل إضافية (اختياري)","req.detailsPh":"أي تفاصيل تساعدنا — المنصة، الإصدار، رابط رسمي...","req.empty":"لا توجد طلبات بعد — كن أول من يطلب لعبة أو تطبيقاً!","req.error":"تعذّر إرسال الطلب — تحقق من الاتصال وحاول مجدداً.","req.eyebrow":"05 — اطلب","req.gameTitle":"اسم اللعبة أو التطبيق","req.gameTitlePh":"مثال: لعبة سباق مجانية","req.listTitle":"أحدث الطلبات","req.name":"اسمك","req.namePh":"اكتب اسمك","req.sent":"تم إرسال طلبك بنجاح — شكراً لك! سنراجعه ونضيفه إن كان مجانياً وقانونياً.","req.status.approved":"مقبول","req.status.done":"تمت الإضافة","req.status.pending":"قيد الانتظار","req.status.rejected":"مرفوض","req.sub":"أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.","req.submit":"أرسل الطلب","req.title":"اطلب لعبة أو تطبيقاً","req.type":"النوع","req.typeApp":"تطبيق","req.typeGame":"لعبة","req.typeMod":"مود","search.clear":"مسح البحث","search.noResults":"لا توجد نتائج مطابقة","search.placeholder":"ابحث عن تطبيق أو لعبة...","search.resultOne":"نتيجة واحدة","search.results":"نتائج البحث","search.resultsCount":"{n} نتائج","search.tryOther":"جرّب كلمة بحث أخرى.","sec.dev":"قيد التطوير","sec.devEyebrow":"04 — قيد التطوير","sec.mods":"المودات","sec.modsEyebrow":"03 — Mods","sec.modsGta":"مودات GTA","sec.modsMinecraft":"مودات ماينكرافت","sec.news":"آخر الأخبار","sec.newsEyebrow":"05 — الأخبار","sec.pc":"ألعاب وتطبيقات الحاسوب","sec.pcEyebrow":"01 — PC","sec.phone":"ألعاب وتطبيقات الهاتف","sec.phoneEyebrow":"02 — Phone","sec.trending":"الرائج الآن","sec.trendingEyebrow":"00 — الرائج","sec.trendingSub":"الأكثر تحميلاً — اضغط على أي عنصر لعرض التفاصيل والتحميل.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> الموقع لم يُربط بقاعدة البيانات بعد. صاحب الموقع: ضع رابط مشروع Supabase ومفتاح anon في ملف <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (الشرح الكامل في README.md).","stats.apps":"تطبيق منشور","stats.downloads":"إجمالي التحميلات","stats.games":"لعبة منشورة","stats.projects":"مشروع قيد التطوير","status.available":"متاحة","status.comingSoon":"قريباً","status.inDev":"قيد التطوير","mods.sub":"مودات ألعاب فقط — GTA San Andreas و Minecraft. اضغط على أي مود لعرض التفاصيل والتحميل.","mods.search":"ابحث عن مود...","detail.backMods":"← العودة للمودات"},"en":{"about.contact":"Contact me","about.tech":"Technologies & Tools","card.detailsDownload":"Details & Download","common.backHome":"Back to home","common.loadError":"Could not load the content.","common.loadErrorPrefix":"Could not load the content: ","common.loading":"Loading content...","common.loadingDetails":"Loading details...","common.notFoundText":"The link you opened is incorrect or the content was deleted.","common.notFoundTitle":"Page not found","common.retry":"Try again","common.seeAll":"View all →","detail.backApps":"← Back to apps","detail.backGames":"← Back to games","detail.backNews":"← Back to news","detail.directDownload":"Direct download — starts automatically","detail.downloadNow":"Download now","detail.downloadOne":"{n} download","detail.downloads":"{n} downloads","detail.features":"Features","detail.fullDesc":"Full description","detail.lastUpdate":"Last updated:","detail.latestUpdate":"Latest update:","detail.noLink":"Download link not available yet — coming soon","detail.notAvailable":"Coming soon — this version is not available for download yet","detail.openExternal":"Open external link","detail.preparing":"Preparing your secure download link...","detail.progress":"Progress","detail.requirements":"Requirements","detail.shotsApp":"App screenshots","detail.shotsGame":"Game screenshots","detail.version":"Version","detail.wait":"Please wait a few seconds","empty.appsText":"Apps will appear here as soon as they are added from the admin panel.","empty.appsTitle":"No published apps yet","empty.gamesText":"Games will appear here as soon as they are added from the admin panel.","empty.gamesTitle":"No published games yet","empty.modsGtaText":"GTA mods will appear here as soon as they are added from the admin panel.","empty.modsGtaTitle":"No GTA mods yet","empty.modsMinecraftText":"Minecraft mods will appear here as soon as they are added from the admin panel.","empty.modsMinecraftTitle":"No Minecraft mods yet","empty.modsText":"Mods will appear here as soon as they are added from the admin panel.","empty.modsTitle":"No mods yet","empty.newsText":"The latest news and updates will appear here.","empty.newsTitle":"No news yet","empty.noResults":"No matching results","empty.noResultsText":"Try a different search term or change the filter.","empty.pcText":"PC games and apps will appear here as soon as they are added from the admin panel.","empty.pcTitle":"No PC games or apps yet","empty.phoneText":"Phone games and apps will appear here as soon as they are added from the admin panel.","empty.phoneTitle":"No phone games or apps yet","empty.projectsListText":"New projects will appear here once added from the admin panel.","empty.projectsText":"New projects will appear here when added.","empty.projectsTitle":"No projects in development right now","fav.add":"Add to favorites","fav.empty":"No favorites yet — tap the heart on any card to save it here.","fav.emptyTitle":"No favorites yet","fav.favorites":"Favorites","fav.remove":"Remove from favorites","filter.all":"All","filter.allTypes":"All types","filter.available":"Available","filter.availableApp":"Available","filter.comingSoon":"Coming soon","filter.inDev":"In development","filter.modded":"Modded","filter.mods":"Mods","filter.official":"Official","filter.pc":"PC","filter.phone":"Phone","filter.platformAll":"All platforms","footer.follow":"Follow me","footer.noSocial":"Social links are added from the admin panel.","footer.rights":"Abdellatif Dev — All rights reserved.","footer.sections":"Sections","footer.tagline":"Independent game & app developer — games, apps, and projects in development.","hero.badge":"Independent game & app developer","hero.dev":"In Development","hero.explore":"Explore Projects","hero.subtitle":"I build mobile games and apps — from idea to release, with quality and professionalism.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Apps","list.appsSub":"All the apps I built — tap any app to view details and download.","list.appsTitle":"Apps","list.devEyebrow":"03 — In Development","list.devSub":"The projects I am currently working on — follow the progress and latest updates.","list.devTitle":"Projects in Development","list.gamesEyebrow":"01 — Games","list.gamesSub":"All the games I built — tap any game to view details and download.","list.gamesTitle":"Games","list.newsEyebrow":"04 — News","list.newsSub":"The latest news and updates about my work and projects.","list.newsTitle":"News & Updates","list.searchApp":"Search for an app...","list.searchGame":"Search for a game...","meta.title":"Abdellatif Dev | Independent game & app developer","nav.about":"About","nav.admin":"Admin Panel","nav.apps":"Apps","nav.dev":"In Development","nav.games":"Games","nav.home":"Home","nav.mods":"Mods","nav.news":"News","nav.request":"Request","nav.search":"Search","nav.theme":"Theme","news.readMore":"Read article →","platform.modGta":"GTA mod","platform.modMinecraft":"Minecraft mod","platform.pc":"PC","platform.phone":"Phone","req.details":"Extra details (optional)","req.detailsPh":"Any details that help — platform, version, official link...","req.empty":"No requests yet — be the first to request a game or app!","req.error":"Could not send the request — check your connection and try again.","req.eyebrow":"05 — Request","req.gameTitle":"Game or app name","req.gameTitlePh":"Example: a free racing game","req.listTitle":"Latest requests","req.name":"Your name","req.namePh":"Type your name","req.sent":"Your request was sent successfully — thank you! We'll review it and add it if it's free and legal.","req.status.approved":"Approved","req.status.done":"Added","req.status.pending":"Pending","req.status.rejected":"Rejected","req.sub":"Tell us which game or app you want — we'll look for it, and if it's free and legal we'll add it to the site.","req.submit":"Send request","req.title":"Request a game or app","req.type":"Type","req.typeApp":"App","req.typeGame":"Game","req.typeMod":"Mod","search.clear":"Clear search","search.noResults":"No matching results","search.placeholder":"Search for an app or game...","search.resultOne":"1 result","search.results":"Search results","search.resultsCount":"{n} results","search.tryOther":"Try a different search term.","sec.dev":"In Development","sec.devEyebrow":"04 — In Development","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"GTA Mods","sec.modsMinecraft":"Minecraft Mods","sec.news":"Latest News","sec.newsEyebrow":"05 — News","sec.pc":"PC Games & Apps","sec.pcEyebrow":"01 — PC","sec.phone":"Phone Games & Apps","sec.phoneEyebrow":"02 — Phone","sec.trending":"Trending Now","sec.trendingEyebrow":"00 — Trending","sec.trendingSub":"Most downloaded — tap any item to view details and download.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> This site is not connected to a database yet. Site owner: put your Supabase project URL and anon key in <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (full guide in README.md).","stats.apps":"Published apps","stats.downloads":"Total downloads","stats.games":"Published games","stats.projects":"Projects in development","status.available":"Available","status.comingSoon":"Coming soon","status.inDev":"In development","mods.sub":"Game mods only — GTA San Andreas and Minecraft. Tap any mod to view details and download.","mods.search":"Search for a mod...","detail.backMods":"← Back to mods"},"fr":{"about.contact":"Contactez-moi","about.tech":"Technologies et outils","card.detailsDownload":"Détails et téléchargement","common.backHome":"Retour à l'accueil","common.loadError":"Impossible de charger le contenu.","common.loadErrorPrefix":"Impossible de charger le contenu : ","common.loading":"Chargement du contenu...","common.loadingDetails":"Chargement des détails...","common.notFoundText":"Le lien que vous avez ouvert est incorrect ou le contenu a été supprimé.","common.notFoundTitle":"Page introuvable","common.retry":"Réessayer","common.seeAll":"Tout voir →","detail.backApps":"← Retour aux applications","detail.backGames":"← Retour aux jeux","detail.backNews":"← Retour aux actualités","detail.directDownload":"Téléchargement direct — démarre automatiquement","detail.downloadNow":"Télécharger","detail.downloadOne":"{n} téléchargement","detail.downloads":"{n} téléchargements","detail.features":"Fonctionnalités","detail.fullDesc":"Description complète","detail.lastUpdate":"Dernière mise à jour :","detail.latestUpdate":"Dernière nouveauté :","detail.noLink":"Lien de téléchargement pas encore disponible — bientôt","detail.notAvailable":"Bientôt — cette version n'est pas encore disponible au téléchargement","detail.openExternal":"Ouvrir le lien externe","detail.preparing":"Préparation de votre lien de téléchargement sécurisé...","detail.progress":"Progression","detail.requirements":"Configuration requise","detail.shotsApp":"Captures de l'application","detail.shotsGame":"Captures du jeu","detail.version":"Version","detail.wait":"Veuillez patienter quelques secondes","empty.appsText":"Les applications apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.appsTitle":"Aucune application publiée pour le moment","empty.gamesText":"Les jeux apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.gamesTitle":"Aucun jeu publié pour le moment","empty.modsGtaText":"Les mods GTA apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsGtaTitle":"Aucun mod GTA pour le moment","empty.modsMinecraftText":"Les mods Minecraft apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsMinecraftTitle":"Aucun mod Minecraft pour le moment","empty.modsText":"Les mods apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.modsTitle":"Aucun mod pour le moment","empty.newsText":"Les dernières actualités apparaîtront ici.","empty.newsTitle":"Aucune actualité pour le moment","empty.noResults":"Aucun résultat correspondant","empty.noResultsText":"Essayez un autre mot-clé ou changez le filtre.","empty.pcText":"Les jeux et applications PC apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.pcTitle":"Aucun jeu ni application PC pour le moment","empty.phoneText":"Les jeux et applications mobiles apparaîtront ici dès leur ajout depuis le panneau d'administration.","empty.phoneTitle":"Aucun jeu ou application mobile pour le moment","empty.projectsListText":"Les nouveaux projets apparaîtront ici une fois ajoutés depuis le panneau d'administration.","empty.projectsText":"Les nouveaux projets apparaîtront ici une fois ajoutés.","empty.projectsTitle":"Aucun projet en développement pour le moment","fav.add":"Ajouter aux favoris","fav.empty":"Aucun favori pour le moment — touchez le cœur sur une carte pour l'enregistrer ici.","fav.emptyTitle":"Favoris vides","fav.favorites":"Favoris","fav.remove":"Retirer des favoris","filter.all":"Tout","filter.allTypes":"Tous les types","filter.available":"Disponible","filter.availableApp":"Disponible","filter.comingSoon":"Bientôt","filter.inDev":"En développement","filter.modded":"Moddé","filter.mods":"Mods","filter.official":"Officiel","filter.pc":"PC","filter.phone":"Téléphone","filter.platformAll":"Toutes les plateformes","footer.follow":"Suivez-moi","footer.noSocial":"Les liens sociaux s'ajoutent depuis le panneau d'administration.","footer.rights":"Abdellatif Dev — Tous droits réservés.","footer.sections":"Sections","footer.tagline":"Développeur indépendant de jeux et d'applications — jeux, applications et projets en développement.","hero.badge":"Développeur indépendant de jeux et d'applications","hero.dev":"En développement","hero.explore":"Explorer les projets","hero.subtitle":"Je crée des jeux et des applications mobiles — de l'idée à la publication, avec qualité et professionnalisme.","hero.title":"Abdellatif Dev","list.appsEyebrow":"02 — Applications","list.appsSub":"Toutes les applications que j'ai créées — touchez une application pour voir les détails et la télécharger.","list.appsTitle":"Applications","list.devEyebrow":"03 — En développement","list.devSub":"Les projets sur lesquels je travaille actuellement — suivez l'avancement et les dernières nouveautés.","list.devTitle":"Projets en développement","list.gamesEyebrow":"01 — Jeux","list.gamesSub":"Tous les jeux que j'ai créés — touchez un jeu pour voir les détails et le télécharger.","list.gamesTitle":"Jeux","list.newsEyebrow":"04 — Actualités","list.newsSub":"Les dernières actualités et mises à jour sur mon travail et mes projets.","list.newsTitle":"Actualités","list.searchApp":"Rechercher une application...","list.searchGame":"Rechercher un jeu...","meta.title":"Abdellatif Dev | Développeur indépendant de jeux et d'applications","nav.about":"À propos","nav.admin":"Panneau d'admin","nav.apps":"Applications","nav.dev":"En développement","nav.games":"Jeux","nav.home":"Accueil","nav.mods":"Mods","nav.news":"Actualités","nav.request":"Demander","nav.search":"Recherche","nav.theme":"Thème","news.readMore":"Lire l'article →","platform.modGta":"Mod GTA","platform.modMinecraft":"Mod Minecraft","platform.pc":"PC","platform.phone":"Téléphone","req.details":"Détails supplémentaires (facultatif)","req.detailsPh":"Tout détail utile — plateforme, version, lien officiel...","req.empty":"Aucune demande pour le moment — soyez le premier à demander un jeu ou une application !","req.error":"Impossible d'envoyer la demande — vérifiez votre connexion et réessayez.","req.eyebrow":"05 — Demander","req.gameTitle":"Nom du jeu ou de l'application","req.gameTitlePh":"Exemple : un jeu de course gratuit","req.listTitle":"Dernières demandes","req.name":"Votre nom","req.namePh":"Tapez votre nom","req.sent":"Votre demande a été envoyée — merci ! Nous l'examinerons et l'ajouterons si elle est gratuite et légale.","req.status.approved":"Approuvé","req.status.done":"Ajouté","req.status.pending":"En attente","req.status.rejected":"Refusé","req.sub":"Dites-nous quel jeu ou application vous voulez — nous le chercherons et, s'il est gratuit et légal, nous l'ajouterons au site.","req.submit":"Envoyer la demande","req.title":"Demander un jeu ou une application","req.type":"Type","req.typeApp":"Application","req.typeGame":"Jeu","req.typeMod":"Mod","search.clear":"Effacer la recherche","search.noResults":"Aucun résultat correspondant","search.placeholder":"Rechercher une application ou un jeu...","search.resultOne":"1 résultat","search.results":"Résultats de la recherche","search.resultsCount":"{n} résultats","search.tryOther":"Essayez un autre mot-clé.","sec.dev":"En développement","sec.devEyebrow":"04 — En développement","sec.mods":"Mods","sec.modsEyebrow":"03 — Mods","sec.modsGta":"Mods GTA","sec.modsMinecraft":"Mods Minecraft","sec.news":"Dernières actualités","sec.newsEyebrow":"05 — Actualités","sec.pc":"Jeux et applications PC","sec.pcEyebrow":"01 — PC","sec.phone":"Jeux et applis du téléphone","sec.phoneEyebrow":"02 — Téléphone","sec.trending":"Tendances","sec.trendingEyebrow":"00 — Tendances","sec.trendingSub":"Les plus téléchargés — touchez un élément pour voir les détails et le télécharger.","setup.notice":"<i class=\"fa-solid fa-circle-info\"></i> Ce site n'est pas encore connecté à une base de données. Propriétaire du site : mettez l'URL du projet Supabase et la clé anon dans <span class=\"latin\" dir=\"ltr\">supabase-client.js</span> (guide complet dans README.md).","stats.apps":"Applications publiées","stats.downloads":"Téléchargements totaux","stats.games":"Jeux publiés","stats.projects":"Projets en développement","status.available":"Disponible","status.comingSoon":"Bientôt","status.inDev":"En développement","mods.sub":"Mods de jeux uniquement — GTA San Andreas et Minecraft. Touchez un mod pour voir les détails et le télécharger.","mods.search":"Rechercher un mod...","detail.backMods":"← Retour aux mods"}};
 function t(key) {
     const d = I18N[currentLang] || I18N.ar;
     if (d && d[key] !== undefined) return d[key];
@@ -1544,6 +1552,8 @@ function platformOf(item, type) {
     }
     return type === 'game' ? 'pc' : 'phone';
 }
+// v11 — التصنيف القديم ما بقاش كيبان للزوار: المودات قانونية، فالشارة كتقول «مودات»
+function catLabel(c) { return c === 'مهكرة' ? t('filter.mods') : (c || ''); }
 function platformLabel(p) {
     if (p === 'pc') return t('platform.pc');
     if (p === 'phone') return t('platform.phone');
@@ -1595,10 +1605,9 @@ function applyI18n() {
 let settings = { hero: null, about: null, social: null };
 let games = [], apps = [], projects = [], news = [];
 let dataLoaded = false, dataError = null;
-let gamesFilter = 'all', appsFilter = 'all';
-let gamesCatFilter = 'all', appsCatFilter = 'all';
 let gamesPlatformFilter = 'all', appsPlatformFilter = 'all';
 let gamesFavOnly = false, appsFavOnly = false; // v10 — فلتر «المفضلة»
+let modsFilter = 'all', modsFavOnly = false; // v11 — صفحة المودات
 let countdownTimer = null, activeDownload = null, autoDownloadClick = false;
 // تحميلات سُجِّلت في هذه الجلسة (نوع:معرّف) — تبديل اللغة يعيد العداد فلا تُسجَّل مرتين
 const downloadCounted = new Set();
@@ -1651,6 +1660,7 @@ function setupSearchInputs() {
     };
     bind('gamesSearch', renderGamesList);
     bind('appsSearch', renderAppsList);
+    bind('modsSearch', renderModsList);
     bind('heroSearch', renderHeroSearch);
     const heroInput = document.getElementById('heroSearch');
     if (heroInput) {
@@ -1666,66 +1676,44 @@ function setupSearchInputs() {
             renderHeroSearch();
         });
     }
-    document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(b =>
-        b.addEventListener('click', () => {
-            gamesFilter = b.dataset.status;
-            gamesFavOnly = false; // v10 — زر حالة يلغي فلتر المفضلة
-            document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(x => x.classList.toggle('active', x === b));
-            const gf = document.getElementById('gamesFavChip');
-            if (gf) gf.classList.remove('active');
-            renderGamesList();
-        }));
-    document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(b =>
-        b.addEventListener('click', () => {
-            appsFilter = b.dataset.status;
-            appsFavOnly = false; // v10 — زر حالة يلغي فلتر المفضلة
-            document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(x => x.classList.toggle('active', x === b));
-            const af = document.getElementById('appsFavChip');
-            if (af) af.classList.remove('active');
-            renderAppsList();
-        }));
-    document.querySelectorAll('#gamesCatFilters .filter-btn').forEach(b =>
-        b.addEventListener('click', () => {
-            gamesCatFilter = b.dataset.cat;
-            document.querySelectorAll('#gamesCatFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
-            renderGamesList();
-        }));
-    document.querySelectorAll('#appsCatFilters .filter-btn').forEach(b =>
-        b.addEventListener('click', () => {
-            appsCatFilter = b.dataset.cat;
-            document.querySelectorAll('#appsCatFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
-            renderAppsList();
-        }));
-    document.querySelectorAll('#gamesPlatformFilters .filter-btn').forEach(b =>
+    // v11 — صف فلترة واحد لكل صفحة: القسم/المنصة + المفضلة
+    document.querySelectorAll('#gamesFilters .filter-btn[data-platform]').forEach(b =>
         b.addEventListener('click', () => {
             gamesPlatformFilter = b.dataset.platform;
-            document.querySelectorAll('#gamesPlatformFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            document.querySelectorAll('#gamesFilters .filter-btn[data-platform]').forEach(x => x.classList.toggle('active', x === b));
             renderGamesList();
-            setActiveNav('games'); // v10 — مزامنة شريط الجوال (المودات/الألعاب)
+            setActiveNav('games');
         }));
-    document.querySelectorAll('#appsPlatformFilters .filter-btn').forEach(b =>
+    document.querySelectorAll('#appsFilters .filter-btn[data-platform]').forEach(b =>
         b.addEventListener('click', () => {
             appsPlatformFilter = b.dataset.platform;
-            document.querySelectorAll('#appsPlatformFilters .filter-btn').forEach(x => x.classList.toggle('active', x === b));
+            document.querySelectorAll('#appsFilters .filter-btn[data-platform]').forEach(x => x.classList.toggle('active', x === b));
             renderAppsList();
             setActiveNav('apps');
         }));
-    // v10 — زر «المفضلة»: فلتر حصري (يلغي أزرار الحالة، والعكس)
+    document.querySelectorAll('#modsFilters .filter-btn[data-mod]').forEach(b =>
+        b.addEventListener('click', () => {
+            modsFilter = b.dataset.mod;
+            document.querySelectorAll('#modsFilters .filter-btn[data-mod]').forEach(x => x.classList.toggle('active', x === b));
+            renderModsList();
+        }));
     const gamesFavChip = document.getElementById('gamesFavChip');
     if (gamesFavChip) gamesFavChip.addEventListener('click', () => {
         gamesFavOnly = !gamesFavOnly;
         gamesFavChip.classList.toggle('active', gamesFavOnly);
-        document.querySelectorAll('#gamesFilters .filter-btn[data-status]').forEach(x =>
-            x.classList.toggle('active', !gamesFavOnly && x.dataset.status === gamesFilter));
         renderGamesList();
     });
     const appsFavChip = document.getElementById('appsFavChip');
     if (appsFavChip) appsFavChip.addEventListener('click', () => {
         appsFavOnly = !appsFavOnly;
         appsFavChip.classList.toggle('active', appsFavOnly);
-        document.querySelectorAll('#appsFilters .filter-btn[data-status]').forEach(x =>
-            x.classList.toggle('active', !appsFavOnly && x.dataset.status === appsFilter));
         renderAppsList();
+    });
+    const modsFavChip = document.getElementById('modsFavChip');
+    if (modsFavChip) modsFavChip.addEventListener('click', () => {
+        modsFavOnly = !modsFavOnly;
+        modsFavChip.classList.toggle('active', modsFavOnly);
+        renderModsList();
     });
 }
 
@@ -1802,7 +1790,7 @@ function parseHash() {
 }
 
 function showView(id) {
-    ['view-home', 'view-games', 'view-apps', 'view-dev', 'view-news',
+    ['view-home', 'view-games', 'view-apps', 'view-mods', 'view-dev', 'view-news',
      'view-about', 'view-request', 'view-detail', 'view-loading', 'view-error', 'view-notfound'
     ].forEach(v => {
         const el = document.getElementById(v);
@@ -1815,14 +1803,9 @@ function showView(id) {
 function setActiveNav(route) {
     document.querySelectorAll('.nav-link[data-route]').forEach(a =>
         a.classList.toggle('active', a.dataset.route === route));
-    // v10 — مزامنة شريط الجوال السفلي (المودات = صفحة الألعاب بفلتر المودات)
+    // v11 — مزامنة شريط الجوال السفلي (المودات صفحة مستقلة #/mods)
     document.querySelectorAll('.bn-item[data-route]').forEach(b => {
-        const r = b.dataset.route;
-        let on = false;
-        if (r === 'games') on = route === 'games' && gamesPlatformFilter !== 'mods';
-        else if (r === 'mods') on = route === 'games' && gamesPlatformFilter === 'mods';
-        else on = r === route;
-        b.classList.toggle('active', on);
+        b.classList.toggle('active', b.dataset.route === route);
     });
 }
 
@@ -1844,6 +1827,7 @@ async function route() {
     if (page === '') { setActiveNav('home'); renderHome(); showView('view-home'); }
     else if (page === 'games') { setActiveNav('games'); renderGamesList(); showView('view-games'); }
     else if (page === 'apps') { setActiveNav('apps'); renderAppsList(); showView('view-apps'); }
+    else if (page === 'mods') { setActiveNav('mods'); renderModsList(); showView('view-mods'); }
     else if (page === 'dev') { setActiveNav('dev'); renderDevList(); showView('view-dev'); }
     else if (page === 'news') { setActiveNav('news'); renderNewsList(); showView('view-news'); }
     else if (page === 'about') { setActiveNav('about'); renderAbout(); showView('view-about'); }
@@ -1922,6 +1906,8 @@ function updateFavChips() {
     if (g) g.textContent = '(' + n + ')';
     const a = document.getElementById('appsFavCount');
     if (a) a.textContent = '(' + n + ')';
+    const m = document.getElementById('modsFavCount');
+    if (m) m.textContent = '(' + n + ')';
 }
 
 function itemCard(item, type) {
@@ -1931,7 +1917,7 @@ function itemCard(item, type) {
     <article class="card">
       <a href="${detailHash}" class="card-cover">
         ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
-        <span class="card-badge">${esc(item.category || '')}</span>
+        <span class="card-badge">${esc(catLabel(item.category))}</span>
         ${favBtnHtml(type, item.id)}
       </a>
       <div class="card-body">
@@ -1966,7 +1952,7 @@ function rowCard(item, type) {
     <a href="${detailHash}" class="row-card">
       <span class="row-cover">
         ${coverHtml(item, type === 'game' ? 'fa-solid fa-gamepad' : 'fa-solid fa-mobile-screen')}
-        <span class="card-badge">${esc(item.category || '')}</span>
+        <span class="card-badge">${esc(catLabel(item.category))}</span>
         ${favBtnHtml(type, item.id)}
       </span>
       <span class="row-title">${esc(item.title)}</span>
@@ -2120,8 +2106,12 @@ window.focusHeroSearch = function() {
 
 // ---------- v10 — أزرار شريط الجوال: الألعاب / المودات ----------
 function syncGamesPlatformChip() {
-    document.querySelectorAll('#gamesPlatformFilters .filter-btn').forEach(x =>
+    document.querySelectorAll('#gamesFilters .filter-btn[data-platform]').forEach(x =>
         x.classList.toggle('active', x.dataset.platform === gamesPlatformFilter));
+}
+function syncModsChip() {
+    document.querySelectorAll('#modsFilters .filter-btn[data-mod]').forEach(x =>
+        x.classList.toggle('active', x.dataset.mod === modsFilter));
 }
 window.goToGames = function() {
     gamesPlatformFilter = 'all';
@@ -2130,10 +2120,11 @@ window.goToGames = function() {
     else goTo('#/games');
 };
 window.goToMods = function() {
-    gamesPlatformFilter = 'mods';
-    syncGamesPlatformChip();
-    if ((parseHash()[0] || '') === 'games') { renderGamesList(); setActiveNav('games'); window.scrollTo({ top: 0 }); }
-    else goTo('#/games');
+    modsFilter = 'all';
+    modsFavOnly = false;
+    syncModsChip();
+    if ((parseHash()[0] || '') === 'mods') { renderModsList(); setActiveNav('mods'); window.scrollTo({ top: 0 }); }
+    else goTo('#/mods');
 };
 
 // ---------- v10 — طلب لعبة / تطبيق (جدول game_requests) ----------
@@ -2276,54 +2267,65 @@ function renderHome() {
 }
 
 // ---------- قوائم ----------
+// v11 — قائمة الألعاب شبكة هادئة (بلا شرائط أفقية) + فلتر واحد (القسم)
 function renderGamesList() {
     const box = document.getElementById('gamesList');
     if (!box) return;
     const q = (document.getElementById('gamesSearch')?.value || '').trim().toLowerCase();
-    const catOk = g => gamesCatFilter === 'all'
-        || (gamesCatFilter === 'official' ? (g.category || '') === 'رسمية' : (g.category || '') === 'مهكرة');
     const platOk = g => gamesPlatformFilter === 'all'
         || (gamesPlatformFilter === 'mods'
             ? (platformOf(g, 'game') === 'mod-minecraft' || platformOf(g, 'game') === 'mod-gta')
             : platformOf(g, 'game') === gamesPlatformFilter);
     const list = games.filter(g =>
-        (gamesFilter === 'all' || g.status === gamesFilter) &&
         (!gamesFavOnly || isFavorite('game', g.id)) &&
-        catOk(g) &&
         platOk(g) &&
         (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
-    box.innerHTML = list.length ? stripsHtml(list.map(g => ({ item: g, type: 'game' })), 8)
+    box.innerHTML = list.length ? gridOrEmpty(list, list.map(g => itemCard(g, 'game')).join(''), '')
         : (gamesFavOnly
             ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
-            : (q || gamesFilter !== 'all' || gamesCatFilter !== 'all' || gamesPlatformFilter !== 'all'
+            : (q || gamesPlatformFilter !== 'all'
             ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
             : emptyState('fa-solid fa-gamepad', t('empty.gamesTitle'), t('empty.gamesText'))));
-    requestAnimationFrame(updateStripArrows);
 }
 
+// v11 — قائمة التطبيقات شبكة هادئة (بلا شرائط أفقية) + فلتر واحد (المنصة)
 function renderAppsList() {
     const box = document.getElementById('appsList');
     if (!box) return;
     const q = (document.getElementById('appsSearch')?.value || '').trim().toLowerCase();
-    const catOk = a => appsCatFilter === 'all'
-        || (appsCatFilter === 'official' ? (a.category || '') === 'رسمية' : (a.category || '') === 'مهكرة');
-    const platOk = a => appsPlatformFilter === 'all'
-        || (appsPlatformFilter === 'mods'
-            ? (platformOf(a, 'app') === 'mod-minecraft' || platformOf(a, 'app') === 'mod-gta')
-            : platformOf(a, 'app') === appsPlatformFilter);
+    const platOk = a => appsPlatformFilter === 'all' || platformOf(a, 'app') === appsPlatformFilter;
     const list = apps.filter(a =>
-        (appsFilter === 'all' || a.status === appsFilter) &&
         (!appsFavOnly || isFavorite('app', a.id)) &&
-        catOk(a) &&
         platOk(a) &&
         (!q || ((a.title || '') + ' ' + (a.short_desc || '') + ' ' + (a.category || '')).toLowerCase().includes(q)));
-    box.innerHTML = list.length ? stripsHtml(list.map(a => ({ item: a, type: 'app' })), 8)
+    box.innerHTML = list.length ? gridOrEmpty(list, list.map(a => itemCard(a, 'app')).join(''), '')
         : (appsFavOnly
             ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
-            : (q || appsFilter !== 'all' || appsCatFilter !== 'all' || appsPlatformFilter !== 'all'
+            : (q || appsPlatformFilter !== 'all'
             ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
             : emptyState('fa-solid fa-mobile-screen', t('empty.appsTitle'), t('empty.appsText'))));
-    requestAnimationFrame(updateStripArrows);
+}
+
+// ---------- v11 — صفحة المودات: مودات ألعاب فقط (GTA SA + Minecraft)، بستايل عمر ----------
+// بطاقة المود = صورة فوق، والتفاصيل وزر «التفاصيل والتحميل» تحتها (itemCard).
+function renderModsList() {
+    const box = document.getElementById('modsList');
+    if (!box) return;
+    const q = (document.getElementById('modsSearch')?.value || '').trim().toLowerCase();
+    const isMod = g => { const p = platformOf(g, 'game'); return p === 'mod-minecraft' || p === 'mod-gta'; };
+    const subOk = g => modsFilter === 'all'
+        || (modsFilter === 'gta' ? platformOf(g, 'game') === 'mod-gta' : platformOf(g, 'game') === 'mod-minecraft');
+    const list = games.filter(g => isMod(g) && subOk(g)
+        && (!modsFavOnly || isFavorite('game', g.id))
+        && (!q || ((g.title || '') + ' ' + (g.short_desc || '') + ' ' + (g.category || '')).toLowerCase().includes(q)));
+    box.innerHTML = list.length ? gridOrEmpty(list, list.map(g => itemCard(g, 'game')).join(''), '')
+        : (modsFavOnly
+            ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
+            : (q || modsFilter !== 'all'
+            ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
+            : (modsFilter === 'gta' ? emptyState('fa-solid fa-car', t('empty.modsGtaTitle'), t('empty.modsGtaText'))
+            : modsFilter === 'mc' ? emptyState('fa-solid fa-cube', t('empty.modsMinecraftTitle'), t('empty.modsMinecraftText'))
+            : emptyState('fa-solid fa-puzzle-piece', t('empty.modsTitle'), t('empty.modsText')))));
 }
 
 function projectCard(p) {
@@ -2444,8 +2446,9 @@ function renderItemDetail(box, item, type) {
     const features = Array.isArray(item.features) ? item.features : [];
     const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean) : [];
     const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5);
-    const backHash = type === 'game' ? '#/games' : '#/apps';
-    const backLabel = type === 'game' ? t('detail.backGames') : t('detail.backApps');
+    const isModDetail = type === 'game' && (platformOf(item, type) === 'mod-minecraft' || platformOf(item, type) === 'mod-gta');
+    const backHash = type === 'game' ? (isModDetail ? '#/mods' : '#/games') : '#/apps';
+    const backLabel = type === 'game' ? (isModDetail ? t('detail.backMods') : t('detail.backGames')) : t('detail.backApps');
     const plat = platformOf(item, type);
 
     box.innerHTML = `
@@ -2456,7 +2459,7 @@ function renderItemDetail(box, item, type) {
         <h1>${esc(item.title)}</h1>
         <p class="lead">${esc(item.short_desc || '')}</p>
         <div class="detail-chips">
-          <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(item.category || '')}</span>
+          <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(catLabel(item.category))}</span>
           <span class="chip"><i class="${platformIcon(plat)}"></i> ${esc(platformLabel(plat))}</span>
           ${item.version ? `<span class="chip"><i class="fa-solid fa-tag"></i> ${t('detail.version')} ${esc(item.version)}</span>` : ''}
           <span class="chip"><i class="fa-solid fa-download"></i> ${dlText(item.download_count || 0)}</span>

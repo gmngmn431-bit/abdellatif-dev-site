@@ -1783,7 +1783,7 @@ let dataLoaded = false, dataError = null;
 let browse = { mod: 'all', kind: 'game', device: 'all' }; // v12 — حالة التصفح الموحدة: المودات / النوع / الجهاز
 let gamesFavOnly = false, appsFavOnly = false; // v10 — فلتر «المفضلة»
 let modsFilter = 'all', modsFavOnly = false; // v11 — صفحة المودات
-let countdownTimer = null, activeDownload = null, autoDownloadClick = false;
+let countdownTimer = null, activeDownload = null;
 // تحميلات سُجِّلت في هذه الجلسة (نوع:معرّف) — تبديل اللغة يعيد العداد فلا تُسجَّل مرتين
 const downloadCounted = new Set();
 
@@ -2858,10 +2858,10 @@ function startDownloadCountdown() {
             // سُجِّل هذا العنصر من قبل (تبديل اللغة يعيد العداد): أظهر الزر فقط،
             // بلا تسجيل جديد ولا تحميل تلقائي ثانٍ
             if (downloadCounted.has(downloadKey())) return;
-            // تحميل تلقائي: سجّل التحميل أولاً ثم اضغط زر التحميل برمجياً
+            // تحميل تلقائي: سجّل التحميل أولاً ثم ابدأ التحميل من داخل الموقع
+            // (بلا ما تتبدل الصفحة ولا تنتقل لأي موقع آخر)
             await incrementDownload();
-            const link = document.getElementById('downloadLink');
-            if (link) { autoDownloadClick = true; link.click(); }
+            if (activeDownload) startInSiteDownload(activeDownload.url);
         }
     }, 1000);
 }
@@ -2892,12 +2892,52 @@ async function incrementDownload() {
     }
 }
 
+// ---------- تحميل من داخل الموقع: بلا انتقال لأي موقع آخر ----------
+// خاصية download ديال <a> المتصفح كيتجاهلها إلا كان الرابط من دومين آخر،
+// فالنقرة كانت كتنقّل الصفحة كاملة لرابط الملف. الحل: إطار مخفي (iframe)
+// كيتنقّل هو لرابط الملف وكيبدا التحميل، والصفحة ديال الموقع كتبقى بلاصتها.
+// (الطريقة ديال fetch+blob ما تصلحش هنا: خوادم الملفات ما كتبعثش CORS.)
+let downloadFrame = null;
+function getDownloadFrame() {
+    if (!downloadFrame) {
+        downloadFrame = document.createElement('iframe');
+        downloadFrame.style.display = 'none';
+        downloadFrame.setAttribute('aria-hidden', 'true');
+        downloadFrame.tabIndex = -1;
+        document.body.appendChild(downloadFrame);
+    }
+    return downloadFrame;
+}
+function isFileDownloadUrl(u) {
+    const s = String(u || '').trim();
+    if (!s) return false;
+    if (/\.(apk|xapk|zip|exe|msi|dmg|pkg|rar|7z|tar\.gz|apks|apkm)(\?|#|$)/i.test(s)) return true;
+    try {
+        const host = new URL(s).hostname.toLowerCase();
+        const fileHosts = ['dl.apkvision.org', 'f-droid.org', 'cdn.modrinth.com',
+            'objects.githubusercontent.com', 'release-assets.githubusercontent.com',
+            'downloads.sourceforge.net', 'master.dl.sourceforge.net',
+            'files.freeciv.org', 'dl.xonotic.org', 'cdn.jsdelivr.net',
+            'download.apkpure.com', 'd.apkpure.com'];
+        if (fileHosts.includes(host) || host.endsWith('.dl.sourceforge.net')) return true;
+    } catch (e) { /* رابط غير صالح — يتعامل معاملة رابط صفحة */ }
+    return false;
+}
+function startInSiteDownload(url) {
+    if (!url) return;
+    if (isFileDownloadUrl(url)) {
+        getDownloadFrame().src = url;
+        return;
+    }
+    // روابط الصفحات (Play Store وغيرها): افتحها في تبويب جديد باش تبويب الموقع يبقى مفتوح
+    window.open(url, '_blank', 'noopener');
+}
+
 // ---------- نقرة التحميل: عداد + تحميل مباشر ----------
 window.handleDownloadClick = async function(e) {
-    // النقرة البرمجية بعد انتهاء العداد سبق أن سجّلت التحميل — لا تسجّل مرتين
-    if (autoDownloadClick) { autoDownloadClick = false; return; }
+    e.preventDefault();
     await incrementDownload();
-    // الرابط يحمّل الملف مباشرة (خاصية download) — لا نمنع الحدث
+    if (activeDownload) startInSiteDownload(activeDownload.url);
 };
 
 </script>

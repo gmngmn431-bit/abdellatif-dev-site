@@ -685,6 +685,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           <button class="tab-btn" data-tab="projectsTab" onclick="switchAdminTab('projectsTab')"><i class="fa-solid fa-code"></i> المشاريع قيد التطوير</button>
           <button class="tab-btn" data-tab="newsTab" onclick="switchAdminTab('newsTab')"><i class="fa-solid fa-newspaper"></i> الأخبار</button>
           <button class="tab-btn" data-tab="requestsTab" onclick="switchAdminTab('requestsTab')"><i class="fa-solid fa-clipboard-list"></i> الطلبات</button>
+          <button class="tab-btn" data-tab="messagesTab" onclick="switchAdminTab('messagesTab')"><i class="fa-solid fa-envelope"></i> الرسائل</button>
           <button class="tab-btn" data-tab="settingsTab" onclick="switchAdminTab('settingsTab')"><i class="fa-solid fa-sliders"></i> الإعدادات</button>
         </nav>
 
@@ -778,6 +779,18 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
             <span id="requestsCount" style="color:var(--text-gray);font-size:0.9rem;font-weight:600;"></span>
           </div>
           <div id="requestsList" class="req-list"></div>
+        </div>
+
+        <!-- v14 — رسائل الزوار (جدول contact_messages) -->
+        <div id="messagesTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>رسائل الزوار</h3>
+            <span id="messagesCount" style="color:var(--text-gray);font-size:0.9rem;font-weight:600;"></span>
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>المرسل</th><th>الرسالة</th><th>التاريخ</th><th>إجراءات</th></tr></thead>
+            <tbody id="messagesTableBody"></tbody>
+          </table></div>
         </div>
 
         <!-- تبويب الإعدادات -->
@@ -1066,6 +1079,7 @@ window.switchAdminTab = function(tabId) {
     document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.toggle('active', c.id === tabId));
     if (tabId === 'settingsTab') loadSettingsForm();
     else if (tabId === 'requestsTab') loadRequests();
+    else if (tabId === 'messagesTab') loadContactMessages();
     else {
         const entity = tabId.replace('Tab', '');
         renderAdminList(entity);
@@ -1239,6 +1253,53 @@ window.deleteRequest = async function(id) {
     const { error } = await window.supabaseClient.from('game_requests').delete().eq('id', id);
     if (error) { alert('فشل الحذف: ' + error.message); return; }
     loadRequests();
+};
+
+
+// ---------- v14 — رسائل الزوار (جدول contact_messages) ----------
+async function loadContactMessages() {
+    const body = document.getElementById('messagesTableBody');
+    const count = document.getElementById('messagesCount');
+    if (!body) return;
+    body.innerHTML = '<tr><td colspan="4">جاري تحميل الرسائل...</td></tr>';
+    const { data, error } = await window.supabaseClient.from('contact_messages')
+        .select('*').order('created_at', { ascending: false }).limit(100);
+    if (error) {
+        console.error('loadContactMessages error:', error);
+        body.innerHTML = `<tr><td colspan="4">تعذّر تحميل الرسائل: ${esc(error.message || '')}<br>إذا لم تُنشئ الجدول بعد، شغّل ملف <span class="latin" dir="ltr">contact-messages-migration.sql</span> في Supabase SQL Editor.</td></tr>`;
+        return;
+    }
+    const list = data || [];
+    const unread = list.filter(m => !m.is_read).length;
+    if (count) count.textContent = list.length ? `${list.length} رسالة (${unread} جديدة)` : '';
+    if (!list.length) {
+        body.innerHTML = '<tr><td colspan="4" style="text-align:center;color:var(--text-gray)">لا توجد رسائل.</td></tr>';
+        return;
+    }
+    body.innerHTML = '';
+    list.forEach(m => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td data-label="المرسل"><strong>${esc(m.name)}</strong><br><small>${esc(m.email)}</small> ${m.is_read ? '' : '<span class="badge-draft">جديدة</span>'}</td>
+            <td data-label="الرسالة">${esc(m.message)}</td>
+            <td data-label="التاريخ">${fmtDate(m.created_at)}</td>
+            <td data-label="إجراءات" style="white-space:nowrap">
+                ${m.is_read ? '' : `<button class="btn btn-secondary btn-sm" onclick="markMessageRead('${m.id}')">تمت القراءة</button>`}
+                <button class="btn btn-danger btn-sm" onclick="deleteMessage('${m.id}')">حذف</button>
+            </td>`;
+        body.appendChild(tr);
+    });
+}
+window.markMessageRead = async function(id) {
+    const { error } = await window.supabaseClient.from('contact_messages').update({ is_read: true }).eq('id', id);
+    if (error) { alert('فشل تحديث الرسالة: ' + error.message); return; }
+    loadContactMessages();
+};
+window.deleteMessage = async function(id) {
+    if (!confirm('حذف هذه الرسالة؟')) return;
+    const { error } = await window.supabaseClient.from('contact_messages').delete().eq('id', id);
+    if (error) { alert('فشل حذف الرسالة: ' + error.message); return; }
+    loadContactMessages();
 };
 
 // ---------- فورم الإضافة / التعديل ----------

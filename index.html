@@ -2786,7 +2786,7 @@ async function renderDetail(type, id) {
     if (!item || (type !== 'news' && item.is_published === false)) { showView('view-notfound'); return; }
 
     if (type === 'news') renderNewsDetail(box, item);
-    else { renderItemDetail(box, item, type); renderSimilarItems(box, item, type); }
+    else { renderItemDetail(box, item, type); renderExtraDownloads(box, item, type); renderSimilarItems(box, item, type); }
 }
 
 // ---------- v23 — عناصر مشابهة في صفحة التفاصيل (بدل التذييل) ----------
@@ -2818,6 +2818,31 @@ function renderSimilarItems(box, item, type) {
     if (!top.length) return;
     const title = type === 'game' ? t('detail.similarGames') : t('detail.similarApps');
     box.insertAdjacentHTML('beforeend', `<div class="detail-block"><h2><i class="fa-solid fa-layer-group"></i> ${esc(title)}</h2>${vgridHtml(top.map(o => itemCard(o, type)).join(''))}</div>`);
+}
+
+// ---------- v24.1 — ملفات إضافية للتحميل في صفحة التفاصيل ----------
+// أي لعبة/تطبيق كيحتاج ملفات إضافية (ISO/OBB/بيانات) خاص روابطها المباشرة
+// تكون هنا في نفس الصفحة، بلا انتقال لأي موقع آخر — نفس قاعدة التحميل الداخلي.
+// (ما كنمّسّوش renderItemDetail المحمي: هاد الدالة كتتستدعى من renderDetail.)
+// ملاحظة: زر الملف الإضافي ما كيستعملش handleDownloadClick (كيحمّل ديما
+// الرابط الرئيسي activeDownload.url)، بل startInSiteDownload على رابط الزر نفسه.
+function renderExtraDownloads(box, item, type) {
+    const files = Array.isArray(item.extra_downloads) ? item.extra_downloads.filter(f => f && f.url && String(f.url).trim().length > 5) : [];
+    if (!files.length) return;
+    const rows = files.map(f => {
+        const label = esc(f.label || t('detail.extraFile'));
+        const size = f.size ? ` <span style="color:var(--text-dim);font-size:0.85rem;">(${esc(f.size)})</span>` : '';
+        return `<div style="margin-top:10px;">
+          <a href="${esc(f.url)}" download rel="noreferrer" class="btn-download-big" onclick="event.preventDefault(); startInSiteDownload(this.getAttribute('href'));">
+            <i class="fa-solid fa-cloud-arrow-down"></i> ${label}${size}
+          </a>
+        </div>`;
+    }).join('');
+    const html = `<div class="detail-block"><h2><i class="fa-solid fa-file-arrow-down"></i> ${esc(t('detail.extraFiles'))}</h2>
+      <p style="color:var(--text-dim);font-size:0.9rem;">${esc(t('detail.extraFilesNote'))}</p>${rows}</div>`;
+    const hero = box ? box.querySelector('.detail-hero') : null;
+    if (hero) hero.insertAdjacentHTML('afterend', html);
+    else if (box) box.insertAdjacentHTML('beforeend', html);
 }
 
 function renderNewsDetail(box, n) {

@@ -2858,9 +2858,9 @@ function startDownloadCountdown() {
             // سُجِّل هذا العنصر من قبل (تبديل اللغة يعيد العداد): أظهر الزر فقط،
             // بلا تسجيل جديد ولا تحميل تلقائي ثانٍ
             if (downloadCounted.has(downloadKey())) return;
-            // تحميل تلقائي: سجّل التحميل أولاً ثم ابدأ التحميل من داخل الموقع
-            // (بلا ما تتبدل الصفحة ولا تنتقل لأي موقع آخر)
-            await incrementDownload();
+            // تحميل تلقائي: سجّل التحميل (بلا انتظار — باش ما نوقفش النقرة)
+            // ثم ابدأ التحميل من داخل الموقع
+            incrementDownload();
             if (activeDownload) startInSiteDownload(activeDownload.url);
         }
     }, 1000);
@@ -2892,22 +2892,14 @@ async function incrementDownload() {
     }
 }
 
-// ---------- تحميل من داخل الموقع: بلا انتقال لأي موقع آخر ----------
-// خاصية download ديال <a> المتصفح كيتجاهلها إلا كان الرابط من دومين آخر،
-// فالنقرة كانت كتنقّل الصفحة كاملة لرابط الملف. الحل: إطار مخفي (iframe)
-// كيتنقّل هو لرابط الملف وكيبدا التحميل، والصفحة ديال الموقع كتبقى بلاصتها.
-// (الطريقة ديال fetch+blob ما تصلحش هنا: خوادم الملفات ما كتبعثش CORS.)
-let downloadFrame = null;
-function getDownloadFrame() {
-    if (!downloadFrame) {
-        downloadFrame = document.createElement('iframe');
-        downloadFrame.style.display = 'none';
-        downloadFrame.setAttribute('aria-hidden', 'true');
-        downloadFrame.tabIndex = -1;
-        document.body.appendChild(downloadFrame);
-    }
-    return downloadFrame;
-}
+// ---------- تحميل من داخل الموقع: نقرة حقيقية على رابط الملف ----------
+// تصحيح: الإطار المخفي (iframe) ما خدامش — كروم (خصوصاً في الهاتف)
+// كيمنع التحميلات اللي كتبدا من إطار مخفي بلا نقرة مباشرة، فما كان كيوقع والو.
+// الحل الصحيح: نقرة حقيقية على رابط <a> حقيقي. ملي الرابط كيشير لملف
+// (ماشي صفحة)، المتصفح كيبدا التحميل وما كيبدّلش الصفحة الحالية.
+// المشكل الأصلي عمره ما كان في الرابط — كان في أن الروابط كانت كتشير
+// لصفحات (Play Store وصفحات APKVision الوسيطة). الروابط المباشرة ديال
+// الملفات اللي تحطو في قاعدة البيانات هي اللي حلّت داك المشكل.
 function isFileDownloadUrl(u) {
     const s = String(u || '').trim();
     if (!s) return false;
@@ -2925,10 +2917,20 @@ function isFileDownloadUrl(u) {
     } catch (e) { /* رابط غير صالح — يتعامل معاملة رابط صفحة */ }
     return false;
 }
+// نقرة برمجية على رابط ملف حقيقي (للتحميل التلقائي بعد العداد):
+// تنقّل تحميل — المتصفح كيبدا التحميل وما كيبدّلش الصفحة.
+function startFileDownload(url) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', '');
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+}
 function startInSiteDownload(url) {
     if (!url) return;
     if (isFileDownloadUrl(url)) {
-        getDownloadFrame().src = url;
+        startFileDownload(url);
         return;
     }
     // روابط الصفحات (Play Store وغيرها): افتحها في تبويب جديد باش تبويب الموقع يبقى مفتوح
@@ -2936,10 +2938,18 @@ function startInSiteDownload(url) {
 }
 
 // ---------- نقرة التحميل: عداد + تحميل مباشر ----------
-window.handleDownloadClick = async function(e) {
+window.handleDownloadClick = function(e) {
+    if (!activeDownload) return;
+    if (isFileDownloadUrl(activeDownload.url)) {
+        // رابط ملف: خلّي النقرة تكمل بشكل طبيعي — المتصفح كيبدا التحميل
+        // وما كيبدّلش الصفحة. سجّل التحميل بلا ما نوقف النقرة عليه.
+        incrementDownload();
+        return;
+    }
+    // رابط صفحة: امنع الانتقال وافتحها في تبويب جديد
     e.preventDefault();
-    await incrementDownload();
-    if (activeDownload) startInSiteDownload(activeDownload.url);
+    incrementDownload();
+    window.open(activeDownload.url, '_blank', 'noopener');
 };
 
 </script>

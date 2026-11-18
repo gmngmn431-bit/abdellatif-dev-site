@@ -1182,7 +1182,7 @@ html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .72rem; padding: 6px 4p
 .split-tools .layout-wrap { position: relative; flex: none; }
 .layout-btn { width: 44px; padding: 0; justify-content: center; }
 .layout-menu {
-  position: absolute; top: calc(100% + 8px); inset-inline-end: 0; z-index: 60;
+  position: fixed; top: 0; left: 0; z-index: 1000; max-width: calc(100vw - 16px);
   display: flex; flex-direction: column; gap: 4px; min-width: 170px; padding: 6px;
   border-radius: 16px; background: var(--glass-solid, #141c20); border: 1px solid var(--line-hi);
   box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7);
@@ -1194,6 +1194,16 @@ html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .72rem; padding: 6px 4p
 }
 .layout-opt:hover { background: var(--mint-a); }
 .layout-opt.active { background: var(--grad); color: #04110a; }
+
+/* ===== v22 — بطاقات أقصر (الهاتف والحاسوب والمودات فقط) ===== */
+.vgrid .card { padding: 8px; }
+.vgrid .card-cover { aspect-ratio: 2 / 1; }
+.vgrid .card-body { padding: 10px 6px 4px; gap: 6px; }
+.vgrid .card-title { font-size: 1rem; line-height: 1.35; }
+.vgrid .card-desc { font-size: .82rem; line-height: 1.55; -webkit-line-clamp: 2; }
+.vgrid .card-meta { font-size: .72rem; gap: 4px 12px; }
+.vgrid .card-foot { margin-top: 4px; }
+.vgrid .card-foot .btn { height: 40px; font-size: .85rem; }
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -2447,6 +2457,34 @@ let splitSearchRaw = '';
 function splitTab(platform, tab) {
     return SPLIT_TABS[platform].some(x => x[0] === tab) ? tab : 'games';
 }
+// ---------- v22 — ترتيب «المشهور أولاً» (تبويبا الهاتف والحاسوب، ومهكرة الهاتف) ----------
+// ترتيب القائمة هو الترتيب المعتمد؛ المطابقة على الاسم الإنجليزي داخل العنوان بلا حساسية لحالة الأحرف.
+const POPULAR_NAMES = [
+    '8 Ball Pool', 'PUBG Mobile', 'Temple Run 2', 'Subway Surfers', 'Free Fire', 'Roblox', 'Candy Crush Saga',
+    'Stumble Guys', 'Ludo King', 'Hill Climb Racing', 'Sonic Free Riders', 'Need for Speed: Rivals',
+    'Need for Speed: Porsche Unleashed', 'Deus Ex', 'Blasphemous 2', 'The Godfather: The Game', 'CastleMiner Z',
+    'Mini Motorways', 'PEAK',
+    'Warzone 2100', 'Freeciv', 'Battle for Wesnoth', '0 A.D.', 'Dwarf Fortress Classic', 'OpenTTD', 'Xonotic',
+    'Cataclysm: DDA', 'SuperTuxKart',
+    'Shizuku', 'GIMP', 'LibreOffice', 'OBS Studio', 'Audacity', 'Blender', 'OpenMW', 'Amethyst',
+    'PKG Extractor Android', 'MojoLauncher', 'Geode', 'Apk Info'
+];
+const POPULAR_RX = POPULAR_NAMES.map(n => {
+    const esc = n.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp('(^|[^a-z0-9])' + esc + '([^a-z0-9]|$)');
+});
+function popularRank(item) {
+    const title = String(item.title || '').toLowerCase();
+    const i = POPULAR_RX.findIndex(rx => rx.test(title));
+    return i === -1 ? Infinity : i;
+}
+function splitSortCmp(x, y) {
+    const rx = popularRank(x.item), ry = popularRank(y.item);
+    if (rx !== ry) return rx < ry ? -1 : 1;                                  // المشهور أولاً
+    const dx = Number(x.item.download_count || 0), dy = Number(y.item.download_count || 0);
+    if (dx !== dy) return dy - dx;                                            // ثم الأكثر تحميلاً
+    return String(y.item.created_at || '').localeCompare(String(x.item.created_at || '')); // ثم الأحدث
+}
 function splitItems(platform, tab) {
     const includeGames = tab === 'games' || tab === 'mods';
     const includeApps = tab === 'apps' || tab === 'mods';
@@ -2461,7 +2499,7 @@ function splitItems(platform, tab) {
     if (includeApps) apps.forEach(a => {
         if (platformOf(a, 'app') === platform && keep(a) && textOk(a) && favOk('app', a)) out.push({ item: a, type: 'app' });
     });
-    out.sort((x, y) => String(y.item.created_at || '').localeCompare(String(x.item.created_at || '')));
+    out.sort(splitSortCmp);
     return out;
 }
 function renderSplitList(platform, tab) {
@@ -2513,6 +2551,21 @@ function applyLayoutUI() {
     document.documentElement.dataset.vcols = String(layoutCols);
     document.querySelectorAll('.layout-opt').forEach(b => b.classList.toggle('active', Number(b.dataset.cols) === layoutCols));
 }
+// v22: تموضع القائمة بعد إظهارها: محاذاة بالحافة اليمنى للزر، وتبقى داخل حدود الشاشة أفقياً،
+// وتنقلب فوق الزر إذا لم تتسع تحته.
+function placeLayoutMenu(btn, menu) {
+    const r = btn.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth;
+    const vh = window.innerHeight;
+    const w = menu.offsetWidth;
+    const h = menu.offsetHeight;
+    let top = r.bottom + 8;
+    if (top + h > vh - 8) top = Math.max(8, r.top - h - 8);
+    let left = r.right - w;
+    left = Math.max(8, Math.min(left, vw - w - 8));
+    menu.style.top = top + 'px';
+    menu.style.left = left + 'px';
+}
 window.toggleLayoutMenu = function(e) {
     e.stopPropagation();
     const btn = e.currentTarget;
@@ -2521,7 +2574,10 @@ window.toggleLayoutMenu = function(e) {
     closeLayoutMenus();
     menu.hidden = !willOpen;
     btn.setAttribute('aria-expanded', String(willOpen));
+    if (willOpen) placeLayoutMenu(btn, menu);
 };
+window.addEventListener('scroll', closeLayoutMenus, { passive: true });
+window.addEventListener('resize', closeLayoutMenus);
 window.setLayout = function(n) {
     layoutCols = n;
     try { localStorage.setItem(LAYOUT_KEY, String(n)); } catch (e) {}

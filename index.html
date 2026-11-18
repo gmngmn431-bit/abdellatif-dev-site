@@ -630,10 +630,12 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
   -webkit-backdrop-filter: blur(10px) saturate(160%); backdrop-filter: blur(10px) saturate(160%);
 }
 .card-badge:empty { display: none; }
-.cover-chip { position: absolute; z-index: 2; bottom: 10px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; line-height: 1.7; color: #fff; background: rgba(5, 7, 10, 0.55); border: 1px solid rgba(255, 255, 255, 0.22); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); white-space: nowrap; }
+.cover-chip { position: absolute; z-index: 2; bottom: 10px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 0.68rem; font-weight: 700; line-height: 1.7; color: #fff; background: #0b0f12; border: 1px solid rgba(255, 255, 255, 0.28); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); white-space: nowrap; }
 .cover-chip.plat { inset-inline-start: 10px; }
 .cover-chip.net { inset-inline-end: 10px; }
-.cover-chip.net.on { color: #04110a; background: var(--grad); border-color: transparent; }
+.cover-chip.net.on { color: #fff; background: #0c5f3c; border-color: rgba(86, 245, 155, 0.45); }
+.cover-chip.net.off { color: #fff; background: #3b4147; border-color: rgba(255, 255, 255, 0.28); }
+.cover-chip.plat { color: #fff; background: #0b0f12; }
 .cover-chip.net i { font-size: 0.55em; }
 .row-cover .cover-chip { bottom: 5px; padding: 2px 7px; font-size: 0.56rem; }
 .row-cover .cover-chip.plat { inset-inline-start: 5px; }
@@ -1157,7 +1159,7 @@ button.nav-link { background: transparent; border: 0; }
     backdrop-filter: none !important;
   }
   .glass, .card, .bottom-nav, .nav-links, .dd-menu, .detail-info, .about-card,
-  .timer-box, .empty-state, .stats-grid, .cover-chip, .filter-chips {
+  .timer-box, .empty-state, .stats-grid, .filter-chips {
     background: var(--glass-solid, #141c20) !important;
   }
   .aurora i, .hero-title, [class*="hv-"], .hero-badge::before, .skeleton {
@@ -1166,6 +1168,32 @@ button.nav-link { background: transparent; border: 0; }
   .card:hover::after { animation: none !important; }
   .aurora { opacity: .5; }
 }
+
+/* ===== v21 — تخطيط البطاقات (1 / 2 / 3 / 4 في السطر) ===== */
+.cards-grid.vgrid { grid-template-columns: repeat(var(--vcols, 2), minmax(0, 1fr)) !important; gap: 12px; }
+@media (min-width: 700px) { .cards-grid.vgrid { gap: 18px; } }
+html[data-vcols="3"] .vgrid .card-desc, html[data-vcols="4"] .vgrid .card-desc,
+html[data-vcols="3"] .vgrid .card-meta, html[data-vcols="4"] .vgrid .card-meta { display: none; }
+html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { font-size: .92rem; }
+html[data-vcols="4"] .vgrid .card-title { font-size: .8rem; }
+html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px; }
+html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
+html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .72rem; padding: 6px 4px; }
+.split-tools .layout-wrap { position: relative; flex: none; }
+.layout-btn { width: 44px; padding: 0; justify-content: center; }
+.layout-menu {
+  position: absolute; top: calc(100% + 8px); inset-inline-end: 0; z-index: 60;
+  display: flex; flex-direction: column; gap: 4px; min-width: 170px; padding: 6px;
+  border-radius: 16px; background: var(--glass-solid, #141c20); border: 1px solid var(--line-hi);
+  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7);
+}
+.layout-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px;
+  padding: 4px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 600; text-align: start; cursor: pointer;
+}
+.layout-opt:hover { background: var(--mint-a); }
+.layout-opt.active { background: var(--grad); color: #04110a; }
 
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1343,6 +1371,7 @@ button.nav-link { background: transparent; border: 0; }
             <input type="text" placeholder="ابحث..." oninput="onSplitSearch(this.value)">
           </div>
           <button class="filter-btn split-fav" onclick="toggleSplitFav()" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count">(0)</span></button>
+          <div class="layout-wrap"><button class="filter-btn layout-btn" onclick="toggleLayoutMenu(event)" title="تخطيط البطاقات" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-table-cells-large"></i></button><div class="layout-menu" hidden><button class="layout-opt" data-cols="1" onclick="setLayout(1)">1 في السطر</button><button class="layout-opt" data-cols="2" onclick="setLayout(2)">شبكة 2</button><button class="layout-opt" data-cols="3" onclick="setLayout(3)">شبكة 3</button><button class="layout-opt" data-cols="4" onclick="setLayout(4)">شبكة 4</button></div></div>
         </div>
         <div class="split-list"></div>
       </div>
@@ -1363,6 +1392,7 @@ button.nav-link { background: transparent; border: 0; }
             <input type="text" placeholder="ابحث..." oninput="onSplitSearch(this.value)">
           </div>
           <button class="filter-btn split-fav" onclick="toggleSplitFav()" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count">(0)</span></button>
+          <div class="layout-wrap"><button class="filter-btn layout-btn" onclick="toggleLayoutMenu(event)" title="تخطيط البطاقات" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-table-cells-large"></i></button><div class="layout-menu" hidden><button class="layout-opt" data-cols="1" onclick="setLayout(1)">1 في السطر</button><button class="layout-opt" data-cols="2" onclick="setLayout(2)">شبكة 2</button><button class="layout-opt" data-cols="3" onclick="setLayout(3)">شبكة 3</button><button class="layout-opt" data-cols="4" onclick="setLayout(4)">شبكة 4</button></div></div>
         </div>
         <div class="split-list"></div>
       </div>
@@ -1384,6 +1414,7 @@ button.nav-link { background: transparent; border: 0; }
             <input type="text" id="modsSearch" placeholder="ابحث عن مود..." data-i18n-placeholder="mods.search">
           </div>
           <button class="filter-btn mods-fav" onclick="toggleModsFav()" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count">(0)</span></button>
+          <div class="layout-wrap"><button class="filter-btn layout-btn" onclick="toggleLayoutMenu(event)" title="تخطيط البطاقات" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-table-cells-large"></i></button><div class="layout-menu" hidden><button class="layout-opt" data-cols="1" onclick="setLayout(1)">1 في السطر</button><button class="layout-opt" data-cols="2" onclick="setLayout(2)">شبكة 2</button><button class="layout-opt" data-cols="3" onclick="setLayout(3)">شبكة 3</button><button class="layout-opt" data-cols="4" onclick="setLayout(4)">شبكة 4</button></div></div>
         </div>
         <div id="modsList"></div>
       </div>
@@ -1575,8 +1606,8 @@ button.nav-link { background: transparent; border: 0; }
     <a href="#/" class="bn-item" data-route="home"><i class="fa-solid fa-house"></i><span data-i18n="nav.home">الرئيسية</span></a>
     <button type="button" class="bn-item" data-route="search" onclick="goToSearch()"><i class="fa-solid fa-magnifying-glass"></i><span data-i18n="nav.search">بحث</span></button>
     <a href="#/phone" class="bn-item" data-route="phone"><i class="fa-solid fa-mobile-screen-button"></i><span>للهاتف</span></a>
+    <a href="#/pc" class="bn-item" data-route="pc"><i class="fa-solid fa-desktop"></i><span>للحاسوب</span></a>
     <a href="#/mods" class="bn-item" data-route="mods"><i class="fa-solid fa-puzzle-piece"></i><span data-i18n="nav.mods">المودات</span></a>
-    <a href="#/library" class="bn-item" data-route="library"><i class="fa-solid fa-book-open"></i><span data-i18n="nav.library">المكتبة</span></a>
   </nav>
 
   <script src="supabase-client.js"></script>
@@ -2439,7 +2470,7 @@ function renderSplitList(platform, tab) {
     const list = splitItems(platform, tab);
     root.querySelectorAll('.split-fav').forEach(b => b.classList.toggle('active', splitFavOnly));
     root.querySelector('.split-list').innerHTML = list.length
-        ? gridOrEmpty(list, list.map(({ item, type }) => itemCard(item, type)).join(''), '')
+        ? vgridHtml(list.map(({ item, type }) => itemCard(item, type)).join(''))
         : (splitFavOnly ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
             : (splitSearchQ ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
                 : emptyState('fa-solid fa-box-open', 'لا توجد عناصر هنا بعد', 'ستظهر هنا فور إضافتها من لوحة الإدارة.')));
@@ -2464,6 +2495,42 @@ function refreshSplit() {
 }
 window.onSplitSearch = function(v) { splitSearchRaw = String(v || ''); splitSearchQ = splitSearchRaw.trim().toLowerCase(); refreshSplit(); };
 window.toggleSplitFav = function() { splitFavOnly = !splitFavOnly; refreshSplit(); };
+
+// ---------- v21 — تخطيط البطاقات: 1 / 2 / 3 / 4 في السطر (يُحفظ في localStorage) ----------
+const LAYOUT_KEY = 'abdellatif-dev-layout';
+let layoutCols = 2; // الافتراضي: شبكة ببطاقتين
+try {
+    const saved = parseInt(localStorage.getItem(LAYOUT_KEY), 10);
+    if ([1, 2, 3, 4].includes(saved)) layoutCols = saved;
+} catch (e) {}
+function vgridHtml(cardsHtml) { return `<div class="cards-grid vgrid">${cardsHtml}</div>`; }
+function closeLayoutMenus() {
+    document.querySelectorAll('.layout-menu').forEach(m => { m.hidden = true; });
+    document.querySelectorAll('.layout-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+}
+function applyLayoutUI() {
+    document.documentElement.style.setProperty('--vcols', String(layoutCols));
+    document.documentElement.dataset.vcols = String(layoutCols);
+    document.querySelectorAll('.layout-opt').forEach(b => b.classList.toggle('active', Number(b.dataset.cols) === layoutCols));
+}
+window.toggleLayoutMenu = function(e) {
+    e.stopPropagation();
+    const btn = e.currentTarget;
+    const menu = btn.nextElementSibling;
+    const willOpen = menu.hidden;
+    closeLayoutMenus();
+    menu.hidden = !willOpen;
+    btn.setAttribute('aria-expanded', String(willOpen));
+};
+window.setLayout = function(n) {
+    layoutCols = n;
+    try { localStorage.setItem(LAYOUT_KEY, String(n)); } catch (e) {}
+    closeLayoutMenus();
+    applyLayoutUI();
+};
+document.addEventListener('click', e => { if (!e.target.closest('.layout-wrap')) closeLayoutMenus(); });
+applyLayoutUI();
+
 
 // ---------- v20 — صفحة المودات: اللعبة ← النوع ← المودات ----------
 // قائمتان صريحتان لمودات GTA (مطابقة على الاسم الإنجليزي الظاهر في العنوان)
@@ -2516,18 +2583,18 @@ function renderModsList() {
     const types = [...new Set(mods.map(modType))].sort((a, b) => a.localeCompare(b, 'ar'));
     typesBox.hidden = false;
     typesBox.innerHTML = types.length
-        ? types.map(c => `<a href="#/mods/${gameKey}/${encodeURIComponent(c)}" class="seg-btn${c === type ? ' active' : ''}">${esc(c)}</a>`).join('')
+        ? [['all', 'الكل'], ...types.map(c => [c, c])].map(([v, label]) => `<a href="#/mods/${gameKey}/${encodeURIComponent(v)}" class="seg-btn${v === type ? ' active' : ''}">${esc(label)}</a>`).join('')
         : '<span class="mods-none">لا توجد أنواع بعد</span>';
 
     if (!type) {
         box.innerHTML = emptyState('fa-solid fa-layer-group', 'اختر نوع المود', 'اضغط على نوع لعرض مودات هذه اللعبة.');
         return;
     }
-    let list = mods.filter(m => modType(m) === type);
+    let list = type === 'all' ? mods.slice() : mods.filter(m => modType(m) === type);
     if (q) list = list.filter(m => ((m.title || '') + ' ' + (m.short_desc || '')).toLowerCase().includes(q));
     if (modsFavOnly) list = list.filter(m => isFavorite('game', m.id));
     box.innerHTML = list.length
-        ? gridOrEmpty(list, list.map(m => itemCard(m, 'game')).join(''), '')
+        ? vgridHtml(list.map(m => itemCard(m, 'game')).join(''))
         : (modsFavOnly
             ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
             : emptyState('fa-solid fa-box-open', t('empty.noResults'), t('empty.noResultsText')));

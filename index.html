@@ -2905,7 +2905,7 @@ async function incrementDownload() {
 function isFileDownloadUrl(u) {
     const s = String(u || '').trim();
     if (!s) return false;
-    if (/\.(apk|xapk|zip|exe|msi|dmg|pkg|rar|7z|tar\.gz|apks|apkm)(\?|#|$)/i.test(s)) return true;
+    if (/\.(apk|xapk|zip|exe|msi|dmg|pkg|rar|7z|tar\.gz|apks|apkm|jar)(\?|#|$)/i.test(s)) return true;
     try {
         const host = new URL(s).hostname.toLowerCase();
         const fileHosts = ['dl.apkvision.org', 'f-droid.org', 'cdn.modrinth.com',

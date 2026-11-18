@@ -2794,13 +2794,23 @@ function renderSimilarItems(box, item, type) {
     const pool = type === 'game' ? games : apps;
     if (!Array.isArray(pool) || !pool.length) return;
     const plat = platformOf(item, type);
+    const isMod = plat === 'mod-minecraft' || plat === 'mod-gta';
+    // القرب الحقيقي هو نفس النوع (genre). تصنيفا «رسمية/مهكرة» وحدهما
+    // ما كافيينش (حالة/إصدار، ماشي نوع لعبة) — فالعناصر بلا نوع مشترك
+    // ما كتظهرش، والقسم كيختفي إلا ما كان حتى عنصر قريب.
+    const STATUS_CATS = ['رسمية', 'مهكرة'];
     const scored = [];
     pool.forEach(o => {
         if (o.id === item.id || o.is_published === false) return;
         if (platformOf(o, type) !== plat) return;
+        const sameGenre = type === 'game' && o.genre && item.genre && o.genre === item.genre;
+        const sameCat = o.category && item.category && o.category === item.category && !STATUS_CATS.includes(item.category);
+        if (isMod) { if (!sameGenre) return; }
+        else if (type === 'game') { if (!sameGenre && !sameCat) return; }
+        else if (!(o.category && item.category && o.category === item.category)) return;
         let score = 0;
-        if (o.category === item.category) score += 2;
-        if (type === 'game' && o.genre && item.genre && o.genre === item.genre) score += 1;
+        if (sameGenre) score += 3;
+        if (sameCat) score += 2;
         scored.push({ o, score });
     });
     scored.sort((a, b) => (b.score - a.score) || ((b.o.download_count || 0) - (a.o.download_count || 0)));

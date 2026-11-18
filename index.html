@@ -2832,7 +2832,7 @@ function renderItemDetail(box, item, type) {
         <small style="color:var(--text-gray);">${t('detail.wait')}</small>
       </div>
       <div id="downloadBtnBox" style="display:none;">
-        <a href="${esc(item.download_url)}" id="downloadLink" download class="btn-download-big" onclick="handleDownloadClick(event)">
+        <a href="${esc(item.download_url)}" id="downloadLink" download rel="noreferrer" class="btn-download-big" onclick="handleDownloadClick(event)">
           <i class="fa-solid fa-cloud-arrow-down"></i> ${t('detail.downloadNow')}
         </a>
         <p style="text-align:center;color:var(--text-dim);font-size:0.82rem;margin-top:8px;">${isPlayStore ? t('detail.playStoreNote') : t('detail.directDownload')}</p>
@@ -2893,13 +2893,15 @@ async function incrementDownload() {
 }
 
 // ---------- تحميل من داخل الموقع: نقرة حقيقية على رابط الملف ----------
-// تصحيح: الإطار المخفي (iframe) ما خدامش — كروم (خصوصاً في الهاتف)
-// كيمنع التحميلات اللي كتبدا من إطار مخفي بلا نقرة مباشرة، فما كان كيوقع والو.
-// الحل الصحيح: نقرة حقيقية على رابط <a> حقيقي. ملي الرابط كيشير لملف
-// (ماشي صفحة)، المتصفح كيبدا التحميل وما كيبدّلش الصفحة الحالية.
-// المشكل الأصلي عمره ما كان في الرابط — كان في أن الروابط كانت كتشير
-// لصفحات (Play Store وصفحات APKVision الوسيطة). الروابط المباشرة ديال
-// الملفات اللي تحطو في قاعدة البيانات هي اللي حلّت داك المشكل.
+// السبب الحقيقي للمشكل (بعد جوج محاولات خاطئة):
+// 1) الإطار المخفي ما خدامش، و2) النقرة الحقيقية كانت كتنقل لـ apkvision.org.
+// السبب هو حماية ضد الربط الخارجي (hotlink protection) في dl.apkvision.org:
+// إلا جا الطلب ومعاه Referer من موقع آخر، الخادم كيعيد التوجيه للصفحة
+// الرئيسية ديال apkvision.org. بلا Referer (أو مع Referer ديالهم) كيخدم
+// الملف عادي (206). الحل: rel="noreferrer" على روابط التحميل باش
+// المتصفح ما يبعثش Referer، والملف كيتحمّل والصفحة كتبقى بلاصتها.
+// (المشكل الأصلي عمره ما كان في طريقة النقرة — كان في أن الروابط كانت
+// كتشير لصفحات. الروابط المباشرة ديال الملفات هي اللي حلّت داك المشكل.)
 function isFileDownloadUrl(u) {
     const s = String(u || '').trim();
     if (!s) return false;
@@ -2919,10 +2921,15 @@ function isFileDownloadUrl(u) {
 }
 // نقرة برمجية على رابط ملف حقيقي (للتحميل التلقائي بعد العداد):
 // تنقّل تحميل — المتصفح كيبدا التحميل وما كيبدّلش الصفحة.
+// rel="noreferrer" ضروري: خوادم الملفات (dl.apkvision.org نموذجاً) فيها
+// حماية ضد الربط الخارجي — إلا جا الطلب ومعاه Referer من موقع آخر،
+// كيعيدو التوجيه للصفحة الرئيسية ديالهم (تأكدنا بـ curl: 302 مع Referer
+// ديال موقعنا، و206 بلا Referer أو مع Referer ديال apkvision.org).
 function startFileDownload(url) {
     const a = document.createElement('a');
     a.href = url;
     a.setAttribute('download', '');
+    a.setAttribute('rel', 'noreferrer');
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -2934,7 +2941,7 @@ function startInSiteDownload(url) {
         return;
     }
     // روابط الصفحات (Play Store وغيرها): افتحها في تبويب جديد باش تبويب الموقع يبقى مفتوح
-    window.open(url, '_blank', 'noopener');
+    window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 // ---------- نقرة التحميل: عداد + تحميل مباشر ----------
@@ -2949,7 +2956,7 @@ window.handleDownloadClick = function(e) {
     // رابط صفحة: امنع الانتقال وافتحها في تبويب جديد
     e.preventDefault();
     incrementDownload();
-    window.open(activeDownload.url, '_blank', 'noopener');
+    window.open(activeDownload.url, '_blank', 'noopener,noreferrer');
 };
 
 </script>

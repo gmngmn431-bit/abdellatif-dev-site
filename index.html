@@ -1206,9 +1206,7 @@ html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .72rem; padding: 6px 4p
 .vgrid .card-foot .btn { height: 40px; font-size: .85rem; }
 
 /* ===== v23 — إصلاحات القائمة والتخطيط والشعارات ===== */
-/* خيارات الأعمدة غير المتاحة على الشاشات الضيقة */
-@media (max-width: 519px) { .layout-opt[data-cols="3"], .layout-opt[data-cols="4"] { display: none; } }
-@media (min-width: 520px) and (max-width: 819px) { .layout-opt[data-cols="4"] { display: none; } }
+/* v23.1: الخيارات الأربعة ظاهرة دائماً في القائمة (أُزيل إخفاء 3 و4 على الشاشات الضيقة) */
 /* بطاقات 3/4 أعمدة: عنوان بسطرين بلا تقطيع وسط الكلمة، زر أيقونة فقط، شارة وقلب أصغر */
 html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { font-size: 0; gap: 0; }
@@ -1216,10 +1214,10 @@ html[data-vcols="3"] .vgrid .card-foot .btn i, html[data-vcols="4"] .vgrid .card
 html[data-vcols="3"] .vgrid .cover-chip.net { display: none; }
 html[data-vcols="3"] .vgrid .fav-btn, html[data-vcols="4"] .vgrid .fav-btn { width: 30px; height: 30px; font-size: .78rem; top: 6px; inset-inline-end: 6px; }
 html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 8px; font-size: .6rem; }
-/* الشعارات كاملة بلا قص: contain بدل cover */
-.vgrid .card-cover img { object-fit: contain; }
-.row-cover img { object-fit: contain; }
-.detail-cover img { object-fit: contain; }
+/* v23.1: الشعارات رجعت كيف كانت قبل (cover يملأ البطاقة) — contain ما عجباتش المستخدم */
+.vgrid .card-cover img { object-fit: cover; }
+.row-cover img { object-fit: cover; }
+.detail-cover img { object-fit: cover; }
 .gallery img { aspect-ratio: 16 / 9; object-fit: contain; }
 /* إخفاء التذييل في صفحة التفاصيل (يُستبدل بقسم المشابهات) */
 body.is-detail footer.footer { display: none; }
@@ -2569,18 +2567,11 @@ function closeLayoutMenus() {
     });
     document.querySelectorAll('.layout-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
 }
-// v23: سقف الأعمدة حسب عرض الشاشة (الهاتف: 2 كحد أقصى، اللوحي الصغير: 3، الحاسوب: 4)
-// حتى لا تتشوه البطاقات عند اختيار 3 أو 4 على شاشة ضيقة.
-function effectiveCols() {
-    const vw = document.documentElement.clientWidth;
-    const cap = vw < 520 ? 2 : vw < 820 ? 3 : 4;
-    return Math.min(layoutCols, cap);
-}
+// v23.1: أُزيل سقف الأعمدة — اختيار المستخدم (1/2/3/4) يُطبَّق كما هو على كل الشاشات.
 function applyLayoutUI() {
-    const eff = effectiveCols();
-    document.documentElement.style.setProperty('--vcols', String(eff));
-    document.documentElement.dataset.vcols = String(eff);
-    document.querySelectorAll('.layout-opt').forEach(b => b.classList.toggle('active', Number(b.dataset.cols) === eff));
+    document.documentElement.style.setProperty('--vcols', String(layoutCols));
+    document.documentElement.dataset.vcols = String(layoutCols);
+    document.querySelectorAll('.layout-opt').forEach(b => b.classList.toggle('active', Number(b.dataset.cols) === layoutCols));
 }
 window.addEventListener('resize', applyLayoutUI);
 // v23: تموضع القائمة بعد إظهارها: محاذاة بالحافة اليمنى للزر، وتبقى داخل حدود الشاشة أفقياً،

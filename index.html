@@ -464,6 +464,8 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
   transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
 }
 .nav-action-btn:hover { background: rgba(30, 107, 255, 0.25); border-color: var(--mint); box-shadow: 0 0 16px rgba(30, 107, 255, 0.48); transform: scale(1.05); }
+/* v25.1 — زر قفل الإدارة الأيقوني مخفي دائماً: نسخته النصية موجودة في شريط التنقل (سطح المكتب) وفي قائمة الهمبرغر (الجوال) — إظهاره معها كان يكرّر الزر ويتداخل معه. القواعد القديمة كانت تستهدف .nav-admin-mini وهو كلاس غير مستعمل في HTML أصلاً. */
+.nav-actions a.nav-action-btn { display: none; }
 .nav-actions .tool-btn { width: 42px; height: 42px; padding: 0; justify-content: center; }
 .nav-actions .tool-btn span { display: none; }
 .nav-actions .lang-picker { height: 42px; }
@@ -797,6 +799,16 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .video-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
 .video-embed iframe, .video-embed video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 @media (max-width: 899px) { .detail-hero { grid-template-columns: 1fr; } .detail-cover { min-height: 0; aspect-ratio: 16 / 10; } }
+/* v25.1 — الجوال: تصغير بطل صفحة التفاصيل باش صندوق العدّاد (الرقم) يبان كامل فوق الشريط السفلي من أول تحميل، بلا ما يتغطى */
+@media (max-width: 899px) {
+  .detail-hero { gap: 14px; }
+  .detail-cover { aspect-ratio: 21 / 9; }
+  .detail-info { padding: 18px 18px 20px; }
+  .detail-info .lead { margin-bottom: 12px; }
+  .detail-chips { gap: 6px; margin-bottom: 6px; }
+  .timer-box { padding: 16px 14px 14px; }
+  .timer-countdown { width: 88px; height: 88px; margin: 10px auto; font-size: 2.2rem; }
+}
 
 /* ---------- عن المطور ---------- */
 .about-card { position: relative; overflow: hidden; padding: clamp(26px, 5vw, 56px); border-radius: var(--r-xl); }

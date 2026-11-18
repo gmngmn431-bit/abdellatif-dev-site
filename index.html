@@ -2412,6 +2412,7 @@ const SPLIT_TABS = {
 // «مهكرة» = category === 'مهكرة' للألعاب والتطبيقات معاً
 const isModded = item => item.category === 'مهكرة';
 let splitSearchQ = '';
+let splitSearchRaw = '';
 function splitTab(platform, tab) {
     return SPLIT_TABS[platform].some(x => x[0] === tab) ? tab : 'games';
 }
@@ -2448,6 +2449,10 @@ function renderSplit(platform, tabIn) {
     const root = document.getElementById(platform === 'phone' ? 'view-phone' : 'view-pc');
     if (!root) return;
     setActiveNav(platform);
+    // v20.1: صندوقا بحث الهاتف والحاسوب يتشاركان نفس الاستعلام — زامِن قيمتهما عند التنقل
+    document.querySelectorAll('input[oninput^="onSplitSearch"]').forEach(inp => {
+        if (document.activeElement !== inp && inp.value !== splitSearchRaw) inp.value = splitSearchRaw;
+    });
     root.querySelector('.seg-bar').innerHTML = SPLIT_TABS[platform].map(([v, ic, label]) =>
         `<a href="#/${platform}/${v}" class="seg-btn${v === tab ? ' active' : ''}"><i class="fa-solid ${ic}"></i> ${label}</a>`).join('');
     renderSplitList(platform, tab);
@@ -2457,7 +2462,7 @@ function refreshSplit() {
     const p = parseHash();
     if (p[0] === 'phone' || p[0] === 'pc') renderSplitList(p[0], splitTab(p[0], p[1]));
 }
-window.onSplitSearch = function(v) { splitSearchQ = String(v || '').trim().toLowerCase(); refreshSplit(); };
+window.onSplitSearch = function(v) { splitSearchRaw = String(v || ''); splitSearchQ = splitSearchRaw.trim().toLowerCase(); refreshSplit(); };
 window.toggleSplitFav = function() { splitFavOnly = !splitFavOnly; refreshSplit(); };
 
 // ---------- v20 — صفحة المودات: اللعبة ← النوع ← المودات ----------

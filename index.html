@@ -466,6 +466,8 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .nav-action-btn:hover { background: rgba(30, 107, 255, 0.25); border-color: var(--mint); box-shadow: 0 0 16px rgba(30, 107, 255, 0.48); transform: scale(1.05); }
 /* v25.1 — زر قفل الإدارة الأيقوني مخفي دائماً: نسخته النصية موجودة في شريط التنقل (سطح المكتب) وفي قائمة الهمبرغر (الجوال) — إظهاره معها كان يكرّر الزر ويتداخل معه. القواعد القديمة كانت تستهدف .nav-admin-mini وهو كلاس غير مستعمل في HTML أصلاً. */
 .nav-actions a.nav-action-btn { display: none; }
+/* v25.1.2 — إخفاء أيقونات روابط التنقل على سطح المكتب: صف الروابط (10 روابط) أعرض من الشريط بنحو 100px وكان زر «لوحة الإدارة» يفيض خارج حافته اليسرى حتى بعد تصغير الـ padding في v25.1.1. الأيقونات تبقى ظاهرة في قائمة الهمبرغر على الجوال (قاعدة .nav-links .nav-link i أقوى تحديداً). */
+.nav-link i { display: none; }
 .nav-actions .tool-btn { width: 42px; height: 42px; padding: 0; justify-content: center; }
 .nav-actions .tool-btn span { display: none; }
 .nav-actions .lang-picker { height: 42px; }

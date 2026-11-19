@@ -3040,7 +3040,7 @@ async function incrementDownload() {
         // إشعار تيليغرام بالتحميل — fire-and-forget: لا يوقف التحميل ولا يرمي خطأ أبداً
         try {
             const tgTitle = (item && (item.title || item.name) ? String(item.title || item.name) : '').slice(0, 120);
-            if (tgTitle) {
+            if (tgTitle && !tgMuted()) {
                 fetch('https://plapgefuoqjdsnvrgtwg.supabase.co/functions/v1/telegram-notify', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -3121,10 +3121,22 @@ window.handleDownloadClick = function(e) {
     window.open(activeDownload.url, '_blank', 'noopener,noreferrer');
 };
 
+// ---------- كتم إشعارات تيليغرام لهذا المتصفح ----------
+// افتح الموقع مرة واحدة برابط ?tg_mute=1 باش هاد المتصفح ما يصيفطش إشعارات
+// (زيارة/تحميل) — للمالك وللمتصفح ديال الاختبار. الكتم محفوظ في localStorage.
+function tgMuted() {
+    try {
+        if (new URLSearchParams(location.search).get('tg_mute') === '1') {
+            localStorage.setItem('tg_muted', '1');
+        }
+        return localStorage.getItem('tg_muted') === '1';
+    } catch (e) { return false; }
+}
+
 // ---------- إشعار تيليغرام بالزيارة — مرة واحدة في الجلسة ----------
 // fire-and-forget: لا يوقف تحميل الصفحة ولا يرمي خطأ أبداً
 try {
-    if (!sessionStorage.getItem('tg_visit_sent')) {
+    if (!tgMuted() && !sessionStorage.getItem('tg_visit_sent')) {
         sessionStorage.setItem('tg_visit_sent', '1');
         fetch('https://plapgefuoqjdsnvrgtwg.supabase.co/functions/v1/telegram-notify', {
             method: 'POST',

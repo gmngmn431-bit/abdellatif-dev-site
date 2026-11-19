@@ -3037,6 +3037,18 @@ async function incrementDownload() {
         const list = type === 'game' ? games : apps;
         const item = list.find(x => x.id === id);
         if (item) item.download_count = (item.download_count || 0) + 1;
+        // إشعار تيليغرام بالتحميل — fire-and-forget: لا يوقف التحميل ولا يرمي خطأ أبداً
+        try {
+            const tgTitle = (item && (item.title || item.name) ? String(item.title || item.name) : '').slice(0, 120);
+            if (tgTitle) {
+                fetch('https://plapgefuoqjdsnvrgtwg.supabase.co/functions/v1/telegram-notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ kind: 'download', title: tgTitle, page: location.href }),
+                    keepalive: true
+                }).catch(function () {});
+            }
+        } catch (e) { /* تجاهل — الإشعار لا يوقف التحميل */ }
     } catch (err) {
         console.error('increment download error:', err);
     }
@@ -3108,6 +3120,20 @@ window.handleDownloadClick = function(e) {
     incrementDownload();
     window.open(activeDownload.url, '_blank', 'noopener,noreferrer');
 };
+
+// ---------- إشعار تيليغرام بالزيارة — مرة واحدة في الجلسة ----------
+// fire-and-forget: لا يوقف تحميل الصفحة ولا يرمي خطأ أبداً
+try {
+    if (!sessionStorage.getItem('tg_visit_sent')) {
+        sessionStorage.setItem('tg_visit_sent', '1');
+        fetch('https://plapgefuoqjdsnvrgtwg.supabase.co/functions/v1/telegram-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ kind: 'visit', page: location.href }),
+            keepalive: true
+        }).catch(function () {});
+    }
+} catch (e) { /* تجاهل */ }
 
 </script>
 </body>

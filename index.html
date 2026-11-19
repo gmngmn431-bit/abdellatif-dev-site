@@ -3005,13 +3005,8 @@ function startDownloadCountdown() {
             const bb = document.getElementById('downloadBtnBox');
             if (tb) tb.style.display = 'none';
             if (bb) bb.style.display = 'block';
-            // سُجِّل هذا العنصر من قبل (تبديل اللغة يعيد العداد): أظهر الزر فقط،
-            // بلا تسجيل جديد ولا تحميل تلقائي ثانٍ
-            if (downloadCounted.has(downloadKey())) return;
-            // تحميل تلقائي: سجّل التحميل (بلا انتظار — باش ما نوقفش النقرة)
-            // ثم ابدأ التحميل من داخل الموقع
-            incrementDownload();
-            if (activeDownload) startInSiteDownload(activeDownload.url);
+            // التحميل ما يبداش بوحدو: الزائر خاصو يضغط على زر «تحميل الآن»
+            // (النقرة كتسجّل التحميل وكتبدا التحميل من داخل الموقع)
         }
     }, 1000);
 }

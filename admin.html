@@ -195,18 +195,14 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 [data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 168, 98, 0.18), rgba(0, 168, 98, 0)); }
 [data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 122, 77, 0.12), rgba(0, 122, 77, 0)); }
 [data-theme="light"] .aurora::after { opacity: 0.04; }
-/* عنوان الهيرو: تدرّج داكن ليبقى مقروءاً على الفاتح · v9: background-clip: text — الـ background المختصر كان يصفّر الـ clip فالنص يختفي في الفاتح · v10: أخضر عمر (#007a4d/#00a862) */
 [data-theme="light"] .hero-title { background: linear-gradient(100deg, #002000 0%, #007a4d 45%, #00a862 75%, #002000 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
-/* أغلفة البطاقات: بلاطة فاتحة بدل الداكنة */
 [data-theme="light"] .card-cover, [data-theme="light"] .row-cover, [data-theme="light"] .detail-cover { background: radial-gradient(circle at 25% 15%, rgba(86, 245, 155, 0.22), transparent 55%), radial-gradient(circle at 85% 95%, rgba(0, 122, 77, 0.20), transparent 55%), #d9f2e4; }
-/* نصوص التنبيهات والنماذج */
 [data-theme="light"] .alert-info { color: #004d1f; }
 [data-theme="light"] .alert-success { color: #007a4d; }
 [data-theme="light"] .alert-danger { color: #8f1d13; }
 [data-theme="light"] .form-group select option { background: #ffffff; }
 [data-theme="light"] .form-group input, [data-theme="light"] .form-group select, [data-theme="light"] .form-group textarea { background: rgba(0, 64, 32, 0.05); }
 [data-theme="light"] .form-group input[type='datetime-local'] { color-scheme: light; }
-/* عناصر صغيرة */
 [data-theme="light"] .skeleton { background: linear-gradient(100deg, rgba(0, 64, 32, 0.05) 30%, rgba(0, 64, 32, 0.13) 50%, rgba(0, 64, 32, 0.05) 70%); }
 [data-theme="light"] .timer-countdown::before { background: conic-gradient(var(--mint) 0deg, var(--lime) var(--p), rgba(0, 64, 32, 0.12) var(--p)); }
 [data-theme="light"] .strip-next { background: rgba(255, 255, 255, 0.92); }
@@ -215,7 +211,6 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 [data-theme="light"] body { scrollbar-color: rgba(0, 64, 32, 0.3) transparent; }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0, 64, 32, 0.25); }
 
-/* v10 — أخضر عمر: أزرار بتدرّج أخضر فاتح ونص داكن (نمط موقع عمر) + حدود خضراء للشارات — في v8 كانت أزراراً خضراء عميقة بنص أبيض */
 [data-theme="light"] .btn.btn-primary, [data-theme="light"] .btn-download-big { background: linear-gradient(135deg, #56f59b 0%, #bafe5b 100%); color: #04110a; }
 [data-theme="light"] .btn-primary:hover, [data-theme="light"] .btn-download-big:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
 [data-theme="light"] .status-in_dev, [data-theme="light"] .badge-draft { border-color: rgba(0, 122, 77, 0.32); }
@@ -228,9 +223,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 [data-theme="light"] .stat-card:nth-child(4) { --c: var(--mint); --cbg: var(--mint-a); --cbd: rgba(0, 122, 77, 0.3); --tint: rgba(0, 122, 77, 0.2); }
 [data-theme="light"] .stat-card:nth-child(5) { --c: var(--mint); --cbg: var(--mint-a); --cbd: rgba(0, 122, 77, 0.3); --tint: rgba(0, 122, 77, 0.2); }
 
-/* انتقال سلس عند تبديل الوضع (الألوان فقط — لا يلغي حركات العناصر) */
 body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
-
 
 /* ============================================================
    الأزرار
@@ -243,7 +236,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.3s, border-color 0.3s, color 0.3s;
 }
 .btn i { font-size: 0.95em; }
-.btn::after { /* لمعة تعبر الزر عند المرور */
+.btn::after {
   content: ''; position: absolute; inset: 0; z-index: -1; transform: translateX(120%) skewX(-18deg);
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent); transition: transform 0.7s var(--ease);
 }
@@ -272,19 +265,19 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 /* ============================================================
    شارات الحالة
    ============================================================ */
-.status-badge, .badge-published, .badge-draft, .badge-platform, .badge-online, .badge-offline {
+.status-badge, .badge-published, .badge-draft, .badge-platform, .badge-online, .badge-offline, .badge-android-mod, .badge-pc-mod, .badge-no-dl {
   display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 11px; border-radius: 999px;
   font-size: 0.76rem; font-weight: 600; line-height: 1.7; border: 1px solid transparent;
 }
-.status-badge::before, .badge-published::before, .badge-draft::before, .badge-platform::before, .badge-online::before, .badge-offline::before {
+.status-badge::before, .badge-published::before, .badge-draft::before, .badge-platform::before, .badge-online::before, .badge-offline::before, .badge-android-mod::before, .badge-pc-mod::before, .badge-no-dl::before {
   content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; flex: none;
 }
-.status-available, .badge-published { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.32); }
+.status-available, .badge-published, .badge-android-mod { background: var(--mint-a); color: var(--mint); border-color: rgba(86, 245, 155, 0.32); }
 .status-in_dev, .badge-draft { background: var(--gold-a); color: var(--gold); border-color: rgba(255, 193, 77, 0.32); }
-.status-coming_soon { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
-.badge-platform { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
+.status-coming_soon, .badge-platform, .badge-pc-mod { background: var(--sky-a); color: var(--sky); border-color: rgba(90, 169, 255, 0.34); }
 .badge-online { background: rgba(86, 245, 155, 0.16); color: #56f59b; border-color: rgba(86, 245, 155, 0.4); }
 .badge-offline { background: rgba(255, 255, 255, 0.06); color: var(--ink-3); border-color: rgba(255, 255, 255, 0.14); }
+.badge-no-dl { background: var(--danger-a); color: var(--danger); border-color: rgba(255, 144, 144, 0.38); }
 
 /* ============================================================
    رسائل وتنبيهات وحالات
@@ -322,7 +315,6 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
 }
 .form-group textarea { resize: vertical; min-height: 96px; }
-/* حقول بمحتوى مختلط (عربي/لاتيني): كل سطر يأخذ اتجاهه الطبيعي — مثل «C#» */
 .form-group textarea, .form-group input[type='text'], .form-group input[type='url'], .form-group input[type='email'] { unicode-bidi: plaintext; text-align: start; }
 .form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-3); opacity: 0.75; }
 .form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: var(--line-hi); }
@@ -483,6 +475,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .tab-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
 .tab-header h3 { font-family: var(--f-display); font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 14px; }
 .tab-header h3::before { content: ''; width: 6px; height: 28px; border-radius: 6px; background: var(--grad); box-shadow: 0 0 18px rgba(86, 245, 155, 0.6); }
+.tab-header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .table-responsive { overflow-x: auto; border-radius: var(--r-lg); }
 .data-table { width: 100%; border-collapse: collapse; min-width: 720px; }
@@ -531,6 +524,17 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .img-preview img { width: 96px; height: 64px; object-fit: cover; border-radius: 14px; border: 1px solid var(--line-hi); }
 #uploadProgress { padding: 12px 16px; border-radius: var(--r-md); background: var(--mint-a); border: 1px solid rgba(86, 245, 155, 0.3); font-size: 0.9rem; }
 #saveEntityBtn { position: sticky; bottom: 4px; z-index: 2; height: 58px; font-size: 1.02rem; margin-top: 10px; box-shadow: 0 -18px 30px 6px rgba(10, 16, 20, 0.9), 0 12px 34px -8px rgba(86, 245, 155, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+
+/* ---------- محرر الملفات الإضافية داخل المودال ---------- */
+.extra-dl-editor { display: grid; gap: 10px; margin-top: 8px; }
+.extra-dl-row {
+  display: grid; grid-template-columns: 1.2fr 0.7fr 1fr; gap: 8px; padding: 12px;
+  border-radius: var(--r-md); background: var(--glass-flat); border: 1px solid var(--line);
+}
+.extra-dl-row input { min-height: 42px; padding: 8px 12px; font-size: 0.88rem; }
+.extra-dl-row .extra-dl-url { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; }
+.extra-dl-row .extra-dl-url input { flex: 1; }
+@media (max-width: 600px) { .extra-dl-row { grid-template-columns: 1fr; } }
 
 /* ============================================================
    متجاوب: على الجوال/التابلت يصبح الشريط الجانبي شريطاً علوياً زجاجياً
@@ -594,9 +598,6 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 }
 @media (max-width: 420px) { .login-card { padding: 34px 22px 24px; } }
 
-/* ============================================================
-   v4 — الأداء: الجوال بلا blur (خلفيات صلبة) + شفق ثابت
-   ============================================================ */
 @media (max-width: 640px) {
   .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input, .filter-chips { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
   .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input { background: var(--glass-solid); }
@@ -684,6 +685,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
         <nav class="admin-tabs">
           <button class="tab-btn active" data-tab="gamesTab" onclick="switchAdminTab('gamesTab')"><i class="fa-solid fa-gamepad"></i> الألعاب</button>
           <button class="tab-btn" data-tab="appsTab" onclick="switchAdminTab('appsTab')"><i class="fa-solid fa-mobile-screen"></i> التطبيقات</button>
+          <button class="tab-btn" data-tab="modsTab" onclick="switchAdminTab('modsTab')"><i class="fa-solid fa-puzzle-piece"></i> المودات (Android / PC)</button>
           <button class="tab-btn" data-tab="projectsTab" onclick="switchAdminTab('projectsTab')"><i class="fa-solid fa-code"></i> المشاريع قيد التطوير</button>
           <button class="tab-btn" data-tab="newsTab" onclick="switchAdminTab('newsTab')"><i class="fa-solid fa-newspaper"></i> الأخبار</button>
           <button class="tab-btn" data-tab="requestsTab" onclick="switchAdminTab('requestsTab')"><i class="fa-solid fa-clipboard-list"></i> الطلبات</button>
@@ -741,6 +743,33 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           <div class="table-responsive"><table class="data-table">
             <thead><tr><th>الصورة</th><th>العنوان</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
             <tbody id="appsTableBody"></tbody>
+          </table></div>
+        </div>
+
+        <!-- تبويب المودات: Android Mods / PC Mods -->
+        <div id="modsTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>إدارة المودات (Android Mods / PC Mods)</h3>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('androidMods')"><i class="fa-solid fa-mobile-screen-button"></i> إضافة مود Android</button>
+              <button class="btn btn-secondary" onclick="openForm('pcMods')"><i class="fa-solid fa-desktop"></i> إضافة مود PC فقط</button>
+            </div>
+          </div>
+          <div class="alert-info" style="margin-bottom:14px;">
+            <i class="fa-solid fa-shield-halved"></i>
+            تنبيه البنية التحتية: مودات <b>PC Mods</b> مفصولة تلقائياً ولا تظهر في قسم Android Mods. لا يمكن نشر أي عنصر (<span class="latin">is_published = true</span>) بدون رابط تحميل مباشر صالح في حقل <span class="latin">download_url</span> — المسودات فقط تبقى <span class="latin">is_published = false</span>.
+          </div>
+          <div class="filter-chips" id="modsEnvFilter">
+            <button type="button" class="filter-btn active" data-env="all" onclick="setAdminModsEnv('all')">الكل (<span id="modsCountAll">0</span>)</button>
+            <button type="button" class="filter-btn" data-env="android" onclick="setAdminModsEnv('android')">Android Mods (<span id="modsCountAndroid">0</span>)</button>
+            <button type="button" class="filter-btn" data-env="pc" onclick="setAdminModsEnv('pc')">PC Mods (<span id="modsCountPc">0</span>)</button>
+          </div>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchMods" placeholder="ابحث في المودات بالاسم أو الفئة أو المصدر..." oninput="renderAdminMods()">
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>الصورة</th><th>المود والفئة</th><th>البيئة والحالة</th><th>التحميل والرابط</th><th>الإجراءات</th></tr></thead>
+            <tbody id="modsTableBody"></tbody>
           </table></div>
         </div>
 
@@ -878,8 +907,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 // ============================================================
 // Abdellatif Dev — Admin Logic
 // دخول آمن (Supabase Auth + profiles.role = 'admin').
-// CRUD كامل: ألعاب / تطبيقات / مشاريع / أخبار + الإعدادات.
-// رفع الصور إلى Supabase Storage (تُحفظ بشكل دائم).
+// CRUD كامل: ألعاب / تطبيقات / مودات (Android & PC) / مشاريع / أخبار + الإعدادات.
 // ============================================================
 
 function esc(s) {
@@ -887,7 +915,6 @@ function esc(s) {
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 }
-
 
 // ============================================================
 // v4 — الوضع الفاتح/الداكن (مفتاح التخزين مشترك مع لوحة الإدارة)
@@ -923,11 +950,42 @@ const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير'
 const PLATFORM_OPTIONS = [
     { value: 'pc', label: 'حاسوب' },
     { value: 'phone', label: 'هاتف' },
-    { value: 'mod-minecraft', label: 'مود ماينكرافت' },
-    { value: 'mod-gta', label: 'مود GTA' }
+    { value: 'mod-minecraft', label: 'مود ماينكرافت (Android)' },
+    { value: 'mod-gta', label: 'مود GTA San Andreas (Android)' },
+    { value: 'mod-pc', label: 'مود حاسوب فقط (PC Mods)' }
 ];
-const PLATFORM_LABELS = { pc: 'حاسوب', phone: 'هاتف', 'mod-minecraft': 'مود ماينكرافت', 'mod-gta': 'مود GTA' };
-// v5 — استنتاج المنصة للصفوف القديمة بلا عمود platform (أمان ما قبل تشغيل migrate-platform.sql)
+const PLATFORM_LABELS = {
+    pc: 'حاسوب',
+    phone: 'هاتف',
+    'mod-minecraft': 'مود ماينكرافت (Android)',
+    'mod-gta': 'مود GTA (Android)',
+    'mod-pc': 'PC Mod (للحاسوب فقط)',
+    'mod-gta-pc': 'PC Mod (للحاسوب فقط)'
+};
+const MOD_GENRES = [
+    'Total Conversion',
+    'New Worlds & Maps',
+    'Superheroes',
+    'Anime Mods',
+    'Free Fire & Other Games',
+    'Graphics & Realism',
+    'Cars & Vehicles',
+    'Weapons & Powers',
+    'Horror & Zombies',
+    'Characters & Skins',
+    'Huge Mod Packs',
+    'Other Mods'
+];
+const ANDROID_MOD_PLATFORMS = [
+    { value: 'mod-gta', label: 'GTA San Andreas — Android' },
+    { value: 'mod-minecraft', label: 'Minecraft — Android' }
+];
+const PC_MOD_PLATFORMS = [
+    { value: 'mod-pc', label: 'PC Mods — مود للحاسوب فقط (معزول عن Android)' },
+    { value: 'mod-gta-pc', label: 'GTA PC Mod — للحاسوب فقط' }
+];
+
+// v5 + المرحلة 1 — استنتاج المنصة والتمييز الصارم بين Android Mods وPC Mods
 function platformOfAdmin(item, kind) {
     if (item && item.platform) return item.platform;
     const title = ((item && item.title) || '').toLowerCase();
@@ -940,43 +998,120 @@ function platformOfAdmin(item, kind) {
     }
     return kind === 'games' ? 'pc' : 'phone';
 }
+function isPcModRow(item) {
+    if (!item) return false;
+    const p = String(item.platform || '').toLowerCase();
+    if (p === 'mod-pc' || p === 'mod-gta-pc' || p === 'pc') return true;
+    if (p === 'mod-gta') {
+        const hay = String(item.title || '') + ' ' + String(item.requirements || '') + ' ' + String(item.download_url || '');
+        const hasAndroid = /(android|mobile|أندرويد|اندرويد|موبايل|هاتف|\baml\b|\.csa\b|\.csi\b|txd\s*tool|img\s*tool|v1\.08|v2\.00)/i.test(hay);
+        const hasPcOnly = /(pc\s*only|للكمبيوتر\s*فقط|للحاسوب\s*فقط|\.asi\b|\.exe\b|script\s*hook\s*v|lspd\s*first\s*response|simple\s*trainer|menyoo|cleo\s*4|widescreen\s*fix|mod\s*loader)/i.test(hay);
+        if (hasPcOnly && !hasAndroid) return true;
+    }
+    return false;
+}
+function isModRow(item) {
+    const p = platformOfAdmin(item, 'games');
+    return p === 'mod-gta' || p === 'mod-minecraft' || p === 'mod-pc' || p === 'mod-gta-pc';
+}
+function slugifyTitle(text) {
+    return String(text || '').toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 70);
+}
 
 // ---------- تعريف الحقول لكل نوع محتوى ----------
-// type: text | textarea | url | number | select | checkbox | features | image | screenshots | datetime | file
 const FIELD = (key, label, type, opts = {}) => ({ key, label, type, ...opts });
 
-const GAME_APP_FIELDS = (kind) => [
-    FIELD('title', kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق', 'text', { required: true, placeholder: kind === 'games' ? 'مثال: لعبة الكارطة المغربية' : 'مثال: تطبيق الحاسبة الذكية' }),
-    FIELD('slug', 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', { placeholder: 'moroccan-card-game' }),
-    FIELD('category', 'التصنيف', 'select', { required: true, options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: 'مهكرة' }], value: 'رسمية' }),
-    FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: kind === 'games' ? 'pc' : 'phone' }),
-    FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
-    FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: 'جملة واحدة تعرّف باللعبة...' }),
-    FIELD('description', 'الوصف الكامل', 'textarea', { required: true, rows: 4 }),
-    FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nالعب ضد البوتات\nالعب مع الأصدقاء عبر الواي فاي' }),
-    FIELD('cover_url', 'صورة الغلاف', 'image', { bucket: 'project-images' }),
-    FIELD('screenshots', 'لقطات (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
-    FIELD('version', 'رقم الإصدار', 'text', { placeholder: '1.0.0' }),
-    FIELD('developer', 'المطور / الناشر', 'text', { placeholder: 'مثال: Kiloo' }),
-    FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB أو حسب الجهاز' }),
-    FIELD('video_url', 'رابط فيديو (يوتيوب) — يظهر في صفحة التفاصيل إن وُجد', 'url', { placeholder: 'https://www.youtube.com/watch?v=...' }),
-    FIELD('status', 'الحالة', 'select', { options: STATUS_OPTIONS }),
-    FIELD('download_url', 'رابط تحميل خارجي (اختياري — بديل إذا لم ترفع ملفاً)', 'url', { placeholder: 'https://www.mediafire.com/file/...' }),
-    FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويُحمَّل مباشرة من الموقع', 'file', { bucket: 'app-files', accept: '.apk,.zip' }),
-    FIELD('requirements', 'متطلبات التشغيل (اختياري)', 'textarea', { rows: 2, placeholder: 'Android 8.0+، رام 2GB...' }),
-    FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: true })
-];
+const GAME_APP_FIELDS = (kind) => {
+    const isMod = kind === 'androidMods' || kind === 'pcMods';
+    const isPcMod = kind === 'pcMods';
+    const isAndroidMod = kind === 'androidMods';
+    const platformField = isAndroidMod
+        ? FIELD('platform', 'بيئة المود (Android فقط)', 'select', { required: true, options: ANDROID_MOD_PLATFORMS, value: 'mod-gta' })
+        : (isPcMod
+            ? FIELD('platform', 'بيئة المود (PC فقط — معزول عن Android)', 'select', { required: true, options: PC_MOD_PLATFORMS, value: 'mod-pc' })
+            : FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: kind === 'games' ? 'pc' : 'phone' }));
+
+    const fields = [
+        FIELD('title', isMod ? 'اسم المود' : (kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق'), 'text', {
+            required: true,
+            placeholder: isAndroidMod ? 'مثال: PS2 to Mobile + Fixes (v63a)' : (isPcMod ? 'مثال: CLEO 4 (PC Only)' : (kind === 'games' ? 'مثال: لعبة الكارطة المغربية' : 'مثال: تطبيق الحاسبة الذكية'))
+        }),
+        FIELD('slug', isMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', {
+            placeholder: isMod ? 'ps2-to-mobile-fixes-v63a' : 'moroccan-card-game'
+        }),
+        FIELD('category', 'التصنيف الأساسي', 'select', {
+            required: true,
+            options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: isMod ? 'مودات (مهكرة)' : 'مهكرة' }],
+            value: isMod ? 'مهكرة' : 'رسمية'
+        }),
+        platformField
+    ];
+
+    if (kind !== 'apps') {
+        fields.push(FIELD('genre', isMod ? 'فئة المود (ضمن التصنيفات الـ 12)' : 'النوع (Genre) — اختياري', isMod ? 'select' : 'text', isMod
+            ? { required: true, options: MOD_GENRES.map(g => ({ value: g, label: g })), value: 'Other Mods' }
+            : { placeholder: 'Action / Racing / Total Conversion...' }));
+    }
+
+    fields.push(
+        FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
+        FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: isMod ? 'وصف واضح لما يضيفه أو يغيّره المود...' : 'جملة واحدة تعرّف بالعنصر...' }),
+        FIELD('description', isMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5, placeholder: isMod ? 'اشرح ما يضيفه المود، طريقة التثبيت، المسارات، وهل يحتاج CLEO/AML...' : '' }),
+        FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nتحسين الرسوميات\nمتوافق مع اللمس' }),
+        FIELD('cover_url', 'صورة الغلاف', 'image', { bucket: 'project-images' }),
+        FIELD('screenshots', 'لقطات من داخل اللعبة (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
+        FIELD('version', 'رقم الإصدار', 'text', { placeholder: '1.0.0' }),
+        FIELD('developer', isMod ? 'المؤلف / الناشر والمصدر الأصلي' : 'المطور / الناشر', 'text', { placeholder: isMod ? 'مثال: Raskul (LibertyCity.net)' : 'مثال: Kiloo' }),
+        FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB أو 25.95 MB' }),
+        FIELD('video_url', 'رابط فيديو استعراض (يوتيوب) — اختياري', 'url', { placeholder: 'https://www.youtube.com/watch?v=...' }),
+        FIELD('status', 'الحالة', 'select', { options: STATUS_OPTIONS, value: 'available' }),
+        FIELD('download_url', 'رابط التحميل المباشر الأساسي (download_url)', 'url', {
+            placeholder: 'https://... (إلزامي عند النشر is_published = true)'
+        }),
+        FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويملأ download_url', 'file', { bucket: 'app-files', accept: '.apk,.zip,.7z,.rar' }),
+        FIELD('backup_download_url', 'رابط تحميل بديل / احتياطي (اختياري — يُحفظ في extra_downloads)', 'url', {
+            placeholder: 'https://... (يظهر للزائر إذا تعذّر الرابط الأساسي)'
+        }),
+        FIELD('extra_downloads', 'ملفات إضافية مطلوبة (OBB / Data / CLEO / AML / ModLoader)', 'extra_downloads', {}),
+        FIELD('requirements', isMod ? 'إصدار GTA SA، توافق Android، والأدوات المطلوبة (CLEO/AML/ModLoader)' : 'متطلبات التشغيل (اختياري)', 'textarea', {
+            rows: 3,
+            placeholder: isAndroidMod ? 'GTA SA Android v2.00، يتطلب AML / CLEO، متوافق مع Android 8–15...' : (isPcMod ? 'GTA SA PC فقط — يتطلب CLEO 4 / ModLoader (غير متوافق مع Android)' : 'Android 8.0+، رام 2GB...')
+        }),
+        FIELD('is_published', 'نشر فوراً على الموقع (ممنوع النشر بدون download_url صالح؛ اتركه غير محدد للمسودة)', 'checkbox', { value: false })
+    );
+
+    if (kind !== 'apps') {
+        fields.splice(fields.length - 1, 0, FIELD('download_page_url', 'رابط صفحة المصدر الأصلية الموثّق (للتوثيق والحقوق — لا يوجّه زر التحميل إليه)', 'url', {
+            placeholder: 'https://libertycity.net/... أو https://www.gtainside.com/...'
+        }));
+    }
+
+    return fields;
+};
 
 const ENTITIES = {
     games: {
         table: 'games', label: 'لعبة', searchInput: 'searchGames', tbody: 'gamesTableBody',
-        preview: id => `index.html#/game/${id}`,
+        preview: (id, item) => isModRow(item) ? `index.html#/mods/${encodeURIComponent(item?.slug || id)}` : `index.html#/game/${id}`,
         fields: GAME_APP_FIELDS('games')
     },
     apps: {
         table: 'apps', label: 'تطبيق', searchInput: 'searchApps', tbody: 'appsTableBody',
         preview: id => `index.html#/app/${id}`,
         fields: GAME_APP_FIELDS('apps')
+    },
+    androidMods: {
+        table: 'games', label: 'مود Android', searchInput: 'searchMods', tbody: 'modsTableBody',
+        preview: (id, item) => `index.html#/mods/${encodeURIComponent(item?.slug || id)}`,
+        fields: GAME_APP_FIELDS('androidMods')
+    },
+    pcMods: {
+        table: 'games', label: 'مود PC فقط', searchInput: 'searchMods', tbody: 'modsTableBody',
+        preview: (id, item) => `index.html#/mods/${encodeURIComponent(item?.slug || id)}`,
+        fields: GAME_APP_FIELDS('pcMods')
     },
     projects: {
         table: 'projects', label: 'مشروع', searchInput: 'searchProjects', tbody: 'projectsTableBody',
@@ -1007,6 +1142,7 @@ const ENTITIES = {
 };
 
 let adminData = { games: [], apps: [], projects: [], news: [] };
+let adminModsEnv = 'all';
 
 document.addEventListener('DOMContentLoaded', async () => {
     if (!window.SUPABASE_CONFIGURED) {
@@ -1086,6 +1222,7 @@ window.switchAdminTab = function(tabId) {
     if (tabId === 'settingsTab') loadSettingsForm();
     else if (tabId === 'requestsTab') loadRequests();
     else if (tabId === 'messagesTab') loadContactMessages();
+    else if (tabId === 'modsTab') renderAdminMods();
     else {
         const entity = tabId.replace('Tab', '');
         renderAdminList(entity);
@@ -1114,6 +1251,7 @@ async function loadAllAdmin() {
         document.getElementById('statDownloads').textContent = totalDownloads;
         renderAdminList('games');
         renderAdminList('apps');
+        renderAdminMods();
         renderAdminList('projects');
         renderAdminList('news');
         loadSettingsForm();
@@ -1141,6 +1279,9 @@ function fmtDate(d) {
     try { return new Date(d).toLocaleDateString('ar', { year: 'numeric', month: 'short', day: 'numeric' }); }
     catch (e) { return '—'; }
 }
+function hasValidDownloadUrl(item) {
+    return !!(item && item.download_url && /^https?:\/\/\S+$/i.test(String(item.download_url).trim()));
+}
 
 window.renderAdminList = function(entity) {
     const cfg = ENTITIES[entity];
@@ -1149,7 +1290,7 @@ window.renderAdminList = function(entity) {
     const q = (document.getElementById(cfg.searchInput)?.value || '').trim().toLowerCase();
     const list = adminData[entity].filter(item => {
         if (!q) return true;
-        const hay = ((item.title || item.name || '') + ' ' + (item.short_desc || '') + ' ' + (item.category || '')).toLowerCase();
+        const hay = ((item.title || item.name || '') + ' ' + (item.short_desc || '') + ' ' + (item.category || '') + ' ' + (item.genre || '')).toLowerCase();
         return hay.includes(q);
     });
     if (!list.length) {
@@ -1160,12 +1301,14 @@ window.renderAdminList = function(entity) {
     list.forEach(item => {
         const tr = document.createElement('tr');
         if (entity === 'games' || entity === 'apps') {
+            const editEntity = (entity === 'games' && isModRow(item)) ? (isPcModRow(item) ? 'pcMods' : 'androidMods') : entity;
+            const dlMissing = !hasValidDownloadUrl(item);
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span> ${item.is_online ? '<span class="badge-online">أونلاين</span>' : '<span class="badge-offline">أوفلاين</span>'}</small></td>
+                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span> ${item.is_online ? '<span class="badge-online">أونلاين</span>' : '<span class="badge-offline">أوفلاين</span>'} ${dlMissing ? '<span class="badge-no-dl">بدون download_url</span>' : ''}</small></td>
                 <td data-label="الحالة">${esc(STATUS_LABELS[item.status] || item.status || '')}</td>
                 <td data-label="التحميلات">${item.download_count || 0}</td>
-                <td data-label="الإجراءات">${actionsHtml(entity, item)}</td>`;
+                <td data-label="الإجراءات">${actionsHtml(editEntity, item)}</td>`;
         } else if (entity === 'projects') {
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.image_url)}</td>
@@ -1185,12 +1328,77 @@ window.renderAdminList = function(entity) {
     });
 };
 
+window.setAdminModsEnv = function(env) {
+    adminModsEnv = env;
+    document.querySelectorAll('#modsEnvFilter .filter-btn').forEach(b => b.classList.toggle('active', b.dataset.env === env));
+    renderAdminMods();
+};
+
+window.renderAdminMods = function() {
+    const tbody = document.getElementById('modsTableBody');
+    if (!tbody) return;
+    const allMods = (adminData.games || []).filter(isModRow);
+    const androidCount = allMods.filter(m => !isPcModRow(m)).length;
+    const pcCount = allMods.filter(isPcModRow).length;
+    const cAll = document.getElementById('modsCountAll');
+    const cAnd = document.getElementById('modsCountAndroid');
+    const cPc = document.getElementById('modsCountPc');
+    if (cAll) cAll.textContent = allMods.length;
+    if (cAnd) cAnd.textContent = androidCount;
+    if (cPc) cPc.textContent = pcCount;
+
+    const q = (document.getElementById('searchMods')?.value || '').trim().toLowerCase();
+    const list = allMods.filter(item => {
+        const pc = isPcModRow(item);
+        if (adminModsEnv === 'android' && pc) return false;
+        if (adminModsEnv === 'pc' && !pc) return false;
+        if (!q) return true;
+        const hay = ((item.title || '') + ' ' + (item.slug || '') + ' ' + (item.genre || '') + ' ' + (item.developer || '') + ' ' + (item.short_desc || '')).toLowerCase();
+        return hay.includes(q);
+    });
+    if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-gray);padding:22px;">لا توجد مودات مطابقة — أضف مود Android أو PC جديد.</td></tr>`;
+        return;
+    }
+    tbody.innerHTML = '';
+    list.forEach(item => {
+        const pc = isPcModRow(item);
+        const modEntity = pc ? 'pcMods' : 'androidMods';
+        const dlOk = hasValidDownloadUrl(item);
+        const mirrors = Array.isArray(item.extra_downloads) ? item.extra_downloads.filter(f => f && f.url && (f.kind === 'mirror' || f.type === 'mirror')).length : 0;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
+            <td data-label="المود والفئة"><strong>${esc(item.title)}</strong><br><small>${item.genre ? `<span class="badge-platform">${esc(item.genre)}</span>` : ''} ${item.slug ? `<span class="latin" style="font-size:0.75rem;">#/mods/${esc(item.slug)}</span>` : ''}</small></td>
+            <td data-label="البيئة والحالة">${pc ? '<span class="badge-pc-mod">PC Mod (للحاسوب فقط)</span>' : '<span class="badge-android-mod">Android Mod</span>'}<br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} · ${esc(STATUS_LABELS[item.status] || item.status || '')}</small></td>
+            <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">download_url جاهز</span>' : '<span class="badge-no-dl">بدون download_url (مسودة فقط)</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
+            <td data-label="الإجراءات">${actionsHtml(modEntity, item)}</td>`;
+        tbody.appendChild(tr);
+    });
+};
+
+function findAdminRecord(entity, id) {
+    const table = ENTITIES[entity].table;
+    const pool = table === 'games' ? adminData.games : (adminData[entity] || []);
+    return pool.find(x => x.id === id) || null;
+}
+
 window.previewItem = function(entity, id) {
-    window.open(ENTITIES[entity].preview(id), '_blank');
+    const item = findAdminRecord(entity, id);
+    window.open(ENTITIES[entity].preview(id, item), '_blank');
 };
 
 window.togglePublish = async function(entity, id, currentlyPublished) {
-    const { error } = await window.supabaseClient.from(ENTITIES[entity].table)
+    const cfg = ENTITIES[entity];
+    const isDownloadable = cfg.table === 'games' || cfg.table === 'apps';
+    if (!currentlyPublished && isDownloadable) {
+        const item = findAdminRecord(entity, id);
+        if (!hasValidDownloadUrl(item)) {
+            alert('لا يمكن نشر العنصر (is_published = true) بدون رابط تحميل مباشر صالح في حقل download_url! عدّل العنصر وأضف download_url أولاً (يبقى كمسودة).');
+            return;
+        }
+    }
+    const { error } = await window.supabaseClient.from(cfg.table)
         .update({ is_published: !currentlyPublished }).eq('id', id);
     if (error) { alert('فشل التغيير: ' + error.message); return; }
     loadAllAdmin();
@@ -1261,7 +1469,6 @@ window.deleteRequest = async function(id) {
     loadRequests();
 };
 
-
 // ---------- v14 — رسائل الزوار (جدول contact_messages) ----------
 async function loadContactMessages() {
     const body = document.getElementById('messagesTableBody');
@@ -1308,13 +1515,32 @@ window.deleteMessage = async function(id) {
     loadContactMessages();
 };
 
+// ---------- محرر الملفات الإضافية (extra_downloads) ----------
+function extraDownloadRowHtml(f) {
+    const row = f || {};
+    return `<div class="extra-dl-row">
+        <input type="text" class="ed-label" placeholder="اسم الملف (مثال: ملف OBB أو CLEO Android)" value="${esc(row.label || '')}">
+        <input type="text" class="ed-size" placeholder="الحجم (مثال: 45 MB)" value="${esc(row.size || '')}">
+        <input type="text" class="ed-role" placeholder="الوظيفة والترتيب (مثال: #1 ملف أساسي)" value="${esc(row.role || '')}">
+        <div class="extra-dl-url">
+            <input type="url" class="ed-url" placeholder="رابط التحميل المباشر للملف الإضافي https://..." value="${esc(row.url || '')}">
+            <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.extra-dl-row').remove()" title="إزالة الملف"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </div>`;
+}
+window.addExtraDownloadRow = function(btn) {
+    const editor = btn.previousElementSibling;
+    if (editor) editor.insertAdjacentHTML('beforeend', extraDownloadRowHtml({}));
+};
+
 // ---------- فورم الإضافة / التعديل ----------
 function fieldInputHtml(f, value) {
     const id = 'f_' + f.key;
     const req = f.required ? 'required' : '';
     const val = value === null || value === undefined ? '' : value;
     if (f.type === 'textarea' || f.type === 'features') {
-        return `<textarea id="${id}" rows="${f.rows || 3}" ${req} placeholder="${esc(f.placeholder || '')}">${esc(val)}</textarea>`;
+        const textVal = Array.isArray(val) ? val.join('\n') : val;
+        return `<textarea id="${id}" rows="${f.rows || 3}" ${req} placeholder="${esc(f.placeholder || '')}">${esc(textVal)}</textarea>`;
     }
     if (f.type === 'select') {
         return `<select id="${id}" ${req}>${f.options.map(o => `<option value="${o.value}" ${String(val) === o.value ? 'selected' : ''}>${esc(o.label)}</option>`).join('')}</select>`;
@@ -1339,8 +1565,15 @@ function fieldInputHtml(f, value) {
     if (f.type === 'file') {
         return `
             <input type="file" id="${id}_file" accept="${esc(f.accept || '')}">
-            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر. إذا لم ترفع ملفاً يُستخدم رابط التحميل الخارجي أعلاه إن وُجد.</div>
+            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر في حقل download_url. إذا لم ترفع ملفاً يُستخدم رابط التحميل أعلاه.</div>
             ${val ? `<div class="upload-hint" style="margin-top:6px;">الملف الحالي: <a href="${esc(val)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a></div>` : ''}`;
+    }
+    if (f.type === 'extra_downloads') {
+        const rows = Array.isArray(val) ? val.filter(x => x && x.kind !== 'mirror' && x.type !== 'mirror') : [];
+        return `
+            <div class="extra-dl-editor" id="${id}_editor">${rows.map(extraDownloadRowHtml).join('')}</div>
+            <button type="button" class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="addExtraDownloadRow(this)"><i class="fa-solid fa-plus"></i> إضافة ملف إضافي (OBB / CLEO / AML)</button>
+            <div class="upload-hint">أضف كل الملفات الضرورية لتشغيل العنصر أو المود مع اسمه وحجمه ووظيفته وترتيب تثبيته.</div>`;
     }
     if (f.type === 'number') {
         return `<input type="number" id="${id}" min="${f.min ?? ''}" max="${f.max ?? ''}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}">`;
@@ -1360,10 +1593,15 @@ function fieldInputHtml(f, value) {
 function buildFormFields(entity, item) {
     const box = document.getElementById('formFields');
     box.innerHTML = '';
+    const existingMirrors = item && Array.isArray(item.extra_downloads)
+        ? item.extra_downloads.filter(f => f && (f.kind === 'mirror' || f.type === 'mirror'))
+        : [];
     ENTITIES[entity].fields.forEach(f => {
-        // حقل ملف التحميل يعرض رابط التحميل الحالي (download_url) كمرجع
-        const value = f.type === 'file' ? (item ? (item.download_url || '') : '')
-            : (item ? item[f.key] : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? true : '')));
+        let value;
+        if (f.type === 'file') value = item ? (item.download_url || '') : '';
+        else if (f.key === 'backup_download_url') value = existingMirrors[0] ? (existingMirrors[0].url || '') : '';
+        else value = item ? (item[f.key] !== undefined ? item[f.key] : (f.value !== undefined ? f.value : '')) : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? true : ''));
+
         const wrap = document.createElement('div');
         wrap.className = 'form-group';
         if (f.type !== 'checkbox') {
@@ -1385,7 +1623,7 @@ window.openForm = async function(entity, id) {
     document.getElementById('formTitle').textContent = id ? `تعديل ${cfg.label}` : `إضافة ${cfg.label} جديد`;
     let item = null;
     if (id) {
-        item = adminData[entity].find(x => x.id === id) || null;
+        item = findAdminRecord(entity, id);
         if (!item) {
             const { data } = await window.supabaseClient.from(cfg.table).select('*').eq('id', id).single();
             item = data || null;
@@ -1406,6 +1644,34 @@ async function uploadToStorage(file, bucket) {
     if (error) throw error;
     const { data: { publicUrl } } = window.supabaseClient.storage.from(bucket).getPublicUrl(fileName);
     return publicUrl;
+}
+
+function readExtraDownloadsValue(key) {
+    const editor = document.getElementById('f_' + key + '_editor');
+    if (!editor) return [];
+    const rows = Array.from(editor.querySelectorAll('.extra-dl-row'));
+    const out = [];
+    rows.forEach((row, idx) => {
+        const label = (row.querySelector('.ed-label')?.value || '').trim();
+        const size = (row.querySelector('.ed-size')?.value || '').trim();
+        const role = (row.querySelector('.ed-role')?.value || '').trim();
+        const url = (row.querySelector('.ed-url')?.value || '').trim();
+        if (!url && !label) return;
+        if (url && !/^https?:\/\//i.test(url)) {
+            throw new Error(`رابط الملف الإضافي #${idx + 1} يجب أن يبدأ بـ http:// أو https://`);
+        }
+        if (url) {
+            out.push({
+                label: label || `ملف إضافي #${idx + 1}`,
+                url,
+                size: size || undefined,
+                role: role || undefined,
+                order: idx + 1,
+                kind: 'extra'
+            });
+        }
+    });
+    return out;
 }
 
 function readFieldValue(f) {
@@ -1429,7 +1695,8 @@ function readFieldValue(f) {
         const raw = el ? el.value : '';
         return raw ? new Date(raw).toISOString() : null;
     }
-    if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') return null; // تُقرأ بشكل خاص في الحفظ
+    if (f.type === 'extra_downloads') return readExtraDownloadsValue(f.key);
+    if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') return null;
     return el ? el.value.trim() : '';
 }
 
@@ -1444,12 +1711,15 @@ window.handleSaveEntity = async function(e) {
     progress.style.display = 'block';
     try {
         const payload = {};
-        // أولاً: الحقول العادية
+        let backupUrl = '';
         for (const f of cfg.fields) {
             if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') continue;
+            if (f.key === 'backup_download_url') {
+                backupUrl = readFieldValue(f) || '';
+                continue;
+            }
             payload[f.key] = readFieldValue(f);
         }
-        // ثانياً: ملف التحميل (APK/ZIP) — يرفع إلى app-files ويصبح هو download_url
         for (const f of cfg.fields) {
             if (f.type === 'file') {
                 const fileInput = document.getElementById('f_' + f.key + '_file');
@@ -1457,7 +1727,6 @@ window.handleSaveEntity = async function(e) {
                 if (file) payload.download_url = await uploadToStorage(file, f.bucket);
             }
         }
-        // ثانياً: الصور (رفع أو رابط)
         for (const f of cfg.fields) {
             if (f.type === 'image') {
                 const fileInput = document.getElementById('f_' + f.key + '_file');
@@ -1476,14 +1745,52 @@ window.handleSaveEntity = async function(e) {
                 payload[f.key] = urls;
             }
         }
-        // تحقق: العنوان/الاسم مطلوب
+
         const titleKey = cfg.fields[0].key;
         if (!payload[titleKey] || String(payload[titleKey]).trim().length < 2) {
             throw new Error('العنوان / الاسم مطلوب (حرفان على الأقل).');
         }
-        if (payload.download_url && !/^https?:\/\//i.test(payload.download_url)) {
-            throw new Error('رابط التحميل يجب أن يبدأ بـ http:// أو https://');
+
+        // متانة التحميل (القاعدة 4): التحقق الصارم من download_url ومنع النشر بدونه
+        const isDownloadableEntity = cfg.table === 'games' || cfg.table === 'apps';
+        if (isDownloadableEntity) {
+            const rawDl = payload.download_url ? String(payload.download_url).trim() : '';
+            if (rawDl && !/^https?:\/\/\S+$/i.test(rawDl)) {
+                throw new Error('رابط التحميل الأساسي (download_url) يجب أن يبدأ بـ http:// أو https://');
+            }
+            payload.download_url = rawDl || null;
+
+            if (backupUrl) {
+                if (!/^https?:\/\/\S+$/i.test(backupUrl)) {
+                    throw new Error('رابط التحميل البديل يجب أن يبدأ بـ http:// أو https://');
+                }
+                if (!Array.isArray(payload.extra_downloads)) payload.extra_downloads = [];
+                payload.extra_downloads.push({
+                    label: 'رابط تحميل بديل (احتياطي)',
+                    url: backupUrl,
+                    kind: 'mirror'
+                });
+            }
+
+            if (payload.is_published === true && !payload.download_url) {
+                throw new Error('لا يمكن نشر العنصر (is_published = true) وحقل download_url فارغ! أدخل رابط تحميل مباشر صالح أو أزل علامة النشر لإبقائه كمسودة.');
+            }
         }
+
+        if (entity === 'androidMods' || entity === 'pcMods') {
+            if (!payload.slug) {
+                const autoSlug = slugifyTitle(payload.title);
+                payload.slug = autoSlug || ('mod-' + Date.now().toString(36));
+            }
+            if (entity === 'pcMods' && payload.platform !== 'mod-pc' && payload.platform !== 'mod-gta-pc') {
+                payload.platform = 'mod-pc';
+            }
+            if (entity === 'androidMods' && (payload.platform === 'mod-pc' || payload.platform === 'mod-gta-pc')) {
+                throw new Error('لا يمكن حفظ مود PC داخل قسم Android Mods — أضفه من زر «إضافة مود PC فقط».');
+            }
+        }
+
+        if (payload.download_page_url === '') payload.download_page_url = null;
         if (payload.slug === '') payload.slug = null;
         if (editId) payload.updated_at = new Date().toISOString();
 

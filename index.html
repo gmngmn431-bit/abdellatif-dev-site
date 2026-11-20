@@ -2453,6 +2453,11 @@ window.addEventListener('resize', () => {
     clearTimeout(stripResizeTimer);
     stripResizeTimer = setTimeout(updateStripArrows, 150);
 });
+// v28 — إعادة حساب أسهم الشرائط عند تحميل صور المعرض (عرض الصورة يبقى 0 حتى تُحمَّل، فيُحسب الشريط خطأً أنه بلا تمرير)
+document.addEventListener('load', (e) => {
+    const t = e.target;
+    if (t && t.tagName === 'IMG' && t.closest && t.closest('.row-strip-wrap')) requestAnimationFrame(updateStripArrows);
+}, true);
 
 // ---------- بحث الهيرو (ألعاب + تطبيقات) ----------
 // تطبيع عربي خفيف: إزالة التشكيل وتوحيد الألف والتاء المربوطة والياء

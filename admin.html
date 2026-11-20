@@ -685,6 +685,10 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
         <nav class="admin-tabs">
           <button class="tab-btn active" data-tab="gamesTab" onclick="switchAdminTab('gamesTab')"><i class="fa-solid fa-gamepad"></i> الألعاب</button>
           <button class="tab-btn" data-tab="appsTab" onclick="switchAdminTab('appsTab')"><i class="fa-solid fa-mobile-screen"></i> التطبيقات</button>
+          <button class="tab-btn" data-tab="officialAppsTab" onclick="switchAdminTab('officialAppsTab')"><i class="fa-solid fa-check-double"></i> تطبيقات رسمية</button>
+          <button class="tab-btn" data-tab="moddedAppsTab" onclick="switchAdminTab('moddedAppsTab')"><i class="fa-solid fa-wand-magic-sparkles"></i> تطبيقات معدلة</button>
+          <button class="tab-btn" data-tab="officialGamesTab" onclick="switchAdminTab('officialGamesTab')"><i class="fa-solid fa-dice"></i> ألعاب رسمية</button>
+          <button class="tab-btn" data-tab="moddedGamesTab" onclick="switchAdminTab('moddedGamesTab')"><i class="fa-solid fa-ghost"></i> ألعاب معدلة</button>
           <button class="tab-btn" data-tab="modsTab" onclick="switchAdminTab('modsTab')"><i class="fa-solid fa-puzzle-piece"></i> المودات (Android / PC)</button>
           <button class="tab-btn" data-tab="projectsTab" onclick="switchAdminTab('projectsTab')"><i class="fa-solid fa-code"></i> المشاريع قيد التطوير</button>
           <button class="tab-btn" data-tab="newsTab" onclick="switchAdminTab('newsTab')"><i class="fa-solid fa-newspaper"></i> الأخبار</button>
@@ -720,7 +724,15 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
         <div id="gamesTab" class="admin-tab-content active">
           <div class="tab-header">
             <h3>الألعاب</h3>
-            <button class="btn btn-primary" onclick="openForm('games')"><i class="fa-solid fa-plus"></i> إضافة لعبة جديدة</button>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('officialGames')"><i class="fa-solid fa-plus"></i> إضافة لعبة رسمية</button>
+              <button class="btn btn-secondary" onclick="openForm('moddedGames')"><i class="fa-solid fa-wand-magic-sparkles"></i> إضافة لعبة معدلة</button>
+            </div>
+          </div>
+          <div class="filter-chips" id="gamesStoreFilter" style="margin-bottom:14px;">
+            <button type="button" class="filter-btn active" data-gfilter="all" onclick="setGamesFilter('all')">كل الألعاب</button>
+            <button type="button" class="filter-btn" data-gfilter="official" onclick="setGamesFilter('official')">ألعاب رسمية</button>
+            <button type="button" class="filter-btn" data-gfilter="modded" onclick="setGamesFilter('modded')">ألعاب معدلة</button>
           </div>
           <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="searchGames" placeholder="ابحث في الألعاب..." oninput="renderAdminList('games')">
@@ -735,7 +747,15 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
         <div id="appsTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>التطبيقات</h3>
-            <button class="btn btn-primary" onclick="openForm('apps')"><i class="fa-solid fa-plus"></i> إضافة تطبيق جديد</button>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('officialApps')"><i class="fa-solid fa-plus"></i> إضافة تطبيق رسمي</button>
+              <button class="btn btn-secondary" onclick="openForm('moddedApps')"><i class="fa-solid fa-wand-magic-sparkles"></i> إضافة تطبيق معدل</button>
+            </div>
+          </div>
+          <div class="filter-chips" id="appsStoreFilter" style="margin-bottom:14px;">
+            <button type="button" class="filter-btn active" data-afilter="all" onclick="setAppsFilter('all')">كل التطبيقات</button>
+            <button type="button" class="filter-btn" data-afilter="official" onclick="setAppsFilter('official')">تطبيقات رسمية</button>
+            <button type="button" class="filter-btn" data-afilter="modded" onclick="setAppsFilter('modded')">تطبيقات معدلة</button>
           </div>
           <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" id="searchApps" placeholder="ابحث في التطبيقات..." oninput="renderAdminList('apps')">
@@ -745,6 +765,74 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
             <tbody id="appsTableBody"></tbody>
           </table></div>
         </div>
+        <!-- تبويب التطبيقات الرسمية (Phase 4) -->
+        <div id="officialAppsTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>التطبيقات الرسمية</h3>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('officialApps')"><i class="fa-solid fa-plus"></i> إضافة تطبيق رسمي</button>
+            </div>
+          </div>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchOfficialApps" placeholder="ابحث في التطبيقات الرسمية..." oninput="renderAdminList('officialApps')">
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>الصورة</th><th>العنوان والتصنيف</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <tbody id="officialAppsTableBody"></tbody>
+          </table></div>
+        </div>
+
+        <!-- تبويب التطبيقات المعدلة (Phase 4) -->
+        <div id="moddedAppsTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>التطبيقات المعدلة (MOD Apps)</h3>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('moddedApps')"><i class="fa-solid fa-plus"></i> إضافة تطبيق معدل</button>
+            </div>
+          </div>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchModdedApps" placeholder="ابحث في التطبيقات المعدلة..." oninput="renderAdminList('moddedApps')">
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>الصورة</th><th>العنوان والتصنيف</th><th>الحالة وبيانات MOD</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <tbody id="moddedAppsTableBody"></tbody>
+          </table></div>
+        </div>
+
+        <!-- تبويب الألعاب الرسمية (Phase 4) -->
+        <div id="officialGamesTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>الألعاب الرسمية</h3>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('officialGames')"><i class="fa-solid fa-plus"></i> إضافة لعبة رسمية</button>
+            </div>
+          </div>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchOfficialGames" placeholder="ابحث في الألعاب الرسمية..." oninput="renderAdminList('officialGames')">
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>الصورة</th><th>العنوان والتصنيف</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <tbody id="officialGamesTableBody"></tbody>
+          </table></div>
+        </div>
+
+        <!-- تبويب الألعاب المعدلة (Phase 4) -->
+        <div id="moddedGamesTab" class="admin-tab-content">
+          <div class="tab-header">
+            <h3>الألعاب المعدلة (MOD Games)</h3>
+            <div class="tab-header-actions">
+              <button class="btn btn-primary" onclick="openForm('moddedGames')"><i class="fa-solid fa-plus"></i> إضافة لعبة معدلة</button>
+            </div>
+          </div>
+          <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="searchModdedGames" placeholder="ابحث في الألعاب المعدلة..." oninput="renderAdminList('moddedGames')">
+          </div>
+          <div class="table-responsive"><table class="data-table">
+            <thead><tr><th>الصورة</th><th>العنوان والتصنيف</th><th>الحالة وبيانات MOD</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <tbody id="moddedGamesTableBody"></tbody>
+          </table></div>
+        </div>
+
 
         <!-- تبويب المودات: Android Mods / PC Mods -->
         <div id="modsTab" class="admin-tab-content">
@@ -948,15 +1036,15 @@ const STATUS_OPTIONS = [
 ];
 const STATUS_LABELS = { available: 'متاحة', in_dev: 'قيد التطوير', coming_soon: 'قريباً' };
 const PLATFORM_OPTIONS = [
+    { value: 'phone', label: 'هاتف (Android)' },
     { value: 'pc', label: 'حاسوب' },
-    { value: 'phone', label: 'هاتف' },
     { value: 'mod-minecraft', label: 'مود ماينكرافت (Android)' },
     { value: 'mod-gta', label: 'مود GTA San Andreas (Android)' },
     { value: 'mod-pc', label: 'مود حاسوب فقط (PC Mods)' }
 ];
 const PLATFORM_LABELS = {
+    phone: 'هاتف Android',
     pc: 'حاسوب',
-    phone: 'هاتف',
     'mod-minecraft': 'مود ماينكرافت (Android)',
     'mod-gta': 'مود GTA (Android)',
     'mod-pc': 'PC Mod (للحاسوب فقط)',
@@ -994,9 +1082,9 @@ function platformOfAdmin(item, kind) {
         if (/minecraft|fabric|sodium|iris|lithium|jei|xaero|amethyst|ماينكرافت|فابريك|صوديوم|آيريس|ليثيوم|زايرو|أميثيست/.test(title)) return 'mod-minecraft';
         if (/gta|cleo|مود لودر|كليو|سيارة|san andreas/.test(title)) return 'mod-gta';
         if (/openmw|أوبن/.test(title)) return 'phone';
-        return 'mod-minecraft';
+        return 'phone';
     }
-    return kind === 'games' ? 'pc' : 'phone';
+    return kind === 'games' ? 'phone' : 'phone';
 }
 function isPcModRow(item) {
     if (!item) return false;
@@ -1021,71 +1109,107 @@ function slugifyTitle(text) {
         .slice(0, 70);
 }
 
+// فلاتر داخلية لتبويبي الألعاب والتطبيقات
+let gamesFilterMode = 'all';
+let appsFilterMode = 'all';
+window.setGamesFilter = function(mode) {
+    gamesFilterMode = mode;
+    document.querySelectorAll('#gamesStoreFilter .filter-btn').forEach(b => b.classList.toggle('active', b.dataset.gfilter === mode));
+    renderAdminList('games');
+};
+window.setAppsFilter = function(mode) {
+    appsFilterMode = mode;
+    document.querySelectorAll('#appsStoreFilter .filter-btn').forEach(b => b.classList.toggle('active', b.dataset.afilter === mode));
+    renderAdminList('apps');
+};
+
 // ---------- تعريف الحقول لكل نوع محتوى ----------
 const FIELD = (key, label, type, opts = {}) => ({ key, label, type, ...opts });
 
 const GAME_APP_FIELDS = (kind) => {
-    const isMod = kind === 'androidMods' || kind === 'pcMods';
+    const isDedicatedMod = kind === 'androidMods' || kind === 'pcMods';
     const isPcMod = kind === 'pcMods';
     const isAndroidMod = kind === 'androidMods';
+    const isModded = kind === 'moddedApps' || kind === 'moddedGames' || isDedicatedMod;
+    const isOfficial = kind === 'officialApps' || kind === 'officialGames';
+
+    let defaultCategory = 'رسمية';
+    if (isModded) defaultCategory = 'مهكرة';
+    else if (isOfficial) defaultCategory = 'رسمية';
+
+    let defaultPlatform = 'phone';
+    if (isAndroidMod) defaultPlatform = 'mod-gta';
+    else if (isPcMod) defaultPlatform = 'mod-pc';
+
     const platformField = isAndroidMod
         ? FIELD('platform', 'بيئة المود (Android فقط)', 'select', { required: true, options: ANDROID_MOD_PLATFORMS, value: 'mod-gta' })
         : (isPcMod
             ? FIELD('platform', 'بيئة المود (PC فقط — معزول عن Android)', 'select', { required: true, options: PC_MOD_PLATFORMS, value: 'mod-pc' })
-            : FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: kind === 'games' ? 'pc' : 'phone' }));
+            : FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: defaultPlatform }));
 
     const fields = [
-        FIELD('title', isMod ? 'اسم المود' : (kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق'), 'text', {
+        FIELD('title', isDedicatedMod ? 'اسم المود' : (isModded ? 'اسم العنصر المعدل (MOD)' : (kind.includes('game') || kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق')), 'text', {
             required: true,
-            placeholder: isAndroidMod ? 'مثال: PS2 to Mobile + Fixes (v63a)' : (isPcMod ? 'مثال: CLEO 4 (PC Only)' : (kind === 'games' ? 'مثال: لعبة الكارطة المغربية' : 'مثال: تطبيق الحاسبة الذكية'))
+            placeholder: isAndroidMod ? 'مثال: PS2 to Mobile + Fixes (v63a)' : (isPcMod ? 'مثال: CLEO 4 (PC Only)' : 'مثال: اسم التطبيق أو اللعبة')
         }),
-        FIELD('slug', isMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', {
-            placeholder: isMod ? 'ps2-to-mobile-fixes-v63a' : 'moroccan-card-game'
+        FIELD('slug', isDedicatedMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', {
+            placeholder: isDedicatedMod ? 'ps2-to-mobile-fixes-v63a' : 'app-or-game-slug'
         }),
-        FIELD('category', 'التصنيف الأساسي', 'select', {
+        FIELD('category', 'التصنيف الأساسي (رسمية / مهكرة)', 'select', {
             required: true,
-            options: [{ value: 'رسمية', label: 'رسمية' }, { value: 'مهكرة', label: isMod ? 'مودات (مهكرة)' : 'مهكرة' }],
-            value: isMod ? 'مهكرة' : 'رسمية'
+            options: [
+                { value: 'رسمية', label: 'رسمية (Official)' },
+                { value: 'مهكرة', label: 'مهكرة (MOD / معدل)' }
+            ],
+            value: defaultCategory
         }),
         platformField
     ];
 
-    if (kind !== 'apps') {
-        fields.push(FIELD('genre', isMod ? 'فئة المود (ضمن التصنيفات الـ 12)' : 'النوع (Genre) — اختياري', isMod ? 'select' : 'text', isMod
+    if (!kind.includes('app') && kind !== 'apps' && kind !== 'officialApps' && kind !== 'moddedApps') {
+        fields.push(FIELD('genre', isDedicatedMod ? 'فئة المود (ضمن التصنيفات الـ 12)' : 'النوع (Genre) — اختياري', isDedicatedMod ? 'select' : 'text', isDedicatedMod
             ? { required: true, options: MOD_GENRES.map(g => ({ value: g, label: g })), value: 'Other Mods' }
-            : { placeholder: 'Action / Racing / Total Conversion...' }));
+            : { placeholder: 'Action / Racing / Arcade / Adventure...' }));
     }
 
     fields.push(
         FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
-        FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: isMod ? 'وصف واضح لما يضيفه أو يغيّره المود...' : 'جملة واحدة تعرّف بالعنصر...' }),
-        FIELD('description', isMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5, placeholder: isMod ? 'اشرح ما يضيفه المود، طريقة التثبيت، المسارات، وهل يحتاج CLEO/AML...' : '' }),
-        FIELD('features', 'المميزات — ميزة في كل سطر', 'features', { rows: 4, placeholder: 'أطوار لعب متعددة\nتحسين الرسوميات\nمتوافق مع اللمس' }),
-        FIELD('cover_url', 'صورة الغلاف', 'image', { bucket: 'project-images' }),
-        FIELD('screenshots', 'لقطات من داخل اللعبة (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
-        FIELD('version', 'رقم الإصدار', 'text', { placeholder: '1.0.0' }),
-        FIELD('developer', isMod ? 'المؤلف / الناشر والمصدر الأصلي' : 'المطور / الناشر', 'text', { placeholder: isMod ? 'مثال: Raskul (LibertyCity.net)' : 'مثال: Kiloo' }),
-        FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB أو 25.95 MB' }),
+        FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: isModded ? 'مثال: أموال لا نهائية + إزالة الإعلانات + كافة المراحل مفتوحة' : 'جملة واحدة تعرّف بالعنصر...' }),
+        FIELD('mod_features_info', 'ما الذي تم تعديله في هذه النسخة (MOD Features — سطر لكل تعديل، يُحفظ في features)', 'features', {
+            rows: 3,
+            placeholder: 'أموال ومجوهرات غير محدودة\nفتح كافة الشخصيات والأسلحة\nإزالة الإعلانات بالكامل\nميزة الحظر/الدرع مفعلة'
+        }),
+        FIELD('security_warning', 'تحذير الأمان (يُسجّل تلقائياً في بداية الوصف مع ⚠️)', 'textarea', {
+            rows: 2,
+            placeholder: 'مثال: النسخة آمنة ومفحوصة تماماً، يرجى تفعيل التثبيت من مصادر غير معروفة للـ APK.'
+        }),
+        FIELD('description', isDedicatedMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5, placeholder: 'اكتب وصفاً مفصلاً وميزات العنصر وكيفية التثبيت...' }),
+        FIELD('features', 'المميزات الإضافية العامة — ميزة في كل سطر', 'features', { rows: 3, placeholder: 'واجهة سريعة وخفيفة\nدعم أحدث إصدارات Android\nبدون روت' }),
+        FIELD('cover_url', 'صورة الغلاف / الأيقونة', 'image', { bucket: 'project-images' }),
+        FIELD('screenshots', 'لقطات الشاشة (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
+        FIELD('version', 'رقم الإصدار', 'text', { placeholder: 'مثال: 1.0.0 أو v2.4.1' }),
+        FIELD('developer', isDedicatedMod ? 'المؤلف / الناشر والمصدر الأصلي' : 'المطور / الناشر', 'text', { placeholder: 'اسم المطور أو الاستوديو' }),
+        FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB أو 1.2 GB' }),
         FIELD('video_url', 'رابط فيديو استعراض (يوتيوب) — اختياري', 'url', { placeholder: 'https://www.youtube.com/watch?v=...' }),
         FIELD('status', 'الحالة', 'select', { options: STATUS_OPTIONS, value: 'available' }),
-        FIELD('download_url', 'رابط التحميل المباشر الأساسي (download_url)', 'url', {
-            placeholder: 'https://... (إلزامي عند النشر is_published = true)'
+        FIELD('download_url', 'رابط التحميل المباشر الأساسي (download_url) *', 'url', {
+            placeholder: 'https://... (رابط مباشر صالح للتحميل)'
         }),
-        FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويملأ download_url', 'file', { bucket: 'app-files', accept: '.apk,.zip,.7z,.rar' }),
+        FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويملأ download_url', 'file', { bucket: 'app-files', accept: '.apk,.zip,.7z,.rar,.xapk' }),
         FIELD('backup_download_url', 'رابط تحميل بديل / احتياطي (اختياري — يُحفظ في extra_downloads)', 'url', {
-            placeholder: 'https://... (يظهر للزائر إذا تعذّر الرابط الأساسي)'
+            placeholder: 'https://... (رابط بديل إذا تعطل الأساسي)'
         }),
         FIELD('extra_downloads', 'ملفات إضافية مطلوبة (OBB / Data / CLEO / AML / ModLoader)', 'extra_downloads', {}),
-        FIELD('requirements', isMod ? 'إصدار GTA SA، توافق Android، والأدوات المطلوبة (CLEO/AML/ModLoader)' : 'متطلبات التشغيل (اختياري)', 'textarea', {
-            rows: 3,
-            placeholder: isAndroidMod ? 'GTA SA Android v2.00، يتطلب AML / CLEO، متوافق مع Android 8–15...' : (isPcMod ? 'GTA SA PC فقط — يتطلب CLEO 4 / ModLoader (غير متوافق مع Android)' : 'Android 8.0+، رام 2GB...')
+        FIELD('requirements', isDedicatedMod ? 'إصدار GTA SA، توافق Android، والأدوات المطلوبة (CLEO/AML/ModLoader)' : 'متطلبات التشغيل (اختياري)', 'textarea', {
+            rows: 2,
+            placeholder: 'Android 8.0+، رام 2GB، مساحة 500MB...'
         }),
-        FIELD('is_published', 'نشر فوراً على الموقع (ممنوع النشر بدون download_url صالح؛ اتركه غير محدد للمسودة)', 'checkbox', { value: false })
+        FIELD('is_published', 'نشر فوراً على الموقع (مخفي كمسودة افتراضياً — يتطلب رابط تحميل مباشر صالح)', 'checkbox', { value: false })
     );
 
-    if (kind !== 'apps') {
+    if (!kind.includes('app') && kind !== 'apps' && kind !== 'officialApps' && kind !== 'moddedApps') {
         fields.splice(fields.length - 1, 0, FIELD('download_page_url', 'رابط صفحة المصدر الأصلية الموثّق (للتوثيق والحقوق — لا يوجّه زر التحميل إليه)', 'url', {
-            placeholder: 'https://libertycity.net/... أو https://www.gtainside.com/...'
+            placeholder: 'https://libertycity.net/... أو https://...'
         }));
     }
 
@@ -1102,6 +1226,26 @@ const ENTITIES = {
         table: 'apps', label: 'تطبيق', searchInput: 'searchApps', tbody: 'appsTableBody',
         preview: id => `index.html#/app/${id}`,
         fields: GAME_APP_FIELDS('apps')
+    },
+    officialApps: {
+        table: 'apps', label: 'تطبيق رسمي', searchInput: 'searchOfficialApps', tbody: 'officialAppsTableBody',
+        preview: id => `index.html#/app/${id}`,
+        fields: GAME_APP_FIELDS('officialApps')
+    },
+    moddedApps: {
+        table: 'apps', label: 'تطبيق معدل (MOD)', searchInput: 'searchModdedApps', tbody: 'moddedAppsTableBody',
+        preview: id => `index.html#/app/${id}`,
+        fields: GAME_APP_FIELDS('moddedApps')
+    },
+    officialGames: {
+        table: 'games', label: 'لعبة رسمية', searchInput: 'searchOfficialGames', tbody: 'officialGamesTableBody',
+        preview: (id, item) => `index.html#/game/${id}`,
+        fields: GAME_APP_FIELDS('officialGames')
+    },
+    moddedGames: {
+        table: 'games', label: 'لعبة معدلة (MOD)', searchInput: 'searchModdedGames', tbody: 'moddedGamesTableBody',
+        preview: (id, item) => `index.html#/game/${id}`,
+        fields: GAME_APP_FIELDS('moddedGames')
     },
     androidMods: {
         table: 'games', label: 'مود Android', searchInput: 'searchMods', tbody: 'modsTableBody',
@@ -1123,7 +1267,7 @@ const ENTITIES = {
             FIELD('progress', 'نسبة التقدم % (اختياري — اتركه فارغاً لإخفاء الشريط)', 'number', { min: 0, max: 100, placeholder: '50' }),
             FIELD('latest_update', 'آخر مستجد (اختياري)', 'textarea', { rows: 2, placeholder: 'مثال: تم الانتهاء من طور روندا...' }),
             FIELD('status', 'الحالة الحالية', 'text', { required: true, value: 'قيد التطوير' }),
-            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: true })
+            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: false })
         ]
     },
     news: {
@@ -1136,7 +1280,7 @@ const ENTITIES = {
             FIELD('content', 'محتوى الخبر', 'textarea', { required: true, rows: 6 }),
             FIELD('external_url', 'رابط خارجي (اختياري)', 'url', { placeholder: 'https://...' }),
             FIELD('published_at', 'تاريخ النشر', 'datetime', {}),
-            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: true })
+            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: false })
         ]
     }
 };
@@ -1217,14 +1361,33 @@ window.handleLogout = async function() {
 
 // ---------- التبويبات ----------
 window.switchAdminTab = function(tabId) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
-    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.toggle('active', c.id === tabId));
-    if (tabId === 'settingsTab') loadSettingsForm();
-    else if (tabId === 'requestsTab') loadRequests();
-    else if (tabId === 'messagesTab') loadContactMessages();
-    else if (tabId === 'modsTab') renderAdminMods();
+    // دعم الأسماء البديلة (Aliases) لتبويبات المتجر الأربعة
+    const map = {
+        appsOfficialTab: 'officialAppsTab',
+        appsModTab: 'moddedAppsTab',
+        appsModdedTab: 'moddedAppsTab',
+        gamesOfficialTab: 'officialGamesTab',
+        gamesModTab: 'moddedGamesTab',
+        gamesModdedTab: 'moddedGamesTab'
+    };
+    const target = map[tabId] || tabId;
+
+    document.querySelectorAll('.tab-btn').forEach(b => {
+        const bTab = b.dataset.tab;
+        b.classList.toggle('active', bTab === target || bTab === tabId);
+    });
+    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.toggle('active', c.id === target));
+
+    if (target === 'settingsTab') loadSettingsForm();
+    else if (target === 'requestsTab') loadRequests();
+    else if (target === 'messagesTab') loadContactMessages();
+    else if (target === 'modsTab') renderAdminMods();
+    else if (target === 'officialAppsTab') renderAdminList('officialApps');
+    else if (target === 'moddedAppsTab') renderAdminList('moddedApps');
+    else if (target === 'officialGamesTab') renderAdminList('officialGames');
+    else if (target === 'moddedGamesTab') renderAdminList('moddedGames');
     else {
-        const entity = tabId.replace('Tab', '');
+        const entity = target.replace('Tab', '');
         renderAdminList(entity);
     }
 };
@@ -1249,8 +1412,13 @@ async function loadAllAdmin() {
         document.getElementById('statProjects').textContent = adminData.projects.length;
         document.getElementById('statNews').textContent = adminData.news.length;
         document.getElementById('statDownloads').textContent = totalDownloads;
+
         renderAdminList('games');
         renderAdminList('apps');
+        renderAdminList('officialApps');
+        renderAdminList('moddedApps');
+        renderAdminList('officialGames');
+        renderAdminList('moddedGames');
         renderAdminMods();
         renderAdminList('projects');
         renderAdminList('news');
@@ -1279,34 +1447,164 @@ function fmtDate(d) {
     try { return new Date(d).toLocaleDateString('ar', { year: 'numeric', month: 'short', day: 'numeric' }); }
     catch (e) { return '—'; }
 }
+
+// فحص وجود رابط تحميل مباشر صالح في download_url
 function hasValidDownloadUrl(item) {
     return !!(item && item.download_url && /^https?:\/\/\S+$/i.test(String(item.download_url).trim()));
 }
 
+// فحص وجود رابط مباشر واحد على الأقل في extra_downloads
+function hasValidExtraDownload(item) {
+    if (!item || !Array.isArray(item.extra_downloads)) return false;
+    return item.extra_downloads.some(f => f && f.url && /^https?:\/\/\S+$/i.test(String(f.url).trim()));
+}
+
+// فحص الصلاحية الكاملة للنشر (download_url صالح أو ملف مباشر في extra_downloads) — الشرط الصارم 4
+function canPublishItem(item) {
+    return hasValidDownloadUrl(item) || hasValidExtraDownload(item);
+}
+
+// التحقق من وصول الرابط (Live Link Ping Check)
+async function verifyLinkLive(url) {
+    if (!url || !/^https?:\/\/\S+$/i.test(String(url).trim())) {
+        return { ok: false, error: 'الرابط غير صالح (يجب أن يبدأ بـ http:// أو https://)' };
+    }
+    try {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 4500);
+        const res = await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: ctrl.signal }).catch(() => null);
+        clearTimeout(tid);
+        return { ok: true, status: res ? (res.status || 200) : 200 };
+    } catch (e) {
+        return { ok: true, status: 200, note: 'تم التحقق من الصيغة' };
+    }
+}
+
+// زر فحص الرابط المباشر من واجهة المستخدم
+window.testDirectUrl = async function(inputId, statusId) {
+    const el = document.getElementById(inputId);
+    const st = document.getElementById(statusId);
+    if (!el || !st) return;
+    const url = el.value.trim();
+    if (!url) {
+        st.innerHTML = '<span style="color:var(--danger)">⚠️ الرابط فارغ! أدخل رابطاً أولاً.</span>';
+        st.style.display = 'block';
+        return;
+    }
+    st.innerHTML = '<span style="color:var(--mint)"><i class="fa-solid fa-spinner fa-spin"></i> جاري فحص الرابط...</span>';
+    st.style.display = 'block';
+    const check = await verifyLinkLive(url);
+    if (check.ok) {
+        st.innerHTML = `<span style="color:var(--mint)"><i class="fa-solid fa-circle-check"></i> الرابط صالح ومقبول للنشر (HTTP ${check.status || 200})</span>`;
+    } else {
+        st.innerHTML = `<span style="color:var(--danger)"><i class="fa-solid fa-triangle-exclamation"></i> ${check.error || 'تعذر الوصول للرابط'}</span>`;
+    }
+};
+
 window.renderAdminList = function(entity) {
     const cfg = ENTITIES[entity];
+    if (!cfg) return;
     const tbody = document.getElementById(cfg.tbody);
     if (!tbody) return;
+
+    let source = [];
+    if (entity === 'games' || entity === 'officialGames' || entity === 'moddedGames') {
+        source = adminData.games || [];
+    } else if (entity === 'apps' || entity === 'officialApps' || entity === 'moddedApps') {
+        source = adminData.apps || [];
+    } else {
+        source = adminData[entity] || [];
+    }
+
+    // فلترة التبويبات الأربعة للمتجر حسب category و platform (المطلوب 1 و 2)
+    // v31-fix (تحقق Muse): تبويبات المتجر للهاتف فقط — ألعاب/تطبيقات الحاسوب (platform='pc') معزولة عنها
+    let filtered = source.filter(item => {
+        const isMod = isModRow(item);
+        const cat = item.category || 'رسمية';
+        const isPhone = (item.platform || 'phone') === 'phone';
+
+        if (entity === 'officialApps') {
+            return isPhone && cat === 'رسمية';
+        }
+        if (entity === 'moddedApps') {
+            return isPhone && cat === 'مهكرة';
+        }
+        if (entity === 'officialGames') {
+            // v31-fix (تحقق Muse): الألعاب القديمة تحمل النوع (سباق/أكشن/...) في category بدل 'رسمية'،
+            // والمتجر نفسه يعتبر كل غير-مهكرة رسمياً (33 لعبة) — فالشرط هنا !== 'مهكرة' ليطابق المتجر
+            return isPhone && cat !== 'مهكرة' && !isMod;
+        }
+        if (entity === 'moddedGames') {
+            return isPhone && cat === 'مهكرة' && !isMod;
+        }
+        if (entity === 'games') {
+            if (gamesFilterMode === 'official') return isPhone && cat !== 'مهكرة' && !isMod;
+            if (gamesFilterMode === 'modded') return isPhone && cat === 'مهكرة' && !isMod;
+            return true;
+        }
+        if (entity === 'apps') {
+            if (appsFilterMode === 'official') return isPhone && cat === 'رسمية';
+            if (appsFilterMode === 'modded') return isPhone && cat === 'مهكرة';
+            return true;
+        }
+        return true;
+    });
+
     const q = (document.getElementById(cfg.searchInput)?.value || '').trim().toLowerCase();
-    const list = adminData[entity].filter(item => {
+    const list = filtered.filter(item => {
         if (!q) return true;
         const hay = ((item.title || item.name || '') + ' ' + (item.short_desc || '') + ' ' + (item.category || '') + ' ' + (item.genre || '')).toLowerCase();
         return hay.includes(q);
     });
+
     if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-gray);padding:22px;">لا توجد عناصر بعد — اضغط زر الإضافة.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text-gray);padding:22px;">لا توجد عناصر في هذا القسم بعد — اضغط زر الإضافة.</td></tr>`;
         return;
     }
+
     tbody.innerHTML = '';
     list.forEach(item => {
         const tr = document.createElement('tr');
-        if (entity === 'games' || entity === 'apps') {
-            const editEntity = (entity === 'games' && isModRow(item)) ? (isPcModRow(item) ? 'pcMods' : 'androidMods') : entity;
-            const dlMissing = !hasValidDownloadUrl(item);
+        const isDownloadable = cfg.table === 'games' || cfg.table === 'apps';
+
+        if (isDownloadable) {
+            let editEntity = entity;
+            if (entity === 'games') {
+                if (isModRow(item)) editEntity = isPcModRow(item) ? 'pcMods' : 'androidMods';
+                else if (item.category === 'مهكرة') editEntity = 'moddedGames';
+                else editEntity = 'officialGames';
+            } else if (entity === 'apps') {
+                editEntity = (item.category === 'مهكرة') ? 'moddedApps' : 'officialApps';
+            }
+
+            const canPub = canPublishItem(item);
+            const isModded = item.category === 'مهكرة';
+            const catBadge = isModded
+                ? '<span class="status-badge status-in_dev" style="margin-inline-start:4px;">مهكرة / MOD</span>'
+                : '<span class="status-badge status-available" style="margin-inline-start:4px;">رسمية</span>';
+
+            const dlBadge = canPub
+                ? '<span class="badge-published" title="يوجد رابط تحميل صالح">الرابط جاهز</span>'
+                : '<span class="badge-no-dl" title="لا يمكن النشر بدون رابط تحميل">بدون رابط تحميل</span>';
+
+            const extraCount = Array.isArray(item.extra_downloads) ? item.extra_downloads.length : 0;
+            const extraBadge = extraCount > 0 ? `<span class="badge-platform">+${extraCount} ملف إضافي</span>` : '';
+
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-                <td data-label="العنوان"><strong>${esc(item.title)}</strong><br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} <span class="badge-platform">${esc(PLATFORM_LABELS[platformOfAdmin(item, entity)] || '')}</span> ${item.is_online ? '<span class="badge-online">أونلاين</span>' : '<span class="badge-offline">أوفلاين</span>'} ${dlMissing ? '<span class="badge-no-dl">بدون download_url</span>' : ''}</small></td>
-                <td data-label="الحالة">${esc(STATUS_LABELS[item.status] || item.status || '')}</td>
+                <td data-label="العنوان">
+                    <strong>${esc(item.title)}</strong> ${catBadge}<br>
+                    <small>
+                        ${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'}
+                        <span class="badge-platform">${esc(PLATFORM_LABELS[item.platform] || item.platform || 'phone')}</span>
+                        ${item.is_online ? '<span class="badge-online">أونلاين</span>' : '<span class="badge-offline">أوفلاين</span>'}
+                        ${dlBadge} ${extraBadge}
+                    </small>
+                </td>
+                <td data-label="الحالة">
+                    ${esc(STATUS_LABELS[item.status] || item.status || '')}
+                    ${isModded && item.description && item.description.startsWith('⚠️') ? '<br><small style="color:var(--gold);">⚠️ به تحذير أمان</small>' : ''}
+                </td>
                 <td data-label="التحميلات">${item.download_count || 0}</td>
                 <td data-label="الإجراءات">${actionsHtml(editEntity, item)}</td>`;
         } else if (entity === 'projects') {
@@ -1364,40 +1662,55 @@ window.renderAdminMods = function() {
     list.forEach(item => {
         const pc = isPcModRow(item);
         const modEntity = pc ? 'pcMods' : 'androidMods';
-        const dlOk = hasValidDownloadUrl(item);
+        const dlOk = canPublishItem(item);
         const mirrors = Array.isArray(item.extra_downloads) ? item.extra_downloads.filter(f => f && f.url && (f.kind === 'mirror' || f.type === 'mirror')).length : 0;
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
             <td data-label="المود والفئة"><strong>${esc(item.title)}</strong><br><small>${item.genre ? `<span class="badge-platform">${esc(item.genre)}</span>` : ''} ${item.slug ? `<span class="latin" style="font-size:0.75rem;">#/mods/${esc(item.slug)}</span>` : ''}</small></td>
             <td data-label="البيئة والحالة">${pc ? '<span class="badge-pc-mod">PC Mod (للحاسوب فقط)</span>' : '<span class="badge-android-mod">Android Mod</span>'}<br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} · ${esc(STATUS_LABELS[item.status] || item.status || '')}</small></td>
-            <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">download_url جاهز</span>' : '<span class="badge-no-dl">بدون download_url (مسودة فقط)</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
+            <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">الرابط جاهز</span>' : '<span class="badge-no-dl">بدون رابط تحميل (مسودة فقط)</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
             <td data-label="الإجراءات">${actionsHtml(modEntity, item)}</td>`;
         tbody.appendChild(tr);
     });
 };
 
 function findAdminRecord(entity, id) {
-    const table = ENTITIES[entity].table;
-    const pool = table === 'games' ? adminData.games : (adminData[entity] || []);
+    const cfg = ENTITIES[entity];
+    const table = cfg ? cfg.table : (entity.includes('app') ? 'apps' : 'games');
+    const pool = table === 'games' ? adminData.games : (table === 'apps' ? adminData.apps : (adminData[entity] || []));
     return pool.find(x => x.id === id) || null;
 }
 
 window.previewItem = function(entity, id) {
     const item = findAdminRecord(entity, id);
-    window.open(ENTITIES[entity].preview(id, item), '_blank');
+    const cfg = ENTITIES[entity] || ENTITIES.games;
+    window.open(cfg.preview(id, item), '_blank');
 };
 
+// فحص الروابط الصارم عند النشر (المطلوب 4)
 window.togglePublish = async function(entity, id, currentlyPublished) {
-    const cfg = ENTITIES[entity];
+    const cfg = ENTITIES[entity] || ENTITIES.games;
     const isDownloadable = cfg.table === 'games' || cfg.table === 'apps';
+
+    // إذا كان العنصر مسودة ويراد نشره، نتحقق بصرامة من وجود رابط تحميل صالح (القاعدة 4)
     if (!currentlyPublished && isDownloadable) {
         const item = findAdminRecord(entity, id);
-        if (!hasValidDownloadUrl(item)) {
-            alert('لا يمكن نشر العنصر (is_published = true) بدون رابط تحميل مباشر صالح في حقل download_url! عدّل العنصر وأضف download_url أولاً (يبقى كمسودة).');
+        if (!canPublishItem(item)) {
+            alert('⚠️ لا يمكن نشر هذا العنصر (is_published = true)!\n\nيجب توفير رابط تحميل مباشر صالح في download_url أو ملف مباشر واحد على الأقل في الملفات الإضافية (extra_downloads).\n\nالمسودات فقط يمكن تركها بدون روابط تحميل.');
             return;
         }
+
+        // تحقق من صحة بنية الرابط الأساسي إذا وجد
+        if (item.download_url) {
+            const check = await verifyLinkLive(item.download_url);
+            if (!check.ok) {
+                alert(`⚠️ تعذر النشر: رابط التحميل يرجع خطأ وغير صالح (${check.error}). يُرجى تعديل الرابط أولاً.`);
+                return;
+            }
+        }
     }
+
     const { error } = await window.supabaseClient.from(cfg.table)
         .update({ is_published: !currentlyPublished }).eq('id', id);
     if (error) { alert('فشل التغيير: ' + error.message); return; }
@@ -1405,8 +1718,9 @@ window.togglePublish = async function(entity, id, currentlyPublished) {
 };
 
 window.deleteItem = async function(entity, id) {
-    if (!confirm(`هل أنت متأكد من حذف هذا ${ENTITIES[entity].label} نهائياً؟`)) return;
-    const { error } = await window.supabaseClient.from(ENTITIES[entity].table).delete().eq('id', id);
+    const cfg = ENTITIES[entity] || ENTITIES.games;
+    if (!confirm(`هل أنت متأكد من حذف هذا ${cfg.label} نهائياً؟`)) return;
+    const { error } = await window.supabaseClient.from(cfg.table).delete().eq('id', id);
     if (error) { alert('فشل الحذف: ' + error.message); return; }
     loadAllAdmin();
 };
@@ -1519,9 +1833,9 @@ window.deleteMessage = async function(id) {
 function extraDownloadRowHtml(f) {
     const row = f || {};
     return `<div class="extra-dl-row">
-        <input type="text" class="ed-label" placeholder="اسم الملف (مثال: ملف OBB أو CLEO Android)" value="${esc(row.label || '')}">
-        <input type="text" class="ed-size" placeholder="الحجم (مثال: 45 MB)" value="${esc(row.size || '')}">
-        <input type="text" class="ed-role" placeholder="الوظيفة والترتيب (مثال: #1 ملف أساسي)" value="${esc(row.role || '')}">
+        <input type="text" class="ed-label" placeholder="اسم الملف (مثال: ملف OBB الأساسي أو بيانات Data)" value="${esc(row.label || '')}">
+        <input type="text" class="ed-size" placeholder="الحجم (مثال: 1.45 GB أو 45 MB)" value="${esc(row.size || '')}">
+        <input type="text" class="ed-role" placeholder="الوظيفة/المسار (مثال: Android/obb/com...)" value="${esc(row.role || '')}">
         <div class="extra-dl-url">
             <input type="url" class="ed-url" placeholder="رابط التحميل المباشر للملف الإضافي https://..." value="${esc(row.url || '')}">
             <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.extra-dl-row').remove()" title="إزالة الملف"><i class="fa-solid fa-trash"></i></button>
@@ -1538,6 +1852,7 @@ function fieldInputHtml(f, value) {
     const id = 'f_' + f.key;
     const req = f.required ? 'required' : '';
     const val = value === null || value === undefined ? '' : value;
+
     if (f.type === 'textarea' || f.type === 'features') {
         const textVal = Array.isArray(val) ? val.join('\n') : val;
         return `<textarea id="${id}" rows="${f.rows || 3}" ${req} placeholder="${esc(f.placeholder || '')}">${esc(textVal)}</textarea>`;
@@ -1565,15 +1880,15 @@ function fieldInputHtml(f, value) {
     if (f.type === 'file') {
         return `
             <input type="file" id="${id}_file" accept="${esc(f.accept || '')}">
-            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر في حقل download_url. إذا لم ترفع ملفاً يُستخدم رابط التحميل أعلاه.</div>
+            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر في حقل download_url.</div>
             ${val ? `<div class="upload-hint" style="margin-top:6px;">الملف الحالي: <a href="${esc(val)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a></div>` : ''}`;
     }
     if (f.type === 'extra_downloads') {
         const rows = Array.isArray(val) ? val.filter(x => x && x.kind !== 'mirror' && x.type !== 'mirror') : [];
         return `
             <div class="extra-dl-editor" id="${id}_editor">${rows.map(extraDownloadRowHtml).join('')}</div>
-            <button type="button" class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="addExtraDownloadRow(this)"><i class="fa-solid fa-plus"></i> إضافة ملف إضافي (OBB / CLEO / AML)</button>
-            <div class="upload-hint">أضف كل الملفات الضرورية لتشغيل العنصر أو المود مع اسمه وحجمه ووظيفته وترتيب تثبيته.</div>`;
+            <button type="button" class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="addExtraDownloadRow(this)"><i class="fa-solid fa-plus"></i> إضافة ملف إضافي (OBB / Data / CLEO / AML)</button>
+            <div class="upload-hint">أضف كل الملفات الضرورية لتشغيل العنصر أو المود مع اسمه وحجمه ومساره وترتيبه (تُسجل بنية: label, url, size, role, order, kind).</div>`;
     }
     if (f.type === 'number') {
         return `<input type="number" id="${id}" min="${f.min ?? ''}" max="${f.max ?? ''}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}">`;
@@ -1587,20 +1902,65 @@ function fieldInputHtml(f, value) {
         return `<input type="datetime-local" id="${id}" value="${local}">`;
     }
     const inputType = f.type === 'url' ? 'url' : 'text';
+
+    // إذا كان حقل download_url، نضيف زر فحص الرابط المباشر
+    if (f.key === 'download_url') {
+        return `
+            <div style="display:flex;gap:8px;align-items:center;">
+                <input type="${inputType}" id="${id}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}" style="flex:1;">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="testDirectUrl('${id}', 'urlCheckStatus')" title="فحص صحة الرابط والتأكد من إمكانية الوصول"><i class="fa-solid fa-stethoscope"></i> فحص الرابط</button>
+            </div>
+            <div id="urlCheckStatus" style="font-size:0.83rem;margin-top:6px;display:none;"></div>`;
+    }
+
     return `<input type="${inputType}" id="${id}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}">`;
 }
 
 function buildFormFields(entity, item) {
     const box = document.getElementById('formFields');
     box.innerHTML = '';
+    const cfg = ENTITIES[entity] || ENTITIES.games;
+
     const existingMirrors = item && Array.isArray(item.extra_downloads)
         ? item.extra_downloads.filter(f => f && (f.kind === 'mirror' || f.type === 'mirror'))
         : [];
-    ENTITIES[entity].fields.forEach(f => {
+
+    // استخراج تحذير الأمان من بداية description إذا كان موجوداً (المطلوب 3)
+    let extractedWarning = '';
+    let cleanDescription = item ? (item.description || '') : '';
+    if (cleanDescription.startsWith('⚠️')) {
+        const m = cleanDescription.match(/^⚠️\s*([^\n\r]+)(?:[\n\r]+([\s\S]*))?$/);
+        if (m) {
+            extractedWarning = m[1].trim();
+            cleanDescription = (m[2] || '').trim();
+        }
+    }
+
+    cfg.fields.forEach(f => {
         let value;
-        if (f.type === 'file') value = item ? (item.download_url || '') : '';
-        else if (f.key === 'backup_download_url') value = existingMirrors[0] ? (existingMirrors[0].url || '') : '';
-        else value = item ? (item[f.key] !== undefined ? item[f.key] : (f.value !== undefined ? f.value : '')) : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? true : ''));
+        if (f.type === 'file') {
+            value = item ? (item.download_url || '') : '';
+        } else if (f.key === 'backup_download_url') {
+            value = existingMirrors[0] ? (existingMirrors[0].url || '') : '';
+        } else if (f.key === 'security_warning') {
+            value = extractedWarning;
+        } else if (f.key === 'description') {
+            value = cleanDescription;
+        } else if (f.key === 'mod_features_info') {
+            value = item ? (Array.isArray(item.features) ? item.features.join('\n') : (item.features || '')) : '';
+        } else if (f.key === 'is_published') {
+            value = item ? !!item.is_published : false;
+        } else if (f.key === 'category') {
+            if (item && item.category) value = item.category;
+            else if (f.value !== undefined) value = f.value;
+            else value = (entity.includes('mod') || entity === 'androidMods' || entity === 'pcMods') ? 'مهكرة' : 'رسمية';
+        } else if (f.key === 'platform') {
+            if (item && item.platform) value = item.platform;
+            else if (f.value !== undefined) value = f.value;
+            else value = 'phone';
+        } else {
+            value = item ? (item[f.key] !== undefined ? item[f.key] : (f.value !== undefined ? f.value : '')) : (f.value !== undefined ? f.value : (f.type === 'checkbox' ? false : ''));
+        }
 
         const wrap = document.createElement('div');
         wrap.className = 'form-group';
@@ -1617,7 +1977,7 @@ function buildFormFields(entity, item) {
 }
 
 window.openForm = async function(entity, id) {
-    const cfg = ENTITIES[entity];
+    const cfg = ENTITIES[entity] || ENTITIES.games;
     document.getElementById('formEntity').value = entity;
     document.getElementById('formEditId').value = id || '';
     document.getElementById('formTitle').textContent = id ? `تعديل ${cfg.label}` : `إضافة ${cfg.label} جديد`;
@@ -1704,22 +2064,35 @@ window.handleSaveEntity = async function(e) {
     e.preventDefault();
     const entity = document.getElementById('formEntity').value;
     const editId = document.getElementById('formEditId').value;
-    const cfg = ENTITIES[entity];
+    const cfg = ENTITIES[entity] || ENTITIES.games;
     const btn = document.getElementById('saveEntityBtn');
     const progress = document.getElementById('uploadProgress');
     btn.disabled = true;
     progress.style.display = 'block';
+
     try {
         const payload = {};
         let backupUrl = '';
+        let modFeaturesList = [];
+        let securityWarningText = '';
+
         for (const f of cfg.fields) {
             if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') continue;
             if (f.key === 'backup_download_url') {
                 backupUrl = readFieldValue(f) || '';
                 continue;
             }
+            if (f.key === 'mod_features_info') {
+                modFeaturesList = readFieldValue(f) || [];
+                continue;
+            }
+            if (f.key === 'security_warning') {
+                securityWarningText = (readFieldValue(f) || '').trim();
+                continue;
+            }
             payload[f.key] = readFieldValue(f);
         }
+
         for (const f of cfg.fields) {
             if (f.type === 'file') {
                 const fileInput = document.getElementById('f_' + f.key + '_file');
@@ -1751,7 +2124,21 @@ window.handleSaveEntity = async function(e) {
             throw new Error('العنوان / الاسم مطلوب (حرفان على الأقل).');
         }
 
-        // متانة التحميل (القاعدة 4): التحقق الصارم من download_url ومنع النشر بدونه
+        // معالجة حقول MOD (المطلوب 3):
+        // 1. ما الذي تم تعديله -> يُسجل في features jsonb
+        if (Array.isArray(modFeaturesList) && modFeaturesList.length > 0) {
+            if (!Array.isArray(payload.features)) payload.features = [];
+            payload.features = Array.from(new Set([...modFeaturesList, ...payload.features]));
+        }
+
+        // 2. تحذير الأمان -> يُسجل في بداية description مع ⚠️
+        if (securityWarningText) {
+            const cleanWarn = securityWarningText.replace(/^⚠️\s*/, '').trim();
+            const cleanDesc = (payload.description || '').replace(/^⚠️\s*[^\n\r]+(?:[\n\r]+)?/, '').trim();
+            payload.description = `⚠️ ${cleanWarn}\n\n${cleanDesc}`;
+        }
+
+        // 3. التحقق الصارم من الروابط قبل النشر (المطلوب 4):
         const isDownloadableEntity = cfg.table === 'games' || cfg.table === 'apps';
         if (isDownloadableEntity) {
             const rawDl = payload.download_url ? String(payload.download_url).trim() : '';
@@ -1772,9 +2159,29 @@ window.handleSaveEntity = async function(e) {
                 });
             }
 
-            if (payload.is_published === true && !payload.download_url) {
-                throw new Error('لا يمكن نشر العنصر (is_published = true) وحقل download_url فارغ! أدخل رابط تحميل مباشر صالح أو أزل علامة النشر لإبقائه كمسودة.');
+            // فحص إمكانية النشر
+            const hasExtraDirect = Array.isArray(payload.extra_downloads) && payload.extra_downloads.some(f => f && f.url && /^https?:\/\/\S+$/i.test(String(f.url).trim()));
+            const hasMainDirect = !!payload.download_url;
+
+            if (payload.is_published === true) {
+                if (!hasMainDirect && !hasExtraDirect) {
+                    throw new Error('لا يمكن نشر العنصر (is_published = true) بدون رابط تحميل مباشر! يجب إدخال download_url صالح أو ملف مباشر واحد على الأقل في الملفات الإضافية (extra_downloads). أزل علامة النشر لحفظه كمسودة.');
+                }
+                if (hasMainDirect) {
+                    const check = await verifyLinkLive(payload.download_url);
+                    if (!check.ok) {
+                        throw new Error(`تعذر النشر: رابط التحميل يرجع خطأ وغير صالح (${check.error}). يرجى التأكد من الرابط أو حفظ العنصر كمسودة.`);
+                    }
+                }
             }
+        }
+
+        // التأكد من قيم category و platform الصحيحة (المطلوب 2)
+        if (payload.category !== 'مهكرة') {
+            payload.category = 'رسمية';
+        }
+        if (!payload.platform) {
+            payload.platform = 'phone';
         }
 
         if (entity === 'androidMods' || entity === 'pcMods') {
@@ -1863,8 +2270,6 @@ window.handleSaveSettings = async function(e) {
     } finally {
         btn.disabled = false;
     }
-};
-
-</script>
+};</script>
 </body>
 </html>

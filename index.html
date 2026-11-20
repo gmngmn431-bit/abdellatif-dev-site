@@ -620,7 +620,7 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .card:hover::after { opacity: 1; animation: ringTurn 4.5s linear infinite; }
 
 .card-cover {
-  position: relative; display: block; aspect-ratio: 16 / 10; border-radius: calc(var(--r-lg) - 8px); overflow: hidden;
+  position: relative; display: block; aspect-ratio: 1 / 1; border-radius: calc(var(--r-lg) - 8px); overflow: hidden;
   background: radial-gradient(circle at 25% 15%, rgba(30, 107, 255, 0.28), transparent 55%), radial-gradient(circle at 85% 95%, rgba(224, 18, 47, 0.20), transparent 55%), #0F111A;
 }
 .card-cover::before { content: ''; position: absolute; inset: 0; background-image: var(--zellige); background-size: 64px; opacity: 0.07; }
@@ -792,10 +792,10 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .features-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 12px; }
 .features-list li { display: flex; gap: 12px; align-items: flex-start; border-radius: var(--r-md); padding: 14px 18px; font-weight: 500; font-size: 0.95rem; line-height: 1.7; }
 .features-list li i { flex: none; margin-top: 4px; color: var(--mint); filter: drop-shadow(0 0 8px rgba(30, 107, 255, 0.6)); }
-.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 14px; }
+.gallery { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 2px 10px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 .gallery img {
-  width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-md); border: 1px solid var(--line); padding: 4px; background: var(--glass-flat);
-  cursor: zoom-in; transition: transform 0.5s var(--ease), border-color 0.3s, box-shadow 0.5s var(--ease);
+  flex: 0 0 auto; height: min(74vw, 360px); width: auto; aspect-ratio: auto; object-fit: cover; border-radius: 14px; border: 1px solid var(--line); padding: 4px; background: var(--glass-flat);
+  cursor: zoom-in; scroll-snap-align: start; transition: transform 0.5s var(--ease), border-color 0.3s, box-shadow 0.5s var(--ease);
 }
 .gallery img:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(30, 107, 255, 0.55); box-shadow: 0 24px 50px -24px rgba(30, 107, 255, 0.38); }
 .video-embed { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: #000; }
@@ -1217,7 +1217,7 @@ html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .62rem; }
 
 /* ===== v22 — بطاقات أقصر (الهاتف والحاسوب والمودات فقط) ===== */
 .vgrid .card { padding: 8px; }
-.vgrid .card-cover { aspect-ratio: 2 / 1; }
+.vgrid .card-cover { aspect-ratio: 1 / 1; }
 .vgrid .card-body { padding: 10px 6px 4px; gap: 6px; }
 .vgrid .card-title { font-size: 1rem; line-height: 1.35; }
 .vgrid .card-desc { font-size: .82rem; line-height: 1.55; -webkit-line-clamp: 2; }
@@ -1238,7 +1238,7 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
 .vgrid .card-cover img { object-fit: cover; }
 .row-cover img { object-fit: cover; }
 .detail-cover img { object-fit: cover; }
-.gallery img { aspect-ratio: 16 / 9; object-fit: contain; }
+/* v27 — معرض اللقطات أفقي قابل للتمرير (القاعدة عند .gallery img فوق) */
 /* إخفاء التذييل في صفحة التفاصيل (يُستبدل بقسم المشابهات) */
 body.is-detail footer.footer { display: none; }
 
@@ -1252,7 +1252,7 @@ body.is-detail footer.footer { display: none; }
 
   /* 3 و4 أعمدة: بطاقة مضغوطة، وشارة المنصة أيقونة فقط، والفئة والحالة مخفيتان في 4 */
   html[data-vcols="3"] .vgrid .card, html[data-vcols="4"] .vgrid .card { padding: 6px 4px; }
-  html[data-vcols="3"] .vgrid .card-cover, html[data-vcols="4"] .vgrid .card-cover { aspect-ratio: 4 / 3; }
+  html[data-vcols="3"] .vgrid .card-cover, html[data-vcols="4"] .vgrid .card-cover { aspect-ratio: 1 / 1; }
   html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px 4px 4px; gap: 4px; }
   html[data-vcols="3"] .vgrid .card-body > div:first-child, html[data-vcols="4"] .vgrid .card-body > div:first-child { flex-wrap: wrap !important; gap: 4px !important; }
   html[data-vcols="3"] .vgrid .status-badge, html[data-vcols="4"] .vgrid .status-badge { font-size: .6rem; padding: 2px 6px; }

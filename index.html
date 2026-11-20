@@ -1650,6 +1650,15 @@ body.is-detail footer.footer { display: none; }
             <div id="reqMsg" class="alert-success" style="display:none;margin-top:12px;"></div>
           </div>
         </form>
+        <!-- v33 — تتبع حالة الطلب برقمه (Phase 5 fix: كان ناقصاً في index.html) -->
+        <div class="about-card" style="margin-bottom:16px;">
+          <h3 style="margin:0 0 6px;font-family:var(--f-display);font-size:1.1rem;font-weight:800;"><i class="fa-solid fa-magnifying-glass" style="color:var(--mint);"></i> تتبع طلبك</h3>
+          <p style="margin:0 0 10px;opacity:.8;font-size:.92rem;">عندك رقم طلب؟ اكتبو هنا باش تشوف الحالة ديالو (جديد / قيد البحث / تمت الإضافة / مرفوض) بلا ما تسجل الدخول.</p>
+          <div class="form-group"><label>رقم الطلب</label>
+            <input type="text" id="reqTrackId" maxlength="40" placeholder="مثال: 9c4b7e2a-..."></div>
+          <button type="button" class="btn btn-secondary btn-block" id="reqTrackBtn" onclick="trackMyRequest()"><i class="fa-solid fa-circle-check"></i> تحقق من الحالة</button>
+          <div id="reqTrackResult" class="alert-info" style="display:none;margin-top:12px;"></div>
+        </div>
         <h3 style="margin-top:8px;font-family:var(--f-display);font-size:1.2rem;font-weight:800;"><i class="fa-solid fa-list" style="color:var(--mint);"></i> <span data-i18n="req.listTitle">أحدث الطلبات</span></h3>
         <div class="req-list" id="reqList"></div>
       </div>
@@ -2601,17 +2610,44 @@ window.handleRequestSubmit = async function(e) {
     const btn = document.getElementById('reqSubmitBtn');
     if (btn) btn.disabled = true;
     try {
-        const { error } = await window.supabaseClient.from('game_requests')
-            .insert([{ name, game_title: title, game_type: type, details: details || null }]);
+        // v33: إرجاع معرّف الطلب حتى نعرض رقمه للزائر (تتبع بلا تسجيل دخول)
+        const { data, error } = await window.supabaseClient.from('game_requests')
+            .insert([{ name, game_title: title, game_type: type, details: details || null }])
+            .select('id').single();
         if (error) throw error;
-        if (msg) { msg.className = 'alert-success'; msg.style.display = 'block'; msg.textContent = t('req.sent'); }
+        if (msg) { msg.className = 'alert-success'; msg.style.display = 'block'; msg.textContent = t('req.sent') + ' — رقم طلبك: ' + (data && data.id ? data.id : ''); }
         document.getElementById('reqForm').reset();
+        if (data && data.id) { const tr = document.getElementById('reqTrackId'); if (tr) tr.value = data.id; trackMyRequest(); }
         renderRequestView();
     } catch (err) {
         console.error('request submit error:', err);
         if (msg) { msg.className = 'alert-danger'; msg.style.display = 'block'; msg.textContent = t('req.error'); }
     } finally {
         if (btn) btn.disabled = false;
+    }
+};
+
+
+// ---------- v33 — تتبع حالة الطلب برقمه (بلا تسجيل دخول) ----------
+window.trackMyRequest = async function() {
+    const id = (document.getElementById('reqTrackId')?.value || '').trim();
+    const box = document.getElementById('reqTrackResult');
+    if (!box) return;
+    box.style.display = 'block';
+    if (!id) { box.className = 'alert-info'; box.textContent = 'اكتب رقم الطلب أولاً.'; return; }
+    box.className = 'alert-info'; box.textContent = 'جاري البحث...';
+    try {
+        const { data, error } = await window.supabaseClient.from('game_requests')
+            .select('id,game_title,game_type,status,created_at').eq('id', id).maybeSingle();
+        if (error) throw error;
+        if (!data) { box.className = 'alert-danger'; box.textContent = 'ما لقيناش طلب بهاد الرقم. تأكد من الرقم وحاول مجدداً.'; return; }
+        const labels = { pending: 'جديد', approved: 'قيد البحث', done: 'تمت الإضافة', rejected: 'مرفوض' };
+        const label = labels[data.status] || data.status;
+        box.className = 'alert-success';
+        box.innerHTML = '<b>' + esc(data.game_title) + '</b><br>الحالة: <b>' + esc(label) + '</b><br><span style="opacity:.75">تاريخ الطلب: ' + esc(new Date(data.created_at).toLocaleDateString('ar-MA')) + '</span>';
+    } catch (err) {
+        console.error('track request error:', err);
+        box.className = 'alert-danger'; box.textContent = 'تعذر التحقق حالياً، حاول مجدداً.';
     }
 };
 

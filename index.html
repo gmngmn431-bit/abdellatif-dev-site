@@ -3528,7 +3528,7 @@ function isFileDownloadUrl(u) {
             'downloads.sourceforge.net', 'master.dl.sourceforge.net',
             'files.freeciv.org', 'dl.xonotic.org', 'cdn.jsdelivr.net',
             'download.apkpure.com', 'd.apkpure.com'];
-        if (fileHosts.includes(host) || host.endsWith('.dl.sourceforge.net')) return true;
+        if (fileHosts.includes(host) || host.endsWith('.dl.sourceforge.net') || host.endsWith('.supabase.co')) return true;
         // gtagarage: download.php كيعيد التوجيه لملف وكيخدمو مباشرة
         if (host === 'www.gtagarage.com' && s.includes('/mods/download.php')) return true;
     } catch (e) { /* رابط غير صالح — يتعامل معاملة رابط صفحة */ }

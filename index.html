@@ -2453,7 +2453,7 @@ window.addEventListener('resize', () => {
     clearTimeout(stripResizeTimer);
     stripResizeTimer = setTimeout(updateStripArrows, 150);
 });
-// v28 — إعادة حساب أسهم الشرائط عند تحميل صور المعرض (عرض الصورة يبقى 0 حتى تُحمَّل، فيُحسب الشريط خطأً أنه بلا تمرير)
+// v29 — إعادة حساب أسهم الشرائط عند تحميل صور المعرض (عرض الصورة يبقى 0 حتى تُحمَّل، فيُحسب الشريط خطأً أنه بلا تمرير)
 document.addEventListener('load', (e) => {
     const t = e.target;
     if (t && t.tagName === 'IMG' && t.closest && t.closest('.row-strip-wrap')) requestAnimationFrame(updateStripArrows);
@@ -3242,8 +3242,11 @@ function enhanceDownloadRobustness(box, item, type) {
         ? item.extra_downloads.filter(f => f && f.url && (f.kind === 'mirror' || f.type === 'mirror') && /^https?:\/\/\S+$/i.test(String(f.url).trim()))
         : [];
     const validPrimary = !!(item.download_url && /^https?:\/\/\S+$/i.test(String(item.download_url).trim()));
+    // v30 — إلا كان كاين ملف مباشر في الملفات الإضافية (بحال أجزاء Superheroes في Supabase) فالتحميل موجود أصلاً: بلا شارة حمراء وبلا زر معطّل
+    const hasDirectExtra = Array.isArray(item.extra_downloads) && item.extra_downloads.some(f => f && f.url && f.kind !== 'external' && f.type !== 'external' && f.kind !== 'mirror' && f.type !== 'mirror' && isFileDownloadUrl(f.url));
 
     if (item.status === 'available' && !validPrimary) {
+        if (hasDirectExtra) { zone.innerHTML = ''; return; }
         if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
         activeDownload = null;
         const mirrorButtons = mirrors.map((m, idx) => `<button type="button" class="btn btn-primary btn-sm btn-block btn-backup-dl" onclick="triggerBackupDownload(this.dataset.url)" data-url="${esc(m.url)}"><i class="fa-solid fa-cloud-arrow-down"></i> ${esc(m.label || (t('dl.backupBtn') + (mirrors.length > 1 ? ' #' + (idx + 1) : '')))}</button>`).join('');

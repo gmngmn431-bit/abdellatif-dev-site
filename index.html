@@ -1711,6 +1711,17 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
         <div id="homeModsGta"></div>
       </div>
 
+      <div class="section" id="seriesSection">
+        <div class="section-head">
+          <div class="sh-text">
+            <span class="eyebrow" data-i18n="sec.seriesEyebrow">Series</span>
+            <h2 class="section-title"><i class="fa-solid fa-layer-group ico"></i> <span data-i18n="sec.series">السلاسل المميزة</span></h2>
+          </div>
+        </div>
+        <p class="section-sub" data-i18n="sec.seriesSub">أشهر سلاسل الألعاب المتاحة على الموقع — اختر سلسلتك المفضلة لاستعراض كل ألعابها.</p>
+        <div class="cards-grid" id="homeSeries" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
+      </div>
+
       <div class="section">
         <div class="section-head">
           <div class="sh-text">
@@ -1823,6 +1834,31 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
         </div>
         <div id="modsNotice"></div>
         <div id="modsList"></div>
+      </div>
+    </section>
+
+    <!-- السلاسل -->
+    <section id="view-series" class="view" style="display:none;">
+      <div class="section">
+        <div class="page-head">
+          <span class="eyebrow" data-i18n="series.eyebrow">Series</span>
+          <h2 class="section-title">
+            <i class="series-title-icon ico"></i>
+            <span class="series-title-text"></span>
+            <span class="series-count" style="font-size:0.6em;color:var(--text-dim);margin-inline-start:6px;"></span>
+          </h2>
+          <p class="section-sub" data-i18n="series.sub">تصفح جميع ألعاب وإصدارات ومودات هذه السلسلة في مكان واحد.</p>
+        </div>
+        <div class="split-tools">
+          <div class="search-box has-clear">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="seriesSearch" placeholder="ابحث في السلسلة..." data-i18n-placeholder="series.searchPh" oninput="onSeriesSearch(this.value)">
+            <button type="button" class="hero-search-clear series-search-clear" onclick="clearSeriesSearch()" aria-label="مسح البحث"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <button class="filter-btn series-fav" onclick="toggleSeriesFav()" title="المفضلة"><i class="fa-solid fa-heart"></i> <span data-i18n="fav.favorites">المفضلة</span> <span class="fav-count">(0)</span></button>
+          <div class="layout-wrap"><button class="filter-btn layout-btn" onclick="toggleLayoutMenu(event)" title="تخطيط البطاقات" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-table-cells-large"></i></button><div class="layout-menu" hidden><button class="layout-opt" data-cols="1" onclick="setLayout(1)">1 في السطر</button><button class="layout-opt" data-cols="2" onclick="setLayout(2)">شبكة 2</button><button class="layout-opt" data-cols="3" onclick="setLayout(3)">شبكة 3</button><button class="layout-opt" data-cols="4" onclick="setLayout(4)">شبكة 4</button></div></div>
+        </div>
+        <div class="series-list" id="seriesList"></div>
       </div>
     </section>
 
@@ -2365,7 +2401,7 @@ function parseHash() {
 function showView(id) {
     ['view-home', 'view-games', 'view-apps', 'view-mods', 'view-dev', 'view-news',
      'view-about', 'view-request', 'view-detail', 'view-loading', 'view-error', 'view-notfound',
-     'view-phone', 'view-pc', 'view-library', 'view-contact', 'view-store'
+     'view-phone', 'view-pc', 'view-library', 'view-contact', 'view-store', 'view-series'
     ].forEach(v => {
         const el = document.getElementById(v);
         if (el) el.style.display = v === id ? 'block' : 'none';
@@ -2415,6 +2451,17 @@ async function route() {
             setActiveNav('mods');
             renderModsList();
             showView('view-mods');
+        }
+    }
+    else if (page === 'series') {
+        let seg = '';
+        try { seg = decodeURIComponent(parts[1] || ''); } catch (e) { seg = parts[1] || ''; }
+        if (seg && SERIES[seg]) {
+            setActiveNav('');
+            renderSeriesList(seg);
+        } else {
+            setActiveNav('');
+            showView('view-notfound');
         }
     }
     else if (page === 'store') { renderStore(parts[1]); }
@@ -2922,6 +2969,26 @@ function renderHome() {
         if (hmm) hmm.innerHTML = emptyState('fa-solid fa-puzzle-piece', t('empty.modsTitle'), t('empty.modsText'));
         if (hgm) hgm.innerHTML = '';
     }
+    const hs = document.getElementById('homeSeries');
+    if (hs) {
+        hs.innerHTML = Object.entries(SERIES).map(([k, s]) => {
+            const count = seriesOf(k).length;
+            return `
+            <article class="card series-card" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;">
+                  <span class="logo-icon" style="border-radius:16px;width:48px;height:48px;font-size:1.3rem;"><i class="fa-solid ${s.icon}"></i></span>
+                  <span class="chip" style="color:var(--mint);font-weight:700;"><i class="fa-solid fa-gamepad"></i> ${count}</span>
+                </div>
+                <h3 class="card-title" style="font-size:1.25rem;margin-bottom:6px;">${esc(t(s.labelKey))}</h3>
+                <p class="card-desc" style="-webkit-line-clamp:2;">${esc(t(s.descKey))}</p>
+              </div>
+              <div class="card-foot" style="margin-top:auto;">
+                <a href="#/series/${k}" class="btn btn-secondary btn-block btn-sm"><i class="fa-solid fa-compass"></i> ${t('series.explore')}</a>
+              </div>
+            </article>`;
+        }).join('');
+    }
     const hp = document.getElementById('homeProjects');
     if (hp) hp.innerHTML = gridOrEmpty(projects.slice(0, 3),
         projects.slice(0, 3).map(p => projectCard(p)).join(''),
@@ -3116,6 +3183,36 @@ function titleHas(item, names) {
     const title = String(item.title || '').toLowerCase();
     return names.some(n => title.includes(n.toLowerCase()));
 }
+
+const SERIES = {
+    naruto: {
+        slug: 'naruto',
+        labelKey: 'series.naruto',
+        descKey: 'series.naruto.desc',
+        icon: 'fa-bolt',
+        keywords: ['naruto']
+    },
+    gta: {
+        slug: 'gta',
+        labelKey: 'series.gta',
+        descKey: 'series.gta.desc',
+        icon: 'fa-car',
+        keywords: ['gta', 'grand theft auto']
+    },
+    'free-fire': {
+        slug: 'free-fire',
+        labelKey: 'series.freeFire',
+        descKey: 'series.freeFire.desc',
+        icon: 'fa-fire',
+        keywords: ['free fire']
+    }
+};
+function seriesOf(key) {
+    const s = SERIES[key];
+    if (!s) return [];
+    return games.filter(g => titleHas(g, s.keywords));
+}
+
 function gtaFamilyOf(item) {
     if (titleHas(item, GTA_V_MODS)) return 'v';
     return 'sa';
@@ -3192,6 +3289,68 @@ function renderModsList() {
             : emptyState('fa-solid fa-box-open', t('empty.noResults'), t('empty.noResultsText')));
 }
 window.toggleModsFav = function() { modsFavOnly = !modsFavOnly; renderModsList(); };
+
+let seriesFavOnly = false;
+let seriesSearchQ = '';
+let seriesSearchRaw = '';
+
+function renderSeriesList(slug) {
+    const s = SERIES[slug];
+    if (!s) { showView('view-notfound'); return; }
+    const root = document.getElementById('view-series');
+    if (!root) return;
+
+    const allGames = seriesOf(slug);
+    const q = normAr(seriesSearchQ);
+    let list = allGames.filter(g => matchesQuery(g, q));
+    if (seriesFavOnly) list = list.filter(g => isFavorite('game', g.id));
+
+    const titleEl = root.querySelector('.series-title-text');
+    if (titleEl) titleEl.textContent = t(s.labelKey);
+    const iconEl = root.querySelector('.series-title-icon');
+    if (iconEl) iconEl.className = 'series-title-icon fa-solid ' + s.icon + ' ico';
+    const countEl = root.querySelector('.series-count');
+    if (countEl) countEl.textContent = `(${allGames.length})`;
+
+    root.querySelectorAll('.series-fav').forEach(b => b.classList.toggle('active', seriesFavOnly));
+    root.querySelectorAll('.series-search-clear').forEach(b => {
+        b.style.display = seriesSearchRaw.trim() ? 'grid' : 'none';
+    });
+
+    const listBox = root.querySelector('.series-list') || document.getElementById('seriesList');
+    if (listBox) {
+        listBox.innerHTML = list.length
+            ? vgridHtml(list.map(g => itemCard(g, 'game')).join(''))
+            : (seriesFavOnly
+                ? emptyState('fa-regular fa-heart', t('fav.emptyTitle'), t('fav.empty'))
+                : (seriesSearchQ
+                    ? emptyState('fa-solid fa-magnifying-glass', t('empty.noResults'), t('empty.noResultsText'))
+                    : emptyState('fa-solid fa-box-open', 'لا توجد ألعاب', 'لا توجد عناصر في هذه السلسلة حالياً.')));
+    }
+    showView('view-series');
+}
+
+window.onSeriesSearch = function(v) {
+    seriesSearchRaw = String(v || '');
+    seriesSearchQ = seriesSearchRaw.trim().toLowerCase();
+    const p = parseHash();
+    if (p[0] === 'series' && p[1]) renderSeriesList(p[1]);
+};
+
+window.clearSeriesSearch = function() {
+    seriesSearchRaw = '';
+    seriesSearchQ = '';
+    const inp = document.getElementById('seriesSearch');
+    if (inp) { inp.value = ''; inp.focus(); }
+    const p = parseHash();
+    if (p[0] === 'series' && p[1]) renderSeriesList(p[1]);
+};
+
+window.toggleSeriesFav = function() {
+    seriesFavOnly = !seriesFavOnly;
+    const p = parseHash();
+    if (p[0] === 'series' && p[1]) renderSeriesList(p[1]);
+};
 
 function projectCard(p) {
     const progress = (p.progress === null || p.progress === undefined) ? null : Number(p.progress);

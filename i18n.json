@@ -257,7 +257,20 @@
     "store.tab.official-apps": "التطبيقات الرسمية",
     "store.tab.official-games": "الألعاب الرسمية",
     "store.title": "متجر أندرويد",
-    "store.viewSource": "صفحة المصدر"
+    "store.viewSource": "صفحة المصدر",
+    "sec.seriesEyebrow": "Series",
+    "sec.series": "السلاسل المميزة",
+    "sec.seriesSub": "أشهر سلاسل الألعاب المتاحة على الموقع — اختر سلسلتك المفضلة لاستعراض كل ألعابها.",
+    "series.eyebrow": "سلسلة ألعاب",
+    "series.sub": "تصفح جميع ألعاب وإصدارات ومودات هذه السلسلة في مكان واحد.",
+    "series.searchPh": "ابحث في السلسلة...",
+    "series.explore": "استكشف السلسلة",
+    "series.naruto": "سلسلة Naruto",
+    "series.naruto.desc": "جميع ألعاب ناروتو شيبودن وسلسلة Storm والمودات المتاحة للهاتف والحاسوب.",
+    "series.gta": "سلسلة GTA",
+    "series.gta.desc": "ألعاب Grand Theft Auto الكلاسيكية والحديثة ومودات San Andreas و GTA V.",
+    "series.freeFire": "سلسلة Free Fire",
+    "series.freeFire.desc": "لعبة فري فاير الرسمية وحزم المودات والنسخ الكلاسيكية القديمة."
   },
   "en": {
     "about.accounts": "My accounts",
@@ -517,7 +530,20 @@
     "store.tab.official-apps": "Official Apps",
     "store.tab.official-games": "Official Games",
     "store.title": "Android Store",
-    "store.viewSource": "Source page"
+    "store.viewSource": "Source page",
+    "sec.seriesEyebrow": "Series",
+    "sec.series": "Featured Series",
+    "sec.seriesSub": "The most popular game series on our site — pick your favorite series to explore all its games.",
+    "series.eyebrow": "Game Series",
+    "series.sub": "Browse all games, editions, and mods of this series in one place.",
+    "series.searchPh": "Search within this series...",
+    "series.explore": "Explore Series",
+    "series.naruto": "Naruto Series",
+    "series.naruto.desc": "All Naruto Shippuden, Ultimate Ninja Storm games, and mods for mobile and PC.",
+    "series.gta": "GTA Series",
+    "series.gta.desc": "Classic and modern Grand Theft Auto games, plus San Andreas and GTA V mods.",
+    "series.freeFire": "Free Fire Series",
+    "series.freeFire.desc": "Official Free Fire game, mod packs, and legacy versions."
   },
   "fr": {
     "about.accounts": "Mes comptes",
@@ -777,6 +803,19 @@
     "store.tab.official-apps": "Apps officielles",
     "store.tab.official-games": "Jeux officiels",
     "store.title": "Boutique Android",
-    "store.viewSource": "Page source"
+    "store.viewSource": "Page source",
+    "sec.seriesEyebrow": "Series",
+    "sec.series": "Séries à la une",
+    "sec.seriesSub": "Les séries de jeux les plus populaires du site — choisissez votre série préférée pour explorer tous ses jeux.",
+    "series.eyebrow": "Série de jeux",
+    "series.sub": "Parcourez tous les jeux, éditions et mods de cette série en un seul endroit.",
+    "series.searchPh": "Rechercher dans cette série...",
+    "series.explore": "Explorer la série",
+    "series.naruto": "Série Naruto",
+    "series.naruto.desc": "Tous les jeux Naruto Shippuden et Ultimate Ninja Storm, et les mods pour mobile et PC.",
+    "series.gta": "Série GTA",
+    "series.gta.desc": "Jeux Grand Theft Auto classiques et modernes, et mods de San Andreas et GTA V.",
+    "series.freeFire": "Série Free Fire",
+    "series.freeFire.desc": "Jeu officiel Free Fire, packs de mods et anciennes versions."
   }
 }

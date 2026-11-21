@@ -2517,7 +2517,7 @@ function itemCard(item, type) {
         <h3 class="card-title">${esc(item.title)}</h3>
         <p class="card-desc">${esc(item.short_desc || '')}</p>
         <div class="card-meta">
-          ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> v${esc(item.version)}</span>` : ''}
+          ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> v${esc(String(item.version).replace(/^v+/i, ''))}</span>` : ''}
           <span><i class="fa-solid fa-calendar"></i> ${fmtDate(item.created_at)}</span>
         </div>
         <div class="card-foot">
@@ -2559,7 +2559,7 @@ function rowCard(item, type) {
         ${onlineChipHtml(item)}
       </span>
       <span class="row-title">${esc(item.title)}</span>
-      ${item.version ? `<span class="row-ver">v${esc(item.version)}</span>` : ''}
+      ${item.version ? `<span class="row-ver">v${esc(String(item.version).replace(/^v+/i, ''))}</span>` : ''}
       <span class="row-desc">${esc(item.short_desc || '')}</span>
       <span class="row-dl"><i class="fa-solid fa-download"></i> ${dl}</span>
     </a>`;
@@ -2589,7 +2589,7 @@ function trendingCard(item, type, rank) {
         ${favBtnHtml(type, item.id)}
       </span>
       <span class="row-title">${esc(item.title)}</span>
-      ${item.version ? `<span class="row-ver">v${esc(item.version)}</span>` : ''}
+      ${item.version ? `<span class="row-ver">v${esc(String(item.version).replace(/^v+/i, ''))}</span>` : ''}
       <span class="row-desc">${esc(item.short_desc || '')}</span>
       <span class="row-dl"><i class="fa-solid fa-download"></i> ${dl}</span>
     </a>`;
@@ -3129,8 +3129,8 @@ function renderModsList() {
     if (!gamesBox || !typesBox || !box) return;
     const [, gameKey, typeRaw] = parseHash();
     const g = MOD_GAMES[gameKey] || null;
-    let type = null;
-    try { type = typeRaw ? decodeURIComponent(typeRaw) : null; } catch (e) { type = null; }
+    let type = 'all';
+    try { type = typeRaw ? decodeURIComponent(typeRaw) : 'all'; } catch (e) { type = 'all'; }
     const rawQ = (document.getElementById('modsSearch')?.value || '').trim();
     const q = normAr(rawQ);
     const clr = document.getElementById('modsSearchClear');
@@ -3955,7 +3955,7 @@ function storeCard(item, type) {
         <p class="card-desc">${esc(item.short_desc || '')}</p>
         <div class="card-meta">
           ${item.size ? `<span><i class="fa-solid fa-hard-drive"></i> ${esc(item.size)}</span>` : ''}
-          ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> v${esc(item.version)}</span>` : ''}
+          ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> v${esc(String(item.version).replace(/^v+/i, ''))}</span>` : ''}
         </div>
         <div class="card-foot">${actions}</div>
       </div>

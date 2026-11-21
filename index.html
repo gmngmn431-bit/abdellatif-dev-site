@@ -2057,7 +2057,11 @@ function optimizeCoverUrl(url) {
     if (!url || typeof url !== 'string') return url;
     let u = url.trim();
     if (u.includes('googleusercontent.com')) {
-        u = u.replace(/=w\d+.*|=s\d+.*/, '=s512');
+        u = u.replace(/=w\d+.*|=s\d+.*/, '=s1024');
+    } else if (u.includes('apkports.com')) {
+        u = u.replace('-320.webp', '-640.webp');
+    } else if (u.includes('image.winudf.com')) {
+        u = u.replace(/([?&]w=)512(?=[&#]|$)/, '$11024');
     }
     return u;
 }

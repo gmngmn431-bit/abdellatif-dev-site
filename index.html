@@ -1377,13 +1377,19 @@ window.clearModsSearch = function() {
 
 async function loadAll() {
     dataError = null;
+    const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Network timeout: 15s exceeded')), 15000);
+    });
     try {
-        const [s, g, a, p, n] = await Promise.all([
-            window.supabaseClient.from('site_settings').select('*'),
-            window.supabaseClient.from('games').select('*').order('created_at', { ascending: false }),
-            window.supabaseClient.from('apps').select('*').order('created_at', { ascending: false }),
-            window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false }),
-            window.supabaseClient.from('news').select('*').order('published_at', { ascending: false })
+        const [s, g, a, p, n] = await Promise.race([
+            Promise.all([
+                window.supabaseClient.from('site_settings').select('*'),
+                window.supabaseClient.from('games').select('*').order('created_at', { ascending: false }),
+                window.supabaseClient.from('apps').select('*').order('created_at', { ascending: false }),
+                window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false }),
+                window.supabaseClient.from('news').select('*').order('published_at', { ascending: false })
+            ]),
+            timeoutPromise
         ]);
         if (s.error) throw s.error;
         if (g.error) throw g.error;
@@ -1402,6 +1408,9 @@ async function loadAll() {
         console.error('loadAll error:', err);
         dataError = err.message || 'خطأ غير معروف';
         dataLoaded = false;
+        const msg = document.getElementById('errorMsg');
+        if (msg) msg.textContent = t('common.loadErrorPrefix') + dataError;
+        showView('view-error');
     }
 }
 
@@ -2359,27 +2368,86 @@ function renderAbout() {
 
 let lightboxImages = [];
 let lightboxIdx = 0;
+let attemptedLightboxIndices = new Set();
+
+function showLightboxToast(msg) {
+    let toast = document.getElementById('lb-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'lb-toast';
+        toast.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#16161E;color:#56F59B;padding:8px 18px;border-radius:20px;font-size:13px;z-index:999999;border:1px solid #1E6BFF;box-shadow:0 4px 15px rgba(0,0,0,0.6);transition:opacity 0.3s;pointer-events:none;';
+        document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    setTimeout(() => { toast.style.opacity = '0'; }, 2200);
+}
+
 window.openLightbox = function(imgs, idx) {
     lightboxImages = Array.isArray(imgs) ? imgs.filter(Boolean) : [];
     if (!lightboxImages.length) return;
+    attemptedLightboxIndices.clear();
     lightboxIdx = Math.max(0, Math.min(idx || 0, lightboxImages.length - 1));
-    updateLightbox();
     const modal = document.getElementById('imgLightbox');
     if (modal) modal.hidden = false;
+    updateLightbox();
 };
+
 window.closeLightbox = function() {
     const modal = document.getElementById('imgLightbox');
     if (modal) modal.hidden = true;
+    attemptedLightboxIndices.clear();
 };
+
 window.stepLightbox = function(delta) {
     if (!lightboxImages.length) return;
+    attemptedLightboxIndices.clear();
     lightboxIdx = (lightboxIdx + delta + lightboxImages.length) % lightboxImages.length;
     updateLightbox();
 };
+
 function updateLightbox() {
     const img = document.getElementById('lightboxImg');
     const ctr = document.getElementById('lightboxCounter');
-    if (img) img.src = lightboxImages[lightboxIdx];
+
+    if (!img || !lightboxImages || !lightboxImages.length) {
+        closeLightbox();
+        return;
+    }
+
+    if (attemptedLightboxIndices.size >= lightboxImages.length) {
+        closeLightbox();
+        showLightboxToast('الصورة غير متوفرة');
+        attemptedLightboxIndices.clear();
+        return;
+    }
+
+    attemptedLightboxIndices.add(lightboxIdx);
+    img.style.visibility = 'hidden';
+
+    img.onload = function() {
+        img.style.visibility = 'visible';
+        attemptedLightboxIndices.clear();
+    };
+
+    img.onerror = function() {
+        img.onerror = null;
+        img.onload = null;
+        const failedIdx = lightboxIdx;
+        lightboxImages.splice(failedIdx, 1);
+
+        if (!lightboxImages.length) {
+            closeLightbox();
+            showLightboxToast('الصورة غير متوفرة');
+            attemptedLightboxIndices.clear();
+            return;
+        }
+
+        lightboxIdx = failedIdx % lightboxImages.length;
+        updateLightbox();
+    };
+
+    img.src = lightboxImages[lightboxIdx];
     if (ctr) ctr.textContent = `${lightboxIdx + 1} / ${lightboxImages.length}`;
 }
 
@@ -2467,9 +2535,13 @@ function renderModDetailEnhancements(box, item, type, isModRoute) {
 
     const galleryImgs = Array.from(box.querySelectorAll('.gallery img'));
     if (galleryImgs.length) {
-        const srcs = galleryImgs.map(img => img.getAttribute('src')).filter(Boolean);
-        galleryImgs.forEach((img, idx) => {
-            img.onclick = (ev) => { ev.preventDefault(); openLightbox(srcs, idx); };
+        galleryImgs.forEach((img) => {
+            img.onclick = (ev) => {
+                ev.preventDefault();
+                const liveImgs = Array.from(box.querySelectorAll('.gallery img')).map(i => i.getAttribute('src')).filter(Boolean);
+                const curSrc = img.getAttribute('src');
+                openLightbox(liveImgs, liveImgs.indexOf(curSrc));
+            };
         });
     }
 }
@@ -2681,7 +2753,7 @@ function renderItemDetail(box, item, type) {
     </div>
 
     ${shots.length ? `<div class="detail-block"><h2><i class="fa-solid fa-images"></i> ${type === 'game' ? t('detail.shotsGame') : t('detail.shotsApp')}</h2>
-      <div class="gallery-wrap row-strip-wrap"><div class="gallery row-strip" id="detailGallery">${shots.map((s, idx) => `<img src="${esc(s)}" alt="screenshot" loading="lazy" decoding="async" onclick="openLightbox(${esc(JSON.stringify(shots))}, ${idx})" onerror="this.remove()">`).join('')}</div><button type="button" class="strip-next" aria-label="المزيد" onclick="scrollStrip(this)"><i class="fa-solid fa-chevron-left"></i></button></div></div>` : ''}
+      <div class="gallery-wrap row-strip-wrap"><div class="gallery row-strip" id="detailGallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" decoding="async" onclick="openLightbox(shots, shots.indexOf('${esc(s)}'))" onerror="const i = shots.indexOf('${esc(s)}'); if (i > -1) shots.splice(i, 1); this.remove();">`).join('')}</div><button type="button" class="strip-next" aria-label="المزيد" onclick="scrollStrip(this)"><i class="fa-solid fa-chevron-left"></i></button></div></div>` : ''}
 
     ${videoHtml(item.video_url)}
 
@@ -3090,6 +3162,19 @@ try {
     }
 } catch (e) {}
 
+window.addEventListener('hashchange', function() {
+    if (typeof closeLightbox === 'function') {
+        closeLightbox();
+    }
+});
+
+window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+        if (typeof closeLightbox === 'function') {
+            closeLightbox();
+        }
+    }
+});
 </script>
 </body>
 </html>

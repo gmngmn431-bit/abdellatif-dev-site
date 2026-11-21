@@ -14,10 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
 /* ============================================================
-   Abdellatif Dev — Design System v2 · "Aurora Glass"
-   هوية بصرية كاملة: أسود حبري + أخضر نعناعي/ليموني + ذهبي،
-   زجاج شفاف (glassmorphism) فوق شفق متحرك، ونقش زليج مغربي خفيف.
-   خطوط: IBM Plex Sans Arabic + Alexandria/Sora + JetBrains Mono
+   Abdellatif Dev — Design System v2 · "Aurora Glass" (Admin)
    ============================================================ */
 
 :root {
@@ -66,16 +63,12 @@
   --f-display: 'Sora', 'Alexandria', 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, system-ui, sans-serif;
   --f-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* ---- توافق مع الأنماط القديمة ---- */
   --text: var(--ink);
   --text-gray: var(--ink-2);
   --text-dim: var(--ink-3);
   --violet-light: var(--mint);
   --cyan: var(--gold);
 }
-
-@property --ang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
-@property --p { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
@@ -91,9 +84,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
-  scrollbar-width: thin;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -102,15 +92,10 @@ button { font-family: inherit; cursor: pointer; }
 input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1rem; }
 ::selection { background: var(--mint); color: #04110a; }
 :focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.16); border-radius: 99px; border: 2px solid transparent; background-clip: padding-box; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .latin { font-family: var(--f-mono); font-size: 0.9em; direction: ltr; unicode-bidi: embed; color: var(--mint); }
 
-/* ============================================================
-   الخلفية: شفق متحرك + نقش + حبيبات
-   ============================================================ */
 .aurora {
   position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none;
   background: radial-gradient(90% 60% at 50% 0%, #0a1b18 0%, rgba(5, 7, 10, 0) 70%), var(--bg);
@@ -119,28 +104,11 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 .aurora i:nth-child(1) { width: 72vmax; height: 72vmax; top: -34vmax; right: -24vmax; background: radial-gradient(closest-side, rgba(86, 245, 155, 0.30), rgba(86, 245, 155, 0)); }
 .aurora i:nth-child(2) { width: 64vmax; height: 64vmax; bottom: -32vmax; left: -22vmax; background: radial-gradient(closest-side, rgba(90, 169, 255, 0.25), rgba(90, 169, 255, 0)); }
 .aurora i:nth-child(3) { width: 50vmax; height: 50vmax; top: 36%; left: 26%; background: radial-gradient(closest-side, rgba(255, 193, 77, 0.13), rgba(255, 193, 77, 0)); }
-.aurora::after {
-  content: ''; position: absolute; inset: 0; opacity: 0.055;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  .aurora i { will-change: transform; }
-  .aurora i:nth-child(1) { animation: drift1 30s ease-in-out infinite alternate; }
-  .aurora i:nth-child(2) { animation: drift2 36s ease-in-out infinite alternate; }
-  .aurora i:nth-child(3) { animation: drift3 26s ease-in-out infinite alternate; }
-}
-@keyframes drift1 { to { transform: translate3d(-10vmax, 8vmax, 0) scale(1.1); } }
-@keyframes drift2 { to { transform: translate3d(12vmax, -7vmax, 0) scale(1.08); } }
-@keyframes drift3 { to { transform: translate3d(-8vmax, -6vmax, 0) scale(1.25); } }
 
-/* نقش زليج */
 :root {
   --zellige: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88' fill='none' stroke='%23ffffff' stroke-width='1' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='6'/%3E%3Cpath d='M0 0l9 9M88 0l-9 9M0 88l9-9M88 88l-9-9M44 0v8M44 80v8M0 44h8M80 44h8'/%3E%3C/svg%3E");
 }
 
-/* ============================================================
-   الزجاج — وصفة موحّدة
-   ============================================================ */
 .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state,
 .login-card, .modal-dialog, .table-responsive, .footer-content, .alert-info,
 .alert-danger, .alert-success {
@@ -155,9 +123,6 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   .login-card, .modal-dialog, .table-responsive, .footer-content { background: rgba(17, 25, 28, 0.94); }
 }
 
-/* ============================================================
-   الوضع الفاتح (Light theme)
-   ============================================================ */
 [data-theme="light"] {
   color-scheme: light;
   --bg: #ffffff;
@@ -184,32 +149,17 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
   --line: rgba(0, 64, 32, 0.14);
   --line-hi: rgba(0, 64, 32, 0.30);
   --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 24px 50px -30px rgba(0, 64, 32, 0.28);
-  --blur: blur(10px) saturate(150%);
-  --zellige: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88' fill='none' stroke='%23004020' stroke-width='1' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='6'/%3E%3Cpath d='M0 0l9 9M88 0l-9 9M0 88l9-9M88 88l-9-9M44 0v8M44 80v8M0 44h8M80 44h8'/%3E%3C/svg%3E");
 }
 [data-theme="light"] .aurora { background: radial-gradient(90% 60% at 50% 0%, #b0f0d0 0%, rgba(255, 255, 255, 0) 70%), var(--bg); }
-[data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(86, 245, 155, 0.25), rgba(86, 245, 155, 0)); }
-[data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 168, 98, 0.18), rgba(0, 168, 98, 0)); }
-[data-theme="light"] .aurora i:nth-child(3) { background: radial-gradient(closest-side, rgba(0, 122, 77, 0.12), rgba(0, 122, 77, 0)); }
-[data-theme="light"] .aurora::after { opacity: 0.04; }
 [data-theme="light"] .alert-info { color: #004d1f; }
 [data-theme="light"] .alert-success { color: #007a4d; }
 [data-theme="light"] .alert-danger { color: #8f1d13; }
 [data-theme="light"] .form-group select option { background: #ffffff; }
 [data-theme="light"] .form-group input, [data-theme="light"] .form-group select, [data-theme="light"] .form-group textarea { background: rgba(0, 64, 32, 0.05); }
 [data-theme="light"] .form-group input[type='datetime-local'] { color-scheme: light; }
-[data-theme="light"] .check-line input[type='checkbox'] { background: rgba(0, 64, 32, 0.12); }
-[data-theme="light"] body { scrollbar-color: rgba(0, 64, 32, 0.3) transparent; }
-[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0, 64, 32, 0.25); }
-
 [data-theme="light"] .btn.btn-primary { background: linear-gradient(135deg, #56f59b 0%, #bafe5b 100%); color: #04110a; }
-[data-theme="light"] .btn-primary:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
 
-body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
-
-/* ============================================================
-   الأزرار
-   ============================================================ */
+/* الأزرار */
 .btn {
   position: relative; isolation: isolate; overflow: hidden;
   display: inline-flex; align-items: center; justify-content: center; gap: 9px;
@@ -218,17 +168,11 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), background 0.3s, border-color 0.3s, color 0.3s;
 }
 .btn i { font-size: 0.95em; }
-.btn::after {
-  content: ''; position: absolute; inset: 0; z-index: -1; transform: translateX(120%) skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent); transition: transform 0.7s var(--ease);
-}
-.btn:hover::after { transform: translateX(-120%) skewX(-18deg); }
 .btn-primary {
   background: var(--grad); color: #04110a;
   box-shadow: 0 10px 34px -10px rgba(86, 245, 155, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.55);
 }
 .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 44px -10px rgba(86, 245, 155, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
-.btn-primary:active { transform: translateY(0) scale(0.98); }
 .btn-secondary {
   background: var(--glass-flat); border-color: var(--line); color: var(--ink);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
@@ -242,11 +186,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .btn-sm { height: 40px; padding: 0 18px; font-size: 0.86rem; gap: 7px; }
 .btn-block { width: 100%; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none; }
-.btn:disabled::after { display: none; }
 
-/* ============================================================
-   شارات الحالة
-   ============================================================ */
+/* شارات الحالة */
 .status-badge, .badge-published, .badge-draft, .badge-platform, .badge-online, .badge-offline, .badge-android-mod, .badge-pc-mod, .badge-no-dl, .badge-dead-link, .badge-live-link {
   display: inline-flex; align-items: center; gap: 7px; padding: 3px 12px 3px 11px; border-radius: 999px;
   font-size: 0.76rem; font-weight: 600; line-height: 1.7; border: 1px solid transparent;
@@ -261,31 +202,25 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .badge-offline { background: rgba(255, 255, 255, 0.06); color: var(--ink-3); border-color: rgba(255, 255, 255, 0.14); }
 .badge-no-dl, .badge-dead-link { background: var(--danger-a); color: var(--danger); border-color: rgba(255, 144, 144, 0.38); }
 
-/* ============================================================
-   رسائل وتنبيهات
-   ============================================================ */
+/* رسائل وتنبيهات */
 .alert-info, .alert-danger, .alert-success {
   position: relative; border-radius: var(--r-md); padding: 14px 18px; font-weight: 500; font-size: 0.93rem; line-height: 1.8;
 }
 .alert-info { color: #cfeee3; border-color: rgba(86, 245, 155, 0.3); background: linear-gradient(155deg, rgba(86, 245, 155, 0.14), rgba(86, 245, 155, 0.04)); }
 .alert-success { color: #d6ffe8; border-color: rgba(86, 245, 155, 0.38); background: linear-gradient(155deg, rgba(86, 245, 155, 0.18), rgba(86, 245, 155, 0.05)); }
 .alert-danger { color: #ffd4d4; border-color: rgba(255, 144, 144, 0.38); background: linear-gradient(155deg, rgba(255, 144, 144, 0.16), rgba(255, 144, 144, 0.04)); }
-.alert-info i { color: var(--mint); margin-inline-end: 6px; }
 
 .empty-state { text-align: center; padding: 56px 24px; border-radius: var(--r-lg); border-style: dashed; border-color: var(--line-hi); color: var(--ink-2); }
 .empty-state .big {
   width: 84px; height: 84px; margin: 0 auto 16px; display: grid; place-items: center; font-size: 2.4rem; border-radius: 28px;
   background: radial-gradient(circle at 30% 20%, rgba(86, 245, 155, 0.3), rgba(255, 255, 255, 0.04) 70%); border: 1px solid var(--line);
-  box-shadow: 0 0 50px -10px rgba(86, 245, 155, 0.45);
 }
 .empty-state h3 { color: var(--ink); font-family: var(--f-display); font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
 
 .loading-box { text-align: center; padding: 60px 0 28px; color: var(--ink-2); font-weight: 500; }
-.loading-box i { font-size: 1.9rem; color: var(--mint); margin-bottom: 14px; filter: drop-shadow(0 0 14px rgba(86, 245, 155, 0.7)); }
+.loading-box i { font-size: 1.9rem; color: var(--mint); margin-bottom: 14px; }
 
-/* ============================================================
-   النماذج
-   ============================================================ */
+/* النماذج */
 .form-group { margin-bottom: 18px; }
 .form-group label { display: block; font-weight: 600; font-size: 0.88rem; margin-bottom: 8px; color: var(--ink-2); }
 .form-group label i { color: var(--mint); margin-inline-end: 6px; }
@@ -293,16 +228,8 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   width: 100%; min-height: 52px; padding: 13px 18px; font-size: 0.96rem; line-height: 1.6; outline: none;
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); border-radius: var(--r-md);
   box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
 }
 .form-group textarea { resize: vertical; min-height: 96px; }
-.form-group textarea, .form-group input[type='text'], .form-group input[type='url'], .form-group input[type='email'] { unicode-bidi: plaintext; text-align: start; }
-.form-group input::placeholder, .form-group textarea::placeholder { color: var(--ink-3); opacity: 0.75; }
-.form-group input:hover, .form-group select:hover, .form-group textarea:hover { border-color: var(--line-hi); }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: var(--mint); background: rgba(86, 245, 155, 0.05);
-  box-shadow: 0 0 0 4px rgba(86, 245, 155, 0.14), inset 0 2px 10px rgba(0, 0, 0, 0.2);
-}
 .form-group select {
   appearance: none; -webkit-appearance: none; padding-inline-end: 18px; padding-left: 46px; cursor: pointer;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none' stroke='%2356f59b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l6 6 6-6'/%3E%3C/svg%3E");
@@ -314,14 +241,13 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
   margin-inline-end: 14px; padding: 8px 18px; border: 0; border-radius: 999px; cursor: pointer;
   background: var(--grad); color: #04110a; font-family: inherit; font-weight: 600; font-size: 0.85rem;
 }
-.form-group input[type='datetime-local'] { color-scheme: dark; direction: ltr; text-align: right; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 
 .check-line { display: flex; align-items: center; gap: 14px; cursor: pointer; font-weight: 600; font-size: 0.93rem; color: var(--ink); line-height: 1.6; }
 .form-group .check-line input[type='checkbox'] {
   appearance: none; -webkit-appearance: none; flex: none; width: 50px; min-height: 28px; height: 28px; padding: 0; margin: 0; cursor: pointer;
   position: relative; border-radius: 999px; background: rgba(255, 255, 255, 0.1); border: 1px solid var(--line-hi);
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35); transition: background 0.3s, border-color 0.3s;
+  transition: background 0.3s, border-color 0.3s;
 }
 .form-group .check-line input[type='checkbox']::before {
   content: ''; position: absolute; top: 3px; inset-inline-start: 3px; width: 20px; height: 20px; border-radius: 50%;
@@ -329,33 +255,26 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 }
 .form-group .check-line input[type='checkbox']:checked { background: var(--grad); border-color: transparent; }
 .form-group .check-line input[type='checkbox']:checked::before { inset-inline-start: 25px; background: #04110a; }
-.form-group .check-line input[type='checkbox']:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
 
 .search-box { position: relative; margin-bottom: 18px; }
 .search-box input {
   width: 100%; height: 56px; padding: 0 20px; padding-inline-start: 56px; font-size: 0.98rem; outline: none; border-radius: 999px;
   background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
   -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  transition: border-color 0.25s, box-shadow 0.25s;
 }
-.search-box input::placeholder { color: var(--ink-3); }
-.search-box input:focus { border-color: var(--mint); box-shadow: 0 0 0 4px rgba(86, 245, 155, 0.14), var(--glass-shadow); }
 .search-icon { position: absolute; top: 50%; transform: translateY(-50%); inset-inline-start: 22px; color: var(--mint); pointer-events: none; z-index: 1; }
 
 .filter-chips {
   display: inline-flex; gap: 4px; flex-wrap: wrap; padding: 5px; margin-bottom: 26px; border-radius: 999px; max-width: 100%;
-  background: var(--glass-flat); border: 1px solid var(--line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: var(--glass-flat); border: 1px solid var(--line);
 }
 .filter-btn {
   height: 40px; padding: 0 20px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2);
-  font-weight: 600; font-size: 0.88rem; transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+  font-weight: 600; font-size: 0.88rem; transition: background 0.3s, color 0.3s;
 }
 .filter-btn:hover { color: var(--ink); background: var(--glass-flat); }
 .filter-btn.active { background: var(--grad); color: #04110a; box-shadow: 0 6px 22px -8px rgba(86, 245, 155, 0.7); }
 
-/* ============================================================
-   الشعار والحركات
-   ============================================================ */
 .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 1.18rem; cursor: pointer; }
 .logo-icon {
   position: relative; flex: none; width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center;
@@ -365,21 +284,11 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .logo .brand-latin { font-family: var(--f-display); font-weight: 700; direction: ltr; letter-spacing: -0.01em; white-space: nowrap; }
 .logo .brand-latin b { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800; }
 
-@keyframes rise { from { opacity: 0; transform: translateY(26px) scale(0.985); } }
-@keyframes viewIn { from { opacity: 0; transform: translateY(18px); } }
-
-/* ============================================================
-   لوحة الإدارة — الهيكل والشريط الجانبي
-   ============================================================ */
+/* شاشة تسجيل الدخول والهيكل الإداري */
 .admin-login-screen { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; padding: 20px; }
 .login-card { position: relative; overflow: hidden; width: 100%; max-width: 450px; padding: 40px 32px 30px; border-radius: var(--r-xl); background: var(--glass-bg-strong); border-color: var(--line-hi); }
-.login-card::before {
-  content: ''; position: absolute; inset-block-start: -110px; inset-inline-end: -110px; width: 320px; height: 320px; opacity: 0.12; pointer-events: none;
-  background-image: var(--zellige); background-size: 80px; -webkit-mask-image: radial-gradient(closest-side, #000, transparent); mask-image: radial-gradient(closest-side, #000, transparent);
-}
-.login-card > * { position: relative; }
 .login-card .logo { flex-direction: column; justify-content: center; gap: 16px; margin-bottom: 8px; text-align: center; cursor: default; font-size: 1.3rem; }
-.login-card .logo-icon { width: 72px; height: 72px; border-radius: 24px; font-size: 1.8rem; box-shadow: 0 0 60px -6px rgba(86, 245, 155, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+.login-card .logo-icon { width: 72px; height: 72px; border-radius: 24px; font-size: 1.8rem; }
 .login-subtitle { text-align: center; color: var(--ink-2); font-size: 0.93rem; margin-bottom: 26px; }
 
 .admin-shell { display: grid; grid-template-columns: 276px minmax(0, 1fr); gap: 26px; max-width: 1500px; margin: 0 auto; padding: 20px; align-items: start; }
@@ -402,11 +311,11 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .admin-tabs { display: flex; flex-direction: column; gap: 6px; margin: 0; }
 .tab-btn {
   display: flex; align-items: center; gap: 12px; height: 50px; padding: 0 12px; border-radius: 16px; border: 1px solid transparent; background: transparent;
-  color: var(--ink-2); font-weight: 500; font-size: 0.92rem; text-align: start; transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  color: var(--ink-2); font-weight: 500; font-size: 0.92rem; text-align: start; transition: background 0.3s, color 0.3s;
 }
-.tab-btn i { flex: none; width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; font-size: 0.9rem; background: var(--glass-flat); color: var(--mint); transition: background 0.3s, color 0.3s; }
+.tab-btn i { flex: none; width: 34px; height: 34px; border-radius: 12px; display: grid; place-items: center; font-size: 0.9rem; background: var(--glass-flat); color: var(--mint); }
 .tab-btn:hover { color: var(--ink); background: var(--glass-flat); }
-.tab-btn.active { background: var(--grad); color: #04110a; font-weight: 600; box-shadow: 0 10px 30px -12px rgba(86, 245, 155, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.55); }
+.tab-btn.active { background: var(--grad); color: #04110a; font-weight: 600; box-shadow: 0 10px 30px -12px rgba(86, 245, 155, 0.8); }
 .tab-btn.active i { background: rgba(3, 20, 13, 0.14); color: #04110a; }
 
 .admin-main { min-width: 0; padding-bottom: 40px; }
@@ -415,48 +324,46 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .admin-top p { color: var(--ink-2); margin-top: 6px; max-width: 60ch; }
 .admin-top .eyebrow { margin-bottom: 10px; font-family: var(--f-mono); font-size: 0.74rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mint); direction: ltr; display: inline-flex; align-items: center; gap: 10px; }
 
-/* ---------- الإحصائيات ---------- */
+/* الإحصائيات */
 .stats-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-bottom: 36px; }
 .stat-card {
   position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; padding: 20px 20px 18px; border-radius: var(--r-lg);
-  background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: var(--blur); backdrop-filter: var(--blur);
-  transition: transform 0.45s var(--ease), border-color 0.3s;
+  background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow);
 }
-.stat-card::after { content: ''; position: absolute; inset-block-start: -40px; inset-inline-end: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(closest-side, var(--tint, rgba(86, 245, 155, 0.28)), transparent); pointer-events: none; }
-.stat-card:hover { transform: translateY(-4px); border-color: var(--line-hi); }
 .stat-card i { width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; font-size: 1.05rem; margin-bottom: 14px; color: var(--c, var(--mint)); background: var(--cbg, var(--mint-a)); border: 1px solid var(--cbd, rgba(86, 245, 155, 0.28)); }
-.stat-card h3 { font-family: var(--f-display); font-size: clamp(1.7rem, 2.6vw, 2.3rem); font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.stat-card span { color: var(--ink-2); font-size: 0.84rem; font-weight: 500; line-height: 1.5; }
-.stat-card:nth-child(2) { --c: var(--sky); --cbg: var(--sky-a); --cbd: rgba(90, 169, 255, 0.3); --tint: rgba(90, 169, 255, 0.28); }
-.stat-card:nth-child(3) { --c: var(--gold); --cbg: var(--gold-a); --cbd: rgba(255, 193, 77, 0.3); --tint: rgba(255, 193, 77, 0.24); }
-.stat-card:nth-child(4) { --c: var(--lime); --cbg: rgba(186, 254, 91, 0.12); --cbd: rgba(186, 254, 91, 0.3); --tint: rgba(186, 254, 91, 0.2); }
-.stat-card:nth-child(5) { --c: #fff; --cbg: rgba(255, 255, 255, 0.09); --cbd: var(--line-hi); --tint: rgba(255, 255, 255, 0.14); }
+.stat-card h3 { font-family: var(--f-display); font-size: clamp(1.7rem, 2.6vw, 2.3rem); font-weight: 800; line-height: 1.15; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.stat-card span { color: var(--ink-2); font-size: 0.84rem; font-weight: 500; }
+.stat-card:nth-child(2) { --c: var(--sky); --cbg: var(--sky-a); --cbd: rgba(90, 169, 255, 0.3); }
+.stat-card:nth-child(3) { --c: var(--gold); --cbg: var(--gold-a); --cbd: rgba(255, 193, 77, 0.3); }
+.stat-card:nth-child(4) { --c: var(--lime); --cbg: rgba(186, 254, 91, 0.12); --cbd: rgba(186, 254, 91, 0.3); }
+.stat-card:nth-child(5) { --c: #fff; --cbg: rgba(255, 255, 255, 0.09); --cbd: var(--line-hi); }
 
-/* ---------- التبويبات والجداول ---------- */
+/* الجداول والأيقونات المربعة 1:1 */
 .admin-tab-content { display: none; }
-.admin-tab-content.active { display: block; animation: viewIn 0.5s var(--ease) backwards; }
+.admin-tab-content.active { display: block; }
 .tab-header { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; flex-wrap: wrap; }
 .tab-header h3 { font-family: var(--f-display); font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 14px; }
-.tab-header h3::before { content: ''; width: 6px; height: 28px; border-radius: 6px; background: var(--grad); box-shadow: 0 0 18px rgba(86, 245, 155, 0.6); }
+.tab-header h3::before { content: ''; width: 6px; height: 28px; border-radius: 6px; background: var(--grad); }
 .tab-header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
 .table-responsive { overflow-x: auto; border-radius: var(--r-lg); }
 .data-table { width: 100%; border-collapse: collapse; min-width: 720px; }
 .data-table th, .data-table td { padding: 14px 18px; text-align: start; vertical-align: middle; border-bottom: 1px solid var(--line); }
 .data-table th { color: var(--ink-3); font-size: 0.78rem; font-weight: 600; background: rgba(255, 255, 255, 0.035); white-space: nowrap; }
-.data-table tbody tr { transition: background 0.25s; }
 .data-table tbody tr:hover { background: rgba(255, 255, 255, 0.045); }
 .data-table tr:last-child td { border-bottom: none; }
-.data-table td strong { font-family: var(--f-display); font-weight: 700; font-size: 0.98rem; }
-.data-table td small { display: inline-block; margin-top: 4px; }
-.table-thumb, .table-thumb-emoji { width: 60px; height: 60px; border-radius: 16px; border: 1px solid var(--line-hi); }
-.table-thumb { object-fit: cover; }
-.table-thumb-emoji { display: grid; place-items: center; font-size: 1.7rem; background: radial-gradient(circle at 30% 20%, rgba(86, 245, 155, 0.3), transparent 60%), #0b1417; }
+
+/* الأيقونة مربعة 1:1 بجودة عالية (الإصلاح 3 و 9) */
+.table-thumb, .table-thumb-emoji {
+  width: 60px !important; height: 60px !important; aspect-ratio: 1 / 1 !important;
+  border-radius: 16px; border: 1px solid var(--line-hi);
+}
+.table-thumb { object-fit: cover; image-rendering: -webkit-optimize-contrast; }
+.table-thumb-emoji { display: grid; place-items: center; font-size: 1.7rem; background: #0b1417; }
 .row-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 .row-actions .btn { height: 38px; min-width: 38px; padding: 0 13px; font-size: 0.8rem; }
-.row-actions .btn:hover { transform: translateY(-2px); }
 
-/* ---------- Phase 5: أنماط فحص الروابط الميتة (Dead Link Checker) ---------- */
+/* فحص الروابط الميتة */
 .link-check-hero { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
 .link-stat-box { padding: 16px 18px; border-radius: var(--r-md); background: var(--glass-bg); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
 .link-stat-box .num { font-family: var(--f-display); font-size: 1.8rem; font-weight: 800; line-height: 1.2; }
@@ -470,11 +377,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .link-url-code { font-family: var(--f-mono); font-size: 0.78rem; direction: ltr; text-align: left; word-break: break-all; color: var(--ink-2); background: rgba(0, 0, 0, 0.25); padding: 4px 8px; border-radius: 6px; display: inline-block; max-width: 380px; }
 .test-link-box { padding: 16px; border-radius: var(--r-md); background: var(--glass-flat); border: 1px solid var(--line); margin-bottom: 20px; }
 
-/* ---------- Phase 5: أنماط فحص VirusTotal وطلبات الزوار ---------- */
-.vt-box { padding: 14px; border-radius: var(--r-md); background: var(--glass-flat); border: 1px solid var(--line); margin-top: 10px; }
-.vt-status-clean { color: var(--mint); font-weight: 700; }
-.vt-status-warn { color: var(--gold); font-weight: 700; }
-.vt-status-malicious { color: var(--danger); font-weight: 700; }
+/* طلبات الزوار */
 .req-item { padding: 18px 20px; border-radius: var(--r-lg); background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); margin-bottom: 12px; }
 .req-item h4 { font-family: var(--f-display); font-size: 1.05rem; font-weight: 700; }
 .req-meta { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; margin-top: 8px; color: var(--ink-2); font-size: 0.85rem; }
@@ -485,68 +388,23 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 .req-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
 .req-actions .btn { height: 38px; padding: 0 14px; font-size: 0.83rem; }
 
-/* ---------- متجاوب ---------- */
-@media (max-width: 1180px) { .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .link-check-hero { grid-template-columns: 1fr 1fr; } }
+.modal-backdrop { position: fixed; inset: 0; z-index: 1000; display: none; place-items: center; padding: 20px; background: rgba(0, 0, 0, 0.8); }
+.modal-backdrop.show { display: grid; }
+.modal-dialog { width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto; padding: 30px; border-radius: var(--r-xl); position: relative; }
+.modal-close { position: absolute; top: 20px; inset-inline-end: 20px; font-size: 1.5rem; background: none; border: 0; color: var(--ink-2); cursor: pointer; }
+.extra-dl-row { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr 1.5fr; gap: 8px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.03); padding: 8px; border-radius: 10px; }
+.extra-dl-url { display: flex; gap: 6px; align-items: center; }
+
 @media (max-width: 980px) {
-  .admin-shell { grid-template-columns: 1fr; gap: 18px; padding: 12px 14px 24px; }
-  .admin-side {
-    position: sticky; top: 10px; z-index: 60; height: auto; overflow: visible; gap: 8px 10px; padding: 10px 10px 8px; border-radius: 28px;
-    display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'logo actions' 'tabs tabs';
-    background: linear-gradient(155deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05)), rgba(8, 12, 15, 0.6);
-    -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%);
-  }
-  .admin-side .logo { grid-area: logo; font-size: 1rem; gap: 10px; padding-inline-start: 2px; }
-  .admin-side .brand-latin { flex-direction: row; align-items: baseline; gap: 6px; }
-  .admin-side .logo-icon { width: 38px; height: 38px; border-radius: 12px; }
-  .admin-word { display: none; }
-  .side-actions { grid-area: actions; margin-top: 0; flex-direction: row; gap: 8px; }
-  .side-actions .btn { width: 42px; height: 42px; padding: 0; border-radius: 50%; }
-  .side-actions .lbl { display: none; }
-  .side-user { display: none; }
-  .admin-tabs { grid-area: tabs; flex-direction: row; gap: 6px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-  .admin-tabs::-webkit-scrollbar { display: none; }
-  .tab-btn { flex: none; height: 44px; padding: 0 16px 0 14px; border-radius: 999px; white-space: nowrap; font-size: 0.88rem; background: var(--glass-flat); border-color: var(--line); gap: 10px; }
-  .tab-btn i { width: auto; height: auto; background: none !important; font-size: 0.9rem; }
-  .tab-btn.active i { color: #04110a; }
-  .admin-top { margin-top: 0; }
-  .admin-top p { display: none; }
-}
-@media (max-width: 720px) {
-  .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
-  .stats-grid .stat-card:last-child { grid-column: 1 / -1; }
-  .link-check-hero { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .tab-header { flex-direction: column; align-items: stretch; }
-  .tab-header .btn { width: 100%; }
-  .table-responsive { overflow: visible; background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
-  .data-table { min-width: 0; }
-  .data-table thead { display: none; }
-  .data-table, .data-table tbody { display: block; width: 100%; }
-  .data-table tbody tr {
-    display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 2px 14px; padding: 14px; margin-bottom: 12px; border-radius: var(--r-lg);
-    background: var(--glass-bg); border: 1px solid var(--line); box-shadow: var(--glass-shadow); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  }
-  .data-table td { display: block; padding: 0; border: 0; min-width: 0; }
-  .data-table td:nth-child(1) { grid-row: 1 / span 3; }
-  .data-table td:nth-child(2) { grid-column: 2; }
-  .data-table td:nth-child(3), .data-table td:nth-child(4) { grid-column: 2; font-size: 0.84rem; color: var(--ink-2); }
-  .data-table td:nth-child(3)::before, .data-table td:nth-child(4)::before { content: attr(data-label) ': '; color: var(--ink-3); font-size: 0.78rem; }
-  .data-table td:nth-child(5) { grid-column: 1 / -1; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); }
-  .data-table td:nth-child(5)::before { display: none; }
-  .data-table td[colspan] { grid-column: 1 / -1; grid-row: auto; }
-  .row-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .row-actions .btn { width: 100%; min-width: 0; padding: 0 6px; }
-}
-@media (max-width: 640px) {
-  .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input, .filter-chips { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-  .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .footer-content, .admin-side, .stat-card, .search-box input { background: var(--glass-solid); }
-  .aurora i { animation: none !important; }
+  .admin-shell { grid-template-columns: 1fr; }
+  .admin-side { position: relative; height: auto; top: 0; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
 }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-  <!-- خلفية الشفق الزجاجية -->
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 
   <!-- شاشة الدخول -->
@@ -559,8 +417,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
       <p class="login-subtitle">لوحة تحكم خاصة بصاحب الموقع فقط</p>
       <div id="setupNoticeAdmin" class="alert-info" style="display:none;margin-bottom:14px;">
         <i class="fa-solid fa-circle-info"></i>
-        لم تُضبط مفاتيح Supabase بعد — ضع رابط المشروع ومفتاح anon في
-        <span class="latin" dir="ltr">supabase-client.js</span> (الشرح في README.md).
+        لم تُضبط مفاتيح Supabase بعد.
       </div>
       <form id="loginForm" onsubmit="handleAdminLogin(event)">
         <div class="form-group">
@@ -598,7 +455,6 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           <span id="userEmailTag"><i class="fa-solid fa-user-shield"></i> أدمن</span>
         </div>
 
-        <!-- التبويبات الرئيسية (شاملة فحص الروابط الميتة - Phase 5) -->
         <nav class="admin-tabs">
           <button class="tab-btn active" data-tab="gamesTab" onclick="switchAdminTab('gamesTab')"><i class="fa-solid fa-gamepad"></i> الألعاب</button>
           <button class="tab-btn" data-tab="appsTab" onclick="switchAdminTab('appsTab')"><i class="fa-solid fa-mobile-screen"></i> التطبيقات</button>
@@ -629,7 +485,6 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           <p>تحكّم بكل محتوى المتجر والموقع من مكان واحد — مراجعة دورية، فحص الروابط، وفحص الأمان.</p>
         </div>
 
-        <!-- إحصائيات عامة -->
         <div class="stats-grid">
           <div class="stat-card"><i class="fa-solid fa-gamepad"></i><h3 id="statGames">0</h3><span>الألعاب</span></div>
           <div class="stat-card"><i class="fa-solid fa-mobile-screen"></i><h3 id="statApps">0</h3><span>التطبيقات</span></div>
@@ -752,7 +607,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </table></div>
         </div>
 
-        <!-- تبويب المودات (Android Mods / PC Mods) -->
+        <!-- تبويب المودات -->
         <div id="modsTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>إدارة المودات (Android Mods / PC Mods)</h3>
@@ -760,10 +615,6 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
               <button class="btn btn-primary" onclick="openForm('androidMods')"><i class="fa-solid fa-mobile-screen-button"></i> إضافة مود Android</button>
               <button class="btn btn-secondary" onclick="openForm('pcMods')"><i class="fa-solid fa-desktop"></i> إضافة مود PC فقط</button>
             </div>
-          </div>
-          <div class="alert-info" style="margin-bottom:14px;">
-            <i class="fa-solid fa-shield-halved"></i>
-            تنبيه البنية التحتية: مودات <b>PC Mods</b> مفصولة تلقائياً ولا تظهر في قسم Android Mods. لا يمكن نشر أي عنصر (<span class="latin">is_published = true</span>) بدون رابط تحميل مباشر صالح في حقل <span class="latin">download_url</span> — المسودات فقط تبقى <span class="latin">is_published = false</span>.
           </div>
           <div class="filter-chips" id="modsEnvFilter">
             <button type="button" class="filter-btn active" data-env="all" onclick="setAdminModsEnv('all')">الكل (<span id="modsCountAll">0</span>)</button>
@@ -779,7 +630,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </table></div>
         </div>
 
-        <!-- Phase 5: تبويب فحص الروابط الميتة (Dead Link Checker) -->
+        <!-- فحص الروابط الميتة -->
         <div id="linksTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>فحص الروابط الميتة (Dead Link Checker)</h3>
@@ -789,75 +640,41 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
             </div>
           </div>
 
-          <div class="alert-info" style="margin-bottom:18px;">
-            <i class="fa-solid fa-circle-info"></i>
-            أداة فحص دورية تتحقق من كل رابط في <span class="latin">download_url</span> وكل رابط في <span class="latin">extra_downloads</span> (عبر طلبات HEAD/GET من المتصفح). الفحص لا يمس قاعدة البيانات إلا عند ضغط زر «إخفاء العنصر» صراحة من الأدمن.
-          </div>
-
-          <!-- أداة اختبار رابط تجريبي -->
           <div id="testLinkBox" class="test-link-box" style="display:none;">
-            <h4 style="font-family:var(--f-display);margin-bottom:10px;font-size:1.02rem;"><i class="fa-solid fa-vial" style="color:var(--mint);"></i> تجربة فحص رابط ميت أو نشط</h4>
+            <h4 style="font-family:var(--f-display);margin-bottom:10px;font-size:1.02rem;"><i class="fa-solid fa-vial" style="color:var(--mint);"></i> تجربة فحص رابط</h4>
             <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <input type="url" id="testLinkInput" placeholder="أدخل رابطاً للتجربة (مثال: https://httpstat.us/404 أو رابط ملف مباشر)" style="flex:1;min-width:260px;" value="https://httpstat.us/404">
+              <input type="url" id="testLinkInput" placeholder="أدخل رابطاً للتجربة" style="flex:1;min-width:260px;" value="https://httpstat.us/404">
               <button type="button" class="btn btn-primary btn-sm" onclick="runSingleLinkTest()"><i class="fa-solid fa-stethoscope"></i> فحص هذا الرابط</button>
             </div>
             <div id="testLinkResult" style="margin-top:12px;display:none;"></div>
           </div>
 
-          <!-- شريط الإحصائيات الفورية -->
           <div class="link-check-hero">
-            <div class="link-stat-box total">
-              <span class="num" id="linkTotalCount">0</span>
-              <span class="lbl"><i class="fa-solid fa-link"></i> إجمالي الروابط</span>
-            </div>
-            <div class="link-stat-box live">
-              <span class="num" id="linkLiveCount">0</span>
-              <span class="lbl"><i class="fa-solid fa-circle-check"></i> روابط تعمل</span>
-            </div>
-            <div class="link-stat-box dead">
-              <span class="num" id="linkDeadCount">0</span>
-              <span class="lbl"><i class="fa-solid fa-triangle-exclamation"></i> روابط ميتة / متعطلة</span>
-            </div>
-            <div class="link-stat-box status">
-              <span class="num" id="linkStatusText">جاهز للفحص</span>
-              <span class="lbl"><i class="fa-solid fa-clock"></i> الحالة الحالية</span>
-            </div>
+            <div class="link-stat-box total"><span class="num" id="linkTotalCount">0</span><span class="lbl"><i class="fa-solid fa-link"></i> إجمالي الروابط</span></div>
+            <div class="link-stat-box live"><span class="num" id="linkLiveCount">0</span><span class="lbl"><i class="fa-solid fa-circle-check"></i> روابط تعمل</span></div>
+            <div class="link-stat-box dead"><span class="num" id="linkDeadCount">0</span><span class="lbl"><i class="fa-solid fa-triangle-exclamation"></i> روابط متعطلة</span></div>
+            <div class="link-stat-box status"><span class="num" id="linkStatusText">جاهز للفحص</span><span class="lbl"><i class="fa-solid fa-clock"></i> الحالة الحالية</span></div>
           </div>
 
-          <!-- شريط التقدم أثناء الفحص -->
           <div id="linkProgressBarWrap" style="display:none;">
             <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--ink-2);margin-bottom:6px;">
               <span id="linkProgressLabel">جاري الفحص...</span>
               <span id="linkProgressPercent" class="latin">0%</span>
             </div>
-            <div class="progress-bar-wrap">
-              <div id="linkProgressBarFill" class="progress-bar-fill"></div>
-            </div>
-          </div>
-
-          <!-- جدول النتائج والروابط الميتة -->
-          <div class="tab-header" style="margin-top:10px;">
-            <h4 style="font-family:var(--f-display);font-size:1.15rem;font-weight:700;"><i class="fa-solid fa-list-check" style="color:var(--mint)"></i> قائمة الروابط المتعطلة والميتة</h4>
-            <span id="deadLinksTableCount" style="color:var(--ink-2);font-size:0.88rem;font-weight:600;"></span>
+            <div class="progress-bar-wrap"><div id="linkProgressBarFill" class="progress-bar-fill"></div></div>
           </div>
 
           <div class="table-responsive">
             <table class="data-table" id="deadLinksTable">
-              <thead>
-                <tr>
-                  <th>العنصر</th>
-                  <th>الرابط المفحوص</th>
-                  <th>نوع الرابط</th>
-                  <th>رمز الخطأ والسبب</th>
-                  <th>الإجراءات</th>
-                </tr>
-              </thead>
+              <thead><tr><th>العنصر</th><th>الرابط المفحوص</th><th>نوع الرابط</th><th>رمز الخطأ والسبب</th><th>الإجراءات</th></tr></thead>
               <tbody id="deadLinksTableBody">
                 <tr><td colspan="5" style="text-align:center;color:var(--ink-3);padding:24px;">اضغط على «فحص جميع الروابط الآن» لبدء فحص شامل لجميع روابط المتجر.</td></tr>
               </tbody>
             </table>
           </div>
-        </div> <!-- نهاية linksTab -->        <!-- تبويب المشاريع -->
+        </div>
+
+        <!-- المشاريع -->
         <div id="projectsTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>المشاريع قيد التطوير</h3>
@@ -872,7 +689,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </table></div>
         </div>
 
-        <!-- تبويب الأخبار -->
+        <!-- الأخبار -->
         <div id="newsTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>الأخبار والمستجدات</h3>
@@ -887,7 +704,7 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </table></div>
         </div>
 
-        <!-- تبويب الطلبات (Phase 5: الحالات الأربع وإمكانية التغيير بضغطة واحدة) -->
+        <!-- الطلبات -->
         <div id="requestsTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>طلبات الزوار («اطلب»)</h3>
@@ -903,13 +720,13 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </div>
 
           <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchRequests" placeholder="ابحث برقم الطلب أو اسم اللعبة/التطبيق أو اسم الزائر..." oninput="renderRequests()">
+            <input type="text" id="searchRequests" placeholder="ابحث برقم الطلب أو اسم اللعبة/التطبيق..." oninput="renderRequests()">
           </div>
 
           <div id="requestsList" class="req-list"></div>
         </div>
 
-        <!-- تبويب رسائل الزوار -->
+        <!-- الرسائل -->
         <div id="messagesTab" class="admin-tab-content">
           <div class="tab-header">
             <h3>رسائل الزوار</h3>
@@ -921,17 +738,12 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
           </table></div>
         </div>
 
-        <!-- تبويب الإعدادات (شامل نقطة تكامل VirusTotal API - Phase 5) -->
+        <!-- الإعدادات -->
         <div id="settingsTab" class="admin-tab-content">
           <div class="tab-header"><h3>إعدادات الموقع وفحص الأمان</h3></div>
           <form onsubmit="handleSaveSettings(event)">
-            <!-- إعدادات فحص الأمان VirusTotal -->
             <div class="about-card" style="margin-bottom:16px;">
               <h3 style="margin-bottom:14px;"><i class="fa-solid fa-shield-virus" style="color:var(--mint)"></i> إعدادات فحص الأمان (VirusTotal API)</h3>
-              <p style="color:var(--ink-2);font-size:0.9rem;margin-bottom:12px;">
-                أدخل مفتاح VirusTotal API لتفعيل فحص الأمان المباشر لملفات التحميل من داخل اللوحة. يُسجل المفتاح في إعدادات اللوحة وفي المتصفح، ولا يُسجل في الكود. 
-                <b>بدون المفتاح، يبقى زر الفحص معطلاً إجبارياً لمنع أي فبركة.</b>
-              </p>
               <div class="form-group">
                 <label><i class="fa-solid fa-key"></i> مفتاح VirusTotal API Key</label>
                 <div style="display:flex;gap:8px;align-items:center;">
@@ -942,18 +754,16 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
               </div>
             </div>
 
-            <!-- إعدادات Hero -->
             <div class="about-card" style="margin-bottom:16px;">
-              <h3 style="margin-bottom:14px;"><i class="fa-solid fa-star" style="color:var(--mint)"></i> قسم Hero (الصفحة الرئيسية)</h3>
+              <h3 style="margin-bottom:14px;"><i class="fa-solid fa-star" style="color:var(--mint)"></i> قسم Hero</h3>
               <div class="form-group"><label>الشارة العلوية (Badge)</label>
                 <input type="text" id="setHeroBadge" placeholder="مطور ألعاب وتطبيقات مستقل"></div>
               <div class="form-group"><label>العنوان الرئيسي</label>
                 <input type="text" id="setHeroTitle" placeholder="Abdellatif Dev"></div>
               <div class="form-group"><label>الوصف التعريفي</label>
-                <textarea id="setHeroSubtitle" rows="2" placeholder="عبارة قصيرة عن تطوير الألعاب والتطبيقات..."></textarea></div>
+                <textarea id="setHeroSubtitle" rows="2" placeholder="عبارة قصيرة..."></textarea></div>
             </div>
 
-            <!-- إعدادات عن المطور -->
             <div class="about-card" style="margin-bottom:16px;">
               <h3 style="margin-bottom:14px;"><i class="fa-solid fa-circle-user" style="color:var(--mint)"></i> صفحة «عن المطور»</h3>
               <div class="form-group"><label>الاسم</label>
@@ -961,15 +771,13 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
               <div class="form-group"><label>المسمى / العنوان</label>
                 <input type="text" id="setAboutTitle" placeholder="مطور ألعاب وتطبيقات مستقل"></div>
               <div class="form-group"><label>النبذة التعريفية</label>
-                <textarea id="setAboutBio" rows="4" placeholder="اكتب نبذة صادقة عن نفسك وعملك..."></textarea></div>
-              <div class="form-group"><label>التقنيات والأدوات (تقنية في كل سطر)</label>
-                <textarea id="setAboutTech" rows="4" placeholder="Unity&#10;C#&#10;تطوير ألعاب الموبايل"></textarea></div>
+                <textarea id="setAboutBio" rows="4"></textarea></div>
+              <div class="form-group"><label>التقنيات والأدوات</label>
+                <textarea id="setAboutTech" rows="4"></textarea></div>
             </div>
 
-            <!-- روابط التواصل الاجتماعي -->
             <div class="about-card" style="margin-bottom:16px;">
               <h3 style="margin-bottom:14px;"><i class="fa-solid fa-share-nodes" style="color:var(--mint)"></i> روابط التواصل الاجتماعي</h3>
-              <p style="color:var(--ink-2);font-size:0.9rem;margin-bottom:12px;">اترك أي حقل فارغاً إذا لم يكن لديك هذا الحساب — لن يظهر في الموقع.</p>
               <div class="form-row">
                 <div class="form-group"><label><i class="fa-brands fa-facebook"></i> فيسبوك</label>
                   <input type="url" id="setSocialFacebook" placeholder="https://www.facebook.com/..."></div>
@@ -991,9 +799,9 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
             </div>
 
             <button type="submit" class="btn btn-primary btn-block" id="saveSettingsBtn">
-              <i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات ومفتاح VirusTotal
+              <i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات
             </button>
-            <div id="settingsSaved" class="alert-success" style="display:none;margin-top:12px;">تم حفظ الإعدادات بنجاح — التغيير يظهر في المتجر مباشرة.</div>
+            <div id="settingsSaved" class="alert-success" style="display:none;margin-top:12px;">تم حفظ الإعدادات بنجاح.</div>
           </form>
         </div>
       </main>
@@ -1021,27 +829,27 @@ body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-
 
   <script src="supabase-client.js"></script>
   <script>
-// ============================================================
-// Abdellatif Dev — Admin Logic (Phase 5)
-// مراجعة دورية، فحص الروابط الميتة، تكامل VirusTotal، وإدارة طلبات الزوار
-// ============================================================
-
 function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 }
 
-// الوضع الفاتح والداكن
+function optimizeCoverUrl(url) {
+    if (!url || typeof url !== 'string') return url;
+    let u = url.trim();
+    if (u.includes('googleusercontent.com')) {
+        u = u.replace(/=w\d+.*|=s\d+.*/, '=s512');
+    }
+    return u;
+}
+
 const THEME_KEY = 'abdellatif-dev-theme';
 function applyTheme(theme) {
     const t = (theme === 'light' || theme === 'dark') ? theme : 'dark';
     document.documentElement.setAttribute('data-theme', t);
     document.querySelectorAll('[data-theme-icon]').forEach(ic => {
         ic.className = t === 'light' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
-    });
-    document.querySelectorAll('[data-theme-label]').forEach(lb => {
-        lb.textContent = t === 'light' ? 'الوضع الداكن' : 'الوضع الفاتح';
     });
     try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
 }
@@ -1077,18 +885,9 @@ const PLATFORM_LABELS = {
     'mod-gta-pc': 'PC Mod (للحاسوب فقط)'
 };
 const MOD_GENRES = [
-    'Total Conversion',
-    'New Worlds & Maps',
-    'Superheroes',
-    'Anime Mods',
-    'Free Fire & Other Games',
-    'Graphics & Realism',
-    'Cars & Vehicles',
-    'Weapons & Powers',
-    'Horror & Zombies',
-    'Characters & Skins',
-    'Huge Mod Packs',
-    'Other Mods'
+    'Total Conversion', 'New Worlds & Maps', 'Superheroes', 'Anime Mods', 'Free Fire & Other Games',
+    'Graphics & Realism', 'Cars & Vehicles', 'Weapons & Powers', 'Horror & Zombies', 'Characters & Skins',
+    'Huge Mod Packs', 'Other Mods'
 ];
 const ANDROID_MOD_PLATFORMS = [
     { value: 'mod-gta', label: 'GTA San Andreas — Android' },
@@ -1128,13 +927,9 @@ function isModRow(item) {
     return p === 'mod-gta' || p === 'mod-minecraft' || p === 'mod-pc' || p === 'mod-gta-pc';
 }
 function slugifyTitle(text) {
-    return String(text || '').toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '')
-        .slice(0, 70);
+    return String(text || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 70);
 }
 
-// فلاتر داخلية للألعاب والتطبيقات
 let gamesFilterMode = 'all';
 let appsFilterMode = 'all';
 window.setGamesFilter = function(mode) {
@@ -1172,13 +967,8 @@ const GAME_APP_FIELDS = (kind) => {
             : FIELD('platform', 'المنصة', 'select', { required: true, options: PLATFORM_OPTIONS, value: defaultPlatform }));
 
     const fields = [
-        FIELD('title', isDedicatedMod ? 'اسم المود' : (isModded ? 'اسم العنصر المعدل (MOD)' : (kind.includes('game') || kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق')), 'text', {
-            required: true,
-            placeholder: isAndroidMod ? 'مثال: PS2 to Mobile + Fixes (v63a)' : (isPcMod ? 'مثال: CLEO 4 (PC Only)' : 'مثال: اسم التطبيق أو اللعبة')
-        }),
-        FIELD('slug', isDedicatedMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري، أحرف لاتينية فقط', 'text', {
-            placeholder: isDedicatedMod ? 'ps2-to-mobile-fixes-v63a' : 'app-or-game-slug'
-        }),
+        FIELD('title', isDedicatedMod ? 'اسم المود' : (isModded ? 'اسم العنصر المعدل (MOD)' : (kind.includes('game') || kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق')), 'text', { required: true }),
+        FIELD('slug', isDedicatedMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري', 'text', {}),
         FIELD('category', 'التصنيف الأساسي (رسمية / مهكرة)', 'select', {
             required: true,
             options: [
@@ -1198,43 +988,27 @@ const GAME_APP_FIELDS = (kind) => {
 
     fields.push(
         FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
-        FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true, placeholder: isModded ? 'مثال: أموال لا نهائية + إزالة الإعلانات + كافة المراحل مفتوحة' : 'جملة واحدة تعرّف بالعنصر...' }),
-        FIELD('mod_features_info', 'ما الذي تم تعديله في هذه النسخة (MOD Features — سطر لكل تعديل، يُحفظ في features)', 'features', {
-            rows: 3,
-            placeholder: 'أموال ومجوهرات غير محدودة\nفتح كافة الشخصيات والأسلحة\nإزالة الإعلانات بالكامل\nميزة الحظر/الدرع مفعلة'
-        }),
-        FIELD('security_warning', 'تحذير الأمان (يُسجّل تلقائياً في بداية الوصف مع ⚠️)', 'textarea', {
-            rows: 2,
-            placeholder: 'مثال: النسخة آمنة ومفحوصة تماماً، يرجى تفعيل التثبيت من مصادر غير معروفة للـ APK.'
-        }),
-        FIELD('description', isDedicatedMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5, placeholder: 'اكتب وصفاً مفصلاً وميزات العنصر وكيفية التثبيت...' }),
-        FIELD('features', 'المميزات الإضافية العامة — ميزة في كل سطر', 'features', { rows: 3, placeholder: 'واجهة سريعة وخفيفة\nدعم أحدث إصدارات Android\nبدون روت' }),
-        FIELD('cover_url', 'صورة الغلاف / الأيقونة', 'image', { bucket: 'project-images' }),
-        FIELD('screenshots', 'لقطات الشاشة (Screenshots)', 'screenshots', { bucket: 'screenshots' }),
-        FIELD('version', 'رقم الإصدار', 'text', { placeholder: 'مثال: 1.0.0 أو v2.4.1' }),
-        FIELD('developer', isDedicatedMod ? 'المؤلف / الناشر والمصدر الأصلي' : 'المطور / الناشر', 'text', { placeholder: 'اسم المطور أو الاستوديو' }),
-        FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB أو 1.2 GB' }),
-        FIELD('video_url', 'رابط فيديو استعراض (يوتيوب) — اختياري', 'url', { placeholder: 'https://www.youtube.com/watch?v=...' }),
+        FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true }),
+        FIELD('mod_features_info', 'ما الذي تم تعديله في هذه النسخة (MOD Features — سطر لكل تعديل)', 'features', { rows: 3 }),
+        FIELD('description', isDedicatedMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5 }),
+        FIELD('features', 'المميزات الإضافية العامة — ميزة في كل سطر', 'features', { rows: 3 }),
+        FIELD('cover_url', 'صورة الغلاف / الأيقونة (مربعة 1:1 بجودة عالية)', 'image', { bucket: 'project-images' }),
+        FIELD('screenshots', 'لقطات الشاشة (Screenshots — حتى 4 صور)', 'screenshots', { bucket: 'screenshots' }),
+        FIELD('version', 'رقم الإصدار', 'text', { placeholder: 'مثال: 1.0.0' }),
+        FIELD('developer', 'المطور / الناشر', 'text', {}),
+        FIELD('size', 'الحجم', 'text', { placeholder: 'مثال: 150 MB' }),
+        FIELD('video_url', 'رابط فيديو استعراض (يوتيوب) — اختياري', 'url', {}),
         FIELD('status', 'الحالة', 'select', { options: STATUS_OPTIONS, value: 'available' }),
-        FIELD('download_url', 'رابط التحميل المباشر الأساسي (download_url) *', 'url', {
-            placeholder: 'https://... (رابط مباشر صالح للتحميل)'
-        }),
-        FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase ويملأ download_url', 'file', { bucket: 'app-files', accept: '.apk,.zip,.7z,.rar,.xapk' }),
-        FIELD('backup_download_url', 'رابط تحميل بديل / احتياطي (اختياري — يُحفظ في extra_downloads)', 'url', {
-            placeholder: 'https://... (رابط بديل إذا تعطل الأساسي)'
-        }),
+        FIELD('download_url', 'رابط التحميل المباشر الأساسي (download_url) *', 'url', {}),
+        FIELD('download_file', 'ملف التحميل (APK أو ZIP) — يُرفع إلى Supabase', 'file', { bucket: 'app-files', accept: '.apk,.zip,.7z,.rar,.xapk' }),
+        FIELD('backup_download_url', 'رابط تحميل بديل / احتياطي (اختياري)', 'url', {}),
         FIELD('extra_downloads', 'ملفات إضافية مطلوبة (OBB / Data / CLEO / AML / ModLoader)', 'extra_downloads', {}),
-        FIELD('requirements', isDedicatedMod ? 'إصدار GTA SA، توافق Android، والأدوات المطلوبة (CLEO/AML/ModLoader)' : 'متطلبات التشغيل (اختياري)', 'textarea', {
-            rows: 2,
-            placeholder: 'Android 8.0+، رام 2GB، مساحة 500MB...'
-        }),
-        FIELD('is_published', 'نشر فوراً على الموقع (مخفي كمسودة افتراضياً — يتطلب رابط تحميل مباشر صالح)', 'checkbox', { value: false })
+        FIELD('requirements', 'متطلبات التشغيل (اختياري)', 'textarea', { rows: 2 }),
+        FIELD('is_published', 'نشر فوراً على الموقع (مخفي كمسودة افتراضياً)', 'checkbox', { value: false })
     );
 
     if (!kind.includes('app') && kind !== 'apps' && kind !== 'officialApps' && kind !== 'moddedApps') {
-        fields.splice(fields.length - 1, 0, FIELD('download_page_url', 'رابط صفحة المصدر الأصلية الموثّق (للتوثيق والحقوق — لا يوجّه زر التحميل إليه)', 'url', {
-            placeholder: 'https://libertycity.net/... أو https://...'
-        }));
+        fields.splice(fields.length - 1, 0, FIELD('download_page_url', 'رابط صفحة المصدر الأصلية الموثّق', 'url', {}));
     }
 
     return fields;
@@ -1285,13 +1059,13 @@ const ENTITIES = {
         table: 'projects', label: 'مشروع', searchInput: 'searchProjects', tbody: 'projectsTableBody',
         preview: () => 'index.html#/dev',
         fields: [
-            FIELD('name', 'اسم المشروع', 'text', { required: true, placeholder: 'مثال: لعبة الكارطة المغربية' }),
+            FIELD('name', 'اسم المشروع', 'text', { required: true }),
             FIELD('image_url', 'صورة المشروع', 'image', { bucket: 'project-images' }),
             FIELD('description', 'وصف المشروع', 'textarea', { required: true, rows: 4 }),
-            FIELD('progress', 'نسبة التقدم % (اختياري — اتركه فارغاً لإخفاء الشريط)', 'number', { min: 0, max: 100, placeholder: '50' }),
-            FIELD('latest_update', 'آخر مستجد (اختياري)', 'textarea', { rows: 2, placeholder: 'مثال: تم الانتهاء من طور روندا...' }),
+            FIELD('progress', 'نسبة التقدم %', 'number', { min: 0, max: 100 }),
+            FIELD('latest_update', 'آخر مستجد', 'textarea', { rows: 2 }),
             FIELD('status', 'الحالة الحالية', 'text', { required: true, value: 'قيد التطوير' }),
-            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: false })
+            FIELD('is_published', 'نشر فوراً على الموقع', 'checkbox', { value: false })
         ]
     },
     news: {
@@ -1302,9 +1076,9 @@ const ENTITIES = {
             FIELD('cover_url', 'صورة الخبر', 'image', { bucket: 'project-images' }),
             FIELD('category', 'تصنيف الخبر', 'text', { required: true, value: 'أخبار' }),
             FIELD('content', 'محتوى الخبر', 'textarea', { required: true, rows: 6 }),
-            FIELD('external_url', 'رابط خارجي (اختياري)', 'url', { placeholder: 'https://...' }),
+            FIELD('external_url', 'رابط خارجي', 'url', {}),
             FIELD('published_at', 'تاريخ النشر', 'datetime', {}),
-            FIELD('is_published', 'نشر فوراً على الموقع (إلا أزلت العلامة يبقى مسودة)', 'checkbox', { value: false })
+            FIELD('is_published', 'نشر فوراً على الموقع', 'checkbox', { value: false })
         ]
     }
 };
@@ -1322,7 +1096,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     await initAuthCheck();
 });
 
-// ---------- المصادقة ----------
 async function initAuthCheck() {
     const user = await getCurrentUser();
     if (!user) { showLoginView(); return; }
@@ -1383,7 +1156,6 @@ window.handleLogout = async function() {
     location.reload();
 };
 
-// ---------- التبويبات ----------
 window.switchAdminTab = function(tabId) {
     const map = {
         appsOfficialTab: 'officialAppsTab',
@@ -1416,7 +1188,6 @@ window.switchAdminTab = function(tabId) {
     }
 };
 
-// ---------- تحميل البيانات ----------
 async function loadAllAdmin() {
     try {
         const [g, a, p, n] = await Promise.all([
@@ -1452,11 +1223,11 @@ async function loadAllAdmin() {
         console.error('loadAllAdmin error:', err);
         alert('تعذر جلب البيانات: ' + (err.message || 'خطأ غير معروف'));
     }
-}
-
-// ---------- عرض القوائم ----------
-function thumbHtml(url) {
-    if (url) return `<img src="${esc(url)}" class="table-thumb" alt="" onerror="this.outerHTML='<div class=&quot;table-thumb-emoji&quot;><i class=&quot;fa-solid fa-gamepad&quot;></i></div>'">`;
+}function thumbHtml(url) {
+    if (url) {
+        const highRes = optimizeCoverUrl(url);
+        return `<img src="${esc(highRes)}" class="table-thumb" alt="" onerror="this.outerHTML='<div class=&quot;table-thumb-emoji&quot;><i class=&quot;fa-solid fa-gamepad&quot;></i></div>'">`;
+    }
     return '<div class="table-thumb-emoji"><i class="fa-solid fa-gamepad"></i></div>';
 }
 function actionsHtml(entity, item) {
@@ -1484,10 +1255,9 @@ function canPublishItem(item) {
     return hasValidDownloadUrl(item) || hasValidExtraDownload(item);
 }
 
-// فحص مباشر لسلامة الرابط عبر fetch
 async function verifyLinkLive(url) {
     if (!url || !/^https?:\/\/\S+$/i.test(String(url).trim())) {
-        return { ok: false, error: 'الرابط غير صالح (يجب أن يبدأ بـ http:// أو https://)', status: 400 };
+        return { ok: false, error: 'الرابط غير صالح', status: 400 };
     }
     try {
         const ctrl = new AbortController();
@@ -1496,22 +1266,20 @@ async function verifyLinkLive(url) {
         try {
             res = await fetch(url, { method: 'HEAD', signal: ctrl.signal });
         } catch (headErr) {
-            // المحاولة بطريقة GET مع range 0-0 إذا كان الخادم يرفض HEAD
             res = await fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-0' }, signal: ctrl.signal }).catch(() => null);
         }
         clearTimeout(tid);
 
         if (!res) {
-            // محاولة أخيرة بـ no-cors للتحقق من وجود النطاق واستجابته
             const ctrlNoCors = new AbortController();
             const tid2 = setTimeout(() => ctrlNoCors.abort(), 4000);
             try {
                 await fetch(url, { method: 'GET', mode: 'no-cors', signal: ctrlNoCors.signal });
                 clearTimeout(tid2);
-                return { ok: true, status: 200, note: 'تم الوصول للمضيف بنجاح (Opaque)' };
+                return { ok: true, status: 200, note: 'تم الوصول للمضيف بنجاح' };
             } catch (errNoCors) {
                 clearTimeout(tid2);
-                return { ok: false, error: 'تعذر الوصول للمضيف أو انتهت مهلة الاتصال (Timeout / Network Error)', status: 0 };
+                return { ok: false, error: 'تعذر الوصول للمضيف', status: 0 };
             }
         }
 
@@ -1634,8 +1402,6 @@ window.renderAdminList = function(entity) {
                 </td>
                 <td data-label="الحالة">
                     ${esc(STATUS_LABELS[item.status] || item.status || '')}
-                    ${isModded && item.description && item.description.startsWith('⚠️') ? '<br><small style="color:var(--gold);">⚠️ به تحذير أمان</small>' : ''}
-                    ${item.description && item.description.includes('VirusTotal') ? '<br><small style="color:var(--mint);"><i class="fa-solid fa-shield-virus"></i> مفحوص بـ VirusTotal</small>' : ''}
                 </td>
                 <td data-label="التحميلات">${item.download_count || 0}</td>
                 <td data-label="الإجراءات">${actionsHtml(editEntity, item)}</td>`;
@@ -1701,7 +1467,7 @@ window.renderAdminMods = function() {
             <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
             <td data-label="المود والفئة"><strong>${esc(item.title)}</strong><br><small>${item.genre ? `<span class="badge-platform">${esc(item.genre)}</span>` : ''} ${item.slug ? `<span class="latin" style="font-size:0.75rem;">#/mods/${esc(item.slug)}</span>` : ''}</small></td>
             <td data-label="البيئة والحالة">${pc ? '<span class="badge-pc-mod">PC Mod (للحاسوب فقط)</span>' : '<span class="badge-android-mod">Android Mod</span>'}<br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} · ${esc(STATUS_LABELS[item.status] || item.status || '')}</small></td>
-            <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">الرابط جاهز</span>' : '<span class="badge-no-dl">بدون رابط تحميل (مسودة فقط)</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
+            <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">الرابط جاهز</span>' : '<span class="badge-no-dl">بدون رابط تحميل</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
             <td data-label="الإجراءات">${actionsHtml(modEntity, item)}</td>`;
         tbody.appendChild(tr);
     });
@@ -1718,21 +1484,23 @@ window.previewItem = function(entity, id) {
     const item = findAdminRecord(entity, id);
     const cfg = ENTITIES[entity] || ENTITIES.games;
     window.open(cfg.preview(id, item), '_blank');
-};window.togglePublish = async function(entity, id, currentlyPublished) {
+};
+
+window.togglePublish = async function(entity, id, currentlyPublished) {
     const cfg = ENTITIES[entity] || ENTITIES.games;
     const isDownloadable = cfg.table === 'games' || cfg.table === 'apps';
 
     if (!currentlyPublished && isDownloadable) {
         const item = findAdminRecord(entity, id);
         if (!canPublishItem(item)) {
-            alert('⚠️ لا يمكن نشر هذا العنصر (is_published = true)!\n\nيجب توفير رابط تحميل مباشر صالح في download_url أو ملف مباشر واحد على الأقل في الملفات الإضافية (extra_downloads).\n\nالمسودات فقط يمكن تركها بدون روابط تحميل.');
+            alert('⚠️ لا يمكن نشر هذا العنصر!\nيجب توفير رابط تحميل مباشر صالح في download_url أو ملف مباشر واحد على الأقل في الملفات الإضافية.');
             return;
         }
 
         if (item.download_url) {
             const check = await verifyLinkLive(item.download_url);
             if (!check.ok) {
-                alert(`⚠️ تعذر النشر: رابط التحميل يرجع خطأ وغير صالح (${check.error}). يُرجى تعديل الرابط أولاً.`);
+                alert(`⚠️ تعذر النشر: رابط التحميل يرجع خطأ وغير صالح (${check.error}).`);
                 return;
             }
         }
@@ -1752,10 +1520,6 @@ window.deleteItem = async function(entity, id) {
     loadAllAdmin();
 };
 
-// ============================================================
-// Phase 5: نظام فحص الروابط الميتة (Dead Link Checker)
-// فحص جميع الروابط الأساسية والإضافية عبر المتصفح (fetch)
-// ============================================================
 let deadLinksFound = [];
 let isLinkCheckRunning = false;
 
@@ -1996,10 +1760,6 @@ window.recheckSingleDeadLink = async function(deadIndex) {
     }
 };
 
-// ============================================================
-// Phase 5: نقطة تكامل فحص الأمان (VirusTotal API Check)
-// تخزين المفتاح في إعدادات اللوحة، وتعطيل الزر تلقائياً بغيابه
-// ============================================================
 function getVirusTotalApiKey() {
     let key = '';
     try { key = localStorage.getItem('vt_api_key') || ''; } catch (e) {}
@@ -2088,10 +1848,10 @@ window.runVirusTotalScan = async function() {
 
         if (malicious > 0) {
             verdictBadge = `<span class="badge-dead-link"><i class="fa-solid fa-bug"></i> خبيث / ضار (${malicious} محرك كشف)</span>`;
-            scanResultLine = `⚠️ فحص الأمان (VirusTotal): تم كشف تهديد بواسطة ${malicious} محركات كشف! يرجى مراجعة الرابط.`;
+            scanResultLine = `فحص الأمان (VirusTotal): تم كشف تهديد بواسطة ${malicious} محركات كشف! يرجى مراجعة الرابط.`;
         } else if (suspicious > 0) {
             verdictBadge = `<span class="badge-draft"><i class="fa-solid fa-triangle-exclamation"></i> مشبوه (${suspicious} محرك كشف)</span>`;
-            scanResultLine = `⚠️ فحص الأمان (VirusTotal): مشبوه بواسطة ${suspicious} محركات كشف.`;
+            scanResultLine = `فحص الأمان (VirusTotal): مشبوه بواسطة ${suspicious} محركات كشف.`;
         } else {
             verdictBadge = `<span class="badge-published"><i class="fa-solid fa-circle-check"></i> نظيف تماماً (0/${totalEngines} كشف ضار)</span>`;
             scanResultLine = `🛡️ فحص الأمان (VirusTotal): نظيف ومفحوص تماماً (0 كشف ضار من أصل ${totalEngines} محرك أمان).`;
@@ -2121,17 +1881,13 @@ window.applyVirusTotalScanResultToDesc = function(line) {
     if (!desc) return;
     const cur = desc.value.trim();
     if (cur.includes('VirusTotal')) {
-        desc.value = cur.replace(/🛡️ فحص الأمان \(VirusTotal\)[^\n\r]+|⚠️ فحص الأمان \(VirusTotal\)[^\n\r]+/g, line).trim();
+        desc.value = cur.replace(/🛡️ فحص الأمان \(VirusTotal\)[^\n\r]+|فحص الأمان \(VirusTotal\)[^\n\r]+/g, line).trim();
     } else {
         desc.value = `${line}\n\n${cur}`.trim();
     }
     alert('تم تسجيل نتيجة فحص الأمان بنجاح في حقل الوصف!');
 };
 
-// ============================================================
-// Phase 5: طلبات الزوار («اطلب»)
-// الحالات الأربع وإمكانية تغيير الحالة بضغطة زر واحدة
-// ============================================================
 let adminRequests = [];
 let requestsFilterStatus = 'all';
 
@@ -2160,7 +1916,7 @@ async function loadRequests() {
         .select('*').order('created_at', { ascending: false }).limit(100);
     if (error) {
         console.error('loadRequests error:', error);
-        box.innerHTML = `<div class="alert-danger">تعذّر تحميل الطلبات: ${esc(error.message || '')}<br>إذا لم تُنشئ الجدول بعد، شغّل ملف <span class="latin" dir="ltr">schema-requests.sql</span> في Supabase.</div>`;
+        box.innerHTML = `<div class="alert-danger">تعذّر تحميل الطلبات: ${esc(error.message || '')}</div>`;
         return;
     }
     adminRequests = data || [];
@@ -2209,7 +1965,7 @@ function renderRequests() {
     });
 
     if (!filtered.length) {
-        box.innerHTML = '<div class="empty-state"><div class="big"><i class="fa-solid fa-clipboard-list"></i></div><h3>لا توجد طلبات مطابقة</h3><p>طلبات الزوار من صفحة «اطلب» ستظهر هنا مع إمكانية تحديث حالتها فوراً.</p></div>';
+        box.innerHTML = '<div class="empty-state"><div class="big"><i class="fa-solid fa-clipboard-list"></i></div><h3>لا توجد طلبات مطابقة</h3><p>طلبات الزوار ستظهر هنا مع إمكانية تحديث حالتها فوراً.</p></div>';
         return;
     }
 
@@ -2259,9 +2015,6 @@ window.deleteRequest = async function(id) {
     renderRequests();
 };
 
-// ============================================================
-// رسائل الزوار (contact_messages)
-// ============================================================
 async function loadContactMessages() {
     const body = document.getElementById('messagesTableBody');
     const count = document.getElementById('messagesCount');
@@ -2307,17 +2060,14 @@ window.deleteMessage = async function(id) {
     loadContactMessages();
 };
 
-// ============================================================
-// محرر الملفات الإضافية (extra_downloads)
-// ============================================================
 function extraDownloadRowHtml(f) {
     const row = f || {};
     return `<div class="extra-dl-row">
-        <input type="text" class="ed-label" placeholder="اسم الملف (مثال: ملف OBB الأساسي أو بيانات Data)" value="${esc(row.label || '')}">
-        <input type="text" class="ed-size" placeholder="الحجم (مثال: 1.45 GB أو 45 MB)" value="${esc(row.size || '')}">
-        <input type="text" class="ed-role" placeholder="الوظيفة/المسار (مثال: Android/obb/com...)" value="${esc(row.role || '')}">
+        <input type="text" class="ed-label" placeholder="اسم الملف (مثال: ملف OBB الأساسي)" value="${esc(row.label || '')}">
+        <input type="text" class="ed-size" placeholder="الحجم (مثال: 1.45 GB)" value="${esc(row.size || '')}">
+        <input type="text" class="ed-role" placeholder="الوظيفة/المسار" value="${esc(row.role || '')}">
         <div class="extra-dl-url">
-            <input type="url" class="ed-url" placeholder="رابط التحميل المباشر للملف الإضافي https://..." value="${esc(row.url || '')}">
+            <input type="url" class="ed-url" placeholder="رابط التحميل المباشر https://..." value="${esc(row.url || '')}">
             <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.extra-dl-row').remove()" title="إزالة الملف"><i class="fa-solid fa-trash"></i></button>
         </div>
     </div>`;
@@ -2327,9 +2077,6 @@ window.addExtraDownloadRow = function(btn) {
     if (editor) editor.insertAdjacentHTML('beforeend', extraDownloadRowHtml({}));
 };
 
-// ============================================================
-// فورم الإضافة / التعديل وفحص VirusTotal
-// ============================================================
 function fieldInputHtml(f, value) {
     const id = 'f_' + f.key;
     const req = f.required ? 'required' : '';
@@ -2349,20 +2096,20 @@ function fieldInputHtml(f, value) {
         return `
             <input type="file" id="${id}_file" accept="image/*">
             <input type="url" id="${id}_url" placeholder="أو ضع رابط صورة مباشر" value="${esc(typeof val === 'string' ? val : '')}" style="margin-top:8px;">
-            <div class="upload-hint">ارفع صورة من جهازك (تُحفظ في Supabase Storage) أو ضع رابطاً مباشراً.</div>
-            <div class="img-preview" id="${id}_preview">${val ? `<img src="${esc(val)}" alt="">` : ''}</div>`;
+            <div class="upload-hint">ارفع صورة من جهازك أو ضع رابطاً مباشراً عالي الدقة (نسبة 1:1 مربعة).</div>
+            <div class="img-preview" id="${id}_preview">${val ? `<img src="${esc(val)}" alt="" style="width:72px;height:72px;aspect-ratio:1/1;object-fit:cover;border-radius:14px;margin-top:8px;">` : ''}</div>`;
     }
     if (f.type === 'screenshots') {
-        const urls = Array.isArray(val) ? val.join('\n') : '';
+        const urls = Array.isArray(val) ? val.slice(0, 4).join('\n') : '';
         return `
             <input type="file" id="${id}_files" accept="image/*" multiple>
-            <textarea id="${id}_urls" rows="3" placeholder="أو روابط صور — رابط في كل سطر" style="margin-top:8px;">${esc(urls)}</textarea>
-            <div class="upload-hint">يمكنك رفع عدة صور دفعة واحدة، أو إضافة روابط، أو الاثنين معاً.</div>`;
+            <textarea id="${id}_urls" rows="3" placeholder="أو روابط صور (حتى 4 صور) — رابط في كل سطر" style="margin-top:8px;">${esc(urls)}</textarea>
+            <div class="upload-hint">يمكنك رفع أو وضع روابط حتى 4 لقطات شاشة بدقة أصلية.</div>`;
     }
     if (f.type === 'file') {
         return `
             <input type="file" id="${id}_file" accept="${esc(f.accept || '')}">
-            <div class="upload-hint">ارفع ملف APK أو ZIP (يُحفظ في Supabase Storage — حاوية app-files) وسيصبح هو رابط التحميل المباشر في حقل download_url.</div>
+            <div class="upload-hint">ارفع ملف APK أو ZIP وسيصبح رابط التحميل المباشر الأساسي.</div>
             ${val ? `<div class="upload-hint" style="margin-top:6px;">الملف الحالي: <a href="${esc(val)}" target="_blank" rel="noopener noreferrer">فتح الرابط</a></div>` : ''}`;
     }
     if (f.type === 'extra_downloads') {
@@ -2370,7 +2117,7 @@ function fieldInputHtml(f, value) {
         return `
             <div class="extra-dl-editor" id="${id}_editor">${rows.map(extraDownloadRowHtml).join('')}</div>
             <button type="button" class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="addExtraDownloadRow(this)"><i class="fa-solid fa-plus"></i> إضافة ملف إضافي (OBB / Data / CLEO / AML)</button>
-            <div class="upload-hint">أضف كل الملفات الضرورية لتشغيل العنصر أو المود مع اسمه وحجمه ومساره وترتيبه (تُسجل بنية: label, url, size, role, order, kind).</div>`;
+            <div class="upload-hint">أضف كل الملفات الضرورية لتشغيل العنصر أو المود مع اسمه وحجمه ومساره.</div>`;
     }
     if (f.type === 'number') {
         return `<input type="number" id="${id}" min="${f.min ?? ''}" max="${f.max ?? ''}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}">`;
@@ -2396,7 +2143,7 @@ function fieldInputHtml(f, value) {
         return `
             <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
                 <input type="${inputType}" id="${id}" ${req} placeholder="${esc(f.placeholder || '')}" value="${esc(val)}" style="flex:1;min-width:240px;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="testDirectUrl('${id}', 'urlCheckStatus')" title="فحص صحة الرابط والتأكد من إمكانية الوصول"><i class="fa-solid fa-stethoscope"></i> فحص الرابط</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="testDirectUrl('${id}', 'urlCheckStatus')" title="فحص صحة الرابط"><i class="fa-solid fa-stethoscope"></i> فحص الرابط</button>
                 <button type="button" class="btn btn-secondary btn-sm" id="btnVirusTotalScan" ${vtBtnDisabled} title="${esc(vtBtnTitle)}" onclick="runVirusTotalScan()"><i class="fa-solid fa-shield-virus"></i> افحص هاد الملف</button>
             </div>
             <div id="urlCheckStatus" style="font-size:0.83rem;margin-top:6px;display:none;"></div>
@@ -2415,14 +2162,10 @@ function buildFormFields(entity, item) {
         ? item.extra_downloads.filter(f => f && (f.kind === 'mirror' || f.type === 'mirror'))
         : [];
 
-    let extractedWarning = '';
     let cleanDescription = item ? (item.description || '') : '';
     if (cleanDescription.startsWith('⚠️')) {
-        const m = cleanDescription.match(/^⚠️\s*([^\n\r]+)(?:[\n\r]+([\s\S]*))?$/);
-        if (m) {
-            extractedWarning = m[1].trim();
-            cleanDescription = (m[2] || '').trim();
-        }
+        const m = cleanDescription.match(/^⚠️\s*[^\n\r]+(?:[\n\r]+([\s\S]*))?$/);
+        if (m) cleanDescription = (m[1] || '').trim();
     }
 
     cfg.fields.forEach(f => {
@@ -2431,8 +2174,6 @@ function buildFormFields(entity, item) {
             value = item ? (item.download_url || '') : '';
         } else if (f.key === 'backup_download_url') {
             value = existingMirrors[0] ? (existingMirrors[0].url || '') : '';
-        } else if (f.key === 'security_warning') {
-            value = extractedWarning;
         } else if (f.key === 'description') {
             value = cleanDescription;
         } else if (f.key === 'mod_features_info') {
@@ -2536,8 +2277,6 @@ function readFieldValue(f) {
         if (raw === '') return null;
         const n = Number(raw);
         if (isNaN(n)) throw new Error(`حقل «${f.label}» يجب أن يكون رقماً.`);
-        if (f.min !== undefined && n < f.min) throw new Error(`حقل «${f.label}» يجب أن يكون ${f.min} أو أكثر.`);
-        if (f.max !== undefined && n > f.max) throw new Error(`حقل «${f.label}» يجب أن يكون ${f.max} أو أقل.`);
         return n;
     }
     if (f.type === 'datetime') {
@@ -2563,7 +2302,6 @@ window.handleSaveEntity = async function(e) {
         const payload = {};
         let backupUrl = '';
         let modFeaturesList = [];
-        let securityWarningText = '';
 
         for (const f of cfg.fields) {
             if (f.type === 'image' || f.type === 'screenshots' || f.type === 'file') continue;
@@ -2573,10 +2311,6 @@ window.handleSaveEntity = async function(e) {
             }
             if (f.key === 'mod_features_info') {
                 modFeaturesList = readFieldValue(f) || [];
-                continue;
-            }
-            if (f.key === 'security_warning') {
-                securityWarningText = (readFieldValue(f) || '').trim();
                 continue;
             }
             payload[f.key] = readFieldValue(f);
@@ -2596,7 +2330,7 @@ window.handleSaveEntity = async function(e) {
                 let url = urlInput ? urlInput.value.trim() : '';
                 const file = fileInput && fileInput.files[0];
                 if (file) url = await uploadToStorage(file, f.bucket);
-                payload[f.key] = url || null;
+                payload[f.key] = optimizeCoverUrl(url) || null;
             }
             if (f.type === 'screenshots') {
                 const filesInput = document.getElementById('f_' + f.key + '_files');
@@ -2604,7 +2338,7 @@ window.handleSaveEntity = async function(e) {
                 let urls = urlsInput ? urlsInput.value.split('\n').map(s => s.trim()).filter(Boolean) : [];
                 const files = filesInput ? Array.from(filesInput.files || []) : [];
                 for (const file of files) urls.push(await uploadToStorage(file, f.bucket));
-                payload[f.key] = urls;
+                payload[f.key] = urls.slice(0, 4);
             }
         }
 
@@ -2616,12 +2350,6 @@ window.handleSaveEntity = async function(e) {
         if (Array.isArray(modFeaturesList) && modFeaturesList.length > 0) {
             if (!Array.isArray(payload.features)) payload.features = [];
             payload.features = Array.from(new Set([...modFeaturesList, ...payload.features]));
-        }
-
-        if (securityWarningText) {
-            const cleanWarn = securityWarningText.replace(/^⚠️\s*/, '').trim();
-            const cleanDesc = (payload.description || '').replace(/^⚠️\s*[^\n\r]+(?:[\n\r]+)?/, '').trim();
-            payload.description = `⚠️ ${cleanWarn}\n\n${cleanDesc}`;
         }
 
         const isDownloadableEntity = cfg.table === 'games' || cfg.table === 'apps';
@@ -2649,12 +2377,12 @@ window.handleSaveEntity = async function(e) {
 
             if (payload.is_published === true) {
                 if (!hasMainDirect && !hasExtraDirect) {
-                    throw new Error('لا يمكن نشر العنصر (is_published = true) بدون رابط تحميل مباشر! يجب إدخال download_url صالح أو ملف مباشر واحد على الأقل في الملفات الإضافية (extra_downloads). أزل علامة النشر لحفظه كمسودة.');
+                    throw new Error('لا يمكن نشر العنصر بدون رابط تحميل مباشر صالح في download_url أو extra_downloads. أزل علامة النشر لحفظه كمسودة.');
                 }
                 if (hasMainDirect) {
                     const check = await verifyLinkLive(payload.download_url);
                     if (!check.ok) {
-                        throw new Error(`تعذر النشر: رابط التحميل يرجع خطأ وغير صالح (${check.error}). يرجى التأكد من الرابط أو حفظ العنصر كمسودة.`);
+                        throw new Error(`تعذر النشر: رابط التحميل يرجع خطأ (${check.error}). يرجى التأكد من الرابط أو حفظ العنصر كمسودة.`);
                     }
                 }
             }
@@ -2700,9 +2428,6 @@ window.handleSaveEntity = async function(e) {
     }
 };
 
-// ============================================================
-// تحميل وحفظ الإعدادات + مفتاح VirusTotal API
-// ============================================================
 async function loadSettingsForm() {
     try {
         const { data } = await window.supabaseClient.from('site_settings').select('*');

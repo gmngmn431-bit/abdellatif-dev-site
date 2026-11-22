@@ -2143,6 +2143,11 @@ function t(key) {
     return key;
 }
 
+function locText(item, field) {
+    if (currentLang === 'ar' && item && item[field + '_ar']) return item[field + '_ar'];
+    return item ? (item[field] || '') : '';
+}
+
 function isPcOnlyMod(item) {
     if (!item) return false;
     const p = String(item.platform || '').toLowerCase();
@@ -2570,7 +2575,7 @@ function itemCard(item, type) {
           <span style="color:var(--text-dim);font-size:0.82rem;font-weight:700;"><i class="fa-solid fa-download"></i> ${dl}</span>
         </div>
         <h3 class="card-title">${esc(item.title)}</h3>
-        <p class="card-desc">${esc(item.short_desc || '')}</p>
+        <p class="card-desc">${esc(locText(item, 'short_desc'))}</p>
         <div class="card-meta">
           ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> ${esc(fmtVer(item.version))}</span>` : ''}
           <span><i class="fa-solid fa-calendar"></i> ${fmtDate(item.created_at)}</span>
@@ -2615,7 +2620,7 @@ function rowCard(item, type) {
       </span>
       <span class="row-title">${esc(item.title)}</span>
       ${item.version ? `<span class="row-ver">${esc(fmtVer(item.version))}</span>` : ''}
-      <span class="row-desc">${esc(item.short_desc || '')}</span>
+      <span class="row-desc">${esc(locText(item, 'short_desc'))}</span>
       <span class="row-dl"><i class="fa-solid fa-download"></i> ${dl}</span>
     </a>`;
 }
@@ -2645,7 +2650,7 @@ function trendingCard(item, type, rank) {
       </span>
       <span class="row-title">${esc(item.title)}</span>
       ${item.version ? `<span class="row-ver">${esc(fmtVer(item.version))}</span>` : ''}
-      <span class="row-desc">${esc(item.short_desc || '')}</span>
+      <span class="row-desc">${esc(locText(item, 'short_desc'))}</span>
       <span class="row-dl"><i class="fa-solid fa-download"></i> ${dl}</span>
     </a>`;
 }
@@ -2716,7 +2721,9 @@ function matchesQuery(item, q) {
     const hay = normAr(
         (item.title || '') + ' ' +
         (item.short_desc || '') + ' ' +
+        (item.short_desc_ar || '') + ' ' +
         (item.description || '') + ' ' +
+        (item.description_ar || '') + ' ' +
         (item.category || '') + ' ' +
         (item.genre || '') + ' ' +
         (item.developer || '') + ' ' +
@@ -3796,7 +3803,7 @@ function renderItemDetail(box, item, type) {
       <div class="detail-info">
         ${statusBadge(item.status)}
         <h1>${esc(item.title)}</h1>
-        <p class="lead">${esc(item.short_desc || '')}</p>
+        <p class="lead">${esc(locText(item, 'short_desc'))}</p>
         <div class="detail-chips">
           <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(catLabel(item.category))}</span>
           <span class="chip"><i class="${platformIcon(plat)}"></i> ${esc(platformLabel(plat))}</span>
@@ -3816,7 +3823,7 @@ function renderItemDetail(box, item, type) {
 
     ${videoHtml(item.video_url)}
 
-    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> ${t('detail.fullDesc')}</h2><p>${esc(item.description || item.short_desc || '')}</p></div>
+    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> ${t('detail.fullDesc')}</h2><p>${esc(locText(item, 'description') || locText(item, 'short_desc'))}</p></div>
 
     ${features.length ? `<div class="detail-block"><h2><i class="fa-solid fa-list-check"></i> ${t('detail.features')}</h2>
       <ul class="features-list">${features.map(f => `<li><i class="fa-solid fa-circle-check"></i> ${esc(f)}</li>`).join('')}</ul></div>` : ''}
@@ -4119,7 +4126,7 @@ function storeCard(item, type) {
           <span style="color:var(--text-dim);font-size:0.82rem;font-weight:700;"><i class="fa-solid fa-download"></i> ${dl}</span>
         </div>
         <h3 class="card-title">${esc(item.title)}</h3>
-        <p class="card-desc">${esc(item.short_desc || '')}</p>
+        <p class="card-desc">${esc(locText(item, 'short_desc'))}</p>
         <div class="card-meta">
           ${item.size ? `<span><i class="fa-solid fa-hard-drive"></i> ${esc(item.size)}</span>` : ''}
           ${item.version ? `<span class="card-ver"><i class="fa-solid fa-tag"></i> ${esc(fmtVer(item.version))}</span>` : ''}

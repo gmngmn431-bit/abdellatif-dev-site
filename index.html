@@ -3791,6 +3791,8 @@ function renderItemDetail(box, item, type) {
     document.title = `${item.title} | Abdellatif Dev`;
     const features = Array.isArray(item.features) ? item.features.map(f => String(f || '').trim()).filter(Boolean) : [];
     const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean).slice(0, 4) : [];
+    const shortDescText = locText(item, 'short_desc');
+    const fullDescText = locText(item, 'description') || shortDescText;
     const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5);
     const isPlayStore = !!(item.download_url && String(item.download_url).includes('play.google.com'));
     const plat = platformOf(item, type);
@@ -3803,7 +3805,7 @@ function renderItemDetail(box, item, type) {
       <div class="detail-info">
         ${statusBadge(item.status)}
         <h1>${esc(item.title)}</h1>
-        <p class="lead">${esc(locText(item, 'short_desc'))}</p>
+        ${shortDescText ? `<p class="lead">${esc(shortDescText)}</p>` : ''}
         <div class="detail-chips">
           <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(catLabel(item.category))}</span>
           <span class="chip"><i class="${platformIcon(plat)}"></i> ${esc(platformLabel(plat))}</span>
@@ -3819,11 +3821,11 @@ function renderItemDetail(box, item, type) {
     </div>
 
     ${shots.length ? `<div class="detail-block"><h2><i class="fa-solid fa-images"></i> ${type === 'game' ? t('detail.shotsGame') : t('detail.shotsApp')}</h2>
-      <div class="gallery-wrap row-strip-wrap"><div class="gallery row-strip" id="detailGallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" decoding="async" onclick="openLightbox(shots, shots.indexOf('${esc(s)}'))" onerror="const i = shots.indexOf('${esc(s)}'); if (i > -1) shots.splice(i, 1); this.remove();">`).join('')}</div><button type="button" class="strip-next" aria-label="المزيد" onclick="scrollStrip(this)"><i class="fa-solid fa-chevron-left"></i></button></div></div>` : ''}
+      <div class="gallery-wrap row-strip-wrap"><div class="gallery row-strip" id="detailGallery">${shots.map(s => `<img src="${esc(s)}" alt="screenshot" loading="lazy" decoding="async" onclick="const g = Array.from(this.closest('.gallery').querySelectorAll('img')).map(i=>i.src); openLightbox(g, g.indexOf(this.src));" onerror="const b = this.closest('.detail-block'); this.remove(); if (b && !b.querySelector('img')) b.remove();">`).join('')}</div><button type="button" class="strip-next" aria-label="المزيد" onclick="scrollStrip(this)"><i class="fa-solid fa-chevron-left"></i></button></div></div>` : ''}
 
     ${videoHtml(item.video_url)}
 
-    <div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> ${t('detail.fullDesc')}</h2><p>${esc(locText(item, 'description') || locText(item, 'short_desc'))}</p></div>
+    ${fullDescText ? `<div class="detail-block"><h2><i class="fa-solid fa-align-right"></i> ${t('detail.fullDesc')}</h2><p>${esc(fullDescText)}</p></div>` : ''}
 
     ${features.length ? `<div class="detail-block"><h2><i class="fa-solid fa-list-check"></i> ${t('detail.features')}</h2>
       <ul class="features-list">${features.map(f => `<li><i class="fa-solid fa-circle-check"></i> ${esc(f)}</li>`).join('')}</ul></div>` : ''}

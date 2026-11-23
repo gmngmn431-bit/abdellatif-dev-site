@@ -3020,14 +3020,39 @@ function splitTab(platform, tab) {
     return SPLIT_TABS[platform].some(x => x[0] === tab) ? tab : 'games';
 }
 const POPULAR_NAMES = [
-    '8 Ball Pool', 'PUBG Mobile', 'Temple Run 2', 'Subway Surfers', 'Free Fire', 'Roblox', 'Candy Crush Saga',
-    'Stumble Guys', 'Ludo King', 'Hill Climb Racing', 'Sonic Free Riders', 'Need for Speed: Rivals',
-    'Need for Speed: Porsche Unleashed', 'Deus Ex', 'Blasphemous 2', 'The Godfather: The Game', 'CastleMiner Z',
-    'Mini Motorways', 'PEAK',
-    'Warzone 2100', 'Freeciv', 'Battle for Wesnoth', '0 A.D.', 'Dwarf Fortress Classic', 'OpenTTD', 'Xonotic',
-    'Cataclysm: DDA', 'SuperTuxKart',
-    'Shizuku', 'GIMP', 'LibreOffice', 'OBS Studio', 'Audacity', 'Blender', 'OpenMW', 'Amethyst',
-    'PKG Extractor Android', 'MojoLauncher', 'Geode', 'Apk Info'
+    'GTA 5', 'GTA San Andreas', 'GTA Vice City', 'GTA 4', 'GTA', 'Minecraft', 'Free Fire', 'Fortnite',
+    'PUBG Mobile', 'PUBG', 'Roblox', 'Clash of Clans', 'Clash Royale', 'Brawl Stars', 'Call of Duty',
+    'Genshin Impact', 'eFootball', 'FC Mobile', 'FIFA', 'Naruto', 'Zelda', 'Pokemon', 'Angry Birds',
+    'Subway Surfers', 'Temple Run 2', 'Candy Crush Saga', '8 Ball Pool', 'Stumble Guys', 'Ludo King',
+    'Hill Climb Racing', 'Among Us', 'Terraria', 'Stardew Valley', 'Geometry Dash', 'Shadow Fight',
+    'Asphalt 9', 'Asphalt 8', 'Real Racing 3', 'Need for Speed', 'Dream League Soccer', 'Mobile Legends',
+    'League of Legends', 'Mortal Kombat', 'Hay Day', 'Gardenscapes', 'Royal Match', 'Top Eleven', 'Bully',
+    'Gangstar Vegas', 'Modern Combat 5', 'Dead Trigger 2', 'Into the Dead 2', 'CSR Racing 2', 'Drift Max Pro',
+    'Bus Simulator Indonesia', 'Truck Simulator', 'World of Tanks Blitz', 'Farlight 84', 'Blood Strike',
+    'Arena Breakout', 'Honkai', 'Zenless Zone Zero', 'NBA 2K', 'Injustice 2', 'Granny', 'Poppy Playtime',
+    'Friday Night Funkin', "Baldur's Gate", "Don't Starve", 'Homescapes', 'Warzone Mobile',
+    'Car Parking Multiplayer', 'Snake.io', 'FR Legends', 'Standoff 2', 'Five Nights at Freddy', 'Paper.io 2',
+    'Talking Tom', 'Piano Tiles 2', 'Toca Life World', 'Sims', 'Resident Evil', 'Spider-Man', 'Last of Us',
+    'God of War', 'Uncharted', 'Forza Horizon', 'Hades', 'Dragon Ball', 'Dark Souls', 'Just Cause 2',
+    'Subnautica', 'Slay the Spire', 'Plants vs Zombies', 'Hollow Knight', 'Bloodborne', 'DOOM', 'CarX Street',
+    'Car Simulator 2', 'Traffic Rider', 'Traffic Racer', 'Diablo', 'Far Cry', "Garry's Mod", 'Gears of War',
+    'Hello Neighbor', 'Lethal Company', 'Metal Gear', 'Metro 2033', 'Prince of Persia', 'Prototype',
+    'S.T.A.L.K.E.R.', 'Sleeping Dogs', 'Valheim', 'Persona', 'Celeste', 'Factorio', 'RimWorld', 'Divinity',
+    'Cult of the Lamb', 'Papers Please', 'Untitled Goose Game', 'Binding of Isaac', 'Darkest Dungeon',
+    'Inscryption', 'Devil May Cry', 'Max Payne 2', "Mirror's Edge", 'Kerbal Space Program', 'Scary Teacher 3D',
+    'Mini Militia', 'My Perfect Hotel', 'Soccer Super Star', 'WWE 2K25', 'SpongeBob', 'Fable 2', 'Sea of Stars',
+    'Frostpunk', 'Alien Isolation', 'Monster Hunter', 'Walking Dead', 'People Playground', 'Starbound',
+    'Donkey Kong', 'Sonic', 'Deus Ex', 'Blasphemous 2', 'Godfather', 'CastleMiner Z', 'Mini Motorways', 'PEAK',
+    'WhatsApp', 'Facebook', 'Instagram', 'TikTok', 'Snapchat', 'Messenger', 'Telegram', 'Spotify', 'CapCut',
+    'ChatGPT', 'Brave', 'Google Chrome', 'YouTube Music', 'YouTube Premium', 'SHAREit', 'ZArchiver', 'MX Player',
+    'Truecaller', 'Shazam', 'Picsart', 'Duolingo', 'KineMaster', 'Alight Motion', 'InShot', 'VLC', 'Firefox',
+    'NewPipe', 'F-Droid', 'Shizuku', 'OBS Studio', 'GIMP', 'Blender', 'LibreOffice', 'Audacity', 'OpenMW',
+    'PPSSPP', 'GameGuardian', 'HappyMod', 'Aptoide', 'TubeMate', 'VidMate', 'Snaptube', 'Likee', 'Kwai',
+    'Pinterest', 'Viber', 'Gmail', 'Google Drive', 'Microsoft Word', 'WPS Office', 'CamScanner', 'ibis Paint',
+    'SoundCloud', 'Akinator', 'ZEPETO', 'DramaBox', 'Lightroom', 'FL Studio Mobile', 'AirDroid',
+    'Google Play Store', 'AIDA64', 'CPU-Z', 'Turbo VPN', 'Google Home', 'Google Play Services', 'Stellarium',
+    'SoundHound', 'RAR', 'X-plore File Manager', 'Smart Launcher', 'PhotoDirector', 'Adobe Photoshop Express',
+    'PKG Extractor Android', 'MojoLauncher', 'Geode', 'Apk Info', 'Amethyst'
 ];
 const POPULAR_RX = POPULAR_NAMES.map(n => {
     const e = n.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

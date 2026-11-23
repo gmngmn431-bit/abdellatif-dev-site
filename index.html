@@ -2937,11 +2937,7 @@ function renderHome() {
         <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>${t('stats.projects')}</span></div>
         <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>${t('stats.downloads')}</span></div>`;
     }
-    const trending = games.map(g => ({ item: g, type: 'game' }))
-        .concat(apps.map(a => ({ item: a, type: 'app' })))
-        .filter(e => (e.item.download_count || 0) > 0)
-        .sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0))
-        .slice(0, 6);
+    /* Trending IDs */ const TRENDING_IDS = ['91998655-809c-466d-af04-45e11b8932f9', 'e8b96765-c5c9-4753-ada9-a95bac7cece5', '068b899f-a380-4647-854a-70f4e5a89fe9', '4997de27-b36c-4d55-9aec-19b755a0c091', 'b682d1b2-d271-4b7d-92c6-84e78ba3b40f', 'ba54fd77-5f36-463c-8f94-e37c7a7e97ca', '267b5ffa-ae29-4f8a-be53-068822eda186', '6bb1636a-f96c-4444-af0c-c66bed10eddf', '4fdfaff9-9308-4b0e-a508-443feef60257', '6054ec2f-5792-468b-9e36-fabf4f4262ec', 'd6dce0b4-6596-4a98-93dc-6ce2309e3996', '3ef50c48-f054-4896-b660-6f711a358b70', '97ea2890-eeb5-4812-9ee3-54b98c7a3420', 'c1ecd79a-0d86-49b8-abd8-55c70b630fff', 'c3db1310-9faf-4937-a0b1-2b0633cc4310']; const allTrendingItems = games.map(g => ({ item: g, type: 'game' })).concat(apps.map(a => ({ item: a, type: 'app' }))); const filteredTrending = allTrendingItems.filter(e => TRENDING_IDS.includes(e.item.id)).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6); /* Fallback */ const trending = filteredTrending.length > 0 ? filteredTrending : allTrendingItems.filter(e => (e.item.download_count || 0) > 0).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6);
     const trSec = document.getElementById('trendingSection');
     const trBox = document.getElementById('homeTrending');
     if (trSec && trBox) {

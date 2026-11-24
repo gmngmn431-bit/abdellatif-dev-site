@@ -1816,11 +1816,12 @@ html[data-vcols="4"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; pad
           <button type="button" class="seg-btn" id="reqModeReportBtn" onclick="switchReqMode('report')"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="rep.modeReport">بلاغ رابط ميت</span></button>
         </div>
 
-        <form id="reqForm" onsubmit="handleRequestSubmit(event)">
+        <form id="reqForm" onsubmit="handleSecureRequestSubmit(event)">
           <input type="hidden" id="reqKind" value="request">
           <input type="hidden" id="reqItemType" value="">
           <input type="hidden" id="reqItemId" value="">
           <input type="hidden" id="reqItemUrl" value="">
+          <input type="text" name="website_hp" id="reqHoneypot" style="display:none !important;" tabindex="-1" autocomplete="off">
           <div class="about-card" style="margin-bottom:16px;">
             <div class="form-group"><label data-i18n="req.name">اسمك</label>
               <input type="text" id="reqName" required maxlength="80" data-i18n-placeholder="req.namePh" placeholder="اكتب اسمك"></div>
@@ -2293,6 +2294,39 @@ async function fetchAllRows(table, orderCol, ascending) {
     return { data: all, error: null };
 }
 
+/* ============================================================
+   تجاوزات الألعاب الثلاث كشبكة أمان برمجية (قيم حية مؤكدة فقط)
+   ============================================================ */
+const VERIFIED_MODDED_OVERRIDES = {
+  '25e1b107-8565-485f-bb6e-960bbf92b7c9': {
+    category: 'مهكرة',
+    mod_features: ['unlimited_money', 'unlocked']
+  },
+  '85a21a82-bf8c-410e-a9b7-53f5a7c8cbfd': {
+    category: 'مهكرة',
+    mod_features: ['unlimited_money', 'unlocked']
+  },
+  'ad012138-2a38-43d6-a25e-38fa662a23b5': {
+    category: 'مهكرة',
+    mod_features: ['unlimited_money', 'unlocked']
+  }
+};
+
+function applyModdedOverrides(item) {
+  if (!item || !item.id) return item;
+  const override = VERIFIED_MODDED_OVERRIDES[item.id];
+  if (override) {
+    item.category = override.category;
+    item.mod_features = [...override.mod_features];
+  }
+  return item;
+}
+
+function patchLoadedGamesWithOverrides(gamesList) {
+  if (!Array.isArray(gamesList)) return gamesList;
+  return gamesList.map(applyModdedOverrides);
+}
+
 async function loadAll() {
     dataError = null;
     const timeoutPromise = new Promise((_, reject) => {
@@ -2315,7 +2349,7 @@ async function loadAll() {
         if (p.error) throw p.error;
         if (n.error) throw n.error;
         (s.data || []).forEach(row => { settings[row.key] = row.value; });
-        games = (g.data || []).filter(x => x.is_published);
+        games = patchLoadedGamesWithOverrides((g.data || []).filter(x => x.is_published));
         apps = (a.data || []).filter(x => x.is_published);
         projects = (p.data || []).filter(x => x.is_published);
         news = (n.data || []).filter(x => x.is_published);
@@ -2902,33 +2936,111 @@ async function renderRequestView() {
     }
 }
 
-window.handleRequestSubmit = async function(e) {
+/* ============================================================
+   نموذج الطلبات والبلاغات الآمن مع Rate Limit وإرسال 8 حقول
+   ============================================================ */
+const REQ_LIMIT_KEY = 'abd_last_request_ts';
+const REQ_DAILY_KEY = 'abd_request_daily_count';
+const REQ_COOLDOWN_SEC = 60;
+const REQ_DAILY_MAX = 5;
+
+function isRateLimited() {
+  const now = Date.now();
+  const last = parseInt(localStorage.getItem(REQ_LIMIT_KEY) || '0', 10);
+  if (now - last < REQ_COOLDOWN_SEC * 1000) {
+    const waitTime = Math.ceil((REQ_COOLDOWN_SEC * 1000 - (now - last)) / 1000);
+    return `يرجى الانتظار ${waitTime} ثانية قبل إرسال طلب جديد.`;
+  }
+  const dailyData = JSON.parse(localStorage.getItem(REQ_DAILY_KEY) || '{"date":"","count":0}');
+  const todayStr = new Date().toISOString().split('T')[0];
+  if (dailyData.date === todayStr && dailyData.count >= REQ_DAILY_MAX) {
+    return 'لقد بلغت الحد الأقصى للإرسال اليوم (5 طلبات). يرجى المحاولة غداً.';
+  }
+  return null;
+}
+
+function recordSubmissionSuccess() {
+  const now = Date.now();
+  const todayStr = new Date().toISOString().split('T')[0];
+  localStorage.setItem(REQ_LIMIT_KEY, String(now));
+  const dailyData = JSON.parse(localStorage.getItem(REQ_DAILY_KEY) || '{"date":"","count":0}');
+  if (dailyData.date === todayStr) {
+    dailyData.count += 1;
+  } else {
+    dailyData.date = todayStr;
+    dailyData.count = 1;
+  }
+  localStorage.setItem(REQ_DAILY_KEY, JSON.stringify(dailyData));
+}
+
+window.handleSecureRequestSubmit = async function(e) {
     e.preventDefault();
+    const msg = document.getElementById('reqMsg');
+    const btn = document.getElementById('reqSubmitBtn');
+
+    // 1. فحص حقل المصيدة (Honeypot)
+    const hp = document.getElementById('reqHoneypot');
+    if (hp && hp.value.trim().length > 0) {
+      if (msg) {
+        msg.className = 'alert-success';
+        msg.style.display = 'block';
+        msg.textContent = t('req.sent');
+      }
+      return;
+    }
+
+    // 2. فحص تقييد المعدل (Rate Limit)
+    const limitError = isRateLimited();
+    if (limitError) {
+      if (msg) {
+        msg.className = 'alert-danger';
+        msg.style.display = 'block';
+        msg.textContent = limitError;
+      }
+      return;
+    }
+
+    const rawKind = (document.getElementById('reqKind')?.value || 'request').trim().toLowerCase();
+    const kind = (rawKind === 'report') ? 'report' : 'request';
     const name = (document.getElementById('reqName')?.value || '').trim();
     const title = (document.getElementById('reqGameTitle')?.value || '').trim();
-    const type = document.getElementById('reqGameType')?.value || 'game';
-    const details = (document.getElementById('reqDetails')?.value || '').trim();
-    const kind = document.getElementById('reqKind')?.value || 'request';
-    const item_type = document.getElementById('reqItemType')?.value || null;
-    const item_id = document.getElementById('reqItemId')?.value || null;
-    const item_url = document.getElementById('reqItemUrl')?.value || null;
-    const msg = document.getElementById('reqMsg');
+    const rawGameType = (document.getElementById('reqGameType')?.value || 'game').trim().toLowerCase();
+    const game_type = ['game', 'app', 'mod'].includes(rawGameType) ? rawGameType : 'game';
+    const rawDetails = (document.getElementById('reqDetails')?.value || '').trim();
+    const details = rawDetails.length > 0 ? rawDetails.slice(0, 500) : null;
+    const rawItemType = (document.getElementById('reqItemType')?.value || '').trim();
+    const item_type = rawItemType.length > 0 ? rawItemType.slice(0, 50) : null;
+    const rawItemId = (document.getElementById('reqItemId')?.value || '').trim();
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    const item_id = (rawItemId && uuidRegex.test(rawItemId)) ? rawItemId : null;
+    const rawItemUrl = (document.getElementById('reqItemUrl')?.value || '').trim();
+    let item_url = null;
+    if (rawItemUrl) {
+      try {
+        const u = new URL(rawItemUrl);
+        if (u.protocol === 'https:') item_url = rawItemUrl.slice(0, 500);
+      } catch (errUrl) { item_url = null; }
+    }
 
     if (!name || title.length < 2) return;
-    const btn = document.getElementById('reqSubmitBtn');
     if (btn) btn.disabled = true;
     try {
         const payload = {
+            kind,
             name,
             game_title: title,
-            game_type: type,
-            details: details || null
+            game_type,
+            details,
+            item_type,
+            item_id,
+            item_url
         };
         const { data, error } = await window.supabaseClient.from('game_requests')
             .insert([payload])
             .select('id').single();
         if (error) throw error;
 
+        recordSubmissionSuccess();
         const successText = kind === 'report' ? t('rep.sent') : t('req.sent');
         if (msg) {
             msg.className = 'alert-success';
@@ -2958,6 +3070,7 @@ window.handleRequestSubmit = async function(e) {
         if (btn) btn.disabled = false;
     }
 };
+window.handleRequestSubmit = window.handleSecureRequestSubmit;
 
 window.trackMyRequest = async function() {
     const id = (document.getElementById('reqTrackId')?.value || '').trim();
@@ -3836,6 +3949,7 @@ async function renderDetail(type, id) {
         item = type === 'mod' ? await fetchModBySlugOrId(id) : await fetchOne(table, id);
     }
     if (!item || (type !== 'news' && item.is_published === false)) { showView('view-notfound'); return; }
+    if (itemType === 'game') item = applyModdedOverrides(item);
 
     if (type === 'news') {
         renderNewsDetail(box, item);
@@ -3844,7 +3958,7 @@ async function renderDetail(type, id) {
         renderItemDetail(box, item, itemType);
         renderExtraDownloads(box, item, itemType);
         renderModDetailEnhancements(box, item, itemType, type === 'mod');
-        enforcePcDownloadLock(box, item, itemType);
+        handlePcGameDownload(box, item, itemType);
         enhanceDownloadRobustness(box, item, itemType);
         renderSimilarItems(box, item, itemType);
         requestAnimationFrame(updateStripArrows);
@@ -3875,8 +3989,43 @@ function renderModDetailEnhancements(box, item, type, isModRoute) {
     }
 }
 
-function enforcePcDownloadLock(box, item, type) {
-    if (!box || type !== 'game' || !isPcOnlyMod(item)) return;
+/* ============================================================
+   فتح ألعاب الحاسوب الأربع الرسمية بروابط قاعدة البيانات الأصلية
+   ============================================================ */
+const PC_GAMES_INFO = {
+  'Freeciv': {
+    platformNote: 'نسخة حاسوب أصلية (Windows / Linux). هذا الملف مخصص للكمبيوتر وليس تطبيق أندرويد (APK).',
+    installTip: 'قم بتشغيل ملف التثبيت على نظام Windows أو تثبيته عبر مدير الحزم في Linux.'
+  },
+  'Battle for Wesnoth': {
+    platformNote: 'نسخة حاسوب رسمية كاملة (PC Version). تتطلب نظام Windows أو Linux.',
+    installTip: 'قم بفك الضغط أو تشغيل ملف Setup على جهاز الكمبيوتر.'
+  },
+  '0 A.D.': {
+    platformNote: 'لعبة استراتيجية مخصصة للحاسوب فقط (PC Only). لا يتوفر لها إصدار APK رسمي للأندرويد.',
+    installTip: 'ثبت اللعبة على نظام Windows بمواصفات متوسطة أو عبر مستودعات Linux.'
+  },
+  'Xonotic': {
+    platformNote: 'حزمة حاسوب أصلية (Universal PC Zip) تضم ملفات التشغيل لأنظمة Windows و Linux و macOS.',
+    installTip: 'فك ضغط ملف الـ ZIP على الحاسوب وشغّل xonotic.exe مباشرة.'
+  }
+};
+
+function handlePcGameDownload(box, item, type) {
+    if (!box || type !== 'game') return;
+    const pcInfo = PC_GAMES_INFO[item.title];
+    if (pcInfo) {
+        const zone = document.getElementById('downloadZone');
+        if (zone && !zone.querySelector('.pc-info-banner')) {
+            zone.insertAdjacentHTML('afterbegin', `
+            <div class="pc-info-banner" style="margin-bottom:14px;padding:14px 18px;border-radius:var(--r-md);background:linear-gradient(155deg, rgba(30,107,255,0.14), rgba(30,107,255,0.04));border:1px solid rgba(30,107,255,0.35);color:var(--ink);font-size:0.88rem;line-height:1.75;">
+              <div><i class="fa-solid fa-desktop" style="color:var(--mint);margin-inline-end:7px;"></i> <strong>تحميل للحاسوب (PC Only):</strong> ${esc(pcInfo.platformNote)}</div>
+              <div style="margin-top:6px;color:var(--ink-2);font-size:0.82rem;"><i class="fa-solid fa-circle-info" style="color:var(--sky);margin-inline-end:6px;"></i> ${esc(pcInfo.installTip)}</div>
+            </div>`);
+        }
+        return; // الإبقاء على التحميل مفتوحاً برابط قاعدة البيانات
+    }
+    if (!isPcOnlyMod(item)) return;
     if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
     activeDownload = null;
     const zone = document.getElementById('downloadZone');
@@ -3907,7 +4056,7 @@ window.showDownloadFailureAlert = function() {
 };
 
 function enhanceDownloadRobustness(box, item, type) {
-    if (!box || isPcOnlyMod(item)) return;
+    if (!box || (isPcOnlyMod(item) && !PC_GAMES_INFO[item.title])) return;
     const zone = document.getElementById('downloadZone');
     if (!zone) return;
 

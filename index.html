@@ -2468,6 +2468,23 @@ window.clearModsSearch = function() {
     renderModsList();
 };
 
+/* Fetch every row of a table in pages (Supabase caps one request at 1000 rows). Same shape as a normal query result: {data, error}. */
+async function fetchAllRows(table, orderCol, ascending) {
+    const PAGE = 1000;
+    let all = [];
+    for (let from = 0; ; from += PAGE) {
+        const res = await window.supabaseClient.from(table).select('*')
+            .order(orderCol, { ascending: ascending })
+            .order('id', { ascending: true })
+            .range(from, from + PAGE - 1);
+        if (res.error) return { data: null, error: res.error };
+        const rows = res.data || [];
+        all = all.concat(rows);
+        if (rows.length < PAGE) break;
+    }
+    return { data: all, error: null };
+}
+
 async function loadAll() {
     dataError = null;
     const timeoutPromise = new Promise((_, reject) => {
@@ -2477,8 +2494,8 @@ async function loadAll() {
         const [s, g, a, p, n] = await Promise.race([
             Promise.all([
                 window.supabaseClient.from('site_settings').select('*'),
-                window.supabaseClient.from('games').select('*').order('created_at', { ascending: false }),
-                window.supabaseClient.from('apps').select('*').order('created_at', { ascending: false }),
+                fetchAllRows('games', 'created_at', false),
+                fetchAllRows('apps', 'created_at', false),
                 window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false }),
                 window.supabaseClient.from('news').select('*').order('published_at', { ascending: false })
             ]),

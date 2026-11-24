@@ -40,7 +40,7 @@
     "detail.backPhone": "← العودة للهاتف",
     "detail.backStore": "← العودة لمتجر أندرويد",
     "detail.code": "الكود",
-    "detail.directDownload": "تحميل مباشر — اضغط على الزر لبدء التحميل",
+    "detail.directDownload": "اضغط على الزر لبدء التحميل من مصدر الملف",
     "detail.downloadNow": "تحميل الآن",
     "detail.downloadOne": "{n} تحميل",
     "detail.downloads": "{n} تحميل",
@@ -317,7 +317,8 @@
     "store.tab.official-apps": "التطبيقات الرسمية",
     "store.tab.official-games": "الألعاب الرسمية",
     "store.title": "متجر أندرويد",
-    "store.viewSource": "صفحة المصدر"
+    "store.viewSource": "صفحة المصدر",
+    "detail.sourcePageNote": "هذا المصدر قد يفتح صفحة خارجية بدل بدء التحميل"
   },
   "en": {
     "about.accounts": "My accounts",
@@ -360,7 +361,7 @@
     "detail.backPhone": "← Back to phone",
     "detail.backStore": "← Back to Android Store",
     "detail.code": "Code",
-    "detail.directDownload": "Direct download — press the button to start",
+    "detail.directDownload": "Press the button to start the download from the file source",
     "detail.downloadNow": "Download now",
     "detail.downloadOne": "{n} download",
     "detail.downloads": "{n} downloads",
@@ -637,7 +638,8 @@
     "store.tab.official-apps": "Official Apps",
     "store.tab.official-games": "Official Games",
     "store.title": "Android Store",
-    "store.viewSource": "Source page"
+    "store.viewSource": "Source page",
+    "detail.sourcePageNote": "This source may open an external page instead of starting a download"
   },
   "fr": {
     "about.accounts": "Mes comptes",
@@ -680,7 +682,7 @@
     "detail.backPhone": "← Retour au téléphone",
     "detail.backStore": "← Retour à la boutique Android",
     "detail.code": "Code",
-    "detail.directDownload": "Téléchargement direct — appuyez sur le bouton pour démarrer",
+    "detail.directDownload": "Appuyez sur le bouton pour lancer le téléchargement depuis la source du fichier",
     "detail.downloadNow": "Télécharger",
     "detail.downloadOne": "{n} téléchargement",
     "detail.downloads": "{n} téléchargements",
@@ -957,6 +959,7 @@
     "store.tab.official-apps": "Apps officielles",
     "store.tab.official-games": "Jeux officiels",
     "store.title": "Boutique Android",
-    "store.viewSource": "Page source"
+    "store.viewSource": "Page source",
+    "detail.sourcePageNote": "Cette source peut ouvrir une page externe au lieu de lancer le téléchargement"
   }
 }

@@ -1780,7 +1780,7 @@ window.recheckSingleDeadLink = async function(deadIndex) {
 function getVirusTotalApiKey() {
     let key = '';
     try { key = localStorage.getItem('vt_api_key') || ''; } catch (e) {}
-    if (!key && settings.virustotal && settings.virustotal.api_key) {
+    if (!key && typeof settings !== 'undefined' && settings && settings.virustotal && settings.virustotal.api_key) {
         key = settings.virustotal.api_key;
     }
     return String(key).trim();

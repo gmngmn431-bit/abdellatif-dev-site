@@ -24,6 +24,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Sora:wght@600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Schema.org Static JSON-LD (B3) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Abdellatif Dev",
+    "url": "https://gmngmn431-bit.github.io/abdellatif-dev-site/",
+    "inLanguage": ["ar", "en", "fr"],
+    "publisher": {
+      "@type": "Organization",
+      "name": "Abdellatif Dev",
+      "url": "https://gmngmn431-bit.github.io/abdellatif-dev-site/"
+    }
+  }
+  </script>
+
   <style>
 /* ============================================================
    Abdellatif Dev — Design System v2 · "Aurora Glass"
@@ -147,7 +164,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 
 .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state,
 .login-card, .modal-dialog, .table-responsive, .footer-content, .alert-info,
-.alert-danger, .alert-success {
+.alert-danger, .alert-success, .pwa-banner {
   background: var(--glass-bg);
   border: 1px solid var(--line);
   box-shadow: var(--glass-shadow);
@@ -156,7 +173,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass, .card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state,
-  .login-card, .modal-dialog, .table-responsive, .footer-content { background: rgba(16, 17, 24, 0.94); }
+  .login-card, .modal-dialog, .table-responsive, .footer-content, .pwa-banner { background: rgba(16, 17, 24, 0.94); }
 }
 
 /* الوضع الفاتح */
@@ -530,6 +547,7 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .detail-info .lead { color: var(--ink-2); margin-bottom: 18px; line-height: 1.9; }
 .detail-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
 .chip { display: inline-flex; align-items: center; padding: 5px 15px; border-radius: 999px; font-size: 0.8rem; font-weight: 500; color: var(--ink-2); background: var(--glass-flat); border: 1px solid var(--line); }
+.chip.chip-modfeat { border-color: rgba(255, 193, 77, 0.4); background: rgba(255, 193, 77, 0.12); color: var(--gold); }
 .download-zone { width: 100%; margin-top: auto; padding-top: 18px; }
 
 .timer-box { position: relative; text-align: center; border-radius: var(--r-lg); padding: 24px 18px 20px; overflow: hidden; width: 100%; }
@@ -735,7 +753,7 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 /* شبكات التخطيط */
 .cards-grid.vgrid { grid-template-columns: repeat(var(--vcols, 2), minmax(0, 1fr)) !important; gap: 12px; }
 .seg-bar { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 0 22px; }
-.seg-btn { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink); font-weight: 700; }
+.seg-btn { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink); font-weight: 700; cursor: pointer; }
 .seg-btn.active { background: var(--grad); color: #ffffff; border-color: transparent; }
 .split-tools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 22px; }
 .split-tools .search-box { flex: 1 1 240px; margin: 0; }
@@ -748,10 +766,6 @@ button.logo { background: none; border: 0; padding: 0; font: inherit; color: inh
 .pc-lock-box { padding: 16px; border-radius: var(--r-md); border: 1px solid rgba(106, 196, 255, 0.45); background: linear-gradient(155deg, rgba(106, 196, 255, 0.16), rgba(30, 107, 255, 0.06)); color: var(--ink); font-size: 0.9rem; }
 body.is-detail footer.footer { display: none; }
 
-
-/* ============================================================
-   استعادة تصميم v2 "Aurora Glass"
-   ============================================================ */
 [data-theme="light"] { --zellige: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='88' height='88' viewBox='0 0 88 88' fill='none' stroke='%23004020' stroke-width='1' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='40' height='40'/%3E%3Crect x='24' y='24' width='40' height='40' transform='rotate(45 44 44)'/%3E%3Ccircle cx='44' cy='44' r='6'/%3E%3Cpath d='M0 0l9 9M88 0l-9 9M0 88l9-9M88 88l-9-9M44 0v8M44 80v8M0 44h8M80 44h8'/%3E%3C/svg%3E"); }
 [data-theme="light"] .aurora i:nth-child(1) { background: radial-gradient(closest-side, rgba(86, 245, 155, 0.25), rgba(86, 245, 155, 0)); }
 [data-theme="light"] .aurora i:nth-child(2) { background: radial-gradient(closest-side, rgba(0, 168, 98, 0.18), rgba(0, 168, 98, 0)); }
@@ -771,18 +785,8 @@ body.is-detail footer.footer { display: none; }
 [data-theme="light"] .check-line input[type='checkbox'] { background: rgba(0, 64, 32, 0.12); }
 [data-theme="light"] body { scrollbar-color: rgba(0, 64, 32, 0.3) transparent; }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(0, 64, 32, 0.25); }
-[data-theme="light"] .form-group input[type='file']::file-selector-button, [data-theme="light"] .filter-btn.active, [data-theme="light"] .logo-icon, [data-theme="light"] .nav-link.active, [data-theme="light"] .nav-link.active i, [data-theme="light"] .hv-core, [data-theme="light"] .card:hover .card-foot .btn, [data-theme="light"] .social-icons a:hover, [data-theme="light"] .fav-btn.active, [data-theme="light"] .trending-rank, [data-theme="light"] .bn-item.active, [data-theme="light"] .bn-item.active i, [data-theme="light"] .seg-btn.active, [data-theme="light"] .layout-opt.active { color: #04110a; }
-[data-theme="light"] .btn-primary:hover, [data-theme="light"] .btn-download-big:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
-[data-theme="light"] .status-in_dev, [data-theme="light"] .badge-draft { border-color: rgba(0, 122, 77, 0.32); }
-[data-theme="light"] .status-coming_soon { border-color: rgba(0, 122, 77, 0.34); }
-[data-theme="light"] .progress-label b { color: var(--mint); }
-[data-theme="light"] .stat-card:hover { background: rgba(0, 122, 77, 0.06); }
-[data-theme="light"] .stat-card i { border-color: rgba(0, 122, 77, 0.28); }
-[data-theme="light"] .stat-card:nth-child(2) i { border-color: rgba(0, 122, 77, 0.3); }
-[data-theme="light"] .stat-card:nth-child(3) i { border-color: rgba(0, 122, 77, 0.3); }
-[data-theme="light"] .stat-card:nth-child(4) i { color: var(--mint); background: var(--mint-a); border-color: rgba(0, 122, 77, 0.3); }
 
-body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
+body, .glass, .about-card, .detail-info, .footer-content, .timer-box, .features-list li, .empty-state, .login-card, .modal-dialog, .table-responsive, .alert-info, .alert-danger, .alert-success, .stats-grid, .admin-side, .stat-card, .search-box input, .filter-chips, .nav-container::before, .nav-links, .pwa-banner { transition: background-color .35s ease, border-color .35s ease, color .35s ease; }
 .btn-primary:active { transform: translateY(0) scale(0.98); }
 .btn:disabled::after { display: none; }
 .setup-notice { margin-top: 22px; }
@@ -919,34 +923,12 @@ html, body { overflow-x: clip; }
 .card-foot .btn { box-shadow: none; }
 @media (hover: none) { .card-foot .btn-primary { background: var(--grad); color: #ffffff; border-color: transparent; } }
 
-/* restored: strip layout rules for 1-3 cards (from original) */
-@media (min-width: 980px) {
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child), #homePhone .cards-grid:has(> .card:nth-child(3):last-child), #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child), #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child), #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
-  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta , #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta , #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
-}
-
 #homePc .cards-grid:has(> .card:nth-child(2):last-child), #homePhone .cards-grid:has(> .card:nth-child(2):last-child), #homeModsGta .cards-grid:has(> .card:nth-child(2):last-child),
 #gamesList .cards-grid:has(> .card:nth-child(2):last-child), #appsList .cards-grid:has(> .card:nth-child(2):last-child) { grid-template-columns: repeat(2, 1fr); }
 
 @media (max-width: 700px) {
   #homePc .cards-grid:has(> .card:nth-child(2):last-child), #homePhone .cards-grid:has(> .card:nth-child(2):last-child), #homeModsGta .cards-grid:has(> .card:nth-child(2):last-child),
   #gamesList .cards-grid:has(> .card:nth-child(2):last-child), #appsList .cards-grid:has(> .card:nth-child(2):last-child) { grid-template-columns: 1fr; }
-}
-
-@media (min-width: 760px) {
-  #homePc .cards-grid:has(> .card:only-child), #homePhone .cards-grid:has(> .card:only-child), #homeModsGta .cards-grid:has(> .card:only-child),
-  #gamesList .cards-grid:has(> .card:only-child), #appsList .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
-  #homePc .card:only-child, #homePhone .card:only-child, #homeModsGta .card:only-child, #gamesList .card:only-child, #appsList .card:only-child { flex-direction: row; }
-  #homePc .card:only-child .card-cover, #homePhone .card:only-child .card-cover, #homeModsGta .card:only-child .card-cover, #gamesList .card:only-child .card-cover, #appsList .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
-  #homePc .card:only-child .card-body, #homePhone .card:only-child .card-body, #homeModsGta .card:only-child .card-body, #gamesList .card:only-child .card-body, #appsList .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
-  #homePc .card:only-child .card-title, #homePhone .card:only-child .card-title, #homeModsGta .card:only-child .card-title, #gamesList .card:only-child .card-title, #appsList .card:only-child .card-title { font-size: 1.6rem; }
-  #homePc .card:only-child .card-desc, #homePhone .card:only-child .card-desc, #homeModsGta .card:only-child .card-desc, #gamesList .card:only-child .card-desc, #appsList .card:only-child .card-desc { flex: 0 1 auto; }
 }
 
 #homeProjects .cards-grid, #devList .cards-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 470px), 1fr)); }
@@ -1092,18 +1074,23 @@ html, body { overflow-x: clip; }
 .req-status-done { background: var(--mint-a); color: var(--mint); border-color: rgba(30, 107, 255, 0.38); }
 .req-status-rejected { background: var(--danger-a); color: var(--danger); border-color: rgba(224, 18, 47, 0.42); }
 
-@media (max-width: 899px) {
-  .bn-item { line-height: 1.2; text-decoration: none; }
-  .bn-item.active i { color: #ffffff; }
-  [data-theme="light"] .bottom-nav { background: linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(234, 250, 240, 0.9)); }
-  .nav-toggle { font-size: 1rem; }
-  .nav-links { bottom: auto; align-items: stretch; box-shadow: var(--glass-shadow), 0 24px 60px -10px rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
-  .nav-links .nav-link { flex: none; flex-direction: row; padding: 0 16px; }
-  .nav-links .nav-link.admin-btn { display: inline-flex; margin-inline-start: 0; }
-  [data-theme="light"] .nav-links { background: linear-gradient(155deg, rgba(255, 255, 255, 0.97), rgba(234, 250, 240, 0.92)); }
-}
+.store-modfeat-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; width: 100%; }
+.store-modfeat-chips .filter-btn { height: 36px; padding: 0 14px; font-size: 0.8rem; }
 
-@media (min-width: 900px) { .nav-admin-mini { display: none; } }
+.dl-interstitial { width: 100%; border-top: 1px dashed var(--line); padding-top: 10px; }
+
+/* PWA Smart Install Banner */
+.pwa-banner {
+  position: fixed; bottom: 20px; inset-inline: 16px; max-width: 520px; margin: 0 auto; z-index: 9999;
+  padding: 14px 18px; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  animation: rise 0.5s var(--ease);
+}
+.pwa-banner-text h4 { font-family: var(--f-display); font-size: 0.96rem; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.pwa-banner-text p { font-size: 0.8rem; color: var(--ink-2); line-height: 1.4; margin: 0; }
+.pwa-banner-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+@media (max-width: 899px) {
+  .pwa-banner { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+}
 
 @media (max-width: 560px) {
   .container { padding: 0 16px; }
@@ -1150,6 +1137,223 @@ button.nav-link { background: transparent; border: 0; }
 .search-results-head h3 i { color: var(--mint); }
 .search-results-head span { color: var(--ink-3); font-size: .85rem; font-weight: 600; }
 
+.tool-btn {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink-2);
+  font-weight: 600; font-size: .88rem; white-space: nowrap;
+  transition: background .3s, color .3s, border-color .3s;
+}
+.tool-btn:hover { color: var(--ink); background: var(--glass-flat-hi); }
+.tool-btn i { color: var(--mint); font-size: .95rem; }
+
+.lang-picker {
+  display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 6px 0 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--glass-flat); color: var(--mint); font-size: .9rem;
+}
+.lang-picker select {
+  height: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .85rem; font-weight: 600;
+  outline: none; cursor: pointer; max-width: 104px;
+}
+.lang-picker select option { background: var(--bg-2); color: var(--ink); }
+
+@media (max-width: 899px) {
+  .nav-actions { gap: 6px; }
+  .nav-actions .tool-btn span { display: none; }
+  .nav-actions .tool-btn { width: 40px; padding: 0; justify-content: center; }
+  .lang-picker { padding: 0 4px 0 8px; }
+  .lang-picker select { max-width: 70px; font-size: .78rem; }
+}
+
+.section { content-visibility: auto; contain-intrinsic-size: 700px; }
+.row-strip-wrap { content-visibility: auto; contain-intrinsic-size: 240px; }
+.cards-grid > .card { content-visibility: auto; contain-intrinsic-size: 340px; }
+
+@media (max-width: 640px) {
+  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input, .filter-chips, .nav-container::before, .nav-links, .pwa-banner { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input, .pwa-banner { background: var(--glass-solid); }
+  .nav-container::before { background: var(--glass-solid); }
+  .nav-links { background: var(--glass-solid); }
+  .aurora i { animation: none !important; }
+}
+
+[dir="ltr"] .row-strip { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%); mask-image: linear-gradient(to right, #000 88%, transparent 100%); }
+[dir="ltr"] .strip-next i { transform: scaleX(-1); }
+[dir="ltr"] .see-all:hover { transform: translateX(4px); }
+[dir="ltr"] .footer-links a:hover { transform: translateX(4px); }
+
+[hidden] { display: none !important; }
+.card { content-visibility: auto; contain-intrinsic-size: auto 380px; }
+.seg-btn { text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
+.seg-btn:hover { border-color: var(--line-hi); }
+.seg-btn.active { box-shadow: 0 8px 24px -10px rgba(30, 107, 255, .75); }
+.seg-sub .seg-btn { height: 38px; padding: 0 14px; font-size: .9rem; }
+.mods-none { color: var(--text-dim); font-size: .9rem; }
+
+@media (max-width: 900px), (hover: none) {
+  *, *::before, *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .glass, .card, .bottom-nav, .nav-links, .dd-menu, .detail-info, .about-card,
+  .timer-box, .empty-state, .stats-grid, .filter-chips, .pwa-banner {
+    background: var(--glass-solid, #13141C) !important;
+  }
+  .aurora i, .hero-title, [class*="hv-"], .hero-badge::before, .skeleton {
+    animation: none !important;
+  }
+  .card:hover::after { animation: none !important; }
+  .aurora { opacity: .5; }
+}
+
+@media (min-width: 700px) { .cards-grid.vgrid { gap: 18px; } }
+
+html[data-vcols="3"] .vgrid .card-desc, html[data-vcols="4"] .vgrid .card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .72rem; line-height: 1.5; }
+html[data-vcols="4"] .vgrid .card-desc { font-size: .68rem; }
+html[data-vcols="3"] .vgrid .card-meta, html[data-vcols="4"] .vgrid .card-meta { display: flex; font-size: .66rem; gap: 4px 8px; }
+html[data-vcols="4"] .vgrid .card-meta { font-size: .62rem; }
+html[data-vcols="3"] .vgrid .card-meta .card-ver, html[data-vcols="4"] .vgrid .card-meta .card-ver { display: none; }
+html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { font-size: .88rem; }
+html[data-vcols="4"] .vgrid .card-title { font-size: .76rem; }
+html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px; }
+html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
+html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .68rem; padding: 6px 4px; white-space: normal; line-height: 1.3; height: auto; min-height: 34px; }
+html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .62rem; }
+
+.split-tools .layout-wrap { position: relative; flex: none; }
+.layout-btn { width: 44px; padding: 0; justify-content: center; }
+.layout-menu {
+  position: fixed; top: 0; left: 0; z-index: 1000; max-width: calc(100vw - 16px);
+  display: flex; flex-direction: column; gap: 4px; min-width: 170px; padding: 6px;
+  border-radius: 16px; background: var(--glass-solid, #13141C); border: 1px solid var(--line-hi);
+  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7);
+}
+.layout-opt {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px;
+  padding: 4px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink);
+  font: inherit; font-weight: 600; text-align: start; cursor: pointer;
+}
+.layout-opt:hover { background: var(--mint-a); }
+.layout-opt.active { background: var(--grad); color: #ffffff; }
+
+.vgrid .card { padding: 8px; }
+.vgrid .card-cover { aspect-ratio: 1 / 1; }
+.vgrid .card-body { padding: 10px 6px 4px; gap: 6px; }
+.vgrid .card-title { font-size: 1rem; line-height: 1.35; }
+.vgrid .card-desc { font-size: .82rem; line-height: 1.55; -webkit-line-clamp: 2; }
+.vgrid .card-meta { font-size: .72rem; gap: 4px 12px; }
+.vgrid .card-foot { margin-top: 4px; }
+.vgrid .card-foot .btn { height: 40px; font-size: .85rem; }
+
+.linklike { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
+.linklike:hover { text-decoration: underline; }
+
+.store-filters { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }
+.store-filters .fs-field { flex: 1 1 150px; }
+.store-filters .fs-field select option { background: #12131B; color: var(--ink); }
+[data-theme="light"] .store-filters .fs-field select option { background: #ffffff; }
+
+.search-meta-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; color: var(--ink-2); font-size: 0.88rem; font-weight: 600; }
+.extra-file-meta { display: flex; gap: 10px; flex-wrap: wrap; color: var(--ink-3); font-size: 0.8rem; margin-top: 4px; padding-inline-start: 4px; }
+
+@media (min-width: 900px) {
+  .nav-links { gap: 0; }
+  .nav-links .nav-link { padding: 0 9px; font-size: 0.88rem; }
+  .nav-links .nav-link.admin-btn { margin-inline-start: 4px; }
+}
+  /* restored: CSS rules dropped by AI Studio in phase 2 — verbatim from original index.html (phase 2-3 verification) */
+[data-theme="light"] .form-group input[type='file']::file-selector-button { color: #04110a; }
+[data-theme="light"] .filter-btn.active { color: #04110a; }
+[data-theme="light"] .logo-icon { color: #04110a; }
+[data-theme="light"] .nav-link.active { color: #04110a; }
+[data-theme="light"] .nav-link.active i { color: #04110a; }
+[data-theme="light"] .hv-core { color: #04110a; }
+[data-theme="light"] .card:hover .card-foot .btn { color: #04110a; }
+[data-theme="light"] .social-icons a:hover { color: #04110a; }
+[data-theme="light"] .fav-btn.active { color: #04110a; }
+[data-theme="light"] .trending-rank { color: #04110a; }
+[data-theme="light"] .bn-item.active { color: #04110a; }
+[data-theme="light"] .bn-item.active i { color: #04110a; }
+[data-theme="light"] .seg-btn.active { color: #04110a; }
+[data-theme="light"] .layout-opt.active { color: #04110a; }
+[data-theme="light"] .btn-primary:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+[data-theme="light"] .btn-download-big:hover { box-shadow: 0 16px 44px -10px rgba(0, 122, 77, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
+[data-theme="light"] .status-in_dev { border-color: rgba(0, 122, 77, 0.32); }
+[data-theme="light"] .badge-draft { border-color: rgba(0, 122, 77, 0.32); }
+[data-theme="light"] .status-coming_soon { border-color: rgba(0, 122, 77, 0.34); }
+[data-theme="light"] .progress-label b { color: var(--mint); }
+[data-theme="light"] .stat-card:hover { background: rgba(0, 122, 77, 0.06); }
+[data-theme="light"] .stat-card i { border-color: rgba(0, 122, 77, 0.28); }
+[data-theme="light"] .stat-card:nth-child(2) i { border-color: rgba(0, 122, 77, 0.3); }
+[data-theme="light"] .stat-card:nth-child(3) i { border-color: rgba(0, 122, 77, 0.3); }
+[data-theme="light"] .stat-card:nth-child(4) i { color: var(--mint); background: var(--mint-a); border-color: rgba(0, 122, 77, 0.3); }
+@media (min-width: 980px) {
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) { grid-template-columns: 1.3fr 1fr; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child { grid-row: 1 / span 2; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-cover { flex: 1; aspect-ratio: auto; min-height: 300px; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:first-child .card-title { font-size: 1.5rem; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) { flex-direction: row; align-items: stretch; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-cover { flex: 0 0 40%; aspect-ratio: auto; min-height: 170px; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-desc { -webkit-line-clamp: 2; }
+  #homePc .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
+  #homePhone .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
+  #homeModsGta .cards-grid:has(> .card:nth-child(3):last-child) > .card:not(:first-child) .card-meta { display: none; }
+}
+@media (min-width: 760px) {
+  #homePc .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
+  #homePhone .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
+  #homeModsGta .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
+  #gamesList .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
+  #appsList .cards-grid:has(> .card:only-child) { grid-template-columns: 1fr; }
+  #homePc .card:only-child { flex-direction: row; }
+  #homePhone .card:only-child { flex-direction: row; }
+  #homeModsGta .card:only-child { flex-direction: row; }
+  #gamesList .card:only-child { flex-direction: row; }
+  #appsList .card:only-child { flex-direction: row; }
+  #homePc .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #homePhone .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #homeModsGta .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #gamesList .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #appsList .card:only-child .card-cover { flex: 0 0 50%; aspect-ratio: auto; min-height: 340px; }
+  #homePc .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #homePhone .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #homeModsGta .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #gamesList .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #appsList .card:only-child .card-body { padding: 22px 26px; justify-content: center; }
+  #homePc .card:only-child .card-title { font-size: 1.6rem; }
+  #homePhone .card:only-child .card-title { font-size: 1.6rem; }
+  #homeModsGta .card:only-child .card-title { font-size: 1.6rem; }
+  #gamesList .card:only-child .card-title { font-size: 1.6rem; }
+  #appsList .card:only-child .card-title { font-size: 1.6rem; }
+  #homePc .card:only-child .card-desc { flex: 0 1 auto; }
+  #homePhone .card:only-child .card-desc { flex: 0 1 auto; }
+  #homeModsGta .card:only-child .card-desc { flex: 0 1 auto; }
+  #gamesList .card:only-child .card-desc { flex: 0 1 auto; }
+  #appsList .card:only-child .card-desc { flex: 0 1 auto; }
+}
+@media (max-width: 899px) {
+  .bn-item { line-height: 1.2; text-decoration: none; }
+  .bn-item.active i { color: #ffffff; }
+  [data-theme="light"] .bottom-nav { background: linear-gradient(155deg, rgba(255, 255, 255, 0.96), rgba(234, 250, 240, 0.9)); }
+  .nav-toggle { font-size: 1rem; }
+  .nav-links { bottom: auto; align-items: stretch; box-shadow: var(--glass-shadow), 0 24px 60px -10px rgba(0, 0, 0, 0.9); -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); }
+  .nav-links .nav-link { flex: none; flex-direction: row; padding: 0 16px; }
+  .nav-links .nav-link.admin-btn { display: inline-flex; margin-inline-start: 0; }
+  [data-theme="light"] .nav-links { background: linear-gradient(155deg, rgba(255, 255, 255, 0.97), rgba(234, 250, 240, 0.92)); }
+}
 @media (max-width: 640px) {
   body { font-size: 15px; line-height: 1.75; }
   .container { padding: 0 12px; }
@@ -1193,493 +1397,63 @@ button.nav-link { background: transparent; border: 0; }
   .btn { height: 46px; padding: 0 20px; font-size: .9rem; }
   .btn-sm { height: 38px; padding: 0 14px; font-size: .82rem; }
 }
-
-.tool-btn {
-  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink-2);
-  font-weight: 600; font-size: .88rem; white-space: nowrap;
-  transition: background .3s, color .3s, border-color .3s;
-}
-.tool-btn:hover { color: var(--ink); background: var(--glass-flat-hi); }
-.tool-btn i { color: var(--mint); font-size: .95rem; }
-
-.lang-picker {
-  display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 6px 0 12px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--glass-flat); color: var(--mint); font-size: .9rem;
-}
-.lang-picker select {
-  height: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .85rem; font-weight: 600;
-  outline: none; cursor: pointer; max-width: 104px;
-}
-.lang-picker select option { background: var(--bg-2); color: var(--ink); }
-
-@media (max-width: 899px) {
-  .nav-actions { gap: 6px; }
-  .nav-actions .tool-btn span { display: none; }
-  .nav-actions .tool-btn { width: 40px; padding: 0; justify-content: center; }
-  .lang-picker { padding: 0 4px 0 8px; }
-  .lang-picker select { max-width: 70px; font-size: .78rem; }
-}
-
-.section { content-visibility: auto; contain-intrinsic-size: 700px; }
-.row-strip-wrap { content-visibility: auto; contain-intrinsic-size: 240px; }
-.cards-grid > .card { content-visibility: auto; contain-intrinsic-size: 340px; }
-
-@media (max-width: 640px) {
-  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input, .filter-chips, .nav-container::before, .nav-links { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-  .glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input { background: var(--glass-solid); }
-  .nav-container::before { background: var(--glass-solid); }
-  .nav-links { background: var(--glass-solid); }
-  .aurora i { animation: none !important; }
-}
-
-[dir="ltr"] .row-strip { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%); mask-image: linear-gradient(to right, #000 88%, transparent 100%); }
-[dir="ltr"] .strip-next i { transform: scaleX(-1); }
-[dir="ltr"] .see-all:hover { transform: translateX(4px); }
-[dir="ltr"] .footer-links a:hover { transform: translateX(4px); }
-
-[hidden] { display: none !important; }
-.card { content-visibility: auto; contain-intrinsic-size: auto 380px; }
-.seg-btn { text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
-.seg-btn:hover { border-color: var(--line-hi); }
-.seg-btn.active { box-shadow: 0 8px 24px -10px rgba(30, 107, 255, .75); }
-.seg-sub .seg-btn { height: 38px; padding: 0 14px; font-size: .9rem; }
-.mods-none { color: var(--text-dim); font-size: .9rem; }
-
-@media (max-width: 900px), (hover: none) {
-  *, *::before, *::after {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-  .glass, .card, .bottom-nav, .nav-links, .dd-menu, .detail-info, .about-card,
-  .timer-box, .empty-state, .stats-grid, .filter-chips {
-    background: var(--glass-solid, #13141C) !important;
-  }
-  .aurora i, .hero-title, [class*="hv-"], .hero-badge::before, .skeleton {
-    animation: none !important;
-  }
-  .card:hover::after { animation: none !important; }
-  .aurora { opacity: .5; }
-}
-
-@media (min-width: 700px) { .cards-grid.vgrid { gap: 18px; } }
-
-html[data-vcols="3"] .vgrid .card-desc, html[data-vcols="4"] .vgrid .card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .72rem; line-height: 1.5; }
-html[data-vcols="4"] .vgrid .card-desc { font-size: .68rem; }
-html[data-vcols="3"] .vgrid .card-meta, html[data-vcols="4"] .vgrid .card-meta { display: flex; font-size: .66rem; gap: 4px 8px; }
-html[data-vcols="4"] .vgrid .card-meta { font-size: .62rem; }
-html[data-vcols="3"] .vgrid .card-meta .card-ver, html[data-vcols="4"] .vgrid .card-meta .card-ver { display: none; }
-html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { font-size: .88rem; }
-html[data-vcols="4"] .vgrid .card-title { font-size: .76rem; }
-html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px; }
-html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
-html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .68rem; padding: 6px 4px; white-space: normal; line-height: 1.3; height: auto; min-height: 34px; }
-html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .62rem; }
-
-.split-tools .layout-wrap { position: relative; flex: none; }
-.layout-btn { width: 44px; padding: 0; justify-content: center; }
-.layout-menu {
-  position: fixed; top: 0; left: 0; z-index: 1000; max-width: calc(100vw - 16px);
-  display: flex; flex-direction: column; gap: 4px; min-width: 170px; padding: 6px;
-  border-radius: 16px; background: var(--glass-solid, #13141C); border: 1px solid var(--line-hi);
-  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7);
-}
-.layout-opt {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px;
-  padding: 4px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink);
-  font: inherit; font-weight: 600; text-align: start; cursor: pointer;
-}
-.layout-opt:hover { background: var(--mint-a); }
-.layout-opt.active { background: var(--grad); color: #ffffff; }
-
-.vgrid .card { padding: 8px; }
-.vgrid .card-cover { aspect-ratio: 1 / 1; }
-.vgrid .card-body { padding: 10px 6px 4px; gap: 6px; }
-.vgrid .card-title { font-size: 1rem; line-height: 1.35; }
-.vgrid .card-desc { font-size: .82rem; line-height: 1.55; -webkit-line-clamp: 2; }
-.vgrid .card-meta { font-size: .72rem; gap: 4px 12px; }
-.vgrid .card-foot { margin-top: 4px; }
-.vgrid .card-foot .btn { height: 40px; font-size: .85rem; }
-
-html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-html[data-vcols="3"] .vgrid .card-foot .btn i, html[data-vcols="4"] .vgrid .card-foot .btn i { font-size: .8rem; }
+html[data-vcols="3"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+html[data-vcols="3"] .vgrid .card-foot .btn i { font-size: .8rem; }
+html[data-vcols="4"] .vgrid .card-foot .btn i { font-size: .8rem; }
 html[data-vcols="3"] .vgrid .cover-chip.net { display: none; }
-html[data-vcols="3"] .vgrid .fav-btn, html[data-vcols="4"] .vgrid .fav-btn { width: 30px; height: 30px; font-size: .78rem; top: 6px; inset-inline-end: 6px; }
-html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 8px; font-size: .6rem; }
-
+html[data-vcols="3"] .vgrid .fav-btn { width: 30px; height: 30px; font-size: .78rem; top: 6px; inset-inline-end: 6px; }
+html[data-vcols="4"] .vgrid .fav-btn { width: 30px; height: 30px; font-size: .78rem; top: 6px; inset-inline-end: 6px; }
+html[data-vcols="3"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 8px; font-size: .6rem; }
+html[data-vcols="4"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 8px; font-size: .6rem; }
 .vgrid .card-cover img { object-fit: cover; }
-
 @media (max-width: 700px) {
   html[data-vcols="2"] .vgrid .cover-chip { font-size: .62rem; padding: 2px 7px; bottom: 6px; }
   html[data-vcols="2"] .vgrid .cover-chip.plat { inset-inline-start: 6px; }
   html[data-vcols="2"] .vgrid .cover-chip.net { inset-inline-end: 6px; }
   html[data-vcols="2"] .vgrid .fav-btn { width: 28px; height: 28px; font-size: .72rem; top: 6px; inset-inline-end: 6px; }
-
-  html[data-vcols="3"] .vgrid .card, html[data-vcols="4"] .vgrid .card { padding: 6px 4px; }
-  html[data-vcols="3"] .vgrid .card-cover, html[data-vcols="4"] .vgrid .card-cover { aspect-ratio: 1 / 1; }
-  html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px 4px 4px; gap: 4px; }
-  html[data-vcols="3"] .vgrid .card-body > div:first-child, html[data-vcols="4"] .vgrid .card-body > div:first-child { flex-wrap: wrap !important; gap: 4px !important; }
-  html[data-vcols="3"] .vgrid .status-badge, html[data-vcols="4"] .vgrid .status-badge { font-size: .6rem; padding: 2px 6px; }
+  html[data-vcols="3"] .vgrid .card { padding: 6px 4px; }
+  html[data-vcols="4"] .vgrid .card { padding: 6px 4px; }
+  html[data-vcols="3"] .vgrid .card-cover { aspect-ratio: 1 / 1; }
+  html[data-vcols="4"] .vgrid .card-cover { aspect-ratio: 1 / 1; }
+  html[data-vcols="3"] .vgrid .card-body { padding: 8px 4px 4px; gap: 4px; }
+  html[data-vcols="4"] .vgrid .card-body { padding: 8px 4px 4px; gap: 4px; }
+  html[data-vcols="3"] .vgrid .card-body > div:first-child { flex-wrap: wrap !important; gap: 4px !important; }
+  html[data-vcols="4"] .vgrid .card-body > div:first-child { flex-wrap: wrap !important; gap: 4px !important; }
+  html[data-vcols="3"] .vgrid .status-badge { font-size: .6rem; padding: 2px 6px; }
+  html[data-vcols="4"] .vgrid .status-badge { font-size: .6rem; padding: 2px 6px; }
   html[data-vcols="4"] .vgrid .status-badge { display: none; }
-  html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge { display: none; }
-  html[data-vcols="3"] .vgrid .cover-chip.plat, html[data-vcols="4"] .vgrid .cover-chip.plat { font-size: 0; gap: 0; padding: 3px 6px; bottom: 4px; inset-inline-start: 4px; }
-  html[data-vcols="3"] .vgrid .cover-chip.plat i, html[data-vcols="4"] .vgrid .cover-chip.plat i { font-size: .7rem; }
-  html[data-vcols="3"] .vgrid .cover-chip.net, html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
-  html[data-vcols="3"] .vgrid .fav-btn, html[data-vcols="4"] .vgrid .fav-btn { width: 26px; height: 26px; font-size: .72rem; top: 4px; inset-inline-end: 4px; }
-  html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; line-height: 1.3; }
+  html[data-vcols="3"] .vgrid .card-badge { display: none; }
+  html[data-vcols="4"] .vgrid .card-badge { display: none; }
+  html[data-vcols="3"] .vgrid .cover-chip.plat { font-size: 0; gap: 0; padding: 3px 6px; bottom: 4px; inset-inline-start: 4px; }
+  html[data-vcols="4"] .vgrid .cover-chip.plat { font-size: 0; gap: 0; padding: 3px 6px; bottom: 4px; inset-inline-start: 4px; }
+  html[data-vcols="3"] .vgrid .cover-chip.plat i { font-size: .7rem; }
+  html[data-vcols="4"] .vgrid .cover-chip.plat i { font-size: .7rem; }
+  html[data-vcols="3"] .vgrid .cover-chip.net { display: none; }
+  html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
+  html[data-vcols="3"] .vgrid .fav-btn { width: 26px; height: 26px; font-size: .72rem; top: 4px; inset-inline-end: 4px; }
+  html[data-vcols="4"] .vgrid .fav-btn { width: 26px; height: 26px; font-size: .72rem; top: 4px; inset-inline-end: 4px; }
+  html[data-vcols="3"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; line-height: 1.3; }
+  html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; line-height: 1.3; }
   html[data-vcols="3"] .vgrid .card-title { font-size: .85rem; }
   html[data-vcols="4"] .vgrid .card-title { font-size: .72rem; }
-  html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { min-width: 0; height: auto; min-height: 34px; }
+  html[data-vcols="3"] .vgrid .card-foot .btn { min-width: 0; height: auto; min-height: 34px; }
+  html[data-vcols="4"] .vgrid .card-foot .btn { min-width: 0; height: auto; min-height: 34px; }
 }
-
-.mod-safety-warning {
-  max-width: 940px; margin: 18px auto 0; padding: 14px 18px; border-radius: var(--r-md);
-  border: 1px solid rgba(255, 193, 77, 0.44);
-  background: linear-gradient(155deg, rgba(255, 193, 77, 0.16), rgba(224, 18, 47, 0.08));
-  color: var(--ink); font-size: 0.9rem; line-height: 1.85;
-}
-.mod-safety-warning i { color: var(--gold); margin-inline-end: 7px; }
 .pc-lock-box { line-height: 1.8; }
 .pc-lock-box i { color: var(--sky); margin-inline-end: 6px; }
-
 .download-fallback-box { margin-top: 12px; display: grid; gap: 8px; }
 .btn-backup-dl { width: 100%; height: 44px; font-size: 0.9rem; }
 .download-fail-alert { font-size: 0.88rem; }
-.extra-file-meta { display: flex; gap: 10px; flex-wrap: wrap; color: var(--ink-3); font-size: 0.8rem; margin-top: 4px; padding-inline-start: 4px; }
-.search-meta-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; color: var(--ink-2); font-size: 0.88rem; font-weight: 600; }
 .lightbox-controls { display: flex; align-items: center; gap: 12px; }
-.store-filters { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }
-.store-filters .fs-field { flex: 1 1 150px; }
-.store-filters .fs-field select option { background: #12131B; color: var(--ink); }
-[data-theme="light"] .store-filters .fs-field select option { background: #ffffff; }
-
-.store-mod-warn {
-  display: flex; align-items: flex-start; gap: 7px; padding: 8px 11px; border-radius: var(--r-sm);
-  border: 1px solid rgba(255, 193, 77, 0.5); color: var(--ink); font-size: 0.66rem; font-weight: 600; margin-top: 1px; font-variant-numeric: tabular-nums; }
-
-.row-desc { color: var(--ink-2); font-size: .7rem; line-height: 1.7; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-
-.row-dl { display: inline-flex; align-items: center; gap: 4px; margin-top: auto; padding-top: 5px; color: var(--ink-3); font-size: .66rem; font-weight: 600; }
-
-.row-dl i { color: var(--mint); font-size: .8em; }
-
-button.nav-link { background: transparent; border: 0; }
-
-.hero-search { margin-top: 22px; max-width: 560px; }
-
-.hero-search input, .search-box.has-clear input { padding-inline-end: 48px; }
-
-.hero-search-clear {
-  position: absolute; top: 50%; transform: translateY(-50%); inset-inline-end: 12px; z-index: 2;
-  width: 32px; height: 32px; border-radius: 50%; border: 0; display: none; place-items: center;
-  color: var(--ink-2); background: var(--glass-flat); font-size: .8rem;
-}
-
-.hero-search-clear:hover { color: var(--ink); background: var(--glass-flat-hi); }
-
-.hero-search-results { padding: clamp(18px, 4vw, 32px) 0 0; }
-
-.search-results-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
-
-.search-results-head h3 { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-size: 1.15rem; font-weight: 700; }
-
-.search-results-head h3 i { color: var(--mint); }
-
-.search-results-head span { color: var(--ink-3); font-size: .85rem; font-weight: 600; }
-
-@media (max-width: 640px) {
-body { font-size: 15px; line-height: 1.75; }
-.container { padding: 0 12px; }
-.navbar { padding: 8px 10px 0; }
-.nav-container { height: 54px; padding: 0 8px; }
-.nav-container .logo { font-size: .98rem; gap: 8px; }
-.nav-container .logo-icon { width: 34px; height: 34px; border-radius: 11px; font-size: 1rem; }
-.hero { padding: 26px 0 4px; }
-.hero-badge { font-size: .78rem; padding: 6px 14px 6px 12px; gap: 8px; }
-.hero-title { font-size: clamp(1.9rem, 9vw, 2.5rem); margin: 16px 0 10px; }
-.hero-sub { font-size: .95rem; line-height: 1.8; margin-bottom: 18px; }
-.hero-actions { gap: 10px; }
-.hero-actions .btn { height: 48px; padding: 0 20px; font-size: .92rem; }
-.hero-search { margin-top: 16px; }
-.search-box input { height: 48px; font-size: .92rem; }
-.hero-stats { margin-top: 24px; }
-.stat-card { padding: 14px 12px; }
-.stat-card i { width: 38px; height: 38px; border-radius: 12px; font-size: 1rem; margin-bottom: 6px; }
-.stat-card h3 { font-size: 1.45rem; }
-.stat-card span { font-size: .76rem; }
-.section { padding: 26px 0 0; }
-.section-head { margin-bottom: 14px; gap: 10px; }
-.section-title { font-size: 1.32rem; gap: 10px; }
-.section-title .ico { width: 38px; height: 38px; border-radius: 13px; font-size: .95rem; }
-.eyebrow { font-size: .68rem; margin-bottom: 8px; gap: 8px; }
-.section-sub { font-size: .92rem; margin-top: 8px; }
-.page-head { margin-bottom: 20px; }
-.see-all { height: 36px; padding: 0 14px; font-size: .8rem; }
-.filter-chips { margin-bottom: 16px; }
-.filter-btn { height: 38px; padding: 0 12px; font-size: .82rem; }
-.row-card { flex-basis: 100px; width: 100px; padding: 6px; border-radius: 14px; }
-.row-title { font-size: .72rem; margin-top: 6px; }
-.row-ver { font-size: .6rem; }
-.row-desc { display: none; }
-.row-dl { font-size: .6rem; padding-top: 4px; }
-.row-strip { gap: 8px; }
-.empty-state { padding: 36px 16px; }
-.empty-state .big { width: 64px; height: 64px; font-size: 1.8rem; border-radius: 20px; }
-.footer { padding: 0 12px 24px; }
-.footer-content { padding: 22px; gap: 22px; }
-.btn { height: 46px; padding: 0 20px; font-size: .9rem; }
-.btn-sm { height: 38px; padding: 0 14px; font-size: .82rem; }
-}
-
-.tool-btn {
-  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--glass-flat); color: var(--ink-2);
-  font-weight: 600; font-size: .88rem; white-space: nowrap;
-  transition: background .3s, color .3s, border-color .3s;
-}
-
-.tool-btn:hover { color: var(--ink); background: var(--glass-flat-hi); }
-
-.tool-btn i { color: var(--mint); font-size: .95rem; }
-
-.lang-picker {
-  display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 6px 0 12px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--glass-flat); color: var(--mint); font-size: .9rem;
-}
-
-.lang-picker select {
-  height: 100%; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: .85rem; font-weight: 600;
-  outline: none; cursor: pointer; max-width: 104px;
-}
-
-.lang-picker select option { background: var(--bg-2); color: var(--ink); }
-
-@media (max-width: 899px) {
-.nav-actions { gap: 6px; }
-.nav-actions .tool-btn span { display: none; }
-.nav-actions .tool-btn { width: 40px; padding: 0; justify-content: center; }
-.lang-picker { padding: 0 4px 0 8px; }
-.lang-picker select { max-width: 70px; font-size: .78rem; }
-}
-
-.section { content-visibility: auto; contain-intrinsic-size: 700px; }
-
-.row-strip-wrap { content-visibility: auto; contain-intrinsic-size: 240px; }
-
-.cards-grid > .card { content-visibility: auto; contain-intrinsic-size: 340px; }
-
-@media (max-width: 640px) {
-.glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input, .filter-chips, .nav-container::before, .nav-links { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
-.glass, .card, .row-card, .about-card, .detail-info, .timer-box, .features-list li, .empty-state, .footer-content, .stats-grid, .search-box input { background: var(--glass-solid); }
-.nav-container::before { background: var(--glass-solid); }
-.nav-links { background: var(--glass-solid); }
-.aurora i { animation: none !important; }
-}
-
-[dir="ltr"] .row-strip { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%); mask-image: linear-gradient(to right, #000 88%, transparent 100%); }
-
-[dir="ltr"] .strip-next i { transform: scaleX(-1); }
-
-[dir="ltr"] .see-all:hover { transform: translateX(4px); }
-
-[dir="ltr"] .footer-links a:hover { transform: translateX(4px); }
-
-[hidden] { display: none !important; }
-
-.card { content-visibility: auto; contain-intrinsic-size: auto 380px; }
-
-.seg-btn { text-decoration: none; transition: background .2s, color .2s, border-color .2s; }
-
-.seg-btn:hover { border-color: var(--line-hi); }
-
-.seg-btn.active { box-shadow: 0 8px 24px -10px rgba(30, 107, 255, .75); }
-
-.seg-sub .seg-btn { height: 38px; padding: 0 14px; font-size: .9rem; }
-
-.mods-none { color: var(--text-dim); font-size: .9rem; }
-
-@media (max-width: 900px), (hover: none) {
-  *, *::before, *::after {
-    -webkit-backdrop-filter: none !important;
-    backdrop-filter: none !important;
-  }
-  .glass, .card, .bottom-nav, .nav-links, .dd-menu, .detail-info, .about-card,
-  .timer-box, .empty-state, .stats-grid, .filter-chips {
-    background: var(--glass-solid, #13141C) !important;
-  }
-  .aurora i, .hero-title, [class*="hv-"], .hero-badge::before, .skeleton {
-    animation: none !important;
-  }
-  .card:hover::after { animation: none !important; }
-  .aurora { opacity: .5; }
-}
-
-@media (min-width: 700px) { .cards-grid.vgrid { gap: 18px; } }
-
-html[data-vcols="3"] .vgrid .card-desc, html[data-vcols="4"] .vgrid .card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .72rem; line-height: 1.5; }
-
-html[data-vcols="4"] .vgrid .card-desc { font-size: .68rem; }
-
-html[data-vcols="3"] .vgrid .card-meta, html[data-vcols="4"] .vgrid .card-meta { display: flex; font-size: .66rem; gap: 4px 8px; }
-
-html[data-vcols="4"] .vgrid .card-meta { font-size: .62rem; }
-
-html[data-vcols="3"] .vgrid .card-meta .card-ver, html[data-vcols="4"] .vgrid .card-meta .card-ver { display: none; }
-
-html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { font-size: .88rem; }
-
-html[data-vcols="4"] .vgrid .card-title { font-size: .76rem; }
-
-html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px; }
-
-html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
-
-html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .68rem; padding: 6px 4px; white-space: normal; line-height: 1.3; height: auto; min-height: 34px; }
-
-html[data-vcols="4"] .vgrid .card-foot .btn { font-size: .62rem; }
-
-.split-tools .layout-wrap { position: relative; flex: none; }
-
-.layout-btn { width: 44px; padding: 0; justify-content: center; }
-
-.layout-menu {
-  position: fixed; top: 0; left: 0; z-index: 1000; max-width: calc(100vw - 16px);
-  display: flex; flex-direction: column; gap: 4px; min-width: 170px; padding: 6px;
-  border-radius: 16px; background: var(--glass-solid, #13141C); border: 1px solid var(--line-hi);
-  box-shadow: 0 18px 50px -12px rgba(0, 0, 0, .7);
-}
-
-.layout-opt {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px;
-  padding: 4px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--ink);
-  font: inherit; font-weight: 600; text-align: start; cursor: pointer;
-}
-
-.layout-opt:hover { background: var(--mint-a); }
-
-.layout-opt.active { background: var(--grad); color: #ffffff; }
-
-.vgrid .card { padding: 8px; }
-
-.vgrid .card-cover { aspect-ratio: 1 / 1; }
-
-.vgrid .card-body { padding: 10px 6px 4px; gap: 6px; }
-
-.vgrid .card-title { font-size: 1rem; line-height: 1.35; }
-
-.vgrid .card-desc { font-size: .82rem; line-height: 1.55; -webkit-line-clamp: 2; }
-
-.vgrid .card-meta { font-size: .72rem; gap: 4px 12px; }
-
-.vgrid .card-foot { margin-top: 4px; }
-
-.vgrid .card-foot .btn { height: 40px; font-size: .85rem; }
-
-html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-
-html[data-vcols="3"] .vgrid .card-foot .btn i, html[data-vcols="4"] .vgrid .card-foot .btn i { font-size: .8rem; }
-
-html[data-vcols="3"] .vgrid .cover-chip.net { display: none; }
-
-html[data-vcols="3"] .vgrid .fav-btn, html[data-vcols="4"] .vgrid .fav-btn { width: 30px; height: 30px; font-size: .78rem; top: 6px; inset-inline-end: 6px; }
-
-html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge { top: 6px; inset-inline-start: 6px; padding: 2px 8px; font-size: .6rem; }
-
-.vgrid .card-cover img { object-fit: cover; }
-
-@media (max-width: 700px) {
-  
-  
-  html[data-vcols="2"] .vgrid .cover-chip { font-size: .62rem; padding: 2px 7px; bottom: 6px; }
-  html[data-vcols="2"] .vgrid .cover-chip.plat { inset-inline-start: 6px; }
-  html[data-vcols="2"] .vgrid .cover-chip.net { inset-inline-end: 6px; }
-  html[data-vcols="2"] .vgrid .fav-btn { width: 28px; height: 28px; font-size: .72rem; top: 6px; inset-inline-end: 6px; }
-
-  
-  html[data-vcols="3"] .vgrid .card, html[data-vcols="4"] .vgrid .card { padding: 6px 4px; }
-  html[data-vcols="3"] .vgrid .card-cover, html[data-vcols="4"] .vgrid .card-cover { aspect-ratio: 1 / 1; }
-  html[data-vcols="3"] .vgrid .card-body, html[data-vcols="4"] .vgrid .card-body { padding: 8px 4px 4px; gap: 4px; }
-  html[data-vcols="3"] .vgrid .card-body > div:first-child, html[data-vcols="4"] .vgrid .card-body > div:first-child { flex-wrap: wrap !important; gap: 4px !important; }
-  html[data-vcols="3"] .vgrid .status-badge, html[data-vcols="4"] .vgrid .status-badge { font-size: .6rem; padding: 2px 6px; }
-  html[data-vcols="4"] .vgrid .status-badge { display: none; }
-  html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge { display: none; }
-  html[data-vcols="3"] .vgrid .cover-chip.plat, html[data-vcols="4"] .vgrid .cover-chip.plat { font-size: 0; gap: 0; padding: 3px 6px; bottom: 4px; inset-inline-start: 4px; }
-  html[data-vcols="3"] .vgrid .cover-chip.plat i, html[data-vcols="4"] .vgrid .cover-chip.plat i { font-size: .7rem; }
-  html[data-vcols="3"] .vgrid .cover-chip.net, html[data-vcols="4"] .vgrid .cover-chip.net { display: none; }
-  html[data-vcols="3"] .vgrid .fav-btn, html[data-vcols="4"] .vgrid .fav-btn { width: 26px; height: 26px; font-size: .72rem; top: 4px; inset-inline-end: 4px; }
-  html[data-vcols="3"] .vgrid .card-title, html[data-vcols="4"] .vgrid .card-title { overflow-wrap: normal; word-break: normal; line-height: 1.3; }
-  html[data-vcols="3"] .vgrid .card-title { font-size: .85rem; }
-  html[data-vcols="4"] .vgrid .card-title { font-size: .72rem; }
-  html[data-vcols="3"] .vgrid .card-foot .btn, html[data-vcols="4"] .vgrid .card-foot .btn { min-width: 0; height: auto; min-height: 34px; }
-}
-
-.mod-safety-warning {
-  max-width: 940px; margin: 18px auto 0; padding: 14px 18px; border-radius: var(--r-md);
-  border: 1px solid rgba(255, 193, 77, 0.44);
-  background: linear-gradient(155deg, rgba(255, 193, 77, 0.16), rgba(224, 18, 47, 0.08));
-  color: var(--ink); font-size: 0.9rem; line-height: 1.85;
-}
-
-.mod-safety-warning i { color: var(--gold); margin-inline-end: 7px; }
-
-.pc-lock-box { line-height: 1.8; }
-
-.pc-lock-box i { color: var(--sky); margin-inline-end: 6px; }
-
-.download-fallback-box { margin-top: 12px; display: grid; gap: 8px; }
-
-.btn-backup-dl { width: 100%; height: 44px; font-size: 0.9rem; }
-
-.download-fail-alert { font-size: 0.88rem; }
-
-.extra-file-meta { display: flex; gap: 10px; flex-wrap: wrap; color: var(--ink-3); font-size: 0.8rem; margin-top: 4px; padding-inline-start: 4px; }
-
-.search-meta-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; color: var(--ink-2); font-size: 0.88rem; font-weight: 600; }
-
-.lightbox-controls { display: flex; align-items: center; gap: 12px; }
-
-.store-filters { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 18px; }
-
-.store-filters .fs-field { flex: 1 1 150px; }
-
-.store-filters .fs-field select option { background: #12131B; color: var(--ink); }
-
-[data-theme="light"] .store-filters .fs-field select option { background: #ffffff; }
-
-.store-mod-warn {
-  display: flex; align-items: flex-start; gap: 7px; padding: 8px 11px; border-radius: var(--r-sm);
-  border: 1px solid rgba(255, 193, 77, 0.5); color: var(--ink); font-size: 0.78rem; font-weight: 700; line-height: 1.6;
-  background: linear-gradient(155deg, rgba(255, 193, 77, 0.18), rgba(224, 18, 47, 0.1));
-}
-
-.store-mod-warn i { color: var(--gold); margin-top: 3px; }
-
-.store-card-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
 .store-card-actions .btn { flex: 1 1 0; justify-content: center; }
-
-.source-card {
-  padding: 18px; border-radius: var(--r-md); border: 1px solid rgba(30, 107, 255, 0.45);
-  background: linear-gradient(155deg, rgba(30, 107, 255, 0.16), rgba(30, 107, 255, 0.04));
-  color: var(--ink); line-height: 1.85; font-size: 0.92rem;
-}
-
+.source-card { padding: 18px; border-radius: var(--r-md); border: 1px solid rgba(30, 107, 255, 0.45); background: linear-gradient(155deg, rgba(30, 107, 255, 0.16), rgba(30, 107, 255, 0.04)); color: var(--ink); line-height: 1.85; font-size: 0.92rem; }
 .source-card .source-head { font-weight: 800; font-size: 1rem; margin-bottom: 6px; }
-
 .source-card .source-head i { color: var(--mint); margin-inline-end: 7px; }
-
 .source-card .source-host { display: inline-block; margin: 6px 0 12px; padding: 3px 12px; border-radius: 999px; background: var(--glass-flat); border: 1px solid var(--line); font-family: var(--f-mono); font-size: 0.8rem; direction: ltr; }
-
-.source-card .store-mod-warn { margin-top: 14px; }
-
-@media (min-width: 900px) {
-  .nav-links { gap: 0; }
-  .nav-links .nav-link { padding: 0 9px; font-size: 0.88rem; }
-  .nav-links .nav-link.admin-btn { margin-inline-start: 4px; }
-}
-  </style>  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
+</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head><body>
 
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 
@@ -1735,7 +1509,7 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
             </div>
             <div class="search-box hero-search">
               <i class="fa-solid fa-magnifying-glass search-icon"></i>
-              <input type="text" id="heroSearch" placeholder="ابحث عن تطبيق أو لعبة..." autocomplete="off" data-i18n-placeholder="search.placeholder">
+              <input type="text" id="heroSearch" placeholder="ابحث عن تطبيق أو لعبة أو كود #104..." autocomplete="off" data-i18n-placeholder="search.placeholder">
               <button type="button" class="hero-search-clear" id="heroSearchClear" data-i18n-aria="search.clear" aria-label="مسح البحث"><i class="fa-solid fa-xmark"></i></button>
             </div>
           </div>
@@ -1756,7 +1530,7 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
 
       <div id="heroSearchResults" class="hero-search-results" style="display:none;">
         <div class="search-results-head">
-          <h3><i class="fa-solid fa-magnifying-glass"></i> <span data-i18n="search.results">نتائج البحث</span></h3>
+          <h3><i class="fa-solid fa-magnifying-glass"></i> <span id="heroSearchHeading" data-i18n="search.results">نتائج البحث</span></h3>
           <span id="heroSearchCount"></span>
         </div>
         <div id="heroSearchList"></div>
@@ -1782,6 +1556,18 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
         </div>
         <p class="section-sub" data-i18n="sec.gotdSub">اختيار اليوم — تتغير كل يوم.</p>
         <div id="homeGameOfDay"></div>
+      </div>
+
+      <!-- M4: الأكثر تحميلاً (Most Downloaded Section) -->
+      <div class="section" id="mostDownloadedSection" style="display:none;">
+        <div class="section-head">
+          <div class="sh-text">
+            <span class="eyebrow" data-i18n="sec.mostEyebrow">00 — الأعلى</span>
+            <h2 class="section-title"><i class="fa-solid fa-arrow-down-wide-short ico"></i> <span data-i18n="sec.most">الأكثر تحميلاً</span></h2>
+          </div>
+        </div>
+        <p class="section-sub" data-i18n="sec.mostSub">الألعاب والتطبيقات الأكثر تحميلاً على الموقع.</p>
+        <div id="homeMostDownloaded"></div>
       </div>
 
       <div class="section" id="newThisWeekSection">
@@ -2014,19 +1800,30 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
       </div>
     </section>
 
-    <!-- طلب لعبة / تطبيق -->
+    <!-- طلب لعبة / بلاغ رابط ميت (M5) -->
     <section id="view-request" class="view" style="display:none;">
       <div class="section">
         <div class="page-head">
-          <span class="eyebrow" data-i18n="req.eyebrow">05 — اطلب</span>
-          <h2 class="section-title"><i class="fa-solid fa-clipboard-list ico"></i> <span data-i18n="req.title">اطلب لعبة أو تطبيقاً</span></h2>
-          <p class="section-sub" data-i18n="req.sub">أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.</p>
+          <span class="eyebrow" id="reqEyebrow" data-i18n="req.eyebrow">05 — اطلب</span>
+          <h2 class="section-title"><i class="fa-solid fa-clipboard-list ico" id="reqTitleIcon"></i> <span id="reqPageTitle" data-i18n="req.title">اطلب لعبة أو تطبيقاً</span></h2>
+          <p class="section-sub" id="reqPageSub" data-i18n="req.sub">أخبرنا باللعبة أو التطبيق الذي تريده — نبحث عنه، وإن كان مجانياً وقانونياً نضيفه إلى الموقع.</p>
         </div>
+
+        <!-- M5 Mode Switcher -->
+        <div class="seg-bar req-mode-bar" style="margin-bottom:16px;">
+          <button type="button" class="seg-btn active" id="reqModeRequestBtn" onclick="switchReqMode('request')"><i class="fa-solid fa-clipboard-list"></i> <span data-i18n="rep.modeRequest">طلب لعبة</span></button>
+          <button type="button" class="seg-btn" id="reqModeReportBtn" onclick="switchReqMode('report')"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="rep.modeReport">بلاغ رابط ميت</span></button>
+        </div>
+
         <form id="reqForm" onsubmit="handleRequestSubmit(event)">
+          <input type="hidden" id="reqKind" value="request">
+          <input type="hidden" id="reqItemType" value="">
+          <input type="hidden" id="reqItemId" value="">
+          <input type="hidden" id="reqItemUrl" value="">
           <div class="about-card" style="margin-bottom:16px;">
             <div class="form-group"><label data-i18n="req.name">اسمك</label>
               <input type="text" id="reqName" required maxlength="80" data-i18n-placeholder="req.namePh" placeholder="اكتب اسمك"></div>
-            <div class="form-group"><label data-i18n="req.gameTitle">اسم اللعبة أو التطبيق</label>
+            <div class="form-group"><label id="reqGameTitleLabel" data-i18n="req.gameTitle">اسم اللعبة أو التطبيق</label>
               <input type="text" id="reqGameTitle" required minlength="2" maxlength="120" data-i18n-placeholder="req.gameTitlePh" placeholder="مثال: لعبة سباق مجانية"></div>
             <div class="form-group"><label data-i18n="req.type">النوع</label>
               <select id="reqGameType">
@@ -2034,21 +1831,22 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
                 <option value="app" data-i18n="req.typeApp">تطبيق</option>
                 <option value="mod" data-i18n="req.typeMod">مود</option>
               </select></div>
-            <div class="form-group"><label data-i18n="req.details">تفاصيل إضافية (اختياري)</label>
+            <div class="form-group"><label id="reqDetailsLabel" data-i18n="req.details">تفاصيل إضافية (اختياري)</label>
               <textarea id="reqDetails" rows="3" maxlength="500" data-i18n-placeholder="req.detailsPh" placeholder="أي تفاصيل تساعدنا..."></textarea></div>
-            <button type="submit" class="btn btn-primary btn-block" id="reqSubmitBtn"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="req.submit">أرسل الطلب</span></button>
+            <button type="submit" class="btn btn-primary btn-block" id="reqSubmitBtn"><i class="fa-solid fa-paper-plane"></i> <span id="reqSubmitText" data-i18n="req.submit">أرسل الطلب</span></button>
             <div id="reqMsg" class="alert-success" style="display:none;margin-top:12px;"></div>
           </div>
         </form>
+
         <div class="about-card" style="margin-bottom:16px;">
-          <h3 style="margin:0 0 6px;font-family:var(--f-display);font-size:1.1rem;font-weight:800;"><i class="fa-solid fa-magnifying-glass" style="color:var(--mint);"></i> تتبع طلبك</h3>
-          <p style="margin:0 0 10px;opacity:.8;font-size:.92rem;">عندك رقم طلب؟ اكتبو هنا باش تشوف الحالة ديالو.</p>
-          <div class="form-group"><label>رقم الطلب</label>
+          <h3 style="margin:0 0 6px;font-family:var(--f-display);font-size:1.1rem;font-weight:800;"><i class="fa-solid fa-magnifying-glass" style="color:var(--mint);"></i> تتبع طلبك أو بلاغك</h3>
+          <p style="margin:0 0 10px;opacity:.8;font-size:.92rem;">عندك رقم طلب أو بلاغ؟ اكتبو هنا باش تشوف الحالة ديالو.</p>
+          <div class="form-group"><label>رقم الطلب / البلاغ</label>
             <input type="text" id="reqTrackId" maxlength="40" placeholder="مثال: 9c4b7e2a-..."></div>
           <button type="button" class="btn btn-secondary btn-block" id="reqTrackBtn" onclick="trackMyRequest()"><i class="fa-solid fa-circle-check"></i> تحقق من الحالة</button>
           <div id="reqTrackResult" class="alert-info" style="display:none;margin-top:12px;"></div>
         </div>
-        <h3 style="margin-top:8px;font-family:var(--f-display);font-size:1.2rem;font-weight:800;"><i class="fa-solid fa-list" style="color:var(--mint);"></i> <span data-i18n="req.listTitle">أحدث الطلبات</span></h3>
+        <h3 style="margin-top:8px;font-family:var(--f-display);font-size:1.2rem;font-weight:800;"><i class="fa-solid fa-list" style="color:var(--mint);"></i> <span data-i18n="req.listTitle">أحدث الطلبات والبلاغات</span></h3>
         <div class="req-list" id="reqList"></div>
       </div>
     </section>
@@ -2138,6 +1936,18 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
     </div>
   </div>
 
+  <!-- بانر تثبيت PWA الذكي (B2) -->
+  <div id="pwaInstallBanner" class="pwa-banner glass" style="display:none;" aria-live="polite">
+    <div class="pwa-banner-text">
+      <h4 id="pwaBannerTitle" data-i18n="pwa.installTitle">ثبّت تطبيق Abdellatif Dev</h4>
+      <p id="pwaBannerSub" data-i18n="pwa.installSub">وصول أسرع للألعاب والتطبيقات — بلا متصفح.</p>
+    </div>
+    <div class="pwa-banner-actions">
+      <button type="button" class="btn btn-primary btn-sm" id="pwaInstallActionBtn" onclick="triggerPwaInstall()"><i class="fa-solid fa-download"></i> <span data-i18n="pwa.installBtn">تثبيت</span></button>
+      <button type="button" class="btn btn-ghost btn-sm" onclick="dismissPwaBanner()" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+
   <!-- التذييل -->
   <footer class="footer">
     <div class="container footer-content">
@@ -2180,8 +1990,7 @@ html[data-vcols="3"] .vgrid .card-badge, html[data-vcols="4"] .vgrid .card-badge
     <a href="#/pc" class="bn-item" data-route="pc"><i class="fa-solid fa-desktop"></i><span>للحاسوب</span></a>
     <a href="#/store" class="bn-item" data-route="store"><i class="fa-brands fa-android"></i><span data-i18n="nav.store">متجر أندرويد</span></a>
     <a href="#/mods" class="bn-item" data-route="mods"><i class="fa-solid fa-puzzle-piece"></i><span data-i18n="nav.mods">المودات</span></a>
-  </nav>  <script src="supabase-client.js"></script>
-  <script>
+  </nav>  <script src="supabase-client.js"></script>  <script>
 function esc(s) {
     return String(s ?? '').replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -2240,7 +2049,6 @@ function updateOgTags(title, description, image, url) {
     setMeta('name', 'twitter:image', iVal);
 }
 
-// تحسين جودة صورة الغلاف والأيقونة (الإصلاح 3)
 function optimizeCoverUrl(url) {
     if (!url || typeof url !== 'string') return url;
     let u = url.trim();
@@ -2332,7 +2140,6 @@ function platformOf(item, type) {
     return type === 'game' ? 'pc' : 'phone';
 }
 
-// تصحيح شارة الألعاب والتطبيقات المهكرة (الإصلاح 5 و 10)
 function catLabel(c) {
     return c === 'مهكرة' ? t('filter.modded') : (c || '');
 }
@@ -2556,7 +2363,6 @@ function renderFooterSocial() {
     });
 }
 
-// تتبع المسار الأخير للعودة الذكية (الإصلاح 2)
 function recordNavigationRoute() {
     const raw = location.hash || '#/';
     const p = raw.replace(/^#\/?/, '').split('/').filter(Boolean);
@@ -2661,7 +2467,6 @@ function statusBadge(status) {
     return `<span class="status-badge status-${esc(status || 'in_dev')}">${esc(label)}</span>`;
 }
 
-// عرض الغلاف والأيقونة بدقة عالية ونسبة 1:1 (الإصلاح 3 و 9)
 function coverHtml(item, icon) {
     const rawUrl = item.cover_url || item.image_url;
     if (rawUrl) {
@@ -2759,10 +2564,6 @@ function itemCard(item, type) {
 function gridOrEmpty(items, cardsHtml, emptyHtml) {
     if (!items || !items.length) return emptyHtml;
     return `<div class="cards-grid">${cardsHtml}</div>`;
-}
-function gridCompactOrEmpty(items, cardsHtml, emptyHtml) {
-    if (!items || !items.length) return emptyHtml;
-    return `<div class="cards-grid-compact">${cardsHtml}</div>`;
 }
 
 function platformChipHtml(item, type) {
@@ -2885,8 +2686,15 @@ function normAr(s) {
         .replace(/[ً-ٰٓ]/g, '')
         .replace(/[أإآٱ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
 }
+
+// M1: مطابقة الاستعلام بما في ذلك كود اللعبة #104
 function matchesQuery(item, q) {
     if (!q) return true;
+    const codeM = String(q || '').trim().match(/^#?(\d{1,6})$/);
+    if (codeM && item && item.code != null) {
+        if (String(item.code) === codeM[1]) return true;
+        if (String(q).startsWith('#')) return false; // بحث كود حصري
+    }
     const hay = normAr(
         (item.title || '') + ' ' +
         (item.short_desc || '') + ' ' +
@@ -2906,10 +2714,14 @@ function renderHeroSearch() {
     const results = document.getElementById('heroSearchResults');
     const list = document.getElementById('heroSearchList');
     const countEl = document.getElementById('heroSearchCount');
+    const headingEl = document.getElementById('heroSearchHeading');
     const clearBtn = document.getElementById('heroSearchClear');
     if (!input || !results || !list) return;
-    const q = normAr(input.value.trim());
-    if (clearBtn) clearBtn.style.display = input.value.trim() ? 'grid' : 'none';
+
+    const rawVal = input.value.trim();
+    const q = normAr(rawVal);
+    if (clearBtn) clearBtn.style.display = rawVal ? 'grid' : 'none';
+
     const sections = document.querySelectorAll('#view-home > .section');
     if (!q) {
         results.style.display = 'none';
@@ -2918,20 +2730,33 @@ function renderHeroSearch() {
         if (trSec && !document.getElementById('homeTrending')?.innerHTML.trim()) trSec.style.display = 'none';
         const gotdSec = document.getElementById('gameOfDaySection');
         if (gotdSec && !document.getElementById('homeGameOfDay')?.innerHTML.trim()) gotdSec.style.display = 'none';
+        const mdSec = document.getElementById('mostDownloadedSection');
+        if (mdSec && !document.getElementById('homeMostDownloaded')?.innerHTML.trim()) mdSec.style.display = 'none';
         const ntwSec = document.getElementById('newThisWeekSection');
         if (ntwSec && !document.getElementById('homeNewThisWeek')?.innerHTML.trim()) ntwSec.style.display = 'none';
         requestAnimationFrame(updateStripArrows);
         return;
     }
+
+    const isCodeQuery = /^#\d{1,6}$/.test(rawVal);
     const matches = games.filter(g => !isPcOnlyMod(g)).map(g => ({ item: g, type: 'game' }))
         .concat(apps.map(a => ({ item: a, type: 'app' })))
         .filter(x => matchesQuery(x.item, q));
+
     sections.forEach(s => { s.style.display = 'none'; });
     results.style.display = 'block';
+
+    if (headingEl) {
+        headingEl.textContent = (isCodeQuery && matches.length) ? t('search.codeFound') : t('search.results');
+    }
     if (countEl) countEl.textContent = searchCountText(matches.length);
-    list.innerHTML = matches.length
-        ? vgridHtml(matches.map(e => itemCard(e.item, e.type)).join(''))
-        : emptyState('fa-solid fa-magnifying-glass', t('search.noResults'), t('search.tryOther'));
+
+    if (matches.length) {
+        list.innerHTML = vgridHtml(matches.map(e => itemCard(e.item, e.type)).join(''));
+    } else {
+        const noText = isCodeQuery ? t('search.codeNotFound') : t('search.tryOther');
+        list.innerHTML = emptyState('fa-solid fa-magnifying-glass', t('search.noResults'), noText);
+    }
     requestAnimationFrame(updateStripArrows);
 }
 
@@ -2960,19 +2785,87 @@ window.goToPhone = function() { goTo('#/phone'); };
 window.goToPC = function() { goTo('#/pc'); };
 window.goToMods = function() { goTo('#/mods'); };
 
+// M5: حالات الطلبات والبلاغات
 const REQ_STATUS_LABELS = { pending: 'req.status.pending', approved: 'req.status.approved', done: 'req.status.done', rejected: 'req.status.rejected' };
-function reqStatusBadge(status) {
-    const label = t(REQ_STATUS_LABELS[status] || 'req.status.pending');
+
+function reqStatusLabel(status, kind) {
+    if (status === 'done') {
+        return kind === 'report' ? t('rep.status.done') : t('req.status.done');
+    }
+    return t(REQ_STATUS_LABELS[status] || 'req.status.pending');
+}
+
+function reqStatusBadge(status, kind) {
+    const label = reqStatusLabel(status, kind);
     return `<span class="status-badge req-status-${esc(status || 'pending')}">${esc(label)}</span>`;
 }
+
 function reqTypeLabel(type) {
     if (type === 'app') return t('req.typeApp');
     if (type === 'mod') return t('req.typeMod');
     return t('req.typeGame');
 }
+
+// M5: تبديل وضع النموذج بين طلب لعبة وبلاغ رابط ميت
+window.switchReqMode = function(mode) {
+    const kind = mode === 'report' ? 'report' : 'request';
+    const kindInput = document.getElementById('reqKind');
+    if (kindInput) kindInput.value = kind;
+
+    const btnReq = document.getElementById('reqModeRequestBtn');
+    const btnRep = document.getElementById('reqModeReportBtn');
+    if (btnReq) btnReq.classList.toggle('active', kind === 'request');
+    if (btnRep) btnRep.classList.toggle('active', kind === 'report');
+
+    const eyebrow = document.getElementById('reqEyebrow');
+    const titleIcon = document.getElementById('reqTitleIcon');
+    const title = document.getElementById('reqPageTitle');
+    const sub = document.getElementById('reqPageSub');
+    const titleLabel = document.getElementById('reqGameTitleLabel');
+    const submitText = document.getElementById('reqSubmitText');
+
+    if (kind === 'report') {
+        if (eyebrow) eyebrow.textContent = '05 — ' + t('rep.badge');
+        if (titleIcon) titleIcon.className = 'fa-solid fa-triangle-exclamation ico';
+        if (title) title.textContent = t('rep.title');
+        if (sub) sub.textContent = t('rep.sub');
+        if (titleLabel) titleLabel.textContent = t('rep.title');
+        if (submitText) submitText.textContent = t('rep.modeReport');
+    } else {
+        if (eyebrow) eyebrow.textContent = t('req.eyebrow');
+        if (titleIcon) titleIcon.className = 'fa-solid fa-clipboard-list ico';
+        if (title) title.textContent = t('req.title');
+        if (sub) sub.textContent = t('req.sub');
+        if (titleLabel) titleLabel.textContent = t('req.gameTitle');
+        if (submitText) submitText.textContent = t('req.submit');
+    }
+};
+
 async function renderRequestView() {
     const listBox = document.getElementById('reqList');
     const form = document.getElementById('reqForm');
+
+    // M5: التحقق من وجود بلاغ مرسل من صفحة التفاصيل
+    try {
+        const pendingRaw = sessionStorage.getItem('pendingReport');
+        if (pendingRaw) {
+            const p = JSON.parse(pendingRaw);
+            switchReqMode('report');
+            const titleInp = document.getElementById('reqGameTitle');
+            if (titleInp && p.title) {
+                titleInp.value = p.title;
+                titleInp.setAttribute('readonly', 'true');
+            }
+            const itType = document.getElementById('reqItemType');
+            const itId = document.getElementById('reqItemId');
+            const itUrl = document.getElementById('reqItemUrl');
+            if (itType) itType.value = p.type || '';
+            if (itId) itId.value = p.id || '';
+            if (itUrl) itUrl.value = p.url || '';
+            sessionStorage.removeItem('pendingReport');
+        }
+    } catch(e) {}
+
     if (!window.SUPABASE_CONFIGURED) {
         if (form) form.style.display = 'none';
         if (listBox) listBox.innerHTML = '';
@@ -2983,15 +2876,18 @@ async function renderRequestView() {
     listBox.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>' + t('common.loading') + '</p></div>';
     try {
         const { data, error } = await window.supabaseClient.from('game_requests')
-            .select('name,game_title,game_type,details,status,created_at')
+            .select('id,name,game_title,game_type,details,status,created_at,kind,item_type,item_id')
             .order('created_at', { ascending: false }).limit(20);
         if (error) throw error;
         const list = data || [];
         listBox.innerHTML = list.length ? list.map(r => `
             <div class="req-item">
-              <h4>${esc(r.game_title)}</h4>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+                <h4>${esc(r.game_title)}</h4>
+                ${r.kind === 'report' ? `<span class="badge-draft" style="font-size:0.75rem;"><i class="fa-solid fa-triangle-exclamation"></i> ${esc(t('rep.badge'))}</span>` : ''}
+              </div>
               <div class="req-meta">
-                ${reqStatusBadge(r.status)}
+                ${reqStatusBadge(r.status, r.kind)}
                 <span><i class="fa-solid fa-user"></i> ${esc(r.name)}</span>
                 <span><i class="fa-solid fa-tag"></i> ${esc(reqTypeLabel(r.game_type))}</span>
                 <span><i class="fa-solid fa-calendar"></i> ${fmtDate(r.created_at)}</span>
@@ -3004,24 +2900,55 @@ async function renderRequestView() {
         listBox.innerHTML = emptyState('fa-solid fa-circle-exclamation', t('common.loadError'), t('common.loadError'));
     }
 }
+
 window.handleRequestSubmit = async function(e) {
     e.preventDefault();
     const name = (document.getElementById('reqName')?.value || '').trim();
     const title = (document.getElementById('reqGameTitle')?.value || '').trim();
     const type = document.getElementById('reqGameType')?.value || 'game';
     const details = (document.getElementById('reqDetails')?.value || '').trim();
+    const kind = document.getElementById('reqKind')?.value || 'request';
+    const item_type = document.getElementById('reqItemType')?.value || null;
+    const item_id = document.getElementById('reqItemId')?.value || null;
+    const item_url = document.getElementById('reqItemUrl')?.value || null;
     const msg = document.getElementById('reqMsg');
+
     if (!name || title.length < 2) return;
     const btn = document.getElementById('reqSubmitBtn');
     if (btn) btn.disabled = true;
     try {
+        const payload = {
+            name,
+            game_title: title,
+            game_type: type,
+            details: details || null
+        };
         const { data, error } = await window.supabaseClient.from('game_requests')
-            .insert([{ name, game_title: title, game_type: type, details: details || null }])
+            .insert([payload])
             .select('id').single();
         if (error) throw error;
-        if (msg) { msg.className = 'alert-success'; msg.style.display = 'block'; msg.textContent = t('req.sent') + ' — رقم طلبك: ' + (data && data.id ? data.id : ''); }
+
+        const successText = kind === 'report' ? t('rep.sent') : t('req.sent');
+        if (msg) {
+            msg.className = 'alert-success';
+            msg.style.display = 'block';
+            msg.textContent = successText + ' — رقم المتابعة: ' + (data && data.id ? data.id : '');
+        }
+
         document.getElementById('reqForm').reset();
-        if (data && data.id) { const tr = document.getElementById('reqTrackId'); if (tr) tr.value = data.id; trackMyRequest(); }
+        const titleInp = document.getElementById('reqGameTitle');
+        if (titleInp) titleInp.removeAttribute('readonly');
+        document.getElementById('reqKind').value = 'request';
+        document.getElementById('reqItemType').value = '';
+        document.getElementById('reqItemId').value = '';
+        document.getElementById('reqItemUrl').value = '';
+        switchReqMode('request');
+
+        if (data && data.id) {
+            const tr = document.getElementById('reqTrackId');
+            if (tr) tr.value = data.id;
+            trackMyRequest();
+        }
         renderRequestView();
     } catch (err) {
         console.error('request submit error:', err);
@@ -3036,17 +2963,16 @@ window.trackMyRequest = async function() {
     const box = document.getElementById('reqTrackResult');
     if (!box) return;
     box.style.display = 'block';
-    if (!id) { box.className = 'alert-info'; box.textContent = 'اكتب رقم الطلب أولاً.'; return; }
+    if (!id) { box.className = 'alert-info'; box.textContent = 'اكتب رقم الطلب أو البلاغ أولاً.'; return; }
     box.className = 'alert-info'; box.textContent = 'جاري البحث...';
     try {
         const { data, error } = await window.supabaseClient.from('game_requests')
-            .select('id,game_title,game_type,status,created_at').eq('id', id).maybeSingle();
+            .select('id,game_title,game_type,status,created_at,kind').eq('id', id).maybeSingle();
         if (error) throw error;
-        if (!data) { box.className = 'alert-danger'; box.textContent = 'ما لقيناش طلب بهاد الرقم. تأكد من الرقم وحاول مجدداً.'; return; }
-        const labels = { pending: 'جديد', approved: 'قيد البحث', done: 'تمت الإضافة', rejected: 'مرفوض' };
-        const label = labels[data.status] || data.status;
+        if (!data) { box.className = 'alert-danger'; box.textContent = 'ما لقيناش طلب أو بلاغ بهاد الرقم. تأكد من الرقم وحاول مجدداً.'; return; }
+        const label = reqStatusLabel(data.status, data.kind);
         box.className = 'alert-success';
-        box.innerHTML = '<b>' + esc(data.game_title) + '</b><br>الحالة: <b>' + esc(label) + '</b><br><span style="opacity:.75">تاريخ الطلب: ' + esc(new Date(data.created_at).toLocaleDateString('ar-MA')) + '</span>';
+        box.innerHTML = '<b>' + esc(data.game_title) + '</b><br>الحالة: <b>' + esc(label) + '</b><br><span style="opacity:.75">التاريخ: ' + esc(new Date(data.created_at).toLocaleDateString('ar-MA')) + '</span>';
     } catch (err) {
         console.error('track request error:', err);
         box.className = 'alert-danger'; box.textContent = 'تعذر التحقق حالياً، حاول مجدداً.';
@@ -3100,6 +3026,10 @@ window.handleContactSubmit = async function(e) {
 };
 
 function renderHome() {
+    // B3: تنظيف Schema.org الخاص بالمنتجات عند العودة للرئيسية
+    const dynLd = document.getElementById('itemJsonLd');
+    if (dynLd) dynLd.remove();
+
     updateOgTags(DEFAULT_OG.title, DEFAULT_OG.description, DEFAULT_OG.image, DEFAULT_OG.url);
     const totalDownloads = games.concat(apps).reduce((s, x) => s + (x.download_count || 0), 0);
     const stats = document.getElementById('homeStats');
@@ -3110,7 +3040,13 @@ function renderHome() {
         <div class="stat-card"><i class="fa-solid fa-code"></i><h3>${projects.length}</h3><span>${t('stats.projects')}</span></div>
         <div class="stat-card"><i class="fa-solid fa-cloud-arrow-down"></i><h3>${totalDownloads}</h3><span>${t('stats.downloads')}</span></div>`;
     }
-    /* Trending IDs */ const TRENDING_IDS = ['91998655-809c-466d-af04-45e11b8932f9', 'e8b96765-c5c9-4753-ada9-a95bac7cece5', '068b899f-a380-4647-854a-70f4e5a89fe9', '4997de27-b36c-4d55-9aec-19b755a0c091', 'b682d1b2-d271-4b7d-92c6-84e78ba3b40f', 'ba54fd77-5f36-463c-8f94-e37c7a7e97ca', '267b5ffa-ae29-4f8a-be53-068822eda186', '6bb1636a-f96c-4444-af0c-c66bed10eddf', '4fdfaff9-9308-4b0e-a508-443feef60257', '6054ec2f-5792-468b-9e36-fabf4f4262ec', 'd6dce0b4-6596-4a98-93dc-6ce2309e3996', '3ef50c48-f054-4896-b660-6f711a358b70', '97ea2890-eeb5-4812-9ee3-54b98c7a3420', 'c1ecd79a-0d86-49b8-abd8-55c70b630fff', 'c3db1310-9faf-4937-a0b1-2b0633cc4310']; const allTrendingItems = games.map(g => ({ item: g, type: 'game' })).concat(apps.map(a => ({ item: a, type: 'app' }))); const filteredTrending = allTrendingItems.filter(e => TRENDING_IDS.includes(e.item.id)).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6); /* Fallback */ const trending = filteredTrending.length > 0 ? filteredTrending : allTrendingItems.filter(e => (e.item.download_count || 0) > 0).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6);
+
+    /* Trending IDs (يبقى كما هو منسقاً) */
+    const TRENDING_IDS = ['91998655-809c-466d-af04-45e11b8932f9', 'e8b96765-c5c9-4753-ada9-a95bac7cece5', '068b899f-a380-4647-854a-70f4e5a89fe9', '4997de27-b36c-4d55-9aec-19b755a0c091', 'b682d1b2-d271-4b7d-92c6-84e78ba3b40f', 'ba54fd77-5f36-463c-8f94-e37c7a7e97ca', '267b5ffa-ae29-4f8a-be53-068822eda186', '6bb1636a-f96c-4444-af0c-c66bed10eddf', '4fdfaff9-9308-4b0e-a508-443feef60257', '6054ec2f-5792-468b-9e36-fabf4f4262ec', 'd6dce0b4-6596-4a98-93dc-6ce2309e3996', '3ef50c48-f054-4896-b660-6f711a358b70', '97ea2890-eeb5-4812-9ee3-54b98c7a3420', 'c1ecd79a-0d86-49b8-abd8-55c70b630fff', 'c3db1310-9faf-4937-a0b1-2b0633cc4310'];
+    const allTrendingItems = games.map(g => ({ item: g, type: 'game' })).concat(apps.map(a => ({ item: a, type: 'app' })));
+    const filteredTrending = allTrendingItems.filter(e => TRENDING_IDS.includes(e.item.id)).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6);
+    const trending = filteredTrending.length > 0 ? filteredTrending : allTrendingItems.filter(e => (e.item.download_count || 0) > 0).sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0)).slice(0, 6);
+
     const trSec = document.getElementById('trendingSection');
     const trBox = document.getElementById('homeTrending');
     if (trSec && trBox) {
@@ -3175,6 +3111,24 @@ function renderHome() {
         } else {
             gotdSec.style.display = 'none';
             gotdBox.innerHTML = '';
+        }
+    }
+
+    // M4: الأكثر تحميلاً (Most Downloaded Section)
+    const mostDownloaded = games.map(g => ({ item: g, type: 'game' }))
+        .concat(apps.map(a => ({ item: a, type: 'app' })))
+        .filter(e => e.item.is_published !== false && (e.item.download_count || 0) > 0)
+        .sort((a, b) => (b.item.download_count || 0) - (a.item.download_count || 0))
+        .slice(0, 10);
+    const mdSec = document.getElementById('mostDownloadedSection');
+    const mdBox = document.getElementById('homeMostDownloaded');
+    if (mdSec && mdBox) {
+        if (mostDownloaded.length) {
+            mdSec.style.display = '';
+            mdBox.innerHTML = trendingStripHtml(mostDownloaded);
+        } else {
+            mdSec.style.display = 'none';
+            mdBox.innerHTML = '';
         }
     }
 
@@ -3825,6 +3779,44 @@ function getBackRoute(item, type) {
     return { hash: '#/', label: t('common.backHome') };
 }
 
+// B3: تحديث وسوم Schema.org ديناميكياً لصفحة التفاصيل
+function updateItemJsonLd(item, type) {
+    let script = document.getElementById('itemJsonLd');
+    if (!script) {
+        script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.id = 'itemJsonLd';
+        document.head.appendChild(script);
+    }
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": item.title || "",
+        "applicationCategory": type === 'game' ? "GameApplication" : "MobileApplication",
+        "operatingSystem": "Android",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "downloadUrl": item.download_url || "",
+        "url": location.href
+    };
+    script.textContent = JSON.stringify(schemaData);
+}
+
+// M5: تحويل المستخدم إلى صفحة البلاغ مع تعبئة بيانات العنصر
+window.reportDeadLink = function(type, id) {
+    const pool = type === 'game' ? games : apps;
+    const item = pool.find(x => String(x.id) === String(id));
+    const title = item ? item.title : '';
+    const dlUrl = item ? (item.download_url || '') : '';
+    try {
+        sessionStorage.setItem('pendingReport', JSON.stringify({ type, id, title, url: dlUrl }));
+    } catch(e) {}
+    goTo('#/request');
+};
+
 async function renderDetail(type, id) {
     const box = document.getElementById('detailContent');
     showView('view-detail');
@@ -3844,8 +3836,10 @@ async function renderDetail(type, id) {
     }
     if (!item || (type !== 'news' && item.is_published === false)) { showView('view-notfound'); return; }
 
-    if (type === 'news') renderNewsDetail(box, item);
-    else {
+    if (type === 'news') {
+        renderNewsDetail(box, item);
+    } else {
+        updateItemJsonLd(item, itemType); // B3
         renderItemDetail(box, item, itemType);
         renderExtraDownloads(box, item, itemType);
         renderModDetailEnhancements(box, item, itemType, type === 'mod');
@@ -4074,6 +4068,17 @@ function installGuideHtml(item, type) {
     </div>`;
 }
 
+// B1: استخراج سطر معلومات الملف
+function fileInfoLine(item) {
+    const parts = [];
+    if (item.size) parts.push(item.size);
+    if (item.version) parts.push(fmtVer(item.version));
+    const u = String(item.download_url || '').trim();
+    const m = u.match(/\.([a-z0-9]{2,5})(?:\?|#|$)/i);
+    if (m) parts.push(m[1].toUpperCase());
+    return parts.join(' • ');
+}
+
 function renderItemDetail(box, item, type) {
     document.title = `${item.title} | Abdellatif Dev`;
     updateOgTags(item.title, locText(item, 'short_desc'), item.cover_url, location.href);
@@ -4081,10 +4086,14 @@ function renderItemDetail(box, item, type) {
     const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean).slice(0, 4) : [];
     const shortDescText = locText(item, 'short_desc');
     const fullDescText = locText(item, 'description') || shortDescText;
-    const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5);
+    const isStorePageOnly = /^https?:\/\/(play\.google\.com|apps\.apple\.com)\//i.test(String(item.download_url || '').trim());
+    const hasDownload = !!(item.download_url && String(item.download_url).trim().length > 5) && !isStorePageOnly;
     const isPlayStore = !!(item.download_url && String(item.download_url).includes('play.google.com'));
     const plat = platformOf(item, type);
     const backInfo = getBackRoute(item, type);
+
+    // M2: شارات خصائص المود
+    const modFeats = Array.isArray(item.mod_features) ? item.mod_features : [];
 
     box.innerHTML = `
     <a href="${backInfo.hash}" class="detail-back-fab" aria-label="${esc(backInfo.label)}"><i class="fa-solid fa-arrow-right"></i></a>
@@ -4095,12 +4104,14 @@ function renderItemDetail(box, item, type) {
         <h1>${esc(item.title)}</h1>
         ${shortDescText ? `<p class="lead">${esc(shortDescText)}</p>` : ''}
         <div class="detail-chips">
+          ${item.code != null ? `<span class="chip" title="${esc(t('detail.code'))}"><i class="fa-solid fa-hashtag"></i> ${esc(item.code)}</span>` : ''}
           <span class="chip"><i class="fa-solid fa-folder"></i> ${esc(catLabel(item.category))}</span>
           <span class="chip"><i class="${platformIcon(plat)}"></i> ${esc(platformLabel(plat))}</span>
           ${item.is_online ? `<span class="chip"><i class="fa-solid fa-circle" style="color:#56f59b"></i> ${esc(t('badge.online'))}</span>` : `<span class="chip"><i class="fa-solid fa-circle" style="color:#8a9a92"></i> ${esc(t('badge.offline'))}</span>`}
           ${item.version ? `<span class="chip"><i class="fa-solid fa-tag"></i> ${t('detail.version')} ${esc(item.version)}</span>` : ''}
           ${item.developer ? `<span class="chip"><i class="fa-solid fa-building"></i> ${esc(item.developer)}</span>` : ''}
           ${item.size ? `<span class="chip"><i class="fa-solid fa-hard-drive"></i> ${esc(item.size)}</span>` : ''}
+          ${modFeats.map(f => `<span class="chip chip-modfeat"><i class="fa-solid fa-wand-magic-sparkles"></i> ${esc(t('modfeat.' + f))}</span>`).join('')}
           <span class="chip"><i class="fa-solid fa-download"></i> ${dlText(item.download_count || 0)}</span>
           <span class="chip"><i class="fa-solid fa-calendar"></i> ${t('detail.lastUpdate')} ${fmtDate(item.updated_at || item.created_at)}</span>
         </div>
@@ -4131,12 +4142,25 @@ function renderItemDetail(box, item, type) {
         return;
     }
     activeDownload = { type, id: item.id, url: item.download_url };
+
+    // B1: رابط التحميل البديل ومعلومات الملف
+    const mirrors = Array.isArray(item.extra_downloads)
+        ? item.extra_downloads.filter(f => f && f.url && (f.kind === 'mirror' || f.type === 'mirror') && /^https?:\/\/\S+$/i.test(String(f.url).trim()))
+        : [];
+    const mirrorUrl = mirrors[0] ? mirrors[0].url : '';
+    const fInfo = fileInfoLine(item);
+
     zone.innerHTML = `
       <div class="timer-box" id="timerBox">
         <i class="fa-solid fa-hourglass-half fa-spin" style="font-size:1.6rem;color:var(--violet-light)"></i>
         <p style="margin:8px 0 4px;font-weight:800;">${t('detail.preparing')}</p>
         <div class="timer-countdown" id="timerCount">7</div>
         <small style="color:var(--text-gray);">${t('detail.wait')}</small>
+        <div class="dl-interstitial">
+          <p class="dl-safe" style="font-size:0.85rem;color:var(--ink-3);"><i class="fa-solid fa-circle-info"></i> ${esc(t('dl.safeNote'))}</p>
+          ${fInfo ? `<p class="dl-fileinfo" style="font-size:0.82rem;color:var(--ink-2);margin:4px 0;">${esc(fInfo)}</p>` : ''}
+          ${mirrorUrl ? `<p class="dl-alt" style="font-size:0.82rem;color:var(--ink-3);margin-top:4px;">${esc(t('dl.altLink'))} <a href="${esc(mirrorUrl)}" target="_blank" rel="noopener noreferrer" style="color:var(--sky);text-decoration:underline;">${esc(t('dl.altOpen'))}</a></p>` : ''}
+        </div>
       </div>
       <div id="downloadBtnBox" style="display:none;">
         <a href="${esc(item.download_url)}" id="downloadLink" download rel="noreferrer" class="btn-download-big" onclick="handleDownloadClick(event)">
@@ -4252,7 +4276,9 @@ const STORE_SECTIONS = {
     'official-games': { type: 'game', mod: false },
     'mod-games': { type: 'game', mod: true }
 };
-const STORE_DEFAULTS = { q: '', genre: '', size: '', android: '', net: '', device: '', sort: 'new' };
+
+// M2: إضافة modfeat إلى فلاتر المتجر
+const STORE_DEFAULTS = { q: '', genre: '', size: '', android: '', net: '', device: '', sort: 'new', modfeat: '' };
 const storeState = Object.assign({}, STORE_DEFAULTS);
 let storeSection = '';
 
@@ -4395,6 +4421,14 @@ function storeFiltered(section) {
         if (f.net === 'on' && !item.is_online) return false;
         if (f.net === 'off' && item.is_online) return false;
         if (f.device && storeTier(item) !== f.device) return false;
+
+        // M2: فلترة خاصية المود (ANY match)
+        if (f.modfeat) {
+            const want = f.modfeat.split(',').filter(Boolean);
+            const have = Array.isArray(item.mod_features) ? item.mod_features : [];
+            if (!want.some(w => have.includes(w))) return false;
+        }
+
         return true;
     });
     out.sort(storeSortCmp);
@@ -4434,6 +4468,20 @@ function storeCard(item, type) {
 function storeFilterActive() {
     return Object.keys(STORE_DEFAULTS).some(k => k !== 'sort' ? storeState[k] !== STORE_DEFAULTS[k] : false);
 }
+
+// M2: تبديل خاصية المود في فلاتر المتجر
+window.toggleStoreModFeat = function(val) {
+    let current = storeState.modfeat ? storeState.modfeat.split(',').filter(Boolean) : [];
+    if (current.includes(val)) {
+        current = current.filter(x => x !== val);
+    } else {
+        current.push(val);
+    }
+    storeState.modfeat = current.join(',');
+    renderStoreFilters();
+    renderStoreList();
+};
+
 function renderStoreFilters() {
     const box = document.getElementById('storeFilters');
     if (!box) return;
@@ -4443,14 +4491,29 @@ function renderStoreFilters() {
     const sel = (key, label, opts) => `<label class="fs-field"><span>${esc(label)}</span><select data-store-filter="${key}" onchange="onStoreFilter('${key}', this.value)">${
         opts.map(([v, l]) => `<option value="${esc(v)}"${String(storeState[key]) === String(v) ? ' selected' : ''}>${esc(l)}</option>`).join('')}</select></label>`;
     const any = ['', t('store.any')];
+
+    // M2: أزرار خصائص المودات
+    const modFeatKeys = ['unlimited_money', 'unlocked', 'mod_menu', 'no_ads'];
+    const activeFeats = storeState.modfeat ? storeState.modfeat.split(',').filter(Boolean) : [];
+    const modFeatChipsHtml = `
+      <div class="store-modfeat-chips">
+        <span style="font-size:0.8rem;font-weight:700;color:var(--ink-2);width:100%;margin-bottom:2px;">${esc(t('store.f.modfeat'))}</span>
+        ${modFeatKeys.map(k => `
+          <button type="button" class="filter-btn${activeFeats.includes(k) ? ' active' : ''}" onclick="toggleStoreModFeat('${k}')">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> ${esc(t('modfeat.' + k))}
+          </button>
+        `).join('')}
+      </div>`;
+
     box.innerHTML =
         sel('genre', t('store.f.genre'), [any].concat(genres.map(g => [g, g]))) +
         sel('size', t('store.f.size'), [any, ['lt25', t('store.size.lt25')], ['s25', t('store.size.s25')], ['s100', t('store.size.s100')], ['gt500', t('store.size.gt500')]]) +
         sel('android', t('store.f.android'), [any, ['4.2', t('store.and.4.2')], ['5', t('store.and.5')], ['6', t('store.and.6')], ['8', t('store.and.8')]]) +
         sel('net', t('store.f.net'), [any, ['on', t('store.net.on')], ['off', t('store.net.off')]]) +
-        sel('device', t('store.f.device'), [any, ['weak', t('store.dev.weak')], ['medium', t('store.dev.medium')], ['strong', t('store.dev.strong')]]) +
+        modFeatChipsHtml +
         sel('sort', t('store.f.sort'), [['new', t('store.sort.new')], ['dl', t('store.sort.dl')], ['size', t('store.sort.size')], ['alpha', t('store.sort.alpha')]]);
 }
+
 function renderStoreList() {
     const list = document.getElementById('storeList'), meta = document.getElementById('storeMeta');
     if (!list) return;
@@ -4536,6 +4599,77 @@ window.addEventListener('keydown', function(e) {
         }
     }
 });
+
+/* ============================================================
+   B2 — Service Worker & Smart PWA Install Prompt
+   ============================================================ */
+let deferredInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    schedulePwaInstallBanner();
+});
+
+function schedulePwaInstallBanner() {
+    try {
+        if (localStorage.getItem('abd-pwa-installed') === '1') return;
+        const dismissed = parseInt(localStorage.getItem('abd-pwa-dismissed') || '0', 10);
+        const count = parseInt(localStorage.getItem('abd-pwa-dismiss-count') || '0', 10);
+        if (count >= 3) return;
+        const sevenDays = 7 * 24 * 60 * 60 * 1000;
+        if (Date.now() - dismissed < sevenDays) return;
+    } catch(e) {}
+
+    setTimeout(function() {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) banner.style.display = 'flex';
+    }, 20000);
+}
+
+// فحص أجهزة iOS
+window.addEventListener('DOMContentLoaded', function() {
+    const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = window.navigator.standalone === true;
+    if (isIos && !isStandalone) {
+        try {
+            if (localStorage.getItem('abd-pwa-installed') === '1') return;
+            const dismissed = parseInt(localStorage.getItem('abd-pwa-dismissed') || '0', 10);
+            const count = parseInt(localStorage.getItem('abd-pwa-dismiss-count') || '0', 10);
+            if (count >= 3 || Date.now() - dismissed < 7 * 24 * 60 * 60 * 1000) return;
+        } catch(e) {}
+
+        setTimeout(function() {
+            const banner = document.getElementById('pwaInstallBanner');
+            const sub = document.getElementById('pwaBannerSub');
+            const actionBtn = document.getElementById('pwaInstallActionBtn');
+            if (sub) sub.textContent = t('pwa.iosHint');
+            if (actionBtn) actionBtn.style.display = 'none';
+            if (banner) banner.style.display = 'flex';
+        }, 20000);
+    }
+});
+
+window.triggerPwaInstall = async function() {
+    if (!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    if (outcome === 'accepted') {
+        try { localStorage.setItem('abd-pwa-installed', '1'); } catch(e) {}
+    }
+    deferredInstallPrompt = null;
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+};
+
+window.dismissPwaBanner = function() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    try {
+        localStorage.setItem('abd-pwa-dismissed', String(Date.now()));
+        const count = parseInt(localStorage.getItem('abd-pwa-dismiss-count') || '0', 10);
+        localStorage.setItem('abd-pwa-dismiss-count', String(count + 1));
+    } catch(e) {}
+};
 </script>
 </body>
 </html>

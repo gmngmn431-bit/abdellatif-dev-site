@@ -4232,7 +4232,8 @@ function fileInfoLine(item) {
 function renderItemDetail(box, item, type) {
     document.title = `${item.title} | Abdellatif Dev`;
     updateOgTags(item.title, locText(item, 'short_desc'), item.cover_url, location.href);
-    const features = Array.isArray(item.features) ? item.features.map(f => String(f || '').trim()).filter(Boolean) : [];
+    const rawFeatures = (currentLang === 'ar' && Array.isArray(item.features_ar) && item.features_ar.length > 0) ? item.features_ar : item.features;
+    const features = Array.isArray(rawFeatures) ? rawFeatures.map(f => String(f || '').trim()).filter(Boolean) : [];
     const shots = Array.isArray(item.screenshots) ? item.screenshots.filter(Boolean).slice(0, 4) : [];
     const shortDescText = locText(item, 'short_desc');
     const fullDescText = locText(item, 'description') || shortDescText;

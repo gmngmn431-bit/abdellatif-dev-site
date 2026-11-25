@@ -996,6 +996,7 @@ const GAME_APP_FIELDS = (kind) => {
         FIELD('mod_features_info', 'ما الذي تم تعديله في هذه النسخة (MOD Features — سطر لكل تعديل)', 'features', { rows: 3 }),
         FIELD('description', isDedicatedMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5 }),
         FIELD('features', 'المميزات الإضافية العامة — ميزة في كل سطر', 'features', { rows: 3 }),
+        FIELD('features_ar', 'المميزات بالعربية — ميزة في كل سطر', 'features', { rows: 3 }),
         FIELD('cover_url', 'صورة الغلاف / الأيقونة (مربعة 1:1 بجودة عالية)', 'image', { bucket: 'project-images' }),
         FIELD('screenshots', 'لقطات الشاشة (Screenshots — حتى 4 صور)', 'screenshots', { bucket: 'screenshots' }),
         FIELD('version', 'رقم الإصدار', 'text', { placeholder: 'مثال: 1.0.0' }),

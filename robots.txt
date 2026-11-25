@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://gmngmn431-bit.github.io/abdellatif-dev-site/sitemap.xml

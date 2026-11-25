@@ -1,13 +1,7 @@
--- ============================================================
--- Abdellatif Dev — schema.sql
--- قاعدة بيانات الموقع (Supabase / PostgreSQL)
--- طريقة الاستعمال: Supabase > SQL Editor > New query >
--- الصق هذا الملف كاملاً > Run
--- آمن عند إعادة التشغيل: كل العبارات تستعمل
--- IF NOT EXISTS / ADD COLUMN IF NOT EXISTS / ON CONFLICT
--- ============================================================
+-- Abdellatif Dev — schema.sql — Supabase / PostgreSQL
+-- Usage: Supabase > SQL Editor > New query > paste whole file > Run
+-- Safe on re-run: IF NOT EXISTS / ADD COLUMN IF NOT EXISTS / ON CONFLICT
 
--- ---------- profiles: صلاحية الأدمن ----------
 CREATE TABLE IF NOT EXISTS public.profiles (
     id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
     email TEXT NOT NULL,
@@ -15,9 +9,9 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- ---------- games ----------
 CREATE TABLE IF NOT EXISTS public.games (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code INTEGER UNIQUE,
     title TEXT NOT NULL,
     slug TEXT UNIQUE,
     category TEXT NOT NULL DEFAULT 'رسمية',
@@ -25,40 +19,45 @@ CREATE TABLE IF NOT EXISTS public.games (
     short_desc TEXT NOT NULL DEFAULT '',
     description TEXT NOT NULL DEFAULT '',
     features JSONB NOT NULL DEFAULT '[]'::jsonb,
+    mod_features TEXT[] NOT NULL DEFAULT '{}'::text[],
     cover_url TEXT,
     screenshots JSONB NOT NULL DEFAULT '[]'::jsonb,
     version TEXT,
     status TEXT NOT NULL DEFAULT 'in_dev' CHECK (status IN ('available', 'in_dev', 'coming_soon')),
     download_url TEXT,
     requirements TEXT,
+    is_online BOOLEAN NOT NULL DEFAULT false,
+    device_tier TEXT CHECK (device_tier IS NULL OR device_tier IN ('weak', 'medium', 'strong')),
     download_count INTEGER NOT NULL DEFAULT 0,
     is_published BOOLEAN NOT NULL DEFAULT true,
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- ---------- apps ----------
 CREATE TABLE IF NOT EXISTS public.apps (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    code INTEGER UNIQUE,
     title TEXT NOT NULL,
     slug TEXT UNIQUE,
     category TEXT NOT NULL DEFAULT 'رسمية',
     short_desc TEXT NOT NULL DEFAULT '',
     description TEXT NOT NULL DEFAULT '',
     features JSONB NOT NULL DEFAULT '[]'::jsonb,
+    mod_features TEXT[] NOT NULL DEFAULT '{}'::text[],
     cover_url TEXT,
     screenshots JSONB NOT NULL DEFAULT '[]'::jsonb,
     version TEXT,
     status TEXT NOT NULL DEFAULT 'in_dev' CHECK (status IN ('available', 'in_dev', 'coming_soon')),
     download_url TEXT,
     requirements TEXT,
+    is_online BOOLEAN NOT NULL DEFAULT false,
+    device_tier TEXT CHECK (device_tier IS NULL OR device_tier IN ('weak', 'medium', 'strong')),
     download_count INTEGER NOT NULL DEFAULT 0,
     is_published BOOLEAN NOT NULL DEFAULT true,
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- ---------- projects: مشاريع قيد التطوير ----------
 CREATE TABLE IF NOT EXISTS public.projects (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
@@ -72,7 +71,6 @@ CREATE TABLE IF NOT EXISTS public.projects (
     updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- ---------- news ----------
 CREATE TABLE IF NOT EXISTS public.news (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title TEXT NOT NULL,
@@ -85,59 +83,107 @@ CREATE TABLE IF NOT EXISTS public.news (
     created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- ---------- site_settings: hero / about / social ----------
 CREATE TABLE IF NOT EXISTS public.site_settings (
     key TEXT PRIMARY KEY,
     value JSONB NOT NULL
 );
 
--- ---------- أعمدة ناقصة (لمن شغّل نسخة قديمة) ----------
+-- M5: طلبات الزوار وبلاغات الروابط الميتة
+CREATE TABLE IF NOT EXISTS public.game_requests (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL DEFAULT '',
+    game_title TEXT NOT NULL,
+    game_type TEXT NOT NULL DEFAULT 'game' CHECK (game_type IN ('game', 'app', 'mod')),
+    details TEXT,
+    status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'done', 'rejected')),
+    kind TEXT NOT NULL DEFAULT 'request' CHECK (kind IN ('request', 'report')),
+    item_type TEXT CHECK (item_type IS NULL OR item_type IN ('game', 'app')),
+    item_id UUID,
+    item_url TEXT,
+    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Missing columns (for existing databases):
 ALTER TABLE public.games ADD COLUMN IF NOT EXISTS slug TEXT;
 ALTER TABLE public.games ADD COLUMN IF NOT EXISTS features JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE public.games ADD COLUMN IF NOT EXISTS screenshots JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE public.games ADD COLUMN IF NOT EXISTS requirements TEXT;
 ALTER TABLE public.games ADD COLUMN IF NOT EXISTS download_count INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS platform TEXT NOT NULL DEFAULT 'pc' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta'));
+
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS slug TEXT;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS features JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS screenshots JSONB NOT NULL DEFAULT '[]'::jsonb;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS requirements TEXT;
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS download_count INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE public.games ADD COLUMN IF NOT EXISTS platform TEXT NOT NULL DEFAULT 'pc' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta'));
 ALTER TABLE public.apps ADD COLUMN IF NOT EXISTS platform TEXT NOT NULL DEFAULT 'phone' CHECK (platform IN ('pc', 'phone', 'mod-minecraft', 'mod-gta'));
+
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS progress INTEGER;
 ALTER TABLE public.projects ADD COLUMN IF NOT EXISTS latest_update TEXT;
 ALTER TABLE public.news ADD COLUMN IF NOT EXISTS external_url TEXT;
 ALTER TABLE public.news ADD COLUMN IF NOT EXISTS published_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL;
 
--- ---------- دوال: عداد التحميلات ----------
-CREATE OR REPLACE FUNCTION increment_game_download(target_id UUID)
-RETURNS void AS $$
+-- أعمدة المرحلة 2 + 3 (M1, M2, M3, M5)
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS code INTEGER UNIQUE;
+ALTER TABLE public.apps  ADD COLUMN IF NOT EXISTS code INTEGER UNIQUE;
+
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS mod_features TEXT[] NOT NULL DEFAULT '{}'::text[];
+ALTER TABLE public.apps  ADD COLUMN IF NOT EXISTS mod_features TEXT[] NOT NULL DEFAULT '{}'::text[];
+
+ALTER TABLE public.games DROP CONSTRAINT IF EXISTS games_mod_features_check;
+ALTER TABLE public.games ADD CONSTRAINT games_mod_features_check
+  CHECK (mod_features <@ ARRAY['unlimited_money','unlocked','mod_menu','no_ads']);
+
+ALTER TABLE public.apps DROP CONSTRAINT IF EXISTS apps_mod_features_check;
+ALTER TABLE public.apps ADD CONSTRAINT apps_mod_features_check
+  CHECK (mod_features <@ ARRAY['unlimited_money','unlocked','mod_menu','no_ads']);
+
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS is_online BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE public.apps  ADD COLUMN IF NOT EXISTS is_online BOOLEAN NOT NULL DEFAULT false;
+
+ALTER TABLE public.games ADD COLUMN IF NOT EXISTS device_tier TEXT CHECK (device_tier IS NULL OR device_tier IN ('weak','medium','strong'));
+ALTER TABLE public.apps  ADD COLUMN IF NOT EXISTS device_tier TEXT CHECK (device_tier IS NULL OR device_tier IN ('weak','medium','strong'));
+
+ALTER TABLE public.game_requests ADD COLUMN IF NOT EXISTS kind TEXT NOT NULL DEFAULT 'request' CHECK (kind IN ('request','report'));
+ALTER TABLE public.game_requests ADD COLUMN IF NOT EXISTS item_type TEXT CHECK (item_type IS NULL OR item_type IN ('game','app'));
+ALTER TABLE public.game_requests ADD COLUMN IF NOT EXISTS item_id UUID;
+ALTER TABLE public.game_requests ADD COLUMN IF NOT EXISTS item_url TEXT;
+
+-- M1: دوال توليد الكود التالي تلقائياً
+CREATE OR REPLACE FUNCTION next_game_code() RETURNS INTEGER AS $$
+  SELECT COALESCE(MAX(code), 0) + 1 FROM public.games;
+$$ LANGUAGE sql STABLE;
+
+CREATE OR REPLACE FUNCTION next_app_code() RETURNS INTEGER AS $$
+  SELECT COALESCE(MAX(code), 0) + 1 FROM public.apps;
+$$ LANGUAGE sql STABLE;
+
+CREATE OR REPLACE FUNCTION increment_game_download(target_id UUID) RETURNS void AS $$
 BEGIN
     UPDATE public.games SET download_count = download_count + 1 WHERE id = target_id;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-CREATE OR REPLACE FUNCTION increment_app_download(target_id UUID)
-RETURNS void AS $$
+CREATE OR REPLACE FUNCTION increment_app_download(target_id UUID) RETURNS void AS $$
 BEGIN
     UPDATE public.apps SET download_count = download_count + 1 WHERE id = target_id;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- ---------- دالة التحقق من الأدمن ----------
 CREATE OR REPLACE FUNCTION is_admin() RETURNS BOOLEAN AS $$
 BEGIN
     RETURN EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND role = 'admin');
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- ---------- RLS ----------
+-- RLS
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.games ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.apps ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.news ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.game_requests ENABLE ROW LEVEL SECURITY;
 
 DROP POLICY IF EXISTS "Profiles access" ON public.profiles;
 DROP POLICY IF EXISTS "Anyone can view published games" ON public.games;
@@ -150,6 +196,9 @@ DROP POLICY IF EXISTS "Anyone can view published news" ON public.news;
 DROP POLICY IF EXISTS "Admins can manage news" ON public.news;
 DROP POLICY IF EXISTS "Anyone can view settings" ON public.site_settings;
 DROP POLICY IF EXISTS "Admins can manage settings" ON public.site_settings;
+DROP POLICY IF EXISTS "Anyone can view requests" ON public.game_requests;
+DROP POLICY IF EXISTS "Anyone can insert requests" ON public.game_requests;
+DROP POLICY IF EXISTS "Admins can manage requests" ON public.game_requests;
 
 CREATE POLICY "Profiles access" ON public.profiles FOR ALL USING (auth.uid() = id OR is_admin());
 CREATE POLICY "Anyone can view published games" ON public.games FOR SELECT USING (is_published = true OR is_admin());
@@ -162,8 +211,11 @@ CREATE POLICY "Anyone can view published news" ON public.news FOR SELECT USING (
 CREATE POLICY "Admins can manage news" ON public.news FOR ALL USING (is_admin());
 CREATE POLICY "Anyone can view settings" ON public.site_settings FOR SELECT USING (true);
 CREATE POLICY "Admins can manage settings" ON public.site_settings FOR ALL USING (is_admin());
+CREATE POLICY "Anyone can view requests" ON public.game_requests FOR SELECT USING (true);
+CREATE POLICY "Anyone can insert requests" ON public.game_requests FOR INSERT WITH CHECK (true);
+CREATE POLICY "Admins can manage requests" ON public.game_requests FOR ALL USING (is_admin());
 
--- ---------- Storage buckets ----------
+-- Storage
 INSERT INTO storage.buckets (id, name, public) VALUES ('project-images', 'project-images', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO storage.buckets (id, name, public) VALUES ('screenshots', 'screenshots', true) ON CONFLICT (id) DO NOTHING;
 INSERT INTO storage.buckets (id, name, public) VALUES ('app-files', 'app-files', true) ON CONFLICT (id) DO NOTHING;
@@ -188,23 +240,9 @@ CREATE POLICY "Public Read App Files" ON storage.objects FOR SELECT USING (bucke
 CREATE POLICY "Admin Upload App Files" ON storage.objects FOR INSERT WITH CHECK (bucket_id = 'app-files' AND is_admin());
 CREATE POLICY "Admin Delete App Files" ON storage.objects FOR DELETE USING (bucket_id = 'app-files' AND is_admin());
 
--- ============================================================
--- بيانات أولية (Seed) — المحتوى الحقيقي الوحيد المسموح به:
--- مشروع واحد قيد التطوير + إعدادات الموقع.
--- جداول games و apps و news تبقى فارغة عمداً:
--- تظهر بحالات فارغة جميلة حتى يضيف الأدمن محتوى.
--- ============================================================
-
+-- Seed
 INSERT INTO public.projects (name, image_url, description, progress, latest_update, status, is_published)
-VALUES (
-    'لعبة الكارطة المغربية',
-    NULL,
-    'لعبة ورق مغربية مبنية بمحرك Unity، تجمع أشهر الألعاب المغربية في مكان واحد: روندا، جبن زروت، لاس غميز، كانتيكوبي. العب ضد البوتات أو مع أصدقائك عبر الواي فاي.',
-    NULL,
-    'العمل جارٍ على تطوير اللعبة وإضافة الأطوار.',
-    'قيد التطوير',
-    true
-) ON CONFLICT DO NOTHING;
+VALUES ('لعبة الكارطة المغربية', NULL, 'لعبة ورق مغربية مبنية بمحرك Unity، تجمع أشهر الألعاب المغربية في مكان واحد: روندا، جبن زروت، لاس غميز، كانتيكوبي. العب ضد البوتات أو مع أصدقائك عبر الواي فاي.', NULL, 'العمل جارٍ على تطوير اللعبة وإضافة الأطوار.', 'قيد التطوير', true) ON CONFLICT DO NOTHING;
 
 INSERT INTO public.site_settings (key, value) VALUES
 ('hero', '{"badge": "مطور ألعاب وتطبيقات مستقل", "title": "Abdellatif Dev", "subtitle": "أطوّر ألعاباً وتطبيقات موبايل — من الفكرة إلى النشر، بجودة واحترافية."}'::jsonb),

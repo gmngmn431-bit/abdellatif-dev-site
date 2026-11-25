@@ -4725,17 +4725,6 @@ function tgMuted() {
     } catch (e) { return false; }
 }
 
-try {
-    if (!tgMuted() && !sessionStorage.getItem('tg_visit_sent')) {
-        sessionStorage.setItem('tg_visit_sent', '1');
-        fetch('https://plapgefuoqjdsnvrgtwg.supabase.co/functions/v1/telegram-notify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ kind: 'visit', page: location.href }),
-            keepalive: true
-        }).catch(function () {});
-    }
-} catch (e) {}
 
 window.addEventListener('hashchange', function() {
     if (typeof closeLightbox === 'function') {

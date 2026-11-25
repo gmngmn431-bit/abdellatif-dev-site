@@ -466,7 +466,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
           <button class="tab-btn" data-tab="linksTab" onclick="switchAdminTab('linksTab')"><i class="fa-solid fa-link-slash"></i> فحص الروابط الميتة</button>
           <button class="tab-btn" data-tab="projectsTab" onclick="switchAdminTab('projectsTab')"><i class="fa-solid fa-code"></i> المشاريع قيد التطوير</button>
           <button class="tab-btn" data-tab="newsTab" onclick="switchAdminTab('newsTab')"><i class="fa-solid fa-newspaper"></i> الأخبار</button>
-          <button class="tab-btn" data-tab="requestsTab" onclick="switchAdminTab('requestsTab')"><i class="fa-solid fa-clipboard-list"></i> الطلبات</button>
+          <button class="tab-btn" data-tab="requestsTab" onclick="switchAdminTab('requestsTab')"><i class="fa-solid fa-clipboard-list"></i> الطلبات والبلاغات</button>
           <button class="tab-btn" data-tab="messagesTab" onclick="switchAdminTab('messagesTab')"><i class="fa-solid fa-envelope"></i> الرسائل</button>
           <button class="tab-btn" data-tab="settingsTab" onclick="switchAdminTab('settingsTab')"><i class="fa-solid fa-sliders"></i> الإعدادات</button>
         </nav>
@@ -511,7 +511,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
             <input type="text" id="searchGames" placeholder="ابحث في الألعاب..." oninput="renderAdminList('games')">
           </div>
           <div class="table-responsive"><table class="data-table">
-            <thead><tr><th>الصورة</th><th>العنوان</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <thead><tr><th>الصورة</th><th>العنوان والكود</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
             <tbody id="gamesTableBody"></tbody>
           </table></div>
         </div>
@@ -534,7 +534,7 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
             <input type="text" id="searchApps" placeholder="ابحث في التطبيقات..." oninput="renderAdminList('apps')">
           </div>
           <div class="table-responsive"><table class="data-table">
-            <thead><tr><th>الصورة</th><th>العنوان</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
+            <thead><tr><th>الصورة</th><th>العنوان والكود</th><th>الحالة</th><th>التحميلات</th><th>الإجراءات</th></tr></thead>
             <tbody id="appsTableBody"></tbody>
           </table></div>
         </div>
@@ -704,23 +704,25 @@ input, select, textarea { font-family: inherit; color: var(--ink); font-size: 1r
           </table></div>
         </div>
 
-        <!-- الطلبات -->
+        <!-- الطلبات والبلاغات (M5) -->
         <div id="requestsTab" class="admin-tab-content">
           <div class="tab-header">
-            <h3>طلبات الزوار («اطلب»)</h3>
+            <h3>طلبات الزوار وبلاغات الروابط الميتة</h3>
             <span id="requestsCount" style="color:var(--ink-2);font-size:0.9rem;font-weight:600;"></span>
           </div>
 
           <div class="filter-chips" id="requestsStatusFilter" style="margin-bottom:14px;">
             <button type="button" class="filter-btn active" data-rfilter="all" onclick="setRequestsFilter('all')">كل الطلبات (<span id="reqCountAll">0</span>)</button>
+            <button type="button" class="filter-btn" data-rfilter="request" onclick="setRequestsFilter('request')">طلبات ألعاب (<span id="reqCountRequestsOnly">0</span>)</button>
+            <button type="button" class="filter-btn" data-rfilter="report" onclick="setRequestsFilter('report')">بلاغات روابط (<span id="reqCountReportsOnly">0</span>)</button>
             <button type="button" class="filter-btn" data-rfilter="pending" onclick="setRequestsFilter('pending')">جديد (<span id="reqCountPending">0</span>)</button>
             <button type="button" class="filter-btn" data-rfilter="approved" onclick="setRequestsFilter('approved')">قيد البحث (<span id="reqCountApproved">0</span>)</button>
-            <button type="button" class="filter-btn" data-rfilter="done" onclick="setRequestsFilter('done')">تمت الإضافة (<span id="reqCountDone">0</span>)</button>
+            <button type="button" class="filter-btn" data-rfilter="done" onclick="setRequestsFilter('done')">تم الإنجاز (<span id="reqCountDone">0</span>)</button>
             <button type="button" class="filter-btn" data-rfilter="rejected" onclick="setRequestsFilter('rejected')">مرفوض (<span id="reqCountRejected">0</span>)</button>
           </div>
 
           <div class="search-box"><i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="searchRequests" placeholder="ابحث برقم الطلب أو اسم اللعبة/التطبيق..." oninput="renderRequests()">
+            <input type="text" id="searchRequests" placeholder="ابحث برقم الطلب/البلاغ أو الاسم..." oninput="renderRequests()">
           </div>
 
           <div id="requestsList" class="req-list"></div>
@@ -968,6 +970,7 @@ const GAME_APP_FIELDS = (kind) => {
 
     const fields = [
         FIELD('title', isDedicatedMod ? 'اسم المود' : (isModded ? 'اسم العنصر المعدل (MOD)' : (kind.includes('game') || kind === 'games' ? 'اسم اللعبة' : 'اسم التطبيق')), 'text', { required: true }),
+        FIELD('code', 'كود العنصر السريع (#...) — اتركه فارغاً للترقيم التلقائي', 'number', { placeholder: 'مثال: 104' }),
         FIELD('slug', isDedicatedMod ? 'المعرف المختصر (slug) لمسار #/mods/<slug>' : 'الرابط المختصر (slug) — اختياري', 'text', {}),
         FIELD('category', 'التصنيف الأساسي (رسمية / مهكرة)', 'select', {
             required: true,
@@ -989,6 +992,7 @@ const GAME_APP_FIELDS = (kind) => {
     fields.push(
         FIELD('is_online', 'أونلاين — يحتاج الإنترنت (لعب جماعي / بث / تحميل)', 'checkbox', { value: false }),
         FIELD('short_desc', 'وصف مختصر (يظهر في البطاقة)', 'text', { required: true }),
+        FIELD('mod_features', 'خصائص المود (Mod Features — اختر الميزات المتوفرة)', 'mod_features', {}),
         FIELD('mod_features_info', 'ما الذي تم تعديله في هذه النسخة (MOD Features — سطر لكل تعديل)', 'features', { rows: 3 }),
         FIELD('description', isDedicatedMod ? 'الوصف الكامل وطريقة التثبيت' : 'الوصف الكامل', 'textarea', { required: true, rows: 5 }),
         FIELD('features', 'المميزات الإضافية العامة — ميزة في كل سطر', 'features', { rows: 3 }),
@@ -1004,6 +1008,15 @@ const GAME_APP_FIELDS = (kind) => {
         FIELD('backup_download_url', 'رابط تحميل بديل / احتياطي (اختياري)', 'url', {}),
         FIELD('extra_downloads', 'ملفات إضافية مطلوبة (OBB / Data / CLEO / AML / ModLoader)', 'extra_downloads', {}),
         FIELD('requirements', 'متطلبات التشغيل (اختياري)', 'textarea', { rows: 2 }),
+        FIELD('device_tier', 'مواصفات الجهاز (Device Tier)', 'select', {
+            options: [
+                { value: '', label: 'غير محدد (تلقائي حسب الحجم والرام)' },
+                { value: 'weak', label: 'جهاز ضعيف (Low-end)' },
+                { value: 'medium', label: 'جهاز متوسط (Mid-range)' },
+                { value: 'strong', label: 'جهاز قوي (High-end)' }
+            ],
+            value: ''
+        }),
         FIELD('is_published', 'نشر فوراً على الموقع (مخفي كمسودة افتراضياً)', 'checkbox', { value: false })
     );
 
@@ -1369,7 +1382,7 @@ window.renderAdminList = function(entity) {
     const q = (document.getElementById(cfg.searchInput)?.value || '').trim().toLowerCase();
     const list = filtered.filter(item => {
         if (!q) return true;
-        const hay = ((item.title || item.name || '') + ' ' + (item.short_desc || '') + ' ' + (item.category || '') + ' ' + (item.genre || '')).toLowerCase();
+        const hay = ((item.title || item.name || '') + ' ' + (item.code != null ? '#' + item.code : '') + ' ' + (item.short_desc || '') + ' ' + (item.category || '') + ' ' + (item.genre || '')).toLowerCase();
         return hay.includes(q);
     });
 
@@ -1405,11 +1418,12 @@ window.renderAdminList = function(entity) {
 
             const extraCount = Array.isArray(item.extra_downloads) ? item.extra_downloads.length : 0;
             const extraBadge = extraCount > 0 ? `<span class="badge-platform">+${extraCount} ملف إضافي</span>` : '';
+            const codeBadge = item.code != null ? `<span class="badge-platform" style="font-family:var(--f-mono);font-weight:700;">#${item.code}</span> ` : '';
 
             tr.innerHTML = `
                 <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-                <td data-label="العنوان">
-                    <strong>${esc(item.title)}</strong> ${catBadge}<br>
+                <td data-label="العنوان والكود">
+                    ${codeBadge}<strong>${esc(item.title)}</strong> ${catBadge}<br>
                     <small>
                         ${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'}
                         <span class="badge-platform">${esc(PLATFORM_LABELS[item.platform] || item.platform || 'phone')}</span>
@@ -1466,7 +1480,7 @@ window.renderAdminMods = function() {
         if (adminModsEnv === 'android' && pc) return false;
         if (adminModsEnv === 'pc' && !pc) return false;
         if (!q) return true;
-        const hay = ((item.title || '') + ' ' + (item.slug || '') + ' ' + (item.genre || '') + ' ' + (item.developer || '') + ' ' + (item.short_desc || '')).toLowerCase();
+        const hay = ((item.title || '') + ' ' + (item.code != null ? '#' + item.code : '') + ' ' + (item.slug || '') + ' ' + (item.genre || '') + ' ' + (item.developer || '') + ' ' + (item.short_desc || '')).toLowerCase();
         return hay.includes(q);
     });
     if (!list.length) {
@@ -1480,9 +1494,10 @@ window.renderAdminMods = function() {
         const dlOk = canPublishItem(item);
         const mirrors = Array.isArray(item.extra_downloads) ? item.extra_downloads.filter(f => f && f.url && (f.kind === 'mirror' || f.type === 'mirror')).length : 0;
         const tr = document.createElement('tr');
+        const codeBadge = item.code != null ? `<span class="badge-platform" style="font-family:var(--f-mono);font-weight:700;">#${item.code}</span> ` : '';
         tr.innerHTML = `
             <td data-label="الصورة">${thumbHtml(item.cover_url)}</td>
-            <td data-label="المود والفئة"><strong>${esc(item.title)}</strong><br><small>${item.genre ? `<span class="badge-platform">${esc(item.genre)}</span>` : ''} ${item.slug ? `<span class="latin" style="font-size:0.75rem;">#/mods/${esc(item.slug)}</span>` : ''}</small></td>
+            <td data-label="المود والفئة">${codeBadge}<strong>${esc(item.title)}</strong><br><small>${item.genre ? `<span class="badge-platform">${esc(item.genre)}</span>` : ''} ${item.slug ? `<span class="latin" style="font-size:0.75rem;">#/mods/${esc(item.slug)}</span>` : ''}</small></td>
             <td data-label="البيئة والحالة">${pc ? '<span class="badge-pc-mod">PC Mod (للحاسوب فقط)</span>' : '<span class="badge-android-mod">Android Mod</span>'}<br><small>${item.is_published ? '<span class="badge-published">منشور</span>' : '<span class="badge-draft">مسودة</span>'} · ${esc(STATUS_LABELS[item.status] || item.status || '')}</small></td>
             <td data-label="التحميل والرابط">${dlOk ? '<span class="badge-published">الرابط جاهز</span>' : '<span class="badge-no-dl">بدون رابط تحميل</span>'}${mirrors ? ` <span class="badge-platform">+${mirrors} بديل</span>` : ''}<br><small><i class="fa-solid fa-download"></i> ${item.download_count || 0}</small></td>
             <td data-label="الإجراءات">${actionsHtml(modEntity, item)}</td>`;
@@ -1905,6 +1920,9 @@ window.applyVirusTotalScanResultToDesc = function(line) {
     alert('تم تسجيل نتيجة فحص الأمان بنجاح في حقل الوصف!');
 };
 
+/* ============================================================
+   M5: إدارة طلبات الزوار وبلاغات الروابط الميتة
+   ============================================================ */
 let adminRequests = [];
 let requestsFilterStatus = 'all';
 
@@ -1912,7 +1930,7 @@ const REQ_STATUS_AR = {
     pending: 'جديد',
     approved: 'قيد البحث',
     in_search: 'قيد البحث',
-    done: 'تمت الإضافة',
+    done: 'تم الإنجاز',
     rejected: 'مرفوض'
 };
 const REQ_TYPE_AR = { game: 'لعبة', app: 'تطبيق', mod: 'مود' };
@@ -1928,7 +1946,7 @@ window.setRequestsFilter = function(status) {
 async function loadRequests() {
     const box = document.getElementById('requestsList');
     if (!box) return;
-    box.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>جاري تحميل الطلبات...</p></div>';
+    box.innerHTML = '<div class="loading-box"><i class="fa-solid fa-spinner fa-spin"></i><p>جاري تحميل الطلبات والبلاغات...</p></div>';
     const { data, error } = await window.supabaseClient.from('game_requests')
         .select('*').order('created_at', { ascending: false }).limit(100);
     if (error) {
@@ -1946,69 +1964,78 @@ function renderRequests() {
     if (!box) return;
 
     const total = adminRequests.length;
+    const countReqOnly = adminRequests.filter(r => (r.kind || 'request') === 'request').length;
+    const countRepOnly = adminRequests.filter(r => r.kind === 'report').length;
     const countPending = adminRequests.filter(r => r.status === 'pending').length;
     const countApproved = adminRequests.filter(r => r.status === 'approved' || r.status === 'in_search').length;
     const countDone = adminRequests.filter(r => r.status === 'done').length;
     const countRejected = adminRequests.filter(r => r.status === 'rejected').length;
 
     const cAll = document.getElementById('reqCountAll');
+    const cReqO = document.getElementById('reqCountRequestsOnly');
+    const cRepO = document.getElementById('reqCountReportsOnly');
     const cPen = document.getElementById('reqCountPending');
     const cApp = document.getElementById('reqCountApproved');
     const cDon = document.getElementById('reqCountDone');
     const cRej = document.getElementById('reqCountRejected');
 
     if (cAll) cAll.textContent = total;
+    if (cReqO) cReqO.textContent = countReqOnly;
+    if (cRepO) cRepO.textContent = countRepOnly;
     if (cPen) cPen.textContent = countPending;
     if (cApp) cApp.textContent = countApproved;
     if (cDon) cDon.textContent = countDone;
     if (cRej) cRej.textContent = countRejected;
 
     if (count) {
-        count.textContent = total ? `${total} طلب (${countPending} جديد، ${countApproved} قيد البحث)` : '';
+        count.textContent = total ? `${total} عنصر (${countReqOnly} طلب، ${countRepOnly} بلاغ رابط ميت)` : '';
     }
 
     const q = (document.getElementById('searchRequests')?.value || '').trim().toLowerCase();
     const filtered = adminRequests.filter(r => {
-        const matchesStatus = (requestsFilterStatus === 'all')
-            ? true
-            : (requestsFilterStatus === 'approved'
-                ? (r.status === 'approved' || r.status === 'in_search')
-                : r.status === requestsFilterStatus);
+        if (requestsFilterStatus === 'request' && (r.kind || 'request') !== 'request') return false;
+        if (requestsFilterStatus === 'report' && r.kind !== 'report') return false;
+        if (requestsFilterStatus === 'pending' && r.status !== 'pending') return false;
+        if (requestsFilterStatus === 'approved' && r.status !== 'approved' && r.status !== 'in_search') return false;
+        if (requestsFilterStatus === 'done' && r.status !== 'done') return false;
+        if (requestsFilterStatus === 'rejected' && r.status !== 'rejected') return false;
 
-        if (!matchesStatus) return false;
         if (!q) return true;
-        const hay = `${r.game_title || ''} ${r.name || ''} ${r.details || ''} ${r.id || ''}`.toLowerCase();
+        const hay = `${r.game_title || ''} ${r.name || ''} ${r.details || ''} ${r.id || ''} ${r.item_url || ''}`.toLowerCase();
         return hay.includes(q);
     });
 
     if (!filtered.length) {
-        box.innerHTML = '<div class="empty-state"><div class="big"><i class="fa-solid fa-clipboard-list"></i></div><h3>لا توجد طلبات مطابقة</h3><p>طلبات الزوار ستظهر هنا مع إمكانية تحديث حالتها فوراً.</p></div>';
+        box.innerHTML = '<div class="empty-state"><div class="big"><i class="fa-solid fa-clipboard-list"></i></div><h3>لا توجد طلبات أو بلاغات مطابقة</h3><p>طلبات وبلاغات الزوار تظهر هنا فور إرسالها.</p></div>';
         return;
     }
 
     box.innerHTML = filtered.map(r => {
         const curStatus = r.status || 'pending';
-        const stLabel = REQ_STATUS_AR[curStatus] || 'جديد';
+        const isReport = r.kind === 'report';
+        const stLabel = curStatus === 'done'
+            ? (isReport ? 'تم الإصلاح' : 'تمت الإضافة')
+            : (REQ_STATUS_AR[curStatus] || 'جديد');
         const stClass = curStatus === 'in_search' ? 'approved' : curStatus;
-        const shortId = r.id ? String(r.id).slice(0, 8).toUpperCase() : 'REQ';
 
         return `
         <div class="req-item">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;">
-            <h4>${esc(r.game_title)}</h4>
+            <h4>${isReport ? `<span class="badge-draft" style="font-size:0.75rem;margin-inline-end:8px;"><i class="fa-solid fa-triangle-exclamation"></i> بلاغ رابط ميت</span>` : `<span class="badge-published" style="font-size:0.75rem;margin-inline-end:8px;"><i class="fa-solid fa-gamepad"></i> طلب</span>`}${esc(r.game_title)}</h4>
             <span class="status-badge req-status-${esc(stClass)}">${esc(stLabel)}</span>
           </div>
           <div class="req-meta">
-            <span><i class="fa-solid fa-hashtag" style="color:var(--mint)"></i> رقم الطلب: <b class="latin">${esc(r.id || shortId)}</b></span>
+            <span><i class="fa-solid fa-hashtag" style="color:var(--mint)"></i> المعرّف: <b class="latin">${esc(r.id || '—')}</b></span>
             <span><i class="fa-solid fa-user"></i> ${esc(r.name)}</span>
             <span><i class="fa-solid fa-tag"></i> ${esc(REQ_TYPE_AR[r.game_type] || r.game_type || 'لعبة')}</span>
             <span><i class="fa-solid fa-calendar"></i> ${fmtDate(r.created_at)}</span>
           </div>
+          ${r.item_url ? `<p style="margin-top:6px;font-size:0.84rem;"><i class="fa-solid fa-link" style="color:var(--sky)"></i> الرابط المبلّغ عنه: <a href="${esc(r.item_url)}" target="_blank" rel="noopener noreferrer" class="latin" style="color:var(--sky);word-break:break-all;">${esc(r.item_url)}</a></p>` : ''}
           ${r.details ? `<p><i class="fa-solid fa-comment-dots" style="color:var(--mint);margin-inline-end:6px;"></i> ${esc(r.details)}</p>` : ''}
           <div class="req-actions">
             ${curStatus !== 'pending' ? `<button class="btn btn-secondary btn-sm" onclick="setRequestStatus('${r.id}','pending')"><i class="fa-solid fa-clock"></i> تعيين كـ جديد</button>` : ''}
             ${curStatus !== 'approved' && curStatus !== 'in_search' ? `<button class="btn btn-secondary btn-sm" onclick="setRequestStatus('${r.id}','approved')"><i class="fa-solid fa-magnifying-glass"></i> قيد البحث</button>` : ''}
-            ${curStatus !== 'done' ? `<button class="btn btn-primary btn-sm" onclick="setRequestStatus('${r.id}','done')"><i class="fa-solid fa-check"></i> تمت الإضافة</button>` : ''}
+            ${curStatus !== 'done' ? `<button class="btn btn-primary btn-sm" onclick="setRequestStatus('${r.id}','done')"><i class="fa-solid fa-check"></i> ${isReport ? 'تم إصلاح الرابط' : 'تمت الإضافة'}</button>` : ''}
             ${curStatus !== 'rejected' ? `<button class="btn btn-ghost btn-sm" onclick="setRequestStatus('${r.id}','rejected')"><i class="fa-solid fa-xmark"></i> رفض</button>` : ''}
             <button class="btn btn-danger btn-sm" onclick="deleteRequest('${r.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
           </div>
@@ -2025,7 +2052,7 @@ window.setRequestStatus = async function(id, status) {
 };
 
 window.deleteRequest = async function(id) {
-    if (!confirm('هل أنت متأكد من حذف هذا الطلب نهائياً؟')) return;
+    if (!confirm('هل أنت متأكد من حذف هذا السجل نهائياً؟')) return;
     const { error } = await window.supabaseClient.from('game_requests').delete().eq('id', id);
     if (error) { alert('فشل الحذف: ' + error.message); return; }
     adminRequests = adminRequests.filter(r => r.id !== id);
@@ -2108,6 +2135,18 @@ function fieldInputHtml(f, value) {
     }
     if (f.type === 'checkbox') {
         return `<label class="check-line"><input type="checkbox" id="${id}" ${val ? 'checked' : ''}> ${esc(f.label)}</label>`;
+    }
+    // M2: مربعات اختيار خصائص المود المنظمة
+    if (f.type === 'mod_features') {
+        const cur = Array.isArray(val) ? val : [];
+        return `
+            <div id="${id}_box" style="display:flex;gap:14px;flex-wrap:wrap;padding:10px 14px;border-radius:var(--r-md);background:rgba(255,255,255,0.03);border:1px solid var(--line);">
+                <label class="check-line"><input type="checkbox" name="mf_unlimited_money" ${cur.includes('unlimited_money') ? 'checked' : ''}> فلوس بلا حدود</label>
+                <label class="check-line"><input type="checkbox" name="mf_unlocked" ${cur.includes('unlocked') ? 'checked' : ''}> مفتوح بالكامل</label>
+                <label class="check-line"><input type="checkbox" name="mf_mod_menu" ${cur.includes('mod_menu') ? 'checked' : ''}> قائمة مود</label>
+                <label class="check-line"><input type="checkbox" name="mf_no_ads" ${cur.includes('no_ads') ? 'checked' : ''}> بلا إعلانات</label>
+            </div>
+            <div class="upload-hint">تُستخدم هذه الخصائص لتفعيل الفلترة المنظمة في متجر أندرويد.</div>`;
     }
     if (f.type === 'image') {
         return `
@@ -2193,6 +2232,8 @@ function buildFormFields(entity, item) {
             value = existingMirrors[0] ? (existingMirrors[0].url || '') : '';
         } else if (f.key === 'description') {
             value = cleanDescription;
+        } else if (f.key === 'mod_features') {
+            value = item && Array.isArray(item.mod_features) ? item.mod_features : [];
         } else if (f.key === 'mod_features_info') {
             value = item ? (Array.isArray(item.features) ? item.features.join('\n') : (item.features || '')) : '';
         } else if (f.key === 'is_published') {
@@ -2289,6 +2330,16 @@ function readFieldValue(f) {
         const raw = el ? el.value : '';
         return raw.split('\n').map(s => s.trim()).filter(Boolean);
     }
+    if (f.type === 'mod_features') {
+        const box = document.getElementById(id + '_box');
+        if (!box) return [];
+        const arr = [];
+        ['unlimited_money', 'unlocked', 'mod_menu', 'no_ads'].forEach(k => {
+            const chk = box.querySelector(`input[name="mf_${k}"]`);
+            if (chk && chk.checked) arr.push(k);
+        });
+        return arr;
+    }
     if (f.type === 'number') {
         const raw = el ? el.value.trim() : '';
         if (raw === '') return null;
@@ -2364,10 +2415,27 @@ window.handleSaveEntity = async function(e) {
             throw new Error('العنوان / الاسم مطلوب (حرفان على الأقل).');
         }
 
+        // M1: التوليد التلقائي للكود في حال تركه فارغاً
+        if (payload.code === '' || payload.code === undefined) {
+            payload.code = null;
+        }
+        if (!editId && payload.code === null && (cfg.table === 'games' || cfg.table === 'apps')) {
+            try {
+                const rpcName = cfg.table === 'games' ? 'next_game_code' : 'next_app_code';
+                const { data: cData } = await window.supabaseClient.rpc(rpcName);
+                if (cData) payload.code = cData;
+            } catch(rpcErr) {
+                console.warn('Auto code RPC error:', rpcErr);
+            }
+        }
+
         if (Array.isArray(modFeaturesList) && modFeaturesList.length > 0) {
             if (!Array.isArray(payload.features)) payload.features = [];
             payload.features = Array.from(new Set([...modFeaturesList, ...payload.features]));
         }
+
+        // M3: ضبط device_tier
+        if (payload.device_tier === '') payload.device_tier = null;
 
         const isDownloadableEntity = cfg.table === 'games' || cfg.table === 'apps';
         if (isDownloadableEntity) {
